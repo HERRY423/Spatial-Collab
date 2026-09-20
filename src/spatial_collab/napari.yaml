@@ -1,0 +1,19 @@
+name: spatial-collab
+display_name: Spatial Collab
+schema_version: 0.2.1
+contributions:
+  commands:
+    - id: spatial-collab.read_project
+      title: Open a revisioned Spatial Collab project
+      python_name: spatial_collab.napari_adapter:napari_get_reader
+    - id: spatial-collab.review_dock
+      title: Collaborate on spatial annotations
+      python_name: spatial_collab.napari_adapter:SpatialCollabWidget
+  readers:
+    - command: spatial-collab.read_project
+      filename_patterns:
+        - project.sqlite3
+      accepts_directories: true
+  widgets:
+    - command: spatial-collab.review_dock
+      display_name: Shared spatial annotation review

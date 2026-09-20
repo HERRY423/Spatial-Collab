@@ -1,0 +1,107 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]: ◈
+      - generic [ref=e5]:
+        - strong [ref=e6]: Spatial Collab
+        - generic [ref=e7]: 空间多组学协作工作台
+      - generic [ref=e8]: ALPHA 0.5
+    - navigation "组学工作空间" [ref=e9]:
+      - button "主页" [ref=e10] [cursor=pointer]
+      - button "空间转录组" [ref=e11] [cursor=pointer]
+      - button "空间蛋白组" [active] [ref=e12] [cursor=pointer]
+    - generic [ref=e13]:
+      - generic [ref=e14]: ● 本地共享项目
+      - button "↻ 刷新共享状态" [ref=e15] [cursor=pointer]
+  - main [ref=e16]:
+    - status [ref=e17]: 项目已加载。先选择区域，再检查标记、提出修订并检验影响。
+    - generic [ref=e58]:
+      - generic [ref=e59]:
+        - generic [ref=e60]:
+          - text: PROTEOMICS · PAIRED OBSERVATIONS
+          - heading "空间蛋白组" [level=1] [ref=e61]
+          - paragraph [ref=e62]: 与 RNA 使用同一组对象、坐标、选区和注释版本。缺失测量始终与零信号区分。
+        - button "到转录组调整注释 / 选区 ↗" [ref=e63] [cursor=pointer]
+      - generic [ref=e64]: 已接入 1 个蛋白数据层。配对依据为原始 ID、样本声明和精确坐标；阵列坐标（物理尺度未验证）。
+      - generic [ref=e65]:
+        - generic [ref=e66]:
+          - generic [ref=e67]:
+            - text: 蛋白数据层
+            - combobox "蛋白数据层" [ref=e68]:
+              - option "SPOTS spleen 1 · 21 antibody channels" [selected]
+          - generic [ref=e69]:
+            - text: 蛋白通道
+            - combobox "蛋白通道" [ref=e70]:
+              - option "CD29 · CD29"
+              - option "CD3 · CD3"
+              - option "F4_80 · F4_80"
+              - option "CD169_siglec · CD169_siglec"
+              - option "CD4 · CD4"
+              - option "CD19 · CD19" [selected]
+              - option "CD105 · CD105"
+              - option "CD8 · CD8"
+              - option "B220_CD45R · B220_CD45R"
+              - option "Ly6C · Ly6C"
+              - option "CD31 · CD31"
+              - option "CD68 · CD68"
+              - option "EpCAM · EpCAM"
+              - option "CD163 · CD163"
+              - option "Ly6G · Ly6G"
+              - option "CD38 · CD38"
+              - option "IgM · IgM"
+              - option "IgD · IgD"
+              - option "MadCAM1 · MadCAM1"
+              - option "CD20 · CD20"
+              - option "CD11b · CD11b"
+          - generic [ref=e71]:
+            - text: 信号显示
+            - combobox "信号显示" [ref=e72]:
+              - option "原始值" [selected]
+              - option "log(1 + 原始值)"
+              - option "asinh(原始值 / 系数)"
+          - generic [ref=e73]:
+            - text: asinh 系数
+            - spinbutton "asinh 系数" [ref=e74]: "5"
+        - generic [ref=e75]:
+          - button "查看蛋白空间信号" [ref=e76] [cursor=pointer]
+          - button "将已显示对象设为共享选区" [disabled] [ref=e77]
+        - paragraph [ref=e78]: 共享 ROI：1285 个对象 · sel_6ffeebe70e6b4d2aa8458fd0e06c3825 · 当前版本
+      - generic [ref=e79]:
+        - generic [ref=e80]:
+          - heading "蛋白空间分布 · 尚未读取" [level=2] [ref=e107]
+          - generic "蛋白空间信号图，点击对象创建共享选区" [ref=e83]
+          - paragraph [ref=e84]: 灰色：缺失／排除；彩色：已测信号（零是已测值）。白色描边：共享选区。点击一个对象可建立精确选区，复杂圈选可切换到转录组页面。
+        - generic [ref=e85]:
+          - heading "共享选区的蛋白证据" [level=2] [ref=e86]
+          - paragraph [ref=e108]: 显示条件已变化，请重新读取蛋白证据。
+          - group [ref=e87]:
+            - generic "来源与配对记录" [ref=e88]
+      - generic [ref=e89]:
+        - heading "区域差异与 RNA–蛋白对照" [level=2] [ref=e90]
+        - paragraph [ref=e91]: 前景为当前共享 ROI，背景为其他导入对象或明确指定的不同选区。可比较注释／纳入状态修订前后，保留测量分母；不把相关性当作生物学因果。
+        - generic [ref=e92]:
+          - generic [ref=e93]:
+            - text: 基线版本
+            - combobox "基线版本" [ref=e94]:
+              - option "原始 · rev_a515b5f1928b44…" [selected]
+          - generic [ref=e95]:
+            - text: 修订版本
+            - combobox "修订版本" [ref=e96]:
+              - option "原始 · rev_a515b5f1928b44…" [selected]
+          - generic [ref=e97]:
+            - text: 背景选区 ID
+            - textbox "背景选区 ID" [ref=e98]:
+              - /placeholder: 留空：其余导入对象
+          - generic [ref=e99]:
+            - text: 配对 RNA 基因（可选）
+            - textbox "配对 RNA 基因（可选）" [ref=e100]:
+              - /placeholder: 例如 Cd79a；须是实测基因
+        - generic [ref=e101]:
+          - button "比较当前蛋白通道" [ref=e102] [cursor=pointer]
+          - button "比较所有蛋白通道（最多 32）" [ref=e103] [cursor=pointer]
+          - button "导出蛋白分析审阅包" [disabled] [ref=e104]
+        - group [ref=e105]:
+          - generic "完整结果、来源与局限" [ref=e106]
+    - generic [ref=e40]:
+      - text: Spatial Collab · 空间多组学研究 Alpha
+      - generic [ref=e41]: NOT_ESTABLISHED · 不将工程记录解释为科学授权

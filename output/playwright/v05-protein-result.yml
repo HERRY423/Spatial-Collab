@@ -1,0 +1,369 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]: ◈
+      - generic [ref=e5]:
+        - strong [ref=e6]: Spatial Collab
+        - generic [ref=e7]: 空间多组学协作工作台
+      - generic [ref=e8]: ALPHA 0.5
+    - navigation "组学工作空间" [ref=e9]:
+      - button "主页" [ref=e10] [cursor=pointer]
+      - button "空间转录组" [ref=e11] [cursor=pointer]
+      - button "空间蛋白组" [ref=e12] [cursor=pointer]
+    - generic [ref=e13]:
+      - generic [ref=e14]: ● 本地共享项目
+      - button "↻ 刷新共享状态" [ref=e15] [cursor=pointer]
+  - main [ref=e16]:
+    - status [ref=e17]: 蛋白区域比较已保存，全部通道和未知结果均保留。
+    - generic [ref=e58]:
+      - generic [ref=e59]:
+        - generic [ref=e60]:
+          - text: PROTEOMICS · PAIRED OBSERVATIONS
+          - heading "空间蛋白组" [level=1] [ref=e61]
+          - paragraph [ref=e62]: 与 RNA 使用同一组对象、坐标、选区和注释版本。缺失测量始终与零信号区分。
+        - button "到转录组调整注释 / 选区 ↗" [ref=e63] [cursor=pointer]
+      - generic [ref=e64]: 已接入 1 个蛋白数据层。配对依据为原始 ID、样本声明和精确坐标；阵列坐标（物理尺度未验证）。
+      - generic [ref=e65]:
+        - generic [ref=e66]:
+          - generic [ref=e67]:
+            - text: 蛋白数据层
+            - combobox "蛋白数据层" [ref=e68]:
+              - option "SPOTS spleen 1 · 21 antibody channels" [selected]
+          - generic [ref=e69]:
+            - text: 蛋白通道
+            - combobox "蛋白通道" [ref=e70]:
+              - option "CD29 · CD29"
+              - option "CD3 · CD3"
+              - option "F4_80 · F4_80"
+              - option "CD169_siglec · CD169_siglec"
+              - option "CD4 · CD4"
+              - option "CD19 · CD19" [selected]
+              - option "CD105 · CD105"
+              - option "CD8 · CD8"
+              - option "B220_CD45R · B220_CD45R"
+              - option "Ly6C · Ly6C"
+              - option "CD31 · CD31"
+              - option "CD68 · CD68"
+              - option "EpCAM · EpCAM"
+              - option "CD163 · CD163"
+              - option "Ly6G · Ly6G"
+              - option "CD38 · CD38"
+              - option "IgM · IgM"
+              - option "IgD · IgD"
+              - option "MadCAM1 · MadCAM1"
+              - option "CD20 · CD20"
+              - option "CD11b · CD11b"
+          - generic [ref=e71]:
+            - text: 信号显示
+            - combobox "信号显示" [ref=e72]:
+              - option "原始值" [selected]
+              - option "log(1 + 原始值)"
+              - option "asinh(原始值 / 系数)"
+          - generic [ref=e73]:
+            - text: asinh 系数
+            - spinbutton "asinh 系数" [ref=e74]: "5"
+        - generic [ref=e75]:
+          - button "查看蛋白空间信号" [ref=e76] [cursor=pointer]
+          - button "将已显示对象设为共享选区" [ref=e77] [cursor=pointer]
+        - paragraph [ref=e78]: 共享 ROI：1285 个对象 · sel_6ffeebe70e6b4d2aa8458fd0e06c3825 · 当前版本
+      - generic [ref=e79]:
+        - generic [ref=e80]:
+          - generic [ref=e81]:
+            - heading "CD19 · 抗体计数" [level=2] [ref=e109]
+            - generic [ref=e110]: raw · 0.000 → 192.000
+          - generic "蛋白空间信号图，点击对象创建共享选区" [ref=e83]
+          - paragraph [ref=e84]: 灰色：缺失／排除；彩色：已测信号（零是已测值）。白色描边：共享选区。点击一个对象可建立精确选区，复杂圈选可切换到转录组页面。
+        - generic [ref=e85]:
+          - heading "共享选区的蛋白证据" [level=2] [ref=e86]
+          - generic [ref=e111]:
+            - generic [ref=e112]:
+              - text: 已测 / 纳入
+              - strong [ref=e113]: 1285 / 1285
+            - generic [ref=e114]:
+              - text: 缺失测量
+              - strong [ref=e115]: "0"
+            - generic [ref=e116]:
+              - text: 实测零信号
+              - strong [ref=e117]: "1"
+            - generic [ref=e118]:
+              - text: 原始均值
+              - strong [ref=e119]: "79.918"
+          - paragraph [ref=e108]: 当前 ROI · 原始中位数 76.000 · raw 均值 79.918。图显示全部导入对象；统计范围按共享 ROI。显示变换不等于背景校正。
+          - group [ref=e87]:
+            - generic "来源与配对记录" [ref=e88]
+      - generic [ref=e89]:
+        - heading "区域差异与 RNA–蛋白对照" [level=2] [ref=e90]
+        - paragraph [ref=e91]: 前景为当前共享 ROI，背景为其他导入对象或明确指定的不同选区。可比较注释／纳入状态修订前后，保留测量分母；不把相关性当作生物学因果。
+        - generic [ref=e92]:
+          - generic [ref=e93]:
+            - text: 基线版本
+            - combobox "基线版本" [ref=e94]:
+              - option "原始 · rev_a515b5f1928b44…" [selected]
+          - generic [ref=e95]:
+            - text: 修订版本
+            - combobox "修订版本" [ref=e96]:
+              - option "原始 · rev_a515b5f1928b44…" [selected]
+          - generic [ref=e97]:
+            - text: 背景选区 ID
+            - textbox "背景选区 ID" [ref=e98]:
+              - /placeholder: 留空：其余导入对象
+          - generic [ref=e99]:
+            - text: 配对 RNA 基因（可选）
+            - textbox "配对 RNA 基因（可选）" [ref=e100]:
+              - /placeholder: 例如 Cd79a；须是实测基因
+              - text: Cd79a
+        - generic [ref=e101]:
+          - button "比较当前蛋白通道" [ref=e102] [cursor=pointer]
+          - button "比较所有蛋白通道（最多 32）" [ref=e103] [cursor=pointer]
+          - button "导出蛋白分析审阅包" [ref=e104] [cursor=pointer]
+        - generic [ref=e120]:
+          - paragraph [ref=e121]: 保存记录 run_3c3e831b9d7c454f8394afc5a83644df · 当前版本 · raw · 基线 rev_a515b5f1928b44… → rev_a515b5f1928b44…。以下是该次保存的参数与对象，修改输入不会改写结果。
+          - table [ref=e123]:
+            - row [ref=e124]:
+              - columnheader "蛋白" [ref=e125]
+              - columnheader "前景原始均值 前 → 后" [ref=e126]
+              - columnheader "背景原始均值 前 → 后" [ref=e127]
+              - columnheader "前景已测 / 缺失 前 → 后" [ref=e128]
+              - columnheader "背景已测 / 缺失 前 → 后" [ref=e129]
+              - columnheader "区域差（显示尺度）前 → 后" [ref=e130]
+              - columnheader "区域差变化" [ref=e131]
+              - columnheader "RNA 配对 n 前 → 后" [ref=e132]
+              - columnheader "RNA 原始 ρ 前 → 后" [ref=e133]
+              - columnheader "RNA 面板归一化 ρ 前 → 后" [ref=e134]
+            - row [ref=e135]:
+              - cell "feature_id:CD29" [ref=e136]
+              - cell "58.875 → 58.875" [ref=e137]
+              - cell "54.335 → 54.335" [ref=e138]
+              - cell "1285 / 0 → 1285 / 0" [ref=e139]
+              - cell "1283 / 0 → 1283 / 0" [ref=e140]
+              - cell "4.540 → 4.540" [ref=e141]
+              - cell "0.000" [ref=e142]
+              - cell "1285 → 1285" [ref=e143]
+              - cell "-0.249 → -0.249" [ref=e144]
+              - cell "-0.056 → -0.056" [ref=e145]
+            - row [ref=e146]:
+              - cell "feature_id:CD3" [ref=e147]
+              - cell "77.530 → 77.530" [ref=e148]
+              - cell "66.856 → 66.856" [ref=e149]
+              - cell "1285 / 0 → 1285 / 0" [ref=e150]
+              - cell "1283 / 0 → 1283 / 0" [ref=e151]
+              - cell "10.674 → 10.674" [ref=e152]
+              - cell "0.000" [ref=e153]
+              - cell "1285 → 1285" [ref=e154]
+              - cell "0.273 → 0.273" [ref=e155]
+              - cell "-0.046 → -0.046" [ref=e156]
+            - row [ref=e157]:
+              - cell "feature_id:F4_80" [ref=e158]
+              - cell "133.770 → 133.770" [ref=e159]
+              - cell "123.525 → 123.525" [ref=e160]
+              - cell "1285 / 0 → 1285 / 0" [ref=e161]
+              - cell "1283 / 0 → 1283 / 0" [ref=e162]
+              - cell "10.246 → 10.246" [ref=e163]
+              - cell "0.000" [ref=e164]
+              - cell "1285 → 1285" [ref=e165]
+              - cell "-0.415 → -0.415" [ref=e166]
+              - cell "-0.112 → -0.112" [ref=e167]
+            - row [ref=e168]:
+              - cell "feature_id:CD169_siglec" [ref=e169]
+              - cell "55.886 → 55.886" [ref=e170]
+              - cell "45.575 → 45.575" [ref=e171]
+              - cell "1285 / 0 → 1285 / 0" [ref=e172]
+              - cell "1283 / 0 → 1283 / 0" [ref=e173]
+              - cell "10.311 → 10.311" [ref=e174]
+              - cell "0.000" [ref=e175]
+              - cell "1285 → 1285" [ref=e176]
+              - cell "0.340 → 0.340" [ref=e177]
+              - cell "0.192 → 0.192" [ref=e178]
+            - row [ref=e179]:
+              - cell "feature_id:CD4" [ref=e180]
+              - cell "62.535 → 62.535" [ref=e181]
+              - cell "53.052 → 53.052" [ref=e182]
+              - cell "1285 / 0 → 1285 / 0" [ref=e183]
+              - cell "1283 / 0 → 1283 / 0" [ref=e184]
+              - cell "9.482 → 9.482" [ref=e185]
+              - cell "0.000" [ref=e186]
+              - cell "1285 → 1285" [ref=e187]
+              - cell "0.403 → 0.403" [ref=e188]
+              - cell "0.007 → 0.007" [ref=e189]
+            - row [ref=e190]:
+              - cell "feature_id:CD19" [ref=e191]
+              - cell "79.918 → 79.918" [ref=e192]
+              - cell "65.042 → 65.042" [ref=e193]
+              - cell "1285 / 0 → 1285 / 0" [ref=e194]
+              - cell "1283 / 0 → 1283 / 0" [ref=e195]
+              - cell "14.876 → 14.876" [ref=e196]
+              - cell "0.000" [ref=e197]
+              - cell "1285 → 1285" [ref=e198]
+              - cell "0.447 → 0.447" [ref=e199]
+              - cell "0.251 → 0.251" [ref=e200]
+            - row [ref=e201]:
+              - cell "feature_id:CD105" [ref=e202]
+              - cell "52.154 → 52.154" [ref=e203]
+              - cell "47.102 → 47.102" [ref=e204]
+              - cell "1285 / 0 → 1285 / 0" [ref=e205]
+              - cell "1283 / 0 → 1283 / 0" [ref=e206]
+              - cell "5.052 → 5.052" [ref=e207]
+              - cell "0.000" [ref=e208]
+              - cell "1285 → 1285" [ref=e209]
+              - cell "-0.096 → -0.096" [ref=e210]
+              - cell "-0.012 → -0.012" [ref=e211]
+            - row [ref=e212]:
+              - cell "feature_id:CD8" [ref=e213]
+              - cell "75.694 → 75.694" [ref=e214]
+              - cell "64.655 → 64.655" [ref=e215]
+              - cell "1285 / 0 → 1285 / 0" [ref=e216]
+              - cell "1283 / 0 → 1283 / 0" [ref=e217]
+              - cell "11.039 → 11.039" [ref=e218]
+              - cell "0.000" [ref=e219]
+              - cell "1285 → 1285" [ref=e220]
+              - cell "0.138 → 0.138" [ref=e221]
+              - cell "-0.106 → -0.106" [ref=e222]
+            - row [ref=e223]:
+              - cell "feature_id:B220_CD45R" [ref=e224]
+              - cell "81.727 → 81.727" [ref=e225]
+              - cell "67.486 → 67.486" [ref=e226]
+              - cell "1285 / 0 → 1285 / 0" [ref=e227]
+              - cell "1283 / 0 → 1283 / 0" [ref=e228]
+              - cell "14.240 → 14.240" [ref=e229]
+              - cell "0.000" [ref=e230]
+              - cell "1285 → 1285" [ref=e231]
+              - cell "0.453 → 0.453" [ref=e232]
+              - cell "0.233 → 0.233" [ref=e233]
+            - row [ref=e234]:
+              - cell "feature_id:Ly6C" [ref=e235]
+              - cell "15.807 → 15.807" [ref=e236]
+              - cell "12.958 → 12.958" [ref=e237]
+              - cell "1285 / 0 → 1285 / 0" [ref=e238]
+              - cell "1283 / 0 → 1283 / 0" [ref=e239]
+              - cell "2.849 → 2.849" [ref=e240]
+              - cell "0.000" [ref=e241]
+              - cell "1285 → 1285" [ref=e242]
+              - cell "0.037 → 0.037" [ref=e243]
+              - cell "-0.001 → -0.001" [ref=e244]
+            - row [ref=e245]:
+              - cell "feature_id:CD31" [ref=e246]
+              - cell "61.412 → 61.412" [ref=e247]
+              - cell "52.016 → 52.016" [ref=e248]
+              - cell "1285 / 0 → 1285 / 0" [ref=e249]
+              - cell "1283 / 0 → 1283 / 0" [ref=e250]
+              - cell "9.396 → 9.396" [ref=e251]
+              - cell "0.000" [ref=e252]
+              - cell "1285 → 1285" [ref=e253]
+              - cell "0.033 → 0.033" [ref=e254]
+              - cell "-0.018 → -0.018" [ref=e255]
+            - row [ref=e256]:
+              - cell "feature_id:CD68" [ref=e257]
+              - cell "155.741 → 155.741" [ref=e258]
+              - cell "153.769 → 153.769" [ref=e259]
+              - cell "1285 / 0 → 1285 / 0" [ref=e260]
+              - cell "1283 / 0 → 1283 / 0" [ref=e261]
+              - cell "1.972 → 1.972" [ref=e262]
+              - cell "0.000" [ref=e263]
+              - cell "1285 → 1285" [ref=e264]
+              - cell "-0.352 → -0.352" [ref=e265]
+              - cell "-0.109 → -0.109" [ref=e266]
+            - row [ref=e267]:
+              - cell "feature_id:EpCAM" [ref=e268]
+              - cell "9.707 → 9.707" [ref=e269]
+              - cell "8.638 → 8.638" [ref=e270]
+              - cell "1285 / 0 → 1285 / 0" [ref=e271]
+              - cell "1283 / 0 → 1283 / 0" [ref=e272]
+              - cell "1.069 → 1.069" [ref=e273]
+              - cell "0.000" [ref=e274]
+              - cell "1285 → 1285" [ref=e275]
+              - cell "-0.020 → -0.020" [ref=e276]
+              - cell "-0.023 → -0.023" [ref=e277]
+            - row [ref=e278]:
+              - cell "feature_id:CD163" [ref=e279]
+              - cell "47.004 → 47.004" [ref=e280]
+              - cell "43.530 → 43.530" [ref=e281]
+              - cell "1285 / 0 → 1285 / 0" [ref=e282]
+              - cell "1283 / 0 → 1283 / 0" [ref=e283]
+              - cell "3.474 → 3.474" [ref=e284]
+              - cell "0.000" [ref=e285]
+              - cell "1285 → 1285" [ref=e286]
+              - cell "-0.386 → -0.386" [ref=e287]
+              - cell "-0.109 → -0.109" [ref=e288]
+            - row [ref=e289]:
+              - cell "feature_id:Ly6G" [ref=e290]
+              - cell "20.997 → 20.997" [ref=e291]
+              - cell "18.306 → 18.306" [ref=e292]
+              - cell "1285 / 0 → 1285 / 0" [ref=e293]
+              - cell "1283 / 0 → 1283 / 0" [ref=e294]
+              - cell "2.691 → 2.691" [ref=e295]
+              - cell "0.000" [ref=e296]
+              - cell "1285 → 1285" [ref=e297]
+              - cell "0.032 → 0.032" [ref=e298]
+              - cell "-0.016 → -0.016" [ref=e299]
+            - row [ref=e300]:
+              - cell "feature_id:CD38" [ref=e301]
+              - cell "169.429 → 169.429" [ref=e302]
+              - cell "149.274 → 149.274" [ref=e303]
+              - cell "1285 / 0 → 1285 / 0" [ref=e304]
+              - cell "1283 / 0 → 1283 / 0" [ref=e305]
+              - cell "20.154 → 20.154" [ref=e306]
+              - cell "0.000" [ref=e307]
+              - cell "1285 → 1285" [ref=e308]
+              - cell "0.186 → 0.186" [ref=e309]
+              - cell "0.141 → 0.141" [ref=e310]
+            - row [ref=e311]:
+              - cell "feature_id:IgM" [ref=e312]
+              - cell "18.781 → 18.781" [ref=e313]
+              - cell "17.090 → 17.090" [ref=e314]
+              - cell "1285 / 0 → 1285 / 0" [ref=e315]
+              - cell "1283 / 0 → 1283 / 0" [ref=e316]
+              - cell "1.691 → 1.691" [ref=e317]
+              - cell "0.000" [ref=e318]
+              - cell "1285 → 1285" [ref=e319]
+              - cell "0.112 → 0.112" [ref=e320]
+              - cell "0.093 → 0.093" [ref=e321]
+            - row [ref=e322]:
+              - cell "feature_id:IgD" [ref=e323]
+              - cell "298.271 → 298.271" [ref=e324]
+              - cell "256.518 → 256.518" [ref=e325]
+              - cell "1285 / 0 → 1285 / 0" [ref=e326]
+              - cell "1283 / 0 → 1283 / 0" [ref=e327]
+              - cell "41.753 → 41.753" [ref=e328]
+              - cell "0.000" [ref=e329]
+              - cell "1285 → 1285" [ref=e330]
+              - cell "0.480 → 0.480" [ref=e331]
+              - cell "0.259 → 0.259" [ref=e332]
+            - row [ref=e333]:
+              - cell "feature_id:MadCAM1" [ref=e334]
+              - cell "14.069 → 14.069" [ref=e335]
+              - cell "11.872 → 11.872" [ref=e336]
+              - cell "1285 / 0 → 1285 / 0" [ref=e337]
+              - cell "1283 / 0 → 1283 / 0" [ref=e338]
+              - cell "2.197 → 2.197" [ref=e339]
+              - cell "0.000" [ref=e340]
+              - cell "1285 → 1285" [ref=e341]
+              - cell "0.130 → 0.130" [ref=e342]
+              - cell "0.076 → 0.076" [ref=e343]
+            - row [ref=e344]:
+              - cell "feature_id:CD20" [ref=e345]
+              - cell "14.798 → 14.798" [ref=e346]
+              - cell "13.587 → 13.587" [ref=e347]
+              - cell "1285 / 0 → 1285 / 0" [ref=e348]
+              - cell "1283 / 0 → 1283 / 0" [ref=e349]
+              - cell "1.212 → 1.212" [ref=e350]
+              - cell "0.000" [ref=e351]
+              - cell "1285 → 1285" [ref=e352]
+              - cell "0.030 → 0.030" [ref=e353]
+              - cell "-0.019 → -0.019" [ref=e354]
+            - row [ref=e355]:
+              - cell "feature_id:CD11b" [ref=e356]
+              - cell "39.920 → 39.920" [ref=e357]
+              - cell "34.440 → 34.440" [ref=e358]
+              - cell "1285 / 0 → 1285 / 0" [ref=e359]
+              - cell "1283 / 0 → 1283 / 0" [ref=e360]
+              - cell "5.479 → 5.479" [ref=e361]
+              - cell "0.000" [ref=e362]
+              - cell "1285 → 1285" [ref=e363]
+              - cell "-0.099 → -0.099" [ref=e364]
+              - cell "-0.019 → -0.019" [ref=e365]
+          - paragraph [ref=e366]: RNA：Cd79a。所有 21 个通道均保留。注释名称改变可使组成变化而蛋白均值不变；完整记录包含标签分母。ρ 是前景内配对对象的描述性相关，无生物学重复推断。
+        - group [ref=e105]:
+          - generic "完整结果、来源与局限" [ref=e106]
+    - generic [ref=e40]:
+      - text: Spatial Collab · 空间多组学研究 Alpha
+      - generic [ref=e41]: NOT_ESTABLISHED · 不将工程记录解释为科学授权

@@ -1,0 +1,33 @@
+# Spatial Collab alpha implementation contract
+
+Package: `spatial_collab`, sources under `src/spatial_collab`. Plugin root is this directory. Version 0.1.0-alpha.1. Research exploration, never biological adjudication. The original data stays unchanged; labels and inclusion are revision overlays. Single project, one slice and coordinate frame per project for v1. Micrometres only. No segmentation editing.
+
+## Shared Python interface
+
+`store.Project(root: str | Path)` opens project at root with SQLite WAL transactions. `Project.create(root, cells: list[dict], metadata: dict) -> Project` creates without overwriting. Cells: `cell_id: str, x: float, y: float, label: str, included: bool = True, region: str = '', counts: dict[str,float] = {}`. Metadata: `name, slice_id, coordinate_system, units='micrometer', panel_genes: list[str], source_kind ('synthetic' or actual adapter), source_files: list[{path,sha256}], biological_replicates: int, limitations: list[str]`. All numbers finite, counts nonnegative; unique IDs. Canonical immutable import snapshot is hashed. Coordinates cannot be edited.
+
+Methods return JSON-compatible dict unless noted:
+
+- `summary()` returns metadata, `project_id`, `head_revision`, `cell_count`, `revision_count`, `selection` (or null), `revisions` summary list, `runs` summary list.
+- `cells(revision_id=None) -> list[dict]` materializes cells at exact revision, with counts.
+- `get_selection()` current selection or null.
+- `set_selection(expected_revision: str, cell_ids: list[str] | None = None, polygon: list[list[float]] | None = None, name: str = 'Selection')` persists exact cell IDs, geometry, revision, slice, coordinates, selection ID. Exactly one input, no silent unknown IDs, empty selection allowed. Polygon uses centroid containment, includes boundary, is explicitly described as such. Server is authoritative.
+- `inspect_selection(genes: list[str] | None=None)` returns bounded data for current selection, missing-panel genes as unmeasured, measured zeros distinct, label counts, expression summaries, first <=100 cells. Stale selection raises domain error.
+- `propose_revision(expected_revision: str, selection_id: str, changes: dict, rationale: str, actor: str='agent')` supports changes only `label`, `included`, `region`; preview exact delta and affected result IDs. Returns `proposal_id`, `base_revision`, counts, changes, rationale. Does not change head.
+- `apply_revision(proposal_id: str, expected_revision: str, reviewer: str, confirmation: bool)` requires nonempty named reviewer and true confirmation, transactional head compare-and-swap. Returns new `revision_id`, invalidated run IDs, `scientific_authorization='NOT_ESTABLISHED'`. All affected analysis outputs retained but stale. Named reviewer is recorded user attribution, not authenticated identity.
+- `revert_revision(target_revision: str, expected_revision: str, reviewer: str, confirmation: bool)` creates new revision with target overlays, never moves head backwards.
+- `save_run(result: dict) -> dict` persists immutable run with run_id, base_revision, target_revision and provenance. `get_run(run_id)`, `export_bundle(run_id: str | None=None) -> dict` writes unique directory under project exports containing input snapshots/revisions/selection/result/provenance and SHA256 manifest, no arbitrary destination.
+
+Domain errors use `ValueError` subclass `SpatialError` with readable text. Read paths materialize independently; no shared SQLite connection across threads.
+
+## Analysis contract
+
+`analysis.compare(project, base_revision: str, target_revision: str, selection_id: str | None=None, radius_um: float=35.0, graph_scope: str='roi_induced', source_label: str='T cell', target_label: str='Myeloid', min_effect: float=0.1) -> dict` computes and saves a run. Selection is a frozen cell universe applied identically before/after. If no selection use all cells. `roi_induced`: radius graph only among active selected cells; `whole_slice`: sources selected, neighbors from all active cells. Graph never across slices because project is one slice. scipy cKDTree, no quadratic dense distances. Explicit resource limits before allocation. Exclusion recomputes active graph. Use directed source-to-target neighbor fraction with distinct non-self neighbors, baseline abundance/null expectation and denominator, composition counts, edge counts. No p-values or biological mechanism claims. Comparison classification: descriptive_supported / descriptive_not_supported / inconclusive at a declared excess-over-abundance threshold, plus stable/changed/indeterminate across revisions. If absent source/target, no eligible edges, null absent: inconclusive. Never let an unavailable group become a negative claim. Report same parameters, measured effect delta, changed labels/exclusions, graph/denominator changes, limitations, and data hashes. Explicit input/type validation and deterministic ordering. Additional radius grid optional, not required. Tests owned by analysis agent.
+
+## Host/UI contract
+
+`server.create_server(project_root)` uses official FastMCP SDK, <=12 semantic tools corresponding above plus `open_project` returns view data, `run_comparison` calls analysis.compare, `export_review_bundle`. `get_selection` can include current summary. No arbitrary filesystem path tool: process environment SPATIAL_COLLAB_PROJECT pins one project, imports via CLI only. View cells max 10000, no silent sample presented as complete. All tools return structured results, bounded cells. Register shared self-contained `ui://spatial-collab/workbench.html` with MCP Apps metadata. Same web UI through local Starlette server endpoints `/`, `/api/tool/{name}` and `/mcp`; local writes restricted same-origin and loopback binding. No remote/public deployment or tunnel automatically.
+
+UI: Chinese research workbench, dataset and revision badge, centroid scatter with click/rectangle or polygon selection, label legend, bounded marker evidence, revision preview then named researcher confirmation, before/after comparison and export. Selected IDs and revision always visible to model/backend. Standard MCP Apps bridge preferred; local browser fallback. Be explicit that this alpha is centroid review, no histology/transcript/segmentation renderer. No fake performance, findings, host acceptance, or real tissue. No external CDN requirement.
+
+Root agent owns CLI `__main__.py`, importers.py, demo.py, pyproject, manifests, docs and integration tests. Core agent owns store.py and tests/test_store.py. Analysis agent owns analysis.py and tests/test_analysis.py. Host agent owns server.py, static/* and tests/test_server.py. Coordinate any interface changes by message.

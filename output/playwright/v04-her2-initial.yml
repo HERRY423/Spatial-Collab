@@ -1,0 +1,300 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]: ◈
+      - generic [ref=e5]:
+        - strong [ref=e6]: Spatial Collab
+        - generic [ref=e7]: 空间转录组协作工作台
+      - generic [ref=e8]: ALPHA 0.4
+    - generic [ref=e9]:
+      - generic [ref=e10]: ● 本地共享项目
+      - button "↻ 刷新共享状态" [ref=e11] [cursor=pointer]
+  - main [ref=e12]:
+    - generic [ref=e13]:
+      - generic [ref=e14]:
+        - generic [ref=e15]: OBSERVE · REVISE · RECHECK
+        - 'heading "HER2ST A1: prepared RNA, unverified coordinate scale" [level=1] [ref=e187]'
+        - paragraph [ref=e17]: HER2ST · 切片 her2st-A1 · prepared_native_xy_unverified · 未知单位 · 346 个spot
+      - generic [ref=e18]:
+        - generic [ref=e19]: 视图版本
+        - code [ref=e20]: rev_98969a6d6fcc4293b5fbe0b620ac3e2b
+        - generic [ref=e21]: 输入来源：anndata_h5ad
+    - generic [ref=e22]: 当前对象：spot。此处展示质心与原始标记计数；登记图像与掩膜的视觉复核在 napari 中进行，转录本未在此处复核。spot / bin 标签描述捕获区域，不等同于纯细胞身份或去卷积结果。 结果限于当前导入数据的描述性变化。
+    - region [ref=e23]:
+      - generic [ref=e24]:
+        - heading "核对数据来源与工作注释" [level=2] [ref=e25]
+        - generic [ref=e26]: 导入时记录
+      - generic [ref=e188]:
+        - generic [ref=e189]:
+          - generic [ref=e190]: 来源切片 ID
+          - strong [ref=e191]: her2st-A1
+        - generic [ref=e192]:
+          - generic [ref=e193]: 样本 ID
+          - strong [ref=e194]: A1
+        - generic [ref=e195]:
+          - generic [ref=e196]: 记录平台
+          - strong [ref=e197]: HER2ST
+        - generic [ref=e198]:
+          - generic [ref=e199]: 输入格式
+          - strong [ref=e200]: anndata_h5ad
+        - generic [ref=e201]:
+          - generic [ref=e202]: 导入特征数
+          - strong [ref=e203]: "12562"
+        - generic [ref=e204]:
+          - generic [ref=e205]: 坐标系 / 单位
+          - strong [ref=e206]: prepared_native_xy_unverified / unknown
+        - generic [ref=e207]:
+          - generic [ref=e208]: 导入范围
+          - strong [ref=e209]: 未声明空间裁剪；不能据此认定整张切片完整
+      - generic [ref=e210]:
+        - heading "原始来源文件" [level=3] [ref=e211]
+        - code [ref=e212]: C:\Spatial Transcriptomics\histoweave-her2st-data\prepared\inputs\A1.h5ad
+      - paragraph [ref=e27]: 未记录独立的工作注释方法；当前标签仍需结合原始来源和标记证据核对。
+      - paragraph [ref=e28]: 切片标识是导入时提供的记录，不是系统自动识别的组织类型。请与原始实验记录及源文件核对。
+      - group [ref=e29]:
+        - generic "完整来源文件、导入范围与工作注释规则" [ref=e30] [cursor=pointer]
+    - status [ref=e31]: 项目已加载。先选择区域，再检查标记、提出修订并检验影响。
+    - generic [ref=e32]: 物理尺度未验证：可浏览、选区、看表达和修订工作标签；物理半径分析不可用，假设计划将保留为未知。不会猜测阵列间距或像素大小。
+    - generic [ref=e33]:
+      - heading "图像与分割的同一对象" [level=2] [ref=e34]
+      - paragraph [ref=e35]: 登记的图像和掩膜在 napari 中按显式变换加载；当前网页核对来源和确切对象对应关系。像素位置、掩膜标签和细胞 ID 不会互相猜测。
+      - generic [ref=e36]:
+        - button "读取图像／分割清单" [ref=e37] [cursor=pointer]
+        - combobox "已登记图像或分割" [ref=e38]
+        - button "核对选区前 100 个对象" [disabled] [ref=e39]
+      - paragraph [ref=e40]: 尚未核对图像／掩膜；不能判断合并分割或真实共表达。
+    - generic [ref=e41]:
+      - generic [ref=e42]:
+        - generic [ref=e43]:
+          - generic [ref=e44]:
+            - generic [ref=e45]: "01"
+            - heading "共同观察" [level=2] [ref=e46]
+          - generic [ref=e47]: 346 / 346 个视野对象
+        - generic [ref=e48]:
+          - group "选择工具" [ref=e49]:
+            - button "矩形 / 点选" [ref=e50] [cursor=pointer]
+            - button "多边形" [ref=e51] [cursor=pointer]
+          - button "适应导入数据" [ref=e213] [cursor=pointer]
+          - button "选择可见spot" [ref=e214] [cursor=pointer]
+        - generic [ref=e54]:
+          - generic "细胞质心图，拖动选区；也可使用下方精确 ID 输入选择" [ref=e55]
+          - generic: 质心坐标 · 未知单位 拖动框选 · 滚轮缩放
+        - generic [ref=e56]:
+          - generic [ref=e215]: Unannotated
+          - generic [ref=e217]: ○ 已排除细胞
+        - generic [ref=e57]:
+          - strong [ref=e59]: 已共享 173 个spot
+          - generic [ref=e60]: 选区 sel_5eb22152120348…
+        - group [ref=e61]:
+          - generic "选区坐标、版本与确切细胞 ID" [ref=e62] [cursor=pointer]
+        - generic [ref=e63]:
+          - generic [ref=e64]:
+            - heading "选区的标记证据" [level=3] [ref=e65]
+            - generic [ref=e66]: 原始计数 · 不自动判定身份
+          - generic [ref=e67]:
+            - textbox "标记基因" [ref=e68]:
+              - /placeholder: 例如 CD3D, LST1, EPCAM
+            - button "查看证据" [ref=e69] [cursor=pointer]
+          - generic [ref=e70]: 选择细胞后，可检查标记基因。未测量与测量为零分别显示。
+        - group [ref=e71]:
+          - generic "核对稳定特征 ID 与重复符号" [ref=e72] [cursor=pointer]
+        - generic [ref=e73]:
+          - generic [ref=e74]:
+            - heading "检查测量与分割记录" [level=3] [ref=e75]
+            - generic [ref=e76]: 只读 QC · 不自动排除
+          - generic [ref=e77]:
+            - combobox "质量检查对象" [ref=e78]:
+              - option "全部导入对象" [selected]
+              - option "当前共享选区"
+            - button "查看 QC 摘要" [ref=e79] [cursor=pointer]
+          - generic [ref=e80]: 检查源记录的计数、面积、核数量和分割方法。缺失值与测量为零分开显示。
+      - complementary [ref=e81]:
+        - generic [ref=e82]:
+          - generic [ref=e83]:
+            - generic [ref=e84]: "02"
+            - heading "提出修订" [level=2] [ref=e85]
+          - generic [ref=e86]: 覆盖层
+        - paragraph [ref=e87]: 对共享选区提出修改，预览后由研究者确认。原始输入保留。
+        - generic [ref=e88]: 修改内容
+        - combobox "修改内容" [ref=e89]:
+          - option "区域工作标签" [selected]
+          - option "区域名称"
+          - option "纳入分析状态"
+        - generic [ref=e90]: 新值
+        - textbox "新值" [ref=e91]:
+          - /placeholder: 例如 T cell
+        - generic [ref=e92]: 修订理由
+        - textbox "修订理由" [ref=e93]:
+          - /placeholder: 记录观察、标记证据与仍未解决的不确定性
+        - button "预览影响" [ref=e94] [cursor=pointer]
+        - generic [ref=e95]:
+          - generic [ref=e96]:
+            - heading "版本历史" [level=3] [ref=e97]
+            - generic [ref=e218]: 1 个版本
+          - generic [ref=e220]:
+            - strong [ref=e221]: rev_98969a6d6fcc42… · 当前
+            - paragraph [ref=e222]: Immutable source import
+          - group [ref=e98]:
+            - generic "恢复至历史版本" [ref=e99] [cursor=pointer]
+            - option "原始 · rev_98969a6d6fcc42…" [selected]
+    - generic [ref=e100]:
+      - generic [ref=e101]:
+        - generic [ref=e102]:
+          - generic [ref=e103]: "03"
+          - heading "修订是否改变原有判断？" [level=2] [ref=e104]
+        - generic [ref=e105]: 同一选区 · 同一参数
+      - paragraph [ref=e106]: 检验「来源细胞的邻居中，目标类型的比例超过背景丰度至少多少」。描述性阈值由研究者指定，不输出显著性或因果结论。
+      - generic [ref=e107]:
+        - generic [ref=e108]:
+          - text: 基线版本
+          - combobox "基线版本" [ref=e109]:
+            - option "原始 · rev_98969a6d6fcc42…" [selected]
+        - generic [ref=e110]:
+          - text: 修订版本
+          - combobox "修订版本" [ref=e111]:
+            - option "原始 · rev_98969a6d6fcc42…" [selected]
+        - generic [ref=e112]:
+          - text: 来源类型
+          - textbox "来源类型" [ref=e113]: T cell
+        - generic [ref=e114]:
+          - text: 目标类型
+          - textbox "目标类型" [ref=e115]: Myeloid
+        - generic [ref=e116]:
+          - text: 邻域半径 · µm
+          - spinbutton "邻域半径 · µm" [ref=e117]: "35"
+        - generic [ref=e118]:
+          - text: 超背景阈值
+          - spinbutton "超背景阈值" [ref=e119]: "0.10"
+        - generic [ref=e120]:
+          - text: 邻域定义
+          - combobox "邻域定义" [ref=e121]:
+            - option "选区内部邻域" [selected]
+            - option "选区来源 + 全部导入对象邻居"
+        - generic [ref=e122]:
+          - text: 比较对象
+          - combobox "比较对象" [ref=e123]:
+            - option "共享选区的冻结细胞集合" [selected]
+            - option "全部导入对象"
+      - button "运行修订前后检验 →" [disabled] [ref=e124]
+      - generic [ref=e125]:
+        - heading "区域与背景：哪个变化值得继续检查？" [level=3] [ref=e126]
+        - paragraph [ref=e127]: 使用上方相同的基线与修订版本，以当前共享选区为前景。背景默认为导入数据中的其余对象，也可填写另一个已保存选区。两组必须不重叠；标记比较使用左侧基因输入。
+        - generic [ref=e128]: 背景选区 ID（留空使用导入数据其余对象）
+        - textbox "背景选区 ID（留空使用导入数据其余对象）" [ref=e129]:
+          - /placeholder: sel_… 或留空
+        - button "比较区域组成与标记变化" [ref=e130] [cursor=pointer]
+      - generic [ref=e131]:
+        - generic [ref=e132]: 已保存的检验记录
+        - generic [ref=e133]:
+          - combobox "已保存的检验记录" [ref=e134]:
+            - option "run_fb72789c02184f… · 当前版本" [selected]
+          - button "读取记录" [ref=e135] [cursor=pointer]
+      - generic [ref=e136]:
+        - heading "先编辑假设，再冻结全部比较" [level=2] [ref=e137]
+        - paragraph [ref=e138]: 条件作用于全部导入对象，当前共享 ROI 定义来源对象。所有假设独立从同一基线计算；按边计权与来源对象等权并列，失败和未知结果都保留。冻结计划不会提交注释。
+        - generic [ref=e139]:
+          - combobox "已保存假设计划" [ref=e140]:
+            - option "尚无保存计划" [selected]
+          - button "刷新计划清单" [ref=e141] [cursor=pointer]
+          - button "载入计划" [ref=e142] [cursor=pointer]
+          - button "另建计划（清空编辑）" [ref=e143] [cursor=pointer]
+        - generic [ref=e144]:
+          - generic [ref=e145]:
+            - text: 计划名称
+            - textbox "计划名称" [ref=e146]: 注释敏感性复核
+          - generic [ref=e147]:
+            - text: 预先声明的半径 · µm
+            - textbox "预先声明的半径 · µm" [ref=e148]: 15, 35, 75
+          - generic [ref=e149]:
+            - text: 邻域范围
+            - combobox "邻域范围" [ref=e150]:
+              - option "保留外围与选区内部，全部比较" [selected]
+              - option "全部导入对象邻居"
+              - option "只使用选区内部邻居"
+          - generic [ref=e151]:
+            - text: 背景定义
+            - combobox "背景定义" [ref=e152]:
+              - option "各邻域候选范围" [selected]
+              - option "全部导入对象"
+              - option "指定已保存选区"
+          - generic [ref=e153]:
+            - text: 背景选区 ID
+            - textbox "背景选区 ID" [disabled] [ref=e154]:
+              - /placeholder: 仅指定选区背景需要
+        - paragraph [ref=e155]: 固定版本 rev_98969a6d6fcc4293b5fbe0b620ac3e2b · ROI sel_5eb2215212034897a53dd38ce883d7a9 · 173 个对象。
+        - button "使用当前共享 ROI 及其版本" [ref=e156] [cursor=pointer]
+        - generic [ref=e157]:
+          - text: 计划理由
+          - textbox "计划理由" [ref=e158]:
+            - /placeholder: 记录为什么检验这些假设、半径和背景
+        - paragraph [ref=e159]: 来源与目标工作标签、超背景阈值使用上方输入；共享 ROI、版本与所有参数在冻结时完整记录。每个条件值显式选择文本、数字或布尔类型；未知测量不会当成零。表达条件必须使用 counts.稳定特征ID，可从左侧目录添加。最多 8 个假设、每个 8 个 AND 条件，1–6 个半径，共 96 个组合。
+        - table [ref=e161]:
+          - rowgroup [ref=e162]:
+            - row [ref=e163]:
+              - columnheader "假设名称" [ref=e164]
+              - columnheader "对象选择（可叠加 AND 条件）" [ref=e165]
+              - columnheader "假设修改" [ref=e166]
+              - columnheader "理由" [ref=e167]
+              - columnheader "操作" [ref=e168]
+          - rowgroup [ref=e223]:
+            - row [ref=e224]:
+              - cell [ref=e225]:
+                - textbox "假设名称" [ref=e226]:
+                  - /placeholder: 给这个独立假设命名
+              - cell [ref=e227]:
+                - combobox "假设对象选择方式" [ref=e228]:
+                  - option "满足全部 AND 条件" [selected]
+                  - option "明确列出的细胞 ID"
+                - generic [ref=e229]:
+                  - generic [ref=e231]:
+                    - textbox "条件字段" [ref=e232]:
+                      - /placeholder: label / included / attributes.nucleus_count / counts.特征ID
+                      - text: label
+                    - combobox "条件运算" [ref=e233]:
+                      - option "等于" [selected]
+                      - option "不等于"
+                      - option ">"
+                      - option "≥"
+                      - option "<"
+                      - option "≤"
+                      - option "属于列表"
+                    - combobox "条件值类型" [ref=e234]:
+                      - option "文本" [selected]
+                      - option "数字"
+                      - option "布尔"
+                      - option "null（未知）"
+                      - option "JSON 列表"
+                    - textbox "条件值" [ref=e235]:
+                      - /placeholder: 布尔填 true / false；列表填 [1,2] 或 ["A","B"]
+                    - button "移除条件" [ref=e236] [cursor=pointer]
+                  - button "添加 AND 条件" [ref=e237] [cursor=pointer]
+              - cell "保留纳入状态" [ref=e238]:
+                - textbox "假设修改后的标签" [ref=e239]:
+                  - /placeholder: 留空保留原标签
+                - combobox "假设纳入状态" [ref=e240]:
+                  - option "保留纳入状态" [selected]
+                  - option "假设排除"
+                  - option "假设纳入"
+              - cell [ref=e241]:
+                - textbox "假设理由" [ref=e242]
+              - cell [ref=e243]:
+                - button "移除假设" [ref=e244] [cursor=pointer]
+        - button "添加假设" [ref=e169] [cursor=pointer]
+        - generic [ref=e170]:
+          - button "保存草稿" [ref=e171] [cursor=pointer]
+          - button "冻结全部参数与对象" [disabled] [ref=e172]
+          - button "运行已冻结计划" [disabled] [ref=e173]
+        - paragraph [ref=e174]: 尚未保存计划。填写假设、理由并核对绑定对象后保存。
+        - group [ref=e175]:
+          - generic "冻结对象、未知条件及完整计划" [ref=e176] [cursor=pointer]
+      - generic [ref=e177]:
+        - generic [ref=e178]:
+          - heading "保留可复核记录" [level=3] [ref=e179]
+          - paragraph [ref=e180]: 导出输入快照、修订、选区、结果、来源与文件校验清单。
+          - generic [ref=e181]:
+            - checkbox "保存源数据与覆盖层，避免重复复制完整计数" [checked] [ref=e182]
+            - generic [ref=e183]: 保存源数据与覆盖层，避免重复复制完整计数
+        - button "导出审阅包 ↗" [ref=e184] [cursor=pointer]
+    - generic [ref=e185]:
+      - text: Spatial Collab · 研究探索 Alpha
+      - generic [ref=e186]: NOT_ESTABLISHED · 不将工程记录解释为科学授权

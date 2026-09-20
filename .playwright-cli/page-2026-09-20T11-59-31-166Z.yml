@@ -1,0 +1,682 @@
+- generic [active] [ref=f1e1]:
+  - banner [ref=f1e2]:
+    - generic [ref=f1e3]:
+      - generic [ref=f1e4]: ◈
+      - generic [ref=f1e5]:
+        - strong [ref=f1e6]: Spatial Collab
+        - generic [ref=f1e7]: 空间转录组协作工作台
+      - generic [ref=f1e8]: ALPHA 0.4
+    - generic [ref=f1e9]:
+      - generic [ref=f1e10]: ● 本地共享项目
+      - button "↻ 刷新共享状态" [ref=f1e11] [cursor=pointer]
+  - main [ref=f1e12]:
+    - generic [ref=f1e13]:
+      - generic [ref=f1e14]:
+        - generic [ref=f1e15]: OBSERVE · REVISE · RECHECK
+        - heading "v0.4 real lymph-node frozen hypothesis review" [level=1] [ref=f1e187]
+        - paragraph [ref=f1e17]: Xenium · 切片 xenium-prime-reactive-lymph-node · xenium_native_xy · µm · 7,725 个细胞
+      - generic [ref=f1e18]:
+        - generic [ref=f1e19]: 视图版本
+        - code [ref=f1e20]: rev_0a68d32218604025bd39f72c41cc1b2b
+        - generic [ref=f1e21]: 输入来源：xenium_h5_csv
+    - generic [ref=f1e22]: 当前对象：细胞。此处展示质心与原始标记计数；登记图像与掩膜的视觉复核在 napari 中进行，转录本未在此处复核。细胞身份是待检验的工作注释；质心邻近不证明接触或通讯。 当前为声明的导入窗口 [2700,2700,3300,3300] µm，未导入原始整张切片。邻居与背景只来自此窗口。
+    - region [ref=f1e23]:
+      - generic [ref=f1e24]:
+        - heading "核对数据来源与工作注释" [level=2] [ref=f1e25]
+        - generic [ref=f1e26]: 导入时记录
+      - generic [ref=f1e188]:
+        - generic [ref=f1e892]:
+          - generic [ref=f1e893]: 来源切片 ID
+          - strong [ref=f1e894]: xenium-prime-reactive-lymph-node
+        - generic [ref=f1e895]:
+          - generic [ref=f1e896]: 样本 ID
+          - strong [ref=f1e897]: 未单独记录
+        - generic [ref=f1e898]:
+          - generic [ref=f1e899]: 记录平台
+          - strong [ref=f1e900]: Xenium
+        - generic [ref=f1e901]:
+          - generic [ref=f1e902]: 输入格式
+          - strong [ref=f1e903]: xenium_h5_csv
+        - generic [ref=f1e904]:
+          - generic [ref=f1e905]: 导入特征数
+          - strong [ref=f1e906]: "4624"
+        - generic [ref=f1e907]:
+          - generic [ref=f1e908]: 坐标系 / 单位
+          - strong [ref=f1e909]: xenium_native_xy / micrometer
+        - generic [ref=f1e910]:
+          - generic [ref=f1e911]: 导入范围
+          - strong [ref=f1e912]: 空间窗口 [2700,2700,3300,3300] micrometer
+      - generic [ref=f1e210]:
+        - heading "原始来源文件" [level=3] [ref=f1e913]
+        - code [ref=f1e914]: C:\Spatial Transcriptomics\histoweave\datasets_cache\raw_sources\xenium\cells.csv.gz
+        - code [ref=f1e915]: C:\Spatial Transcriptomics\histoweave\datasets_cache\raw_sources\xenium\cell_feature_matrix.h5
+      - paragraph [ref=f1e27]: 自动标记组合工作假设 · 未经细胞身份验证。研究者批准记录：NOT_ESTABLISHED。当前标签来自声明的标记组合规则；可展开查看具体规则、来源版本与计划记录。
+      - paragraph [ref=f1e28]: 切片标识是导入时提供的记录，不是系统自动识别的组织类型。请与原始实验记录及源文件核对。
+      - group [ref=f1e29]:
+        - generic "完整来源文件、导入范围与工作注释规则" [ref=f1e30] [cursor=pointer]
+    - status [ref=f1e31]: 冻结计划全部 24 个组合已保存；注释版本保持不变。
+    - generic [ref=f1e32]: 使用导入时声明的微米坐标；仍需核对原始标定依据。
+    - generic [ref=f1e33]:
+      - heading "图像与分割的同一对象" [level=2] [ref=f1e34]
+      - paragraph [ref=f1e35]: 登记的图像和掩膜在 napari 中按显式变换加载；当前网页核对来源和确切对象对应关系。像素位置、掩膜标签和细胞 ID 不会互相猜测。
+      - generic [ref=f1e36]:
+        - button "读取图像／分割清单" [ref=f1e37] [cursor=pointer]
+        - combobox "已登记图像或分割" [ref=f1e38]
+        - button "核对选区前 100 个对象" [disabled] [ref=f1e39]
+      - paragraph [ref=f1e40]: 已登记 0 个资产；图像 缺失，分割 缺失。当前仅核对登记记录，读取对象对应时才校验文件内容；缺少证据保持未知，不判断合并分割或真实共表达。
+      - group [ref=f1e1211]:
+        - generic "来源、变换、确切对象对应与局限" [ref=f1e1212] [cursor=pointer]
+    - generic [ref=f1e41]:
+      - generic [ref=f1e42]:
+        - generic [ref=f1e43]:
+          - generic [ref=f1e44]:
+            - generic [ref=f1e45]: "01"
+            - heading "共同观察" [level=2] [ref=f1e46]
+          - generic [ref=f1e47]: 7,725 / 7,725 个视野对象
+        - generic [ref=f1e48]:
+          - group "选择工具" [ref=f1e49]:
+            - button "矩形 / 点选" [ref=f1e50] [cursor=pointer]
+            - button "多边形" [ref=f1e51] [cursor=pointer]
+          - button "适应导入窗口" [ref=f1e214] [cursor=pointer]
+          - button "选择可见细胞" [ref=f1e53] [cursor=pointer]
+        - generic [ref=f1e54]:
+          - generic "细胞质心图，拖动选区；也可使用下方精确 ID 输入选择" [ref=f1e55]
+          - generic: 质心坐标 · µm 拖动框选 · 滚轮缩放
+        - generic [ref=f1e56]:
+          - generic [ref=f1e916]: B_program
+          - generic [ref=f1e918]: Mixed_program
+          - generic [ref=f1e920]: T_program
+          - generic [ref=f1e922]: Unresolved
+          - generic [ref=f1e924]: ○ 已排除细胞
+        - generic [ref=f1e57]:
+          - strong [ref=f1e59]: 已共享 3,383 个细胞
+          - generic [ref=f1e60]: 选区 sel_c382c6bb421d45…
+        - group [ref=f1e61]:
+          - generic "选区坐标、版本与确切细胞 ID" [ref=f1e62] [cursor=pointer]
+        - generic [ref=f1e63]:
+          - generic [ref=f1e64]:
+            - heading "选区的标记证据" [level=3] [ref=f1e65]
+            - generic [ref=f1e66]: 原始计数 · 不自动判定身份
+          - generic [ref=f1e67]:
+            - textbox "标记基因" [ref=f1e68]:
+              - /placeholder: 例如 CD3D, LST1, EPCAM
+            - button "查看证据" [ref=f1e69] [cursor=pointer]
+          - generic [ref=f1e70]: 选择细胞后，可检查标记基因。未测量与测量为零分别显示。
+        - group [ref=f1e71]:
+          - generic "核对稳定特征 ID 与重复符号" [ref=f1e72] [cursor=pointer]
+        - generic [ref=f1e73]:
+          - generic [ref=f1e74]:
+            - heading "检查测量与分割记录" [level=3] [ref=f1e75]
+            - generic [ref=f1e76]: 只读 QC · 不自动排除
+          - generic [ref=f1e77]:
+            - combobox "质量检查对象" [ref=f1e78]:
+              - option "全导入窗口" [selected]
+              - option "当前共享选区"
+            - button "查看 QC 摘要" [ref=f1e79] [cursor=pointer]
+          - generic [ref=f1e80]: 检查源记录的计数、面积、核数量和分割方法。缺失值与测量为零分开显示。
+      - complementary [ref=f1e81]:
+        - generic [ref=f1e82]:
+          - generic [ref=f1e83]:
+            - generic [ref=f1e84]: "02"
+            - heading "提出修订" [level=2] [ref=f1e85]
+          - generic [ref=f1e86]: 覆盖层
+        - paragraph [ref=f1e87]: 对共享选区提出修改，预览后由研究者确认。原始输入保留。
+        - generic [ref=f1e88]: 修改内容
+        - combobox "修改内容" [ref=f1e89]:
+          - option "细胞工作标签" [selected]
+          - option "区域名称"
+          - option "纳入分析状态"
+        - generic [ref=f1e90]: 新值
+        - textbox "新值" [ref=f1e91]:
+          - /placeholder: 例如 T cell
+        - generic [ref=f1e92]: 修订理由
+        - textbox "修订理由" [ref=f1e93]:
+          - /placeholder: 记录观察、标记证据与仍未解决的不确定性
+        - button "预览影响" [ref=f1e94] [cursor=pointer]
+        - generic [ref=f1e95]:
+          - generic [ref=f1e96]:
+            - heading "版本历史" [level=3] [ref=f1e97]
+            - generic [ref=f1e224]: 1 个版本
+          - generic [ref=f1e925]:
+            - strong [ref=f1e926]: rev_0a68d322186040… · 当前
+            - paragraph [ref=f1e927]: Immutable source import
+          - group [ref=f1e98]:
+            - generic "恢复至历史版本" [ref=f1e99] [cursor=pointer]
+            - option "原始 · rev_0a68d322186040…" [selected]
+    - generic [ref=f1e100]:
+      - generic [ref=f1e101]:
+        - generic [ref=f1e102]:
+          - generic [ref=f1e103]: "03"
+          - heading "修订是否改变原有判断？" [level=2] [ref=f1e104]
+        - generic [ref=f1e105]: 同一选区 · 同一参数
+      - paragraph [ref=f1e106]: 检验「来源细胞的邻居中，目标类型的比例超过背景丰度至少多少」。描述性阈值由研究者指定，不输出显著性或因果结论。
+      - generic [ref=f1e107]:
+        - generic [ref=f1e108]:
+          - text: 基线版本
+          - combobox "基线版本" [ref=f1e109]:
+            - option "原始 · rev_0a68d322186040…" [selected]
+        - generic [ref=f1e110]:
+          - text: 修订版本
+          - combobox "修订版本" [ref=f1e111]:
+            - option "原始 · rev_0a68d322186040…" [selected]
+        - generic [ref=f1e112]:
+          - text: 来源类型
+          - textbox "来源类型" [ref=f1e113]: T_program
+        - generic [ref=f1e114]:
+          - text: 目标类型
+          - textbox "目标类型" [ref=f1e115]: B_program
+        - generic [ref=f1e116]:
+          - text: 邻域半径 · µm
+          - spinbutton "邻域半径 · µm" [ref=f1e117]: "35"
+        - generic [ref=f1e118]:
+          - text: 超背景阈值
+          - spinbutton "超背景阈值" [ref=f1e119]: "0.1"
+        - generic [ref=f1e120]:
+          - text: 邻域定义
+          - combobox "邻域定义" [ref=f1e121]:
+            - option "选区内部邻域" [selected]
+            - option "选区来源 + 全导入窗口邻居"
+        - generic [ref=f1e122]:
+          - text: 比较对象
+          - combobox "比较对象" [ref=f1e123]:
+            - option "共享选区的冻结细胞集合" [selected]
+            - option "全导入窗口"
+      - button "运行修订前后检验 →" [ref=f1e124] [cursor=pointer]
+      - generic [ref=f1e125]:
+        - heading "区域与背景：哪个变化值得继续检查？" [level=3] [ref=f1e126]
+        - paragraph [ref=f1e127]: 使用上方相同的基线与修订版本，以当前共享选区为前景。背景默认为导入数据中的其余对象，也可填写另一个已保存选区。两组必须不重叠；标记比较使用左侧基因输入。
+        - generic [ref=f1e128]: 背景选区 ID（留空使用导入数据其余对象）
+        - textbox "背景选区 ID（留空使用导入数据其余对象）" [ref=f1e129]:
+          - /placeholder: sel_… 或留空
+        - button "比较区域组成与标记变化" [ref=f1e130] [cursor=pointer]
+      - generic [ref=f1e131]:
+        - generic [ref=f1e132]: 已保存的检验记录
+        - generic [ref=f1e133]:
+          - combobox "已保存的检验记录" [ref=f1e134]:
+            - option "run_fdf9518b468444… · 当前版本" [selected]
+            - option "run_fd94793108ae48… · 当前版本"
+          - button "读取记录" [ref=f1e135] [cursor=pointer]
+      - generic [ref=f1e136]:
+        - heading "先编辑假设，再冻结全部比较" [level=2] [ref=f1e137]
+        - paragraph [ref=f1e138]: 条件作用于全部导入对象，当前共享 ROI 定义来源对象。所有假设独立从同一基线计算；按边计权与来源对象等权并列，失败和未知结果都保留。冻结计划不会提交注释。
+        - generic [ref=f1e139]:
+          - combobox "已保存假设计划" [ref=f1e140]:
+            - option "Real lymph-node annotation and weighting sensitivity · v3 · 已冻结（最新）" [selected]
+            - option "Real lymph-node annotation and weighting sensitivity · v2 · 草稿（历史）"
+            - option "Real lymph-node annotation and weighting sensitivity · v1 · 草稿（历史）"
+          - button "刷新计划清单" [ref=f1e141] [cursor=pointer]
+          - button "载入计划" [ref=f1e142] [cursor=pointer]
+          - button "另建计划（清空编辑）" [ref=f1e143] [cursor=pointer]
+        - generic [ref=f1e144]:
+          - generic [ref=f1e145]:
+            - text: 计划名称
+            - textbox "计划名称" [ref=f1e146]: Real lymph-node annotation and weighting sensitivity
+          - generic [ref=f1e147]:
+            - text: 预先声明的半径 · µm
+            - textbox "预先声明的半径 · µm" [ref=f1e148]: 15, 35, 75
+          - generic [ref=f1e149]:
+            - text: 邻域范围
+            - combobox "邻域范围" [ref=f1e150]:
+              - option "保留外围与选区内部，全部比较" [selected]
+              - option "全导入窗口邻居"
+              - option "只使用选区内部邻居"
+          - generic [ref=f1e151]:
+            - text: 背景定义
+            - combobox "背景定义" [ref=f1e152]:
+              - option "各邻域候选范围" [selected]
+              - option "全部导入对象"
+              - option "指定已保存选区"
+          - generic [ref=f1e153]:
+            - text: 背景选区 ID
+            - textbox "背景选区 ID" [disabled] [ref=f1e154]:
+              - /placeholder: 仅指定选区背景需要
+        - paragraph [ref=f1e155]: 固定版本 rev_0a68d32218604025bd39f72c41cc1b2b · ROI sel_c382c6bb421d45a5a5c1497f4caac46c · 3383 个对象。
+        - button "使用当前共享 ROI 及其版本" [ref=f1e156] [cursor=pointer]
+        - generic [ref=f1e157]:
+          - text: 计划理由
+          - textbox "计划理由" [ref=f1e158]:
+            - /placeholder: 记录为什么检验这些假设、半径和背景
+            - text: Predeclare inherited local alternatives and compare edge versus source weighting; retain an unmeasured-feature unknown control.
+        - paragraph [ref=f1e159]: 来源与目标工作标签、超背景阈值使用上方输入；共享 ROI、版本与所有参数在冻结时完整记录。每个条件值显式选择文本、数字或布尔类型；未知测量不会当成零。表达条件必须使用 counts.稳定特征ID，可从左侧目录添加。最多 8 个假设、每个 8 个 AND 条件，1–6 个半径，共 96 个组合。
+        - table [ref=f1e161]:
+          - rowgroup [ref=f1e162]:
+            - row [ref=f1e163]:
+              - columnheader "假设名称" [ref=f1e164]
+              - columnheader "对象选择（可叠加 AND 条件）" [ref=f1e165]
+              - columnheader "假设修改" [ref=f1e166]
+              - columnheader "理由" [ref=f1e167]
+              - columnheader "操作" [ref=f1e168]
+          - rowgroup [ref=f1e229]:
+            - row [ref=f1e543]:
+              - cell [ref=f1e544]:
+                - textbox "假设名称" [ref=f1e545]:
+                  - /placeholder: 给这个独立假设命名
+                  - text: non_single_nucleus_uncertain
+              - cell [ref=f1e546]:
+                - combobox "假设对象选择方式" [ref=f1e547]:
+                  - option "满足全部 AND 条件"
+                  - option "明确列出的细胞 ID" [selected]
+                - generic [ref=f1e548]:
+                  - textbox "假设的确切细胞 ID" [ref=f1e549]: "[\"afpihlkl-1\",\"afplkbgb-1\",\"afplmkjm-1\",\"afpmnhdb-1\",\"afpnebde-1\",\"afppdcha-1\",\"afppipap-1\",\"afppjjik-1\",\"agaamogm-1\",\"agadcnip-1\",\"agaeicpf-1\",\"agagaidk-1\",\"agaghhkc-1\",\"agagkiif-1\",\"agahmgfa-1\",\"agaigeai-1\",\"agajdgop-1\",\"agajiofk-1\",\"agakakik-1\",\"agakfhab-1\",\"agakmdmp-1\",\"agakopfp-1\",\"agakppfk-1\",\"agamclal-1\",\"agaoeohf-1\",\"agbafgol-1\",\"agblgalj-1\",\"agbmlkpa-1\",\"agbnnljf-1\",\"agbokfpp-1\",\"agboohhi-1\",\"agcbcadd-1\",\"agcbhjhk-1\",\"agccapbl-1\",\"agcfhklk-1\",\"agcfinfd-1\",\"gndceaig-1\",\"gndclgjc-1\",\"gnddfbdc-1\",\"gndegeee-1\",\"gndenomo-1\",\"gndffdcj-1\",\"gndfnhmb-1\",\"gndgadpc-1\",\"gndgppjk-1\",\"gndhhjdf-1\",\"gndhjlih-1\",\"gndjaimn-1\",\"gndjbjhc-1\",\"gndjibcg-1\",\"gndkgmek-1\",\"gndlnmlc-1\",\"gndlpmjp-1\",\"gndmdagb-1\",\"gndmgcfh-1\",\"gndmhfed-1\",\"gndmlone-1\",\"gndoaahp-1\",\"gndodgbe-1\",\"gndogepn-1\",\"gndoknmd-1\",\"gndpedme-1\",\"gndpmoma-1\",\"gneailon-1\",\"gnebdnhk-1\",\"gnebihch-1\",\"gnecidcf-1\",\"gnecineh-1\",\"gnedfkmh-1\",\"gnedoggd-1\",\"gnedplga-1\",\"gnefiegi-1\",\"gnefoefp-1\",\"gnegepgp-1\",\"gnegogab-1\",\"gnehfdmk-1\",\"gnehplkk-1\",\"gnejifeb-1\",\"gnejijmm-1\",\"gnejlbph-1\",\"gnemijhh-1\",\"gnemjhog-1\",\"gnempkdd-1\",\"gnenhccm-1\",\"gnenpamd-1\",\"gneobdnb-1\",\"gneogonc-1\",\"gnepiofc-1\",\"gnfaboei-1\",\"gnfaljhp-1\",\"gnfcakao-1\",\"gnfcifnf-1\",\"gnfcnbld-1\",\"gnfcoahe-1\",\"gnfdkbpi-1\",\"gnfdoplo-1\",\"gnfehohi-1\",\"gnfejgmf-1\",\"gnfelkhc-1\",\"gnffhgnb-1\",\"gnfgpnog-1\",\"gnfhcmgf-1\",\"gnfhkicp-1\",\"gnfhkolk-1\",\"gnfibajk-1\",\"gnfifdjb-1\",\"gnfikcha-1\",\"gnfjbfci-1\",\"gnfjdcko-1\",\"gnfjfhij-1\",\"gnfjoeii-1\",\"gnfkpofd-1\",\"gnfldmdp-1\",\"gnflijdd-1\",\"gnfmaffb-1\",\"gnfmcbih-1\",\"gnfmckka-1\",\"gnfmifaa-1\",\"gnfnahpk-1\",\"gnfogbgd-1\",\"gnfognkc-1\",\"gnfopdbj-1\",\"gnfpneba-1\",\"gngamfnp-1\",\"gngccagk-1\",\"gngcgmgf-1\",\"gngcpefb-1\",\"gngdilfg-1\",\"gngdokch-1\",\"gngecjno-1\",\"gngegcoo-1\",\"gngfkapl-1\",\"gngglhgi-1\",\"gnghifpb-1\",\"gnghopoj-1\",\"gngilpgg-1\",\"gngioank-1\",\"gngjblda-1\",\"gngjdnip-1\",\"gngjodhd-1\",\"gngkdmfe-1\",\"gngldhnc-1\",\"gnglmdcd-1\",\"gnglnfhl-1\",\"gngmkdmd-1\",\"gngnkohj-1\",\"gngobbce-1\",\"gngoijkh-1\",\"gngomjll-1\",\"gngonnbo-1\",\"gngpealk-1\",\"gngpkhbb-1\",\"gngpoepn-1\",\"gnhaeonm-1\",\"gnhbbodb-1\",\"gnhboljl-1\",\"gnhcadbf-1\",\"gnhcaikb-1\",\"gnhcjplh-1\",\"gnheeiei-1\",\"gnhefahm-1\",\"gnhfdpia-1\",\"gnhfgohf-1\",\"gnhfiehp-1\",\"gnhglcei-1\",\"gnhgplaj-1\",\"gnhhnmjc-1\",\"gnhidejm-1\",\"gnhikgpp-1\",\"gnhinmee-1\",\"gnhjeeka-1\",\"gnhjpkhl-1\",\"gnhkaoaa-1\",\"gnhklnof-1\",\"gnhlfpbg-1\",\"gnhmagio-1\",\"gnhmcaci-1\",\"gnhnfbck-1\",\"gnhnflfd-1\",\"gnhnghnc-1\",\"gnhnghop-1\",\"gnhnilhf-1\",\"gnhpaebh-1\",\"gnhplapk-1\",\"gnhpmhia-1\",\"gniaefol-1\",\"gnibkebc-1\",\"gnicckog-1\",\"gnicdeff-1\",\"gnicdjhc-1\",\"gnidjghf-1\",\"gnidnpip-1\",\"gnidpcil-1\",\"gnigdahe-1\",\"gnigmdng-1\",\"gniheilf-1\",\"gnihghhi-1\",\"gniiiefm-1\",\"gnjidihj-1\",\"gnjkedgk-1\",\"gnjkfidd-1\",\"gnjkpaoh-1\",\"gnjlaeil-1\",\"gnjlhlom-1\",\"gnjljepp-1\",\"gnjlljge-1\",\"gnjndkfa-1\",\"gnjnigbc-1\",\"gnjpdcpo-1\",\"gnjpncgj-1\",\"gnkafnif-1\",\"gnkalaee-1\",\"gnkbhgkh-1\",\"gnkbjbpi-1\",\"gnkbmgjd-1\",\"gnkbpeii-1\",\"gnkdhcjc-1\",\"gnkgbpdm-1\",\"gnkglael-1\",\"gnkhgkok-1\",\"gnkhpbgf-1\",\"gnklagcd-1\",\"gnkmfkgh-1\",\"gnlmnmpe-1\",\"gnlnchaj-1\",\"gnmccnpc-1\",\"gnmdjpfd-1\",\"gnmdpcim-1\",\"gnmedbdd-1\",\"gnmelefn-1\",\"gnmfmlgi-1\",\"gnmfmljd-1\",\"gnmhnlcl-1\",\"gnminlbj-1\",\"gnmjdpaj-1\",\"gnmjflip-1\",\"gnmkgnck-1\",\"gnmkleih-1\",\"gnmkoaln-1\",\"gnmkpell-1\",\"gnmkpgpe-1\",\"gnokpnld-1\",\"gnolbick-1\",\"gnomgpei-1\",\"gnomiijo-1\",\"gnopdmnl-1\",\"gohadock-1\",\"gohaelea-1\",\"gopcdnfc-1\",\"gopcjnod-1\",\"gopcpgfb-1\",\"gopdoioh-1\",\"gopeldpp-1\",\"gopgdhin-1\",\"gopgiikc-1\",\"gopiclml-1\",\"gopieefp-1\",\"gopihlfc-1\",\"gopjhfon-1\",\"gopjjpla-1\",\"gopkgdlf-1\",\"gopkieom-1\",\"gpadkhdn-1\",\"gpafikhb-1\",\"gpagghnb-1\",\"gpagnncb-1\",\"gpahklcg-1\",\"gpajdgda-1\",\"gpajkael-1\",\"gpakeaom-1\",\"gpalehcf-1\",\"gpfghplp-1\",\"gpfgjlha-1\",\"gpfhdhon-1\",\"gpflbfgi-1\",\"gpfmdbmm-1\",\"gpfnlbbk-1\",\"gpfokmhm-1\",\"gpfpapfp-1\",\"gpglngca-1\",\"gpglnphc-1\",\"gpgmanmp-1\",\"gpgmnbkj-1\",\"gpgnamip-1\",\"gpgndgpm-1\",\"gpgneknm-1\",\"gpgocoel-1\",\"gpgohbpa-1\",\"gphaecmk-1\",\"gphbaaaf-1\",\"hgmdeljg-1\",\"hgmejfjp-1\",\"hgmihafb-1\",\"hgmjkgpg-1\",\"hgmjknpp-1\",\"hgmkacji-1\",\"hgmlaekp-1\",\"hgmloabm-1\",\"hgmmhnbi-1\",\"hgmmijhl-1\",\"hgmmpbgn-1\",\"hgmnilko-1\",\"hgmnnpij-1\",\"hgmpijeb-1\",\"hgnbeoen-1\",\"hgnbhcic-1\",\"hgnbjgfl-1\",\"hgnbngkf-1\",\"hgnbnljk-1\",\"hgndcgcg-1\",\"hgndfhbg-1\",\"hgndgojk-1\",\"hgnegcfe-1\",\"hgnfpnca-1\",\"hgngemkb-1\",\"hgnhgaoa-1\",\"hgniabel-1\",\"hgnipmbd-1\",\"hgnjcake-1\",\"hgnjmfcg-1\",\"hgnkoiph-1\",\"hgnlkajg-1\",\"hgnncbcj-1\",\"hgnnnehn-1\",\"hgnoanmp-1\",\"hgnogpfo-1\",\"hgnokbga-1\",\"hgnondcp-1\",\"hgnpbmma-1\",\"hgnpjhnk-1\",\"hgoafgph-1\",\"hgocdkhg-1\",\"hgocemma-1\",\"hgociikk-1\",\"hgofhgdn-1\",\"hgogcich-1\",\"hgohgnfl-1\",\"hhbagmoj-1\",\"hhbahilb-1\",\"hhbbabgm-1\",\"hhbbijcc-1\",\"hhbcaggh-1\",\"hhbkchjb-1\",\"hhbocokl-1\",\"hhbognmi-1\",\"hhbopdgi-1\",\"hhdmnjmn-1\",\"hhdnglko-1\",\"hhdnodlg-1\",\"hhdpcacn-1\",\"hhdpfcfi-1\",\"hhdphfdi-1\",\"hhdpibkb-1\",\"hhdpilij-1\",\"hhdpkahj-1\",\"hhdpopcg-1\",\"hheaaglh-1\",\"hhekdmda-1\",\"hhekjbbc-1\",\"hhemlidc-1\",\"hheokhpp-1\",\"hhepcnhd-1\",\"hheplolf-1\",\"hhfaehjj-1\",\"hhfapkim-1\",\"hhfblcbi-1\",\"hhfcdkhp-1\",\"hhfdgggc-1\",\"hhffocli-1\",\"hhfgjepb-1\",\"hhfheiko-1\",\"hhfigcjj-1\",\"hhflmpfg-1\",\"hhflneal-1\",\"hhfmecgi-1\",\"hhfncaei-1\",\"hhfocbmd-1\",\"hhfoldnf-1\",\"hhfplbbo-1\",\"hhgahbck-1\",\"hhgapnol-1\",\"hhgbeeom-1\",\"hhgbiiem-1\",\"hhgdecne-1\",\"hhgeljgg-1\",\"hhgemcjk-1\",\"hhgfkddo-1\",\"hhgghpof-1\",\"hhggkhmk-1\",\"hhghicnc-1\",\"hhghnflf-1\",\"hhgipgfd-1\",\"hhgjeipd-1\",\"hhglacli-1\",\"hhglaipe-1\",\"hhglajep-1\",\"hhglpmoe-1\",\"hhgmcngb-1\",\"hhgnefla-1\",\"hhgoembk-1\",\"hhgokamh-1\",\"hhgpgmdg-1\",\"hhgpicfe-1\",\"hhgpmngm-1\",\"hhiajjnp-1\",\"hhicfoml-1\",\"hhicgapp-1\",\"hhidjpff-1\",\"hhidnhja-1\",\"hhiehjbd-1\",\"hhiendkm-1\",\"hhifaihf-1\",\"hhigioea-1\",\"hhiijpnm-1\",\"hhiipkge-1\",\"hhijepma-1\",\"hhikcibe-1\",\"hhiklnea-1\",\"hhiknknk-1\",\"hhillcpj-1\",\"hhimhcmc-1\",\"hhimkcec-1\",\"hhimpcbm-1\",\"hhinoeha-1\",\"hhiogemh-1\",\"hhiphhkp-1\",\"hhjaablg-1\",\"hhkckemm-1\",\"hhkdpnmi-1\",\"hhkefmcd-1\",\"hhknfkln-1\",\"hhkobdlb-1\",\"hhkohaco-1\",\"hhkohekc-1\",\"hhkopnjg-1\",\"hhkpdkhh-1\",\"hhlbjogf-1\",\"hhmhdidm-1\",\"hhmhhgph-1\",\"hhmiipbm-1\",\"hhmjlodd-1\",\"hhmlafhk-1\",\"hhmlfhno-1\",\"hhmljopn-1\",\"hhmmbbmd-1\",\"hhmmhnam-1\",\"hhmmifio-1\",\"hhmmilgb-1\",\"hhmmkkme-1\",\"hhmnalbc-1\",\"hhmnapmg-1\",\"hhmoeffk-1\",\"hhmogiei-1\",\"hhmolfkp-1\",\"hhnagoff-1\",\"hhnaijbj-1\",\"hhnbamkp-1\",\"hhnchpof-1\",\"hhncjfcf-1\",\"hhnfcphc-1\",\"hhnfejph-1\",\"hhnfhahg-1\",\"hhnfpgih-1\",\"hhnhamlj-1\",\"hhnhoddi-1\",\"hhnhoehg-1\",\"hhniamfg-1\",\"hhnigenc-1\",\"hhnijcml-1\",\"hhnijeki-1\",\"hhnipida-1\",\"hhnjbhhh-1\",\"hhnkapnc-1\",\"hhnkphih-1\",\"hhnleacp-1\",\"hhnmlodj-1\",\"hhpcdmob-1\",\"hhpchdii-1\",\"hhpclcbb-1\",\"hhpdpkfa-1\",\"hhpndgho-1\",\"hhpoaoka-1\",\"hiacedpd-1\",\"hiacgakc-1\",\"hiacjiae-1\",\"hiadadfh-1\",\"hiadhben-1\",\"hiadjnfa-1\",\"hiadpnmc-1\",\"hiahcaga-1\",\"hiaibmnf-1\",\"hiaigfbd-1\",\"hiajbfpn-1\",\"hiajepkc-1\",\"hiambadk-1\",\"hiamngll-1\",\"hianalic-1\",\"hianbjpi-1\",\"hiandblg-1\",\"hianhoef-1\",\"hianmeab-1\",\"hibedpag-1\",\"hibegpmi-1\",\"hibfkopi-1\",\"hibflgnf-1\",\"hibgclgj-1\",\"hibgjhed-1\",\"hibgoiic-1\",\"hibhngjb-1\",\"hibibknh-1\",\"hibiicii-1\",\"hibmhcmc-1\",\"hiboajnj-1\",\"hiboalep-1\",\"hibobhif-1\",\"hibodijo-1\",\"hibohimj-1\",\"hicaophe-1\",\"hicbgoob-1\",\"hicclhnc-1\",\"hiccnnhi-1\",\"hiccopma-1\",\"hiccpeof-1\",\"hicdfdkb-1\",\"hicdgkgi-1\",\"hicdkdaj-1\",\"hicdnjha-1\",\"hicgcpjh-1\",\"hicgkade-1\",\"hiciikhp-1\",\"hicijljc-1\",\"hicjcigd-1\",\"hicjldcj-1\",\"hickchje-1\",\"hickjjmd-1\",\"hicknjjp-1\",\"hicldlbb-1\",\"hiclgpel-1\",\"hiclifmm-1\",\"hiclknjl-1\",\"hicllhdd-1\",\"hicmlpfm-1\",\"hicnhbeo-1\",\"hicobacd-1\",\"hicpbjen-1\",\"hicpjjgh-1\",\"hidapcnh-1\",\"hidbconn-1\",\"hidbffja-1\",\"hiddmlpl-1\",\"hidednpj-1\",\"hideifcj-1\",\"hidfgmkn-1\",\"hidficmp-1\",\"hidgdodp-1\",\"hidgffgj-1\",\"hidhidon-1\",\"hidhiihc-1\",\"hidhjipd-1\",\"hidhojae-1\",\"hidhpali-1\",\"hididgme-1\",\"hidijnnd-1\",\"hidineio-1\",\"hidjgelk-1\",\"hidjniel-1\",\"hidjnoil-1\",\"hidldpgk-1\",\"hidlfdaa-1\",\"hidmhiad-1\",\"hidmkomg-1\",\"hidndjcn-1\",\"hidndpjl-1\",\"hidnpjjh-1\",\"hidocjpo-1\",\"hidomeka-1\",\"hidpbecp-1\",\"hidpioaa-1\",\"hieakoge-1\",\"hiebaglc-1\",\"hieccbbg-1\",\"hiecjffj-1\",\"hiecoieo-1\",\"hiedcakm-1\",\"hieebkja-1\",\"hieejccm-1\",\"hieekfgh-1\",\"hiegihja-1\",\"hieglgpm-1\",\"hiehnjgk-1\"]"
+                  - button "复制当前共享选区的确切 IDs" [ref=f1e550] [cursor=pointer]
+              - cell [ref=f1e551]:
+                - textbox "假设修改后的标签" [ref=f1e552]:
+                  - /placeholder: 留空保留原标签
+                  - text: Uncertain
+                - combobox "假设纳入状态" [ref=f1e553]:
+                  - option "保留纳入状态" [selected]
+                  - option "假设排除"
+                  - option "假设纳入"
+              - cell [ref=f1e554]:
+                - textbox "假设理由" [ref=f1e555]: Label all observations with nucleus_count not equal to 1 as Uncertain (hypothesis only, not evidence of error)
+              - cell [ref=f1e556]:
+                - button "移除假设" [ref=f1e557] [cursor=pointer]
+            - row [ref=f1e558]:
+              - cell [ref=f1e559]:
+                - textbox "假设名称" [ref=f1e560]:
+                  - /placeholder: 给这个独立假设命名
+                  - text: non_single_nucleus_excluded
+              - cell [ref=f1e561]:
+                - combobox "假设对象选择方式" [ref=f1e562]:
+                  - option "满足全部 AND 条件"
+                  - option "明确列出的细胞 ID" [selected]
+                - generic [ref=f1e563]:
+                  - textbox "假设的确切细胞 ID" [ref=f1e564]: "[\"afpihlkl-1\",\"afplkbgb-1\",\"afplmkjm-1\",\"afpmnhdb-1\",\"afpnebde-1\",\"afppdcha-1\",\"afppipap-1\",\"afppjjik-1\",\"agaamogm-1\",\"agadcnip-1\",\"agaeicpf-1\",\"agagaidk-1\",\"agaghhkc-1\",\"agagkiif-1\",\"agahmgfa-1\",\"agaigeai-1\",\"agajdgop-1\",\"agajiofk-1\",\"agakakik-1\",\"agakfhab-1\",\"agakmdmp-1\",\"agakopfp-1\",\"agakppfk-1\",\"agamclal-1\",\"agaoeohf-1\",\"agbafgol-1\",\"agblgalj-1\",\"agbmlkpa-1\",\"agbnnljf-1\",\"agbokfpp-1\",\"agboohhi-1\",\"agcbcadd-1\",\"agcbhjhk-1\",\"agccapbl-1\",\"agcfhklk-1\",\"agcfinfd-1\",\"gndceaig-1\",\"gndclgjc-1\",\"gnddfbdc-1\",\"gndegeee-1\",\"gndenomo-1\",\"gndffdcj-1\",\"gndfnhmb-1\",\"gndgadpc-1\",\"gndgppjk-1\",\"gndhhjdf-1\",\"gndhjlih-1\",\"gndjaimn-1\",\"gndjbjhc-1\",\"gndjibcg-1\",\"gndkgmek-1\",\"gndlnmlc-1\",\"gndlpmjp-1\",\"gndmdagb-1\",\"gndmgcfh-1\",\"gndmhfed-1\",\"gndmlone-1\",\"gndoaahp-1\",\"gndodgbe-1\",\"gndogepn-1\",\"gndoknmd-1\",\"gndpedme-1\",\"gndpmoma-1\",\"gneailon-1\",\"gnebdnhk-1\",\"gnebihch-1\",\"gnecidcf-1\",\"gnecineh-1\",\"gnedfkmh-1\",\"gnedoggd-1\",\"gnedplga-1\",\"gnefiegi-1\",\"gnefoefp-1\",\"gnegepgp-1\",\"gnegogab-1\",\"gnehfdmk-1\",\"gnehplkk-1\",\"gnejifeb-1\",\"gnejijmm-1\",\"gnejlbph-1\",\"gnemijhh-1\",\"gnemjhog-1\",\"gnempkdd-1\",\"gnenhccm-1\",\"gnenpamd-1\",\"gneobdnb-1\",\"gneogonc-1\",\"gnepiofc-1\",\"gnfaboei-1\",\"gnfaljhp-1\",\"gnfcakao-1\",\"gnfcifnf-1\",\"gnfcnbld-1\",\"gnfcoahe-1\",\"gnfdkbpi-1\",\"gnfdoplo-1\",\"gnfehohi-1\",\"gnfejgmf-1\",\"gnfelkhc-1\",\"gnffhgnb-1\",\"gnfgpnog-1\",\"gnfhcmgf-1\",\"gnfhkicp-1\",\"gnfhkolk-1\",\"gnfibajk-1\",\"gnfifdjb-1\",\"gnfikcha-1\",\"gnfjbfci-1\",\"gnfjdcko-1\",\"gnfjfhij-1\",\"gnfjoeii-1\",\"gnfkpofd-1\",\"gnfldmdp-1\",\"gnflijdd-1\",\"gnfmaffb-1\",\"gnfmcbih-1\",\"gnfmckka-1\",\"gnfmifaa-1\",\"gnfnahpk-1\",\"gnfogbgd-1\",\"gnfognkc-1\",\"gnfopdbj-1\",\"gnfpneba-1\",\"gngamfnp-1\",\"gngccagk-1\",\"gngcgmgf-1\",\"gngcpefb-1\",\"gngdilfg-1\",\"gngdokch-1\",\"gngecjno-1\",\"gngegcoo-1\",\"gngfkapl-1\",\"gngglhgi-1\",\"gnghifpb-1\",\"gnghopoj-1\",\"gngilpgg-1\",\"gngioank-1\",\"gngjblda-1\",\"gngjdnip-1\",\"gngjodhd-1\",\"gngkdmfe-1\",\"gngldhnc-1\",\"gnglmdcd-1\",\"gnglnfhl-1\",\"gngmkdmd-1\",\"gngnkohj-1\",\"gngobbce-1\",\"gngoijkh-1\",\"gngomjll-1\",\"gngonnbo-1\",\"gngpealk-1\",\"gngpkhbb-1\",\"gngpoepn-1\",\"gnhaeonm-1\",\"gnhbbodb-1\",\"gnhboljl-1\",\"gnhcadbf-1\",\"gnhcaikb-1\",\"gnhcjplh-1\",\"gnheeiei-1\",\"gnhefahm-1\",\"gnhfdpia-1\",\"gnhfgohf-1\",\"gnhfiehp-1\",\"gnhglcei-1\",\"gnhgplaj-1\",\"gnhhnmjc-1\",\"gnhidejm-1\",\"gnhikgpp-1\",\"gnhinmee-1\",\"gnhjeeka-1\",\"gnhjpkhl-1\",\"gnhkaoaa-1\",\"gnhklnof-1\",\"gnhlfpbg-1\",\"gnhmagio-1\",\"gnhmcaci-1\",\"gnhnfbck-1\",\"gnhnflfd-1\",\"gnhnghnc-1\",\"gnhnghop-1\",\"gnhnilhf-1\",\"gnhpaebh-1\",\"gnhplapk-1\",\"gnhpmhia-1\",\"gniaefol-1\",\"gnibkebc-1\",\"gnicckog-1\",\"gnicdeff-1\",\"gnicdjhc-1\",\"gnidjghf-1\",\"gnidnpip-1\",\"gnidpcil-1\",\"gnigdahe-1\",\"gnigmdng-1\",\"gniheilf-1\",\"gnihghhi-1\",\"gniiiefm-1\",\"gnjidihj-1\",\"gnjkedgk-1\",\"gnjkfidd-1\",\"gnjkpaoh-1\",\"gnjlaeil-1\",\"gnjlhlom-1\",\"gnjljepp-1\",\"gnjlljge-1\",\"gnjndkfa-1\",\"gnjnigbc-1\",\"gnjpdcpo-1\",\"gnjpncgj-1\",\"gnkafnif-1\",\"gnkalaee-1\",\"gnkbhgkh-1\",\"gnkbjbpi-1\",\"gnkbmgjd-1\",\"gnkbpeii-1\",\"gnkdhcjc-1\",\"gnkgbpdm-1\",\"gnkglael-1\",\"gnkhgkok-1\",\"gnkhpbgf-1\",\"gnklagcd-1\",\"gnkmfkgh-1\",\"gnlmnmpe-1\",\"gnlnchaj-1\",\"gnmccnpc-1\",\"gnmdjpfd-1\",\"gnmdpcim-1\",\"gnmedbdd-1\",\"gnmelefn-1\",\"gnmfmlgi-1\",\"gnmfmljd-1\",\"gnmhnlcl-1\",\"gnminlbj-1\",\"gnmjdpaj-1\",\"gnmjflip-1\",\"gnmkgnck-1\",\"gnmkleih-1\",\"gnmkoaln-1\",\"gnmkpell-1\",\"gnmkpgpe-1\",\"gnokpnld-1\",\"gnolbick-1\",\"gnomgpei-1\",\"gnomiijo-1\",\"gnopdmnl-1\",\"gohadock-1\",\"gohaelea-1\",\"gopcdnfc-1\",\"gopcjnod-1\",\"gopcpgfb-1\",\"gopdoioh-1\",\"gopeldpp-1\",\"gopgdhin-1\",\"gopgiikc-1\",\"gopiclml-1\",\"gopieefp-1\",\"gopihlfc-1\",\"gopjhfon-1\",\"gopjjpla-1\",\"gopkgdlf-1\",\"gopkieom-1\",\"gpadkhdn-1\",\"gpafikhb-1\",\"gpagghnb-1\",\"gpagnncb-1\",\"gpahklcg-1\",\"gpajdgda-1\",\"gpajkael-1\",\"gpakeaom-1\",\"gpalehcf-1\",\"gpfghplp-1\",\"gpfgjlha-1\",\"gpfhdhon-1\",\"gpflbfgi-1\",\"gpfmdbmm-1\",\"gpfnlbbk-1\",\"gpfokmhm-1\",\"gpfpapfp-1\",\"gpglngca-1\",\"gpglnphc-1\",\"gpgmanmp-1\",\"gpgmnbkj-1\",\"gpgnamip-1\",\"gpgndgpm-1\",\"gpgneknm-1\",\"gpgocoel-1\",\"gpgohbpa-1\",\"gphaecmk-1\",\"gphbaaaf-1\",\"hgmdeljg-1\",\"hgmejfjp-1\",\"hgmihafb-1\",\"hgmjkgpg-1\",\"hgmjknpp-1\",\"hgmkacji-1\",\"hgmlaekp-1\",\"hgmloabm-1\",\"hgmmhnbi-1\",\"hgmmijhl-1\",\"hgmmpbgn-1\",\"hgmnilko-1\",\"hgmnnpij-1\",\"hgmpijeb-1\",\"hgnbeoen-1\",\"hgnbhcic-1\",\"hgnbjgfl-1\",\"hgnbngkf-1\",\"hgnbnljk-1\",\"hgndcgcg-1\",\"hgndfhbg-1\",\"hgndgojk-1\",\"hgnegcfe-1\",\"hgnfpnca-1\",\"hgngemkb-1\",\"hgnhgaoa-1\",\"hgniabel-1\",\"hgnipmbd-1\",\"hgnjcake-1\",\"hgnjmfcg-1\",\"hgnkoiph-1\",\"hgnlkajg-1\",\"hgnncbcj-1\",\"hgnnnehn-1\",\"hgnoanmp-1\",\"hgnogpfo-1\",\"hgnokbga-1\",\"hgnondcp-1\",\"hgnpbmma-1\",\"hgnpjhnk-1\",\"hgoafgph-1\",\"hgocdkhg-1\",\"hgocemma-1\",\"hgociikk-1\",\"hgofhgdn-1\",\"hgogcich-1\",\"hgohgnfl-1\",\"hhbagmoj-1\",\"hhbahilb-1\",\"hhbbabgm-1\",\"hhbbijcc-1\",\"hhbcaggh-1\",\"hhbkchjb-1\",\"hhbocokl-1\",\"hhbognmi-1\",\"hhbopdgi-1\",\"hhdmnjmn-1\",\"hhdnglko-1\",\"hhdnodlg-1\",\"hhdpcacn-1\",\"hhdpfcfi-1\",\"hhdphfdi-1\",\"hhdpibkb-1\",\"hhdpilij-1\",\"hhdpkahj-1\",\"hhdpopcg-1\",\"hheaaglh-1\",\"hhekdmda-1\",\"hhekjbbc-1\",\"hhemlidc-1\",\"hheokhpp-1\",\"hhepcnhd-1\",\"hheplolf-1\",\"hhfaehjj-1\",\"hhfapkim-1\",\"hhfblcbi-1\",\"hhfcdkhp-1\",\"hhfdgggc-1\",\"hhffocli-1\",\"hhfgjepb-1\",\"hhfheiko-1\",\"hhfigcjj-1\",\"hhflmpfg-1\",\"hhflneal-1\",\"hhfmecgi-1\",\"hhfncaei-1\",\"hhfocbmd-1\",\"hhfoldnf-1\",\"hhfplbbo-1\",\"hhgahbck-1\",\"hhgapnol-1\",\"hhgbeeom-1\",\"hhgbiiem-1\",\"hhgdecne-1\",\"hhgeljgg-1\",\"hhgemcjk-1\",\"hhgfkddo-1\",\"hhgghpof-1\",\"hhggkhmk-1\",\"hhghicnc-1\",\"hhghnflf-1\",\"hhgipgfd-1\",\"hhgjeipd-1\",\"hhglacli-1\",\"hhglaipe-1\",\"hhglajep-1\",\"hhglpmoe-1\",\"hhgmcngb-1\",\"hhgnefla-1\",\"hhgoembk-1\",\"hhgokamh-1\",\"hhgpgmdg-1\",\"hhgpicfe-1\",\"hhgpmngm-1\",\"hhiajjnp-1\",\"hhicfoml-1\",\"hhicgapp-1\",\"hhidjpff-1\",\"hhidnhja-1\",\"hhiehjbd-1\",\"hhiendkm-1\",\"hhifaihf-1\",\"hhigioea-1\",\"hhiijpnm-1\",\"hhiipkge-1\",\"hhijepma-1\",\"hhikcibe-1\",\"hhiklnea-1\",\"hhiknknk-1\",\"hhillcpj-1\",\"hhimhcmc-1\",\"hhimkcec-1\",\"hhimpcbm-1\",\"hhinoeha-1\",\"hhiogemh-1\",\"hhiphhkp-1\",\"hhjaablg-1\",\"hhkckemm-1\",\"hhkdpnmi-1\",\"hhkefmcd-1\",\"hhknfkln-1\",\"hhkobdlb-1\",\"hhkohaco-1\",\"hhkohekc-1\",\"hhkopnjg-1\",\"hhkpdkhh-1\",\"hhlbjogf-1\",\"hhmhdidm-1\",\"hhmhhgph-1\",\"hhmiipbm-1\",\"hhmjlodd-1\",\"hhmlafhk-1\",\"hhmlfhno-1\",\"hhmljopn-1\",\"hhmmbbmd-1\",\"hhmmhnam-1\",\"hhmmifio-1\",\"hhmmilgb-1\",\"hhmmkkme-1\",\"hhmnalbc-1\",\"hhmnapmg-1\",\"hhmoeffk-1\",\"hhmogiei-1\",\"hhmolfkp-1\",\"hhnagoff-1\",\"hhnaijbj-1\",\"hhnbamkp-1\",\"hhnchpof-1\",\"hhncjfcf-1\",\"hhnfcphc-1\",\"hhnfejph-1\",\"hhnfhahg-1\",\"hhnfpgih-1\",\"hhnhamlj-1\",\"hhnhoddi-1\",\"hhnhoehg-1\",\"hhniamfg-1\",\"hhnigenc-1\",\"hhnijcml-1\",\"hhnijeki-1\",\"hhnipida-1\",\"hhnjbhhh-1\",\"hhnkapnc-1\",\"hhnkphih-1\",\"hhnleacp-1\",\"hhnmlodj-1\",\"hhpcdmob-1\",\"hhpchdii-1\",\"hhpclcbb-1\",\"hhpdpkfa-1\",\"hhpndgho-1\",\"hhpoaoka-1\",\"hiacedpd-1\",\"hiacgakc-1\",\"hiacjiae-1\",\"hiadadfh-1\",\"hiadhben-1\",\"hiadjnfa-1\",\"hiadpnmc-1\",\"hiahcaga-1\",\"hiaibmnf-1\",\"hiaigfbd-1\",\"hiajbfpn-1\",\"hiajepkc-1\",\"hiambadk-1\",\"hiamngll-1\",\"hianalic-1\",\"hianbjpi-1\",\"hiandblg-1\",\"hianhoef-1\",\"hianmeab-1\",\"hibedpag-1\",\"hibegpmi-1\",\"hibfkopi-1\",\"hibflgnf-1\",\"hibgclgj-1\",\"hibgjhed-1\",\"hibgoiic-1\",\"hibhngjb-1\",\"hibibknh-1\",\"hibiicii-1\",\"hibmhcmc-1\",\"hiboajnj-1\",\"hiboalep-1\",\"hibobhif-1\",\"hibodijo-1\",\"hibohimj-1\",\"hicaophe-1\",\"hicbgoob-1\",\"hicclhnc-1\",\"hiccnnhi-1\",\"hiccopma-1\",\"hiccpeof-1\",\"hicdfdkb-1\",\"hicdgkgi-1\",\"hicdkdaj-1\",\"hicdnjha-1\",\"hicgcpjh-1\",\"hicgkade-1\",\"hiciikhp-1\",\"hicijljc-1\",\"hicjcigd-1\",\"hicjldcj-1\",\"hickchje-1\",\"hickjjmd-1\",\"hicknjjp-1\",\"hicldlbb-1\",\"hiclgpel-1\",\"hiclifmm-1\",\"hiclknjl-1\",\"hicllhdd-1\",\"hicmlpfm-1\",\"hicnhbeo-1\",\"hicobacd-1\",\"hicpbjen-1\",\"hicpjjgh-1\",\"hidapcnh-1\",\"hidbconn-1\",\"hidbffja-1\",\"hiddmlpl-1\",\"hidednpj-1\",\"hideifcj-1\",\"hidfgmkn-1\",\"hidficmp-1\",\"hidgdodp-1\",\"hidgffgj-1\",\"hidhidon-1\",\"hidhiihc-1\",\"hidhjipd-1\",\"hidhojae-1\",\"hidhpali-1\",\"hididgme-1\",\"hidijnnd-1\",\"hidineio-1\",\"hidjgelk-1\",\"hidjniel-1\",\"hidjnoil-1\",\"hidldpgk-1\",\"hidlfdaa-1\",\"hidmhiad-1\",\"hidmkomg-1\",\"hidndjcn-1\",\"hidndpjl-1\",\"hidnpjjh-1\",\"hidocjpo-1\",\"hidomeka-1\",\"hidpbecp-1\",\"hidpioaa-1\",\"hieakoge-1\",\"hiebaglc-1\",\"hieccbbg-1\",\"hiecjffj-1\",\"hiecoieo-1\",\"hiedcakm-1\",\"hieebkja-1\",\"hieejccm-1\",\"hieekfgh-1\",\"hiegihja-1\",\"hieglgpm-1\",\"hiehnjgk-1\"]"
+                  - button "复制当前共享选区的确切 IDs" [ref=f1e565] [cursor=pointer]
+              - cell "假设排除" [ref=f1e566]:
+                - textbox "假设修改后的标签" [ref=f1e567]:
+                  - /placeholder: 留空保留原标签
+                - combobox "假设纳入状态" [ref=f1e568]:
+                  - option "保留纳入状态"
+                  - option "假设排除" [selected]
+                  - option "假设纳入"
+              - cell [ref=f1e569]:
+                - textbox "假设理由" [ref=f1e570]: Exclude all observations with nucleus_count not equal to 1 (independent sensitivity hypothesis, not a QC recommendation)
+              - cell [ref=f1e571]:
+                - button "移除假设" [ref=f1e572] [cursor=pointer]
+            - row [ref=f1e573]:
+              - cell [ref=f1e574]:
+                - textbox "假设名称" [ref=f1e575]:
+                  - /placeholder: 给这个独立假设命名
+                  - text: require_three_markers
+              - cell [ref=f1e576]:
+                - combobox "假设对象选择方式" [ref=f1e577]:
+                  - option "满足全部 AND 条件"
+                  - option "明确列出的细胞 ID" [selected]
+                - generic [ref=f1e578]:
+                  - textbox "假设的确切细胞 ID" [ref=f1e579]: "[\"afphfhcg-1\",\"afphfiec-1\",\"afphhcab-1\",\"afphjfjn-1\",\"afphlinc-1\",\"afphodeh-1\",\"afpihlkl-1\",\"afpjfpnj-1\",\"afpjgbpj-1\",\"afpjmcjl-1\",\"afpkghhh-1\",\"afpkimbd-1\",\"afpkmbmc-1\",\"afpknahe-1\",\"afplccbb-1\",\"afplmgjn-1\",\"afpmdfpf-1\",\"afpnakaa-1\",\"afpnalak-1\",\"afpnboei-1\",\"afpnimee-1\",\"afpnmglo-1\",\"afpobagf-1\",\"afpobchj-1\",\"afpoonlh-1\",\"afppamkg-1\",\"afppdcha-1\",\"afppidaf-1\",\"afppojho-1\",\"agaaacia-1\",\"agaafagj-1\",\"agabdnho-1\",\"agabgbch-1\",\"agabjhod-1\",\"agabmjkp-1\",\"agabnldd-1\",\"agabpakc-1\",\"agacnbci-1\",\"agadcnip-1\",\"agaddigc-1\",\"agadkhnd-1\",\"agaeapgg-1\",\"agaebbfe-1\",\"agaeenem-1\",\"agaefapl-1\",\"agaefepl-1\",\"agaehieo-1\",\"agaejfpd-1\",\"agafcmoe-1\",\"agafhehd-1\",\"agafjahc-1\",\"agafkafi-1\",\"agafkjoe-1\",\"agagddfa-1\",\"agagicpg-1\",\"agahabmi-1\",\"agahbpfl-1\",\"agahkekg-1\",\"agaiacaf-1\",\"agaipilb-1\",\"agajaicc-1\",\"agajdoep-1\",\"agajenae-1\",\"agajiinl-1\",\"agajiofk-1\",\"agajpmoh-1\",\"agajppgg-1\",\"agakkinp-1\",\"agakldgp-1\",\"agakpido-1\",\"agakpomg-1\",\"agalbjam-1\",\"agalbohn-1\",\"agamagdd-1\",\"agamaoki-1\",\"agamclal-1\",\"agamdcbd-1\",\"aganmnfo-1\",\"agaoepee-1\",\"agaofcij-1\",\"agaogebg-1\",\"agaojibn-1\",\"agaoolhb-1\",\"agapocbp-1\",\"agbadnkn-1\",\"agbcpndg-1\",\"agbdalia-1\",\"agbdfeeo-1\",\"agbdjlda-1\",\"agbdmbkj-1\",\"agbemfha-1\",\"agblbifp-1\",\"agblbofd-1\",\"agblfgbl-1\",\"agblgalj-1\",\"agblldcc-1\",\"agbllofj-1\",\"agblplea-1\",\"agbmankb-1\",\"agbmlbap-1\",\"agbmlmmo-1\",\"agbmneae-1\",\"agbmofjg-1\",\"agbmpmgd-1\",\"agbncfeh-1\",\"agbnoeja-1\",\"agbnpnhn-1\",\"agboijln-1\",\"agbokfpp-1\",\"agboohhi-1\",\"agbopglc-1\",\"agbpjikb-1\",\"agcafjmk-1\",\"agcajjdp-1\",\"agcapegc-1\",\"agcbdfnl-1\",\"agcbehoh-1\",\"agcccgpb-1\",\"agccdgnj-1\",\"agccgchl-1\",\"agcfibha-1\",\"agcfnkbf-1\",\"agcfodco-1\",\"agcgoffk-1\",\"agchamkf-1\",\"gndcdlme-1\",\"gndceaig-1\",\"gndcecpf-1\",\"gndckcil-1\",\"gndckmbo-1\",\"gndcmjoi-1\",\"gndcnbap-1\",\"gndcoile-1\",\"gnddgmec-1\",\"gnddjhgp-1\",\"gnddlkmf-1\",\"gnddmaob-1\",\"gnddmolj-1\",\"gnddnmcn-1\",\"gnddolng-1\",\"gnddpmbg-1\",\"gndeafoj-1\",\"gndecphc-1\",\"gndefhad-1\",\"gndehkkd-1\",\"gndeihoa-1\",\"gndelbgc-1\",\"gndeolkd-1\",\"gndephlf-1\",\"gndfbkkn-1\",\"gndfbpna-1\",\"gndfjkhm-1\",\"gndfmfmp-1\",\"gndgaccd-1\",\"gndgadpc-1\",\"gndgaoed-1\",\"gndgdjac-1\",\"gndgjicj-1\",\"gndgodmf-1\",\"gndgoied-1\",\"gndgppjk-1\",\"gndhbadf-1\",\"gndhbami-1\",\"gndhcmie-1\",\"gndhgapa-1\",\"gndhgmap-1\",\"gndhjcaj-1\",\"gndhobac-1\",\"gndielck-1\",\"gndinepm-1\",\"gndiojej-1\",\"gndjheda-1\",\"gndjhjej-1\",\"gndkcejb-1\",\"gndkckgb-1\",\"gndkelib-1\",\"gndkfpeh-1\",\"gndkjgik-1\",\"gndkmfbb-1\",\"gndkpcpo-1\",\"gndlbbgp-1\",\"gndlnmlc-1\",\"gndmgcfh-1\",\"gndmlone-1\",\"gndneecn-1\",\"gndnfbhj-1\",\"gndnkfog-1\",\"gndnnkmf-1\",\"gndnokoa-1\",\"gndnpoam-1\",\"gndoigic-1\",\"gndojpnd-1\",\"gndokggi-1\",\"gndoohol-1\",\"gndphifg-1\",\"gndpiibd-1\",\"gndpjmbi-1\",\"gndpmigo-1\",\"gndpnfkb-1\",\"gneaaffa-1\",\"gneaemfh-1\",\"gneaglje-1\",\"gneakgoe-1\",\"gneallkc-1\",\"gnebangp-1\",\"gnebbpol-1\",\"gnebhmhd-1\",\"gneccgon-1\",\"gnecclmj-1\",\"gnecidcf-1\",\"gnecjcok-1\",\"gnecllof-1\",\"gnecnlkl-1\",\"gnecoebh-1\",\"gnedakjb-1\",\"gnedegnj-1\",\"gnedfkmh-1\",\"gneeamdi-1\",\"gneebjdf-1\",\"gneecfmc-1\",\"gneedmpo-1\",\"gneeflhf-1\",\"gnefaiki-1\",\"gnefnmli-1\",\"gnegabcl-1\",\"gnegdoek-1\",\"gnegefkd-1\",\"gnegilij-1\",\"gneglalk-1\",\"gnegogab-1\",\"gnehanco-1\",\"gnehdief-1\",\"gnehgidb-1\",\"gnehgief-1\",\"gnehokio-1\",\"gnehplkk-1\",\"gneiccmm-1\",\"gneickao-1\",\"gneieaea-1\",\"gneiofjl-1\",\"gnejboif-1\",\"gnejbomc-1\",\"gnejfeco-1\",\"gnejgbfl-1\",\"gnejhfhl-1\",\"gnejifeb-1\",\"gnejjjcm-1\",\"gnejlffd-1\",\"gnekamoi-1\",\"gnekedkh-1\",\"gnekggio-1\",\"gnekhmio-1\",\"gnekpleg-1\",\"gnelcflf-1\",\"gneliadc-1\",\"gneliglp-1\",\"gnelkieg-1\",\"gneloifb-1\",\"gnembeof-1\",\"gnemecim-1\",\"gnemhabk-1\",\"gnemijhh-1\",\"gnemijnn-1\",\"gnendnnn-1\",\"gnenebfp-1\",\"gnenfhkh-1\",\"gnenniie-1\",\"gnenpamd-1\",\"gneobdnb-1\",\"gneobgan-1\",\"gneoefih-1\",\"gneoemgh-1\",\"gneofacg-1\",\"gneoojfd-1\",\"gneopchl-1\",\"gnepcmpe-1\",\"gnephhnc-1\",\"gnepklod-1\",\"gnepldak-1\",\"gnepmnih-1\",\"gnfaboei-1\",\"gnfagmpf-1\",\"gnfapbai-1\",\"gnfbdgpb-1\",\"gnfbefoc-1\",\"gnfbhgho-1\",\"gnfbjphl-1\",\"gnfbkanf-1\",\"gnfbkphd-1\",\"gnfblcad-1\",\"gnfblpmm-1\",\"gnfbnnmm-1\",\"gnfcakao-1\",\"gnfchncl-1\",\"gnfcifnf-1\",\"gnfckhip-1\",\"gnfcoahe-1\",\"gnfcodfb-1\",\"gnfdcbhg-1\",\"gnfdomdd-1\",\"gnfdoplo-1\",\"gnfechlb-1\",\"gnfegfic-1\",\"gnfeifhb-1\",\"gnffaemj-1\",\"gnffdakc-1\",\"gnffghho-1\",\"gnffgkjk-1\",\"gnffhgnb-1\",\"gnffhheo-1\",\"gnffmake-1\",\"gnffnacg-1\",\"gnfgcglg-1\",\"gnfghbha-1\",\"gnfghoab-1\",\"gnfgjggb-1\",\"gnfgnjab-1\",\"gnfgnnpp-1\",\"gnfgpnog-1\",\"gnfhbgeg-1\",\"gnfhcmgf-1\",\"gnfhlnlj-1\",\"gnfhmfbe-1\",\"gnfhnedo-1\",\"gnfidhca-1\",\"gnfifdjb-1\",\"gnfijldd-1\",\"gnfinoil-1\",\"gnfjegee-1\",\"gnfjekmd-1\",\"gnfjlgmg-1\",\"gnfjlhke-1\",\"gnfkkekg-1\",\"gnfknjfh-1\",\"gnflhglb-1\",\"gnflhlna-1\",\"gnflijdd-1\",\"gnfljjfg-1\",\"gnflkjbj-1\",\"gnfllgeb-1\",\"gnflogpo-1\",\"gnfmaffb-1\",\"gnfmcbih-1\",\"gnfmfhef-1\",\"gnfmfibm-1\",\"gnfmifaa-1\",\"gnfmipdb-1\",\"gnfmkenh-1\",\"gnfmmnpp-1\",\"gnfnahpk-1\",\"gnfnjpbm-1\",\"gnfnlgfo-1\",\"gnfnmpmm-1\",\"gnfnoiee-1\",\"gnfoegip-1\",\"gnfogpia-1\",\"gnfpecea-1\",\"gnfpfegb-1\",\"gnfpimcn-1\",\"gnfpoplo-1\",\"gngaffpm-1\",\"gngahpog-1\",\"gngalham-1\",\"gngalhhf-1\",\"gngameeb-1\",\"gngamfnp-1\",\"gngannnd-1\",\"gngaooac-1\",\"gngbafin-1\",\"gngbjejd-1\",\"gngbnlfj-1\",\"gngccagk-1\",\"gngcccpd-1\",\"gngcnecj-1\",\"gngdomjg-1\",\"gngehnce-1\",\"gngfdhbi-1\",\"gngfkjpi-1\",\"gngfpmbn-1\",\"gnggabha-1\",\"gnggecef-1\",\"gnggffpe-1\",\"gngggiif-1\",\"gngglhgi-1\",\"gnghcpeo-1\",\"gnghgaco-1\",\"gnghkoaf-1\",\"gngidakn-1\",\"gngilcec-1\",\"gngilpgg-1\",\"gngimeid-1\",\"gngjblda-1\",\"gngjholp-1\",\"gngjlnod-1\",\"gngjmdfj-1\",\"gngjphki-1\",\"gngkdmfe-1\",\"gngkhabe-1\",\"gngkhomh-1\",\"gngkifih-1\",\"gngkjdic-1\",\"gngkjpim-1\",\"gngkllao-1\",\"gngknfnj-1\",\"gnglbppj-1\",\"gnglhikh-1\",\"gnglnbkn-1\",\"gnglnfhl-1\",\"gnglohak-1\",\"gngmljfc-1\",\"gngnaehn-1\",\"gngnjgph-1\",\"gngoaepo-1\",\"gngoccoo-1\",\"gngohjej-1\",\"gngolcio-1\",\"gngoppjd-1\",\"gngpealk-1\",\"gngpjmge-1\",\"gngpmbjh-1\",\"gngpmecb-1\",\"gngpmmjb-1\",\"gngpnhbl-1\",\"gngppejk-1\",\"gnhaicco-1\",\"gnhbeigp-1\",\"gnhbgacc-1\",\"gnhboljl-1\",\"gnhbpgcj-1\",\"gnhcadbf-1\",\"gnhcbnlc-1\",\"gnhcdfcn-1\",\"gnhdbnmk-1\",\"gnhddejc-1\",\"gnhdeahg-1\",\"gnhdfgpb-1\",\"gnhdjmgj-1\",\"gnhdohjp-1\",\"gnhedhal-1\",\"gnheeboj-1\",\"gnheekak-1\",\"gnhelebk-1\",\"gnhfbjje-1\",\"gnhffoaj-1\",\"gnhfgohf-1\",\"gnhfhmfo-1\",\"gnhfipdk-1\",\"gnhfkkan-1\",\"gnhfpkbe-1\",\"gnhgfgei-1\",\"gnhgifhm-1\",\"gnhglcei-1\",\"gnhhbnik-1\",\"gnhhnacd-1\",\"gnhiefjj-1\",\"gnhiegmh-1\",\"gnhifkho-1\",\"gnhimbbi-1\",\"gnhimmhg-1\",\"gnhjbibp-1\",\"gnhjdanc-1\",\"gnhkaoaa-1\",\"gnhkbfim-1\",\"gnhkbiii-1\",\"gnhkhpao-1\",\"gnhklnof-1\",\"gnhlcgfp-1\",\"gnhlfehj-1\",\"gnhlfpbg-1\",\"gnhliecc-1\",\"gnhljoia-1\",\"gnhlkpon-1\",\"gnhmccki-1\",\"gnhmfnoa-1\",\"gnhmlnae-1\",\"gnhmoahe-1\",\"gnhmphpm-1\",\"gnhndaff-1\",\"gnhnkomb-1\",\"gnhodngi-1\",\"gnhomdnk-1\",\"gnhopcli-1\",\"gnhopcmf-1\",\"gnhpcddl-1\",\"gnhpdeoh-1\",\"gnhphhoj-1\",\"gnhplapk-1\",\"gnhpnjea-1\",\"gnhpodel-1\",\"gniadcmg-1\",\"gniahbon-1\",\"gniaonnf-1\",\"gniapaod-1\",\"gnibegin-1\",\"gnibhnif-1\",\"gniboihf-1\",\"gnibpcia-1\",\"gniccnna-1\",\"gnicfane-1\",\"gnicjbhb-1\",\"gniclkjo-1\",\"gnicnama-1\",\"gnidhcdm-1\",\"gnidjghf-1\",\"gnidldao-1\",\"gnidnpip-1\",\"gnidpcil-1\",\"gniecaie-1\",\"gniejjok-1\",\"gniekfcm-1\",\"gnieoeci-1\",\"gnifapma-1\",\"gniffibm-1\",\"gnifkllp-1\",\"gnifnceb-1\",\"gnigdjie-1\",\"gnigfjbe-1\",\"gnigmdng-1\",\"gnihckcp-1\",\"gnihdlip-1\",\"gnihgand-1\",\"gnihhena-1\",\"gnihhnfi-1\",\"gniibbmk-1\",\"gniiiefm-1\",\"gniiimkk-1\",\"gnjiaead-1\",\"gnjicpce-1\",\"gnjidblh-1\",\"gnjidihj-1\",\"gnjjikge-1\",\"gnjjnpok-1\",\"gnjkbpga-1\",\"gnjkedgk-1\",\"gnjkggda-1\",\"gnjkhcdo-1\",\"gnjkkblf-1\",\"gnjklcan-1\",\"gnjkpaoh-1\",\"gnjkpopj-1\",\"gnjleaaa-1\",\"gnjlfegc-1\",\"gnjljalg-1\",\"gnjljlop-1\",\"gnjlloon-1\",\"gnjlnboo-1\",\"gnjlokee-1\",\"gnjmnfok-1\",\"gnjncepa-1\",\"gnjndaoo-1\",\"gnjnffop-1\",\"gnjngggd-1\",\"gnjnphfl-1\",\"gnjofacm-1\",\"gnjohjmc-1\",\"gnjoilbc-1\",\"gnjojiki-1\",\"gnjoldnd-1\",\"gnjopcdl-1\",\"gnjopkhc-1\",\"gnjpajek-1\",\"gnjpajjb-1\",\"gnjpdcpo-1\",\"gnjpdeka-1\",\"gnjphocp-1\",\"gnjppfbf-1\",\"gnkaekla-1\",\"gnkafnif-1\",\"gnkaieib-1\",\"gnkamcpg-1\",\"gnkbcgeo-1\",\"gnkbhikp-1\",\"gnkbifcm-1\",\"gnkbjbpi-1\",\"gnkbjlgf-1\",\"gnkbkaik-1\",\"gnkccjnc-1\",\"gnkcfkoj-1\",\"gnkcgpfe-1\",\"gnkcoifl-1\",\"gnkcpehh-1\",\"gnkdepbp-1\",\"gnkdhcjc-1\",\"gnkdjjai-1\",\"gnkdjmik-1\",\"gnkdkekm-1\",\"gnkdlgmk-1\",\"gnkfpeba-1\",\"gnkhagel-1\",\"gnkhgkok-1\",\"gnkibbko-1\",\"gnkjhbgi-1\",\"gnkjlaaf-1\",\"gnkjocpj-1\",\"gnkjpgpc-1\",\"gnkkcfaj-1\",\"gnkkiojk-1\",\"gnkkmnam-1\",\"gnklagcd-1\",\"gnklckih-1\",\"gnklonlb-1\",\"gnkmcjld-1\",\"gnkmffch-1\",\"gnkmfonk-1\",\"gnlhddoa-1\",\"gnlheieb-1\",\"gnlhgbil-1\",\"gnlifamd-1\",\"gnljanna-1\",\"gnljcgmk-1\",\"gnljfhmj-1\",\"gnljgpac-1\",\"gnljiphm-1\",\"gnljocgn-1\",\"gnlmmack-1\",\"gnlnbefg-1\",\"gnlncaid-1\",\"gnlojafg-1\",\"gnlolhcj-1\",\"gnlopcdg-1\",\"gnmbnghl-1\",\"gnmbpfmf-1\",\"gnmccdbk-1\",\"gnmccjoa-1\",\"gnmcgack-1\",\"gnmcghld-1\",\"gnmcgmhf-1\",\"gnmcjecp-1\",\"gnmcnedl-1\",\"gnmcnhob-1\",\"gnmcpbmi-1\",\"gnmdcdnd-1\",\"gnmdjpfd-1\",\"gnmeemol-1\",\"gnmeephp-1\",\"gnmelefn-1\",\"gnmenibo-1\",\"gnmfgbea-1\",\"gnmfgmbn-1\",\"gnmfmlgi-1\",\"gnmfoiah-1\",\"gnmgbeoe-1\",\"gnmgbgpm-1\",\"gnmgiegc-1\",\"gnmginag-1\",\"gnmgnkcd-1\",\"gnmgpkmo-1\",\"gnmhnlcl-1\",\"gnmhoggc-1\",\"gnmiafdk-1\",\"gnmiandd-1\",\"gnmigfcf-1\",\"gnmihboj-1\",\"gnminmbk-1\",\"gnmipkjm-1\",\"gnmjbkjn-1\",\"gnmjflip-1\",\"gnmjgcmk-1\",\"gnmjhgld-1\",\"gnmjiekk-1\",\"gnmjiihn-1\",\"gnmjkkpi-1\",\"gnmkcdpc-1\",\"gnmkfcfi-1\",\"gnmkgnck-1\",\"gnmklngf-1\",\"gnmkoaln-1\",\"gnmkodbf-1\",\"gnmkpgap-1\",\"gnmkpgpe-1\",\"gnnjndek-1\",\"gnokpnld-1\",\"gnolapca-1\",\"gnolcajl-1\",\"gnolflkk-1\",\"gnolgffc-1\",\"gnolhmak-1\",\"gnolkbjm-1\",\"gnolmfjl-1\",\"gnombcah-1\",\"gnomfgmk-1\",\"gnomiijo-1\",\"gnomlkcj-1\",\"gnomojoc-1\",\"gnondoej-1\",\"gnonjlbo-1\",\"gnonkgpd-1\",\"gnophhpd-1\",\"gnoppdmg-1\",\"gnpacpol-1\",\"gnpaeilc-1\",\"gnpaejff-1\",\"gogppbgg-1\",\"gohaaoni-1\",\"gohabjld-1\",\"gohadcld-1\",\"gohaddom-1\",\"gohbnodd-1\",\"gonpofhm-1\",\"gopcjnod-1\",\"gopckhjm-1\",\"gopdfjik-1\",\"gopdfldi-1\",\"gopdhhii-1\",\"gopdlkil-1\",\"gopdoioh-1\",\"gopdonce-1\",\"gopdpbbe-1\",\"gopehknd-1\",\"gopehnpm-1\",\"gopelbjc-1\",\"gopeldpp-1\",\"gopgampc-1\",\"gopgcnaa-1\",\"gopghchb-1\",\"gopgndfh-1\",\"gopgpjgp-1\",\"gophcike-1\",\"gophgioc-1\",\"gophpmhl-1\",\"gopifgig-1\",\"gopigfba-1\",\"gopihlfc-1\",\"gopikoog-1\",\"gopioplg-1\",\"gopjcbio-1\",\"gopjegih-1\",\"gopjhfon-1\",\"gopjjpla-1\",\"gopkadpd-1\",\"gopkcogh-1\",\"gopkmega-1\",\"gopkpoki-1\",\"gpadakfk-1\",\"gpadeiel-1\",\"gpadkhdn-1\",\"gpadonig-1\",\"gpaebblo-1\",\"gpaegiaa-1\",\"gpafacbe-1\",\"gpafikhb-1\",\"gpafimoc-1\",\"gpafpmej-1\",\"gpaggonf-1\",\"gpagpgjo-1\",\"gpahcpnm-1\",\"gpahdinf-1\",\"gpahloco-1\",\"gpaiccga-1\",\"gpaifnkf-1\",\"gpajbnan-1\",\"gpajfmkd-1\",\"gpajjbei-1\",\"gpajllkj-1\",\"gpajndni-1\",\"gpakabgm-1\",\"gpakbjgi-1\",\"gpakgbcc-1\",\"gpakhjed-1\",\"gpaklbgc-1\",\"gpaklegn-1\",\"gpakmpai-1\",\"gpalcdfh-1\",\"gpfgjlha-1\",\"gpfhdhon-1\",\"gpfhfgdc-1\",\"gpfhjjjj-1\",\"gpfidjol-1\",\"gpfihcap-1\",\"gpfijeen-1\",\"gpfimnjj-1\",\"gpfjhcin-1\",\"gpfjnleh-1\",\"gpfknbkg-1\",\"gpfknfbh-1\",\"gpfknhlm-1\",\"gpflfmae-1\",\"gpflgojm-1\",\"gpflhbom-1\",\"gpflighk-1\",\"gpfljljd-1\",\"gpflodmc-1\",\"gpflpimm-1\",\"gpfmhein-1\",\"gpfnbeam-1\",\"gpfnbokh-1\",\"gpfnjdae-1\",\"gpfnmaji-1\",\"gpfoccnb-1\",\"gpfophec-1\",\"gpglllhh-1\",\"gpglmfpj-1\",\"gpglnjod-1\",\"gpglnpfa-1\",\"gpgmblfb-1\",\"gpgmdipf-1\",\"gpgmnbkj-1\",\"gpgnamip-1\",\"gpgnfgip-1\",\"gpgnjbfo-1\",\"gpgnlkcp-1\",\"gpgnpnok-1\",\"gpgokfpm-1\",\"gpgopllm-1\",\"gpgpbnhf-1\",\"gpgpdcao-1\",\"gpgpflbm-1\",\"gpgpfmfl-1\",\"gpgpilmo-1\",\"gphaecmk-1\",\"gphaeidf-1\",\"gphbcgea-1\",\"hgmclmjl-1\",\"hgmclnkn-1\",\"hgmcmngp-1\",\"hgmcnakh-1\",\"hgmcolol-1\",\"hgmdeljg-1\",\"hgmdjogg-1\",\"hgmdkfbl-1\",\"hgmdmmgd-1\",\"hgmdnljn-1\",\"hgmeakle-1\",\"hgmecfjf-1\",\"hgmehhna-1\",\"hgmekihl-1\",\"hgmgbead-1\",\"hgmgfjgb-1\",\"hgmglbdj-1\",\"hgmgndch-1\",\"hgmhagka-1\",\"hgmhdeej-1\",\"hgmhfepi-1\",\"hgmhninm-1\",\"hgmibopn-1\",\"hgmilgkp-1\",\"hgminnhj-1\",\"hgmioljk-1\",\"hgmjcigk-1\",\"hgmjclak-1\",\"hgmjeaci-1\",\"hgmjkgpg-1\",\"hgmjknpp-1\",\"hgmjmpna-1\",\"hgmjpoal-1\",\"hgmkacji-1\",\"hgmklken-1\",\"hgmkodan-1\",\"hgmlaamp-1\",\"hgmlaekp-1\",\"hgmldcjf-1\",\"hgmldkfi-1\",\"hgmlejih-1\",\"hgmlfbna-1\",\"hgmlfeac-1\",\"hgmlnjal-1\",\"hgmlpedm-1\",\"hgmlpeif-1\",\"hgmmjpig-1\",\"hgmmoeko-1\",\"hgmncmoh-1\",\"hgmnhmjg-1\",\"hgmnnpij-1\",\"hgmohmag-1\",\"hgmokkjo-1\",\"hgmpljll-1\",\"hgnaaobd-1\",\"hgnachhj-1\",\"hgnaecjl-1\",\"hgnahopf-1\",\"hgnamfpb-1\",\"hgnaphge-1\",\"hgnbakdn-1\",\"hgnbbdgg-1\",\"hgnbcajm-1\",\"hgnbcfhf-1\",\"hgnbngkf-1\",\"hgndgojk-1\",\"hgndigjj-1\",\"hgndiioi-1\",\"hgndkkgb-1\",\"hgndobmm-1\",\"hgneamlh-1\",\"hgnefhkn-1\",\"hgnegcfe-1\",\"hgnfalaf-1\",\"hgnfhbci-1\",\"hgnfmkdd-1\",\"hgngaioo-1\",\"hgngbaaf-1\",\"hgngcclc-1\",\"hgngckjg-1\",\"hgngofie-1\",\"hgnhbcgn-1\",\"hgnhcbah-1\",\"hgnhejjd-1\",\"hgnhgaoa-1\",\"hgnidbec-1\",\"hgnihchl-1\",\"hgnilcdg-1\",\"hgnipmbd-1\",\"hgnjbenj-1\",\"hgnjcake-1\",\"hgnjehpg-1\",\"hgnjffba-1\",\"hgnjhpnl-1\",\"hgnjlloj-1\",\"hgnkbnak-1\",\"hgnkfaeo-1\",\"hgnkieba-1\",\"hgnkjhbe-1\",\"hgnlajmb-1\",\"hgnlkoln-1\",\"hgnlmjml-1\",\"hgnloani-1\",\"hgnnappg-1\",\"hgnndkjo-1\",\"hgnnkbhg-1\",\"hgnnoefj-1\",\"hgnnpjbn-1\",\"hgnoanmp-1\",\"hgnofdmp-1\",\"hgnogpfo-1\",\"hgnohfbn-1\",\"hgnpajhd-1\",\"hgnpbmma-1\",\"hgnpjhnk-1\",\"hgnpjiff-1\",\"hgoabham-1\",\"hgoaegfd-1\",\"hgoafbpm-1\",\"hgoafibm-1\",\"hgocdkhg-1\",\"hgofeifm-1\",\"hgofkiec-1\",\"hgogbaad-1\",\"hgogcich-1\",\"hgohipme-1\",\"hgohmlgg-1\",\"hgohokmc-1\",\"hgoilodn-1\",\"hgojcemi-1\",\"hhbagmoj-1\",\"hhbalapp-1\",\"hhbalphm-1\",\"hhbamaip-1\",\"hhbameao-1\",\"hhbamggn-1\",\"hhbangig-1\",\"hhbaphbg-1\",\"hhbbcibp-1\",\"hhbbeklm-1\",\"hhbbijcc-1\",\"hhbcbdhg-1\",\"hhbcclkl-1\",\"hhbcgnlm-1\",\"hhbjeekk-1\",\"hhbjhdnk-1\",\"hhbjjghm-1\",\"hhbjkegn-1\",\"hhbjmngk-1\",\"hhbkchjb-1\",\"hhboaclh-1\",\"hhboamke-1\",\"hhboaoab-1\",\"hhbocokl-1\",\"hhbodjgi-1\",\"hhbognmi-1\",\"hhbohbhb-1\",\"hhdmdmhg-1\",\"hhdnbaej-1\",\"hhdnokcj-1\",\"hhdnopcj-1\",\"hhdobogm-1\",\"hhdodmfa-1\",\"hhdopcbd-1\",\"hhdpbioc-1\",\"hhdpcacn-1\",\"hhdpfcfi-1\",\"hhdpgmop-1\",\"hhdphfdi-1\",\"hhdphjfd-1\",\"hhdphmeg-1\",\"hhdpilij-1\",\"hhdppnfg-1\",\"hheaaglh-1\",\"hheagihb-1\",\"hhefkhcd-1\",\"hhejmebh-1\",\"hhejnnoa-1\",\"hhekdmda-1\",\"hheklacb-1\",\"hhekpeci-1\",\"hhelemif-1\",\"hhemgebj-1\",\"hhemhgpn-1\",\"hhemojei-1\",\"hhenafep-1\",\"hheofgpi-1\",\"hheojagp-1\",\"hheolebb-1\",\"hheolkjm-1\",\"hhepcnhd-1\",\"hhepdomi-1\",\"hhepjlod-1\",\"hhepkcge-1\",\"hhepkpcc-1\",\"hhepkpkc-1\",\"hheplolf-1\",\"hhepnkfe-1\",\"hhfaahfj-1\",\"hhfabdoo-1\",\"hhfagaib-1\",\"hhfaiblh-1\",\"hhfapggo-1\",\"hhfapnhm-1\",\"hhfbdapb-1\",\"hhfbmdgk-1\",\"hhfcblih-1\",\"hhfcdkhp-1\",\"hhfcfndl-1\",\"hhfckpaf-1\",\"hhfdfdob-1\",\"hhfdfefi-1\",\"hhfdgggc-1\",\"hhfdijag-1\",\"hhfdlnlb-1\",\"hhfeakgh-1\",\"hhfedohh-1\",\"hhfefkom-1\",\"hhfehkdk-1\",\"hhfeiibg-1\",\"hhffdkie-1\",\"hhfflbhh-1\",\"hhfgcmdg-1\",\"hhfggbed-1\",\"hhfghjbo-1\",\"hhfgjmie-1\",\"hhfgkedn-1\",\"hhfgmmhb-1\",\"hhfgpgah-1\",\"hhfigjfh-1\",\"hhfinhke-1\",\"hhfjahaa-1\",\"hhfjcinb-1\",\"hhfjfgml-1\",\"hhfjkjom-1\",\"hhfkmbij-1\",\"hhfljkfl-1\",\"hhflpebn-1\",\"hhfmecgi-1\",\"hhfnafeo-1\",\"hhfniegg-1\",\"hhfnlllo-1\",\"hhfnnanm-1\",\"hhfocmkc-1\",\"hhfojgad-1\",\"hhfpcndl-1\",\"hhfpgndn-1\",\"hhfplbbo-1\",\"hhfplpfb-1\",\"hhfpmoif-1\",\"hhfpnbip-1\",\"hhgaccnd-1\",\"hhgadobm-1\",\"hhgahckd-1\",\"hhgahcpm-1\",\"hhgajifa-1\",\"hhgajmmf-1\",\"hhgalblk-1\",\"hhgapnol-1\",\"hhgbghfe-1\",\"hhgbiiem-1\",\"hhgbolop-1\",\"hhgcdcil-1\",\"hhgcdoao-1\",\"hhgcmpgc-1\",\"hhgcnjhm-1\",\"hhgcokdb-1\",\"hhgdabif-1\",\"hhgddchd-1\",\"hhgdghdb-1\",\"hhgdnbge-1\",\"hhgeeehf-1\",\"hhgeegjh-1\",\"hhgefjdg-1\",\"hhgeghak-1\",\"hhgeikhm-1\",\"hhgeljgg-1\",\"hhgelpbh-1\",\"hhgencgm-1\",\"hhgfiehh-1\",\"hhgfjdhp-1\",\"hhgfjkcc-1\",\"hhgfodkk-1\",\"hhgfohdh-1\",\"hhgfpjnh-1\",\"hhggbdpf-1\",\"hhggcmcd-1\",\"hhggella-1\",\"hhgghpof-1\",\"hhghdchm-1\",\"hhghejan-1\",\"hhghhfij-1\",\"hhghjeoh-1\",\"hhghkdlc-1\",\"hhghkfaf-1\",\"hhghlfip-1\",\"hhghljoa-1\",\"hhghncmb-1\",\"hhghnflf-1\",\"hhgiameo-1\",\"hhgibifm-1\",\"hhgifioo-1\",\"hhgildhp-1\",\"hhgjcjbn-1\",\"hhgjckap-1\",\"hhgjkfnl-1\",\"hhgjleni-1\",\"hhgjnglf-1\",\"hhgjpjlb-1\",\"hhgjpnck-1\",\"hhgkachp-1\",\"hhgkciag-1\",\"hhgkdmae-1\",\"hhglacli-1\",\"hhglaipe-1\",\"hhglfama-1\",\"hhglhogb-1\",\"hhglimbi-1\",\"hhglkhkd-1\",\"hhglmicl-1\",\"hhgmcngb-1\",\"hhgmjmlm-1\",\"hhgmmkmi-1\",\"hhgnipoi-1\",\"hhgobgno-1\",\"hhgoembk-1\",\"hhgohbdb-1\",\"hhgpdjhe-1\",\"hhgpfick-1\",\"hhgpkkbj-1\",\"hhgpmdii-1\",\"hhgpneml-1\",\"hhhabaff-1\",\"hhhabapn-1\",\"hhhahngn-1\",\"hhhajbhi-1\",\"hhhbdbbd-1\",\"hhhbeplh-1\",\"hhhnfcmm-1\",\"hhhnffef-1\",\"hhhnmklk-1\",\"hhhocecl-1\",\"hhhoimpc-1\",\"hhhopbna-1\",\"hhhopoec-1\",\"hhhpdkoh-1\",\"hhhpibhi-1\",\"hhiafhpj-1\",\"hhialblg-1\",\"hhiamoni-1\",\"hhianhio-1\",\"hhicckpp-1\",\"hhicdhkh-1\",\"hhicgapp-1\",\"hhichman-1\",\"hhickfmi-1\",\"hhidbhal-1\",\"hhidbhhc-1\",\"hhideoog-1\",\"hhidomlb-1\",\"hhiehjbd-1\",\"hhiejpbh-1\",\"hhiejpjh-1\",\"hhieoghf-1\",\"hhifaihf-1\",\"hhifcgki-1\",\"hhififgp-1\",\"hhifjadk-1\",\"hhifkobi-1\",\"hhigemjm-1\",\"hhigioea-1\",\"hhigmhml-1\",\"hhigmojj-1\",\"hhigoehd-1\",\"hhigohch-1\",\"hhihfied-1\",\"hhihkpkk-1\",\"hhiidlpn-1\",\"hhiiodmm-1\",\"hhijepma-1\",\"hhijgmdj-1\",\"hhilgjdp-1\",\"hhimenaf-1\",\"hhimhcmc-1\",\"hhimjlld-1\",\"hhimpcbm-1\",\"hhinfgkg-1\",\"hhinligj-1\",\"hhiomnkf-1\",\"hhipeijn-1\",\"hhipfohj-1\",\"hhjablhb-1\",\"hhjaeabd-1\",\"hhjagimi-1\",\"hhkbbmei-1\",\"hhkbkfen-1\",\"hhkbmfce-1\",\"hhkcddco-1\",\"hhkceanp-1\",\"hhkcffkm-1\",\"hhkcgchf-1\",\"hhkcjbem-1\",\"hhkckemm-1\",\"hhkcpafh-1\",\"hhkcpckh-1\",\"hhkdapbh-1\",\"hhkdelcg-1\",\"hhkdngjb-1\",\"hhkdnloc-1\",\"hhkdoejb-1\",\"hhkebegg-1\",\"hhkebkke-1\",\"hhkedkpm-1\",\"hhkedpho-1\",\"hhkefkmn-1\",\"hhkemjce-1\",\"hhkgieep-1\",\"hhkljgni-1\",\"hhknjpfl-1\",\"hhknmcpn-1\",\"hhknnnpc-1\",\"hhkoaidm-1\",\"hhkobdlb-1\",\"hhkocjca-1\",\"hhkohekc-1\",\"hhkopkjb-1\",\"hhkpbkde-1\",\"hhkpejdc-1\",\"hhkpglmd-1\",\"hhlbamme-1\",\"hhlbblhi-1\",\"hhlbcifc-1\",\"hhlbkmnm-1\",\"hhlbnboo-1\",\"hhmhbdlj-1\",\"hhmhbpoe-1\",\"hhmhdidm-1\",\"hhmhflml-1\",\"hhmhgdml-1\",\"hhmhhgph-1\",\"hhmieoga-1\",\"hhmifgdg-1\",\"hhmiipbm-1\",\"hhmijgjc-1\",\"hhmikmec-1\",\"hhmilfdk-1\",\"hhmjdpan-1\",\"hhmjjlia-1\",\"hhmjlodd-1\",\"hhmkogbm-1\",\"hhmldenf-1\",\"hhmllpoh-1\",\"hhmmcdgc-1\",\"hhmmcibi-1\",\"hhmmepld-1\",\"hhmmifio-1\",\"hhmmilgb-1\",\"hhmmjdca-1\",\"hhmmjfbk-1\",\"hhmmkkme-1\",\"hhmnalbc-1\",\"hhmnckln-1\",\"hhmncmib-1\",\"hhmnjcph-1\",\"hhmnniaf-1\",\"hhmocpil-1\",\"hhmoeffk-1\",\"hhmojdgb-1\",\"hhmolfkp-1\",\"hhmoocin-1\",\"hhmopjbo-1\",\"hhmpglfo-1\",\"hhmplofm-1\",\"hhmpmkld-1\",\"hhnadajh-1\",\"hhnaejdg-1\",\"hhnahjgj-1\",\"hhnakhkg-1\",\"hhnalhma-1\",\"hhnamdad-1\",\"hhnaodhn-1\",\"hhnbaoej-1\",\"hhnbbaeg-1\",\"hhnbfkcp-1\",\"hhnchpof-1\",\"hhncjplb-1\",\"hhndbfoh-1\",\"hhndebek-1\",\"hhndfifj-1\",\"hhndicgg-1\",\"hhnfbhjj-1\",\"hhnflgcg-1\",\"hhngofkf-1\",\"hhnhoddi-1\",\"hhnilkcd-1\",\"hhnipida-1\",\"hhnjbhhh-1\",\"hhnjdmpo-1\",\"hhnjgdkj-1\",\"hhnjiaoa-1\",\"hhnjngef-1\",\"hhnkbiil-1\",\"hhnkcacf-1\",\"hhnkchcp-1\",\"hhnkdloo-1\",\"hhnkegda-1\",\"hhnlelfc-1\",\"hhnlfghe-1\",\"hhnmbhel-1\",\"hhnmbhfo-1\",\"hhnmgdpl-1\",\"hhnmhncf-1\",\"hhnmnibk-1\",\"hhnnajon-1\",\"hhnodann-1\",\"hhnodbje-1\",\"hhnodfhe-1\",\"hhnoemmf-1\",\"hhnpbfdo-1\",\"hhnpella-1\",\"hhnpgipn-1\",\"hhnpkgmf-1\",\"hhnpmhgj-1\",\"hhoagbhp-1\",\"hhoagoem-1\",\"hhoanbdg-1\",\"hhocagpb-1\",\"hhocapeo-1\",\"hhpaibpp-1\",\"hhpbaijg-1\",\"hhpbaipd-1\",\"hhpblnjf-1\",\"hhpcdmob-1\",\"hhpceekd-1\",\"hhpcffci-1\",\"hhpcgbhe-1\",\"hhpcglcn-1\",\"hhpchdii-1\",\"hhpcmapd-1\",\"hhpdbopf-1\",\"hhpdoefe-1\",\"hhpeophd-1\",\"hhpnapen-1\",\"hhpndgho-1\",\"hhpndibe-1\",\"hhpnkeac-1\",\"hhpnlbmd-1\",\"hhpnnmlm-1\",\"hhpnopgo-1\",\"hhpnpfpa-1\",\"hiabjbpa-1\",\"hiabjipl-1\",\"hiablbpc-1\",\"hiabnada-1\",\"hiaboeah-1\",\"hiacfikc-1\",\"hiaclcgl-1\",\"hiacnlid-1\",\"hiacphld-1\",\"hiadefng-1\",\"hiadgmge-1\",\"hiadicai-1\",\"hiadnmii-1\",\"hiaedggd-1\",\"hiaefhmg-1\",\"hiaegclo-1\",\"hiafdkji-1\",\"hiafiakg-1\",\"hiafkiji-1\",\"hiaifagk-1\",\"hiailceh-1\",\"hiainnnh-1\",\"hiajepkc-1\",\"hiameldd-1\",\"hiamnbjd-1\",\"hianbjpi-1\",\"hiandblg-1\",\"hiandpjk-1\",\"hiangeda-1\",\"hianhoef-1\",\"hiankkhd-1\",\"hianmeab-1\",\"hiaofglc-1\",\"hiaogalo-1\",\"hiaoijpi-1\",\"hiaompae-1\",\"hiapbogp-1\",\"hibdmeaf-1\",\"hibdpngb-1\",\"hibeaijl-1\",\"hibefhmm-1\",\"hibefofd-1\",\"hibelafm-1\",\"hibelgob-1\",\"hibfbjpf-1\",\"hibfdgnl-1\",\"hibfdmhi-1\",\"hibffbfn-1\",\"hibfkdko-1\",\"hibgaflg-1\",\"hibgdcpm-1\",\"hibgeppf-1\",\"hibgjmgd-1\",\"hibglfko-1\",\"hibgokbc-1\",\"hibhhcdj-1\",\"hibigdhi-1\",\"hibinfgc-1\",\"hibjgbpp-1\",\"hibjghfg-1\",\"hibjjknl-1\",\"hibjknoj-1\",\"hibjoddl-1\",\"hibjomfk-1\",\"hibkbhef-1\",\"hibkgnfg-1\",\"hibkildh-1\",\"hiblmbab-1\",\"hiblpaam-1\",\"hibmbaab-1\",\"hibmddom-1\",\"hibmhcmc-1\",\"hibnjpap-1\",\"hiboajnj-1\",\"hibobhif-1\",\"hiboedoh-1\",\"hibonkij-1\",\"hibpbfme-1\",\"hibpbipf-1\",\"hibpcmee-1\",\"hibpgpfn-1\",\"hibplcmg-1\",\"hicadifm-1\",\"hicaedbp-1\",\"hicagamd-1\",\"hicagbce-1\",\"hicakihf-1\",\"hicbdnpk-1\",\"hicbeack-1\",\"hicbehgi-1\",\"hicbgebf-1\",\"hicbilgp-1\",\"hicbkjoo-1\",\"hicbnkcl-1\",\"hiccghjj-1\",\"hiccglmm-1\",\"hiccifkj-1\",\"hiccmdcj-1\",\"hiccopma-1\",\"hicdingn-1\",\"hicdnjha-1\",\"hicecegn-1\",\"hicedcbl-1\",\"hicehmpl-1\",\"hicfeajl-1\",\"hicfnghn-1\",\"hicgdbgf-1\",\"hicgfjjm-1\",\"hicgihfc-1\",\"hicgkade-1\",\"hicgoofc-1\",\"hichjhjd-1\",\"hichpgbh-1\",\"hichpiig-1\",\"hicilfej-1\",\"hicjcigd-1\",\"hicjdnjg-1\",\"hicjeeog-1\",\"hicjelma-1\",\"hicjkmef-1\",\"hicjldcj-1\",\"hickchje-1\",\"hickjijo-1\",\"hickjjmd-1\",\"hickodcj-1\",\"hiclbjjj-1\",\"hiclifae-1\",\"hicllhdd-1\",\"hicllolk-1\",\"hiclolfi-1\",\"hicnnoak-1\",\"hicobfem-1\",\"hicoblld-1\",\"hicoekna-1\",\"hicoemaj-1\",\"hicoengi-1\",\"hicpgfgb-1\",\"hicpinkb-1\",\"hicpnnfi-1\",\"hidaenje-1\",\"hidajlog-1\",\"hidaojio-1\",\"hidbconn-1\",\"hidbffja-1\",\"hidbfjff-1\",\"hidblcbf-1\",\"hidchbdm-1\",\"hidcidcd-1\",\"hidcihmp-1\",\"hidclijb-1\",\"hidcnjkn-1\",\"hiddehfi-1\",\"hiddgkik-1\",\"hiddgmnp-1\",\"hiddgnnl-1\",\"hiddhbco-1\",\"hiddkhoi-1\",\"hiddkjof-1\",\"hiddkofh-1\",\"hiddmlpl-1\",\"hiddpcje-1\",\"hiddpopg-1\",\"hidedhig-1\",\"hideehhh-1\",\"hideepnn-1\",\"hidefooa-1\",\"hideifcj-1\",\"hidelimp-1\",\"hidfpfbe-1\",\"hidgabcd-1\",\"hidgccpd-1\",\"hidgckdd-1\",\"hidgmiii-1\",\"hidgnlfk-1\",\"hidhjipd-1\",\"hidhkcld-1\",\"hidhkjmd-1\",\"hidhnojb-1\",\"hidibefg-1\",\"hidihjod-1\",\"hidimenn-1\",\"hidinpjo-1\",\"hidjaeje-1\",\"hidjakfa-1\",\"hidjaooi-1\",\"hidjcpac-1\",\"hidjlgjh-1\",\"hidkajja-1\",\"hidkbdfi-1\",\"hidkbpie-1\",\"hidkcgnc-1\",\"hidkhajd-1\",\"hidkpngk-1\",\"hidldpgk-1\",\"hidlkjoh-1\",\"hidlkmfl-1\",\"hidlnchf-1\",\"hidmajgd-1\",\"hidmdeko-1\",\"hidmeglo-1\",\"hidmhiad-1\",\"hidmkkhl-1\",\"hidmkomg-1\",\"hidmnpcn-1\",\"hidmpcpl-1\",\"hidnafcn-1\",\"hidncfha-1\",\"hidnoiol-1\",\"hidoabah-1\",\"hidopdmo-1\",\"hidpdjlo-1\",\"hidpioaa-1\",\"hieaapdn-1\",\"hieadnho-1\",\"hieaeklp-1\",\"hieafdei-1\",\"hiealona-1\",\"hiebaglc-1\",\"hiebbjnc-1\",\"hiebiddg-1\",\"hiebncdc-1\",\"hiebokfp-1\",\"hiebopee-1\",\"hiecbppm-1\",\"hiecdnfm-1\",\"hieceijl-1\",\"hiecidfi-1\",\"hiedaeoa-1\",\"hiedcakm-1\",\"hiedckbl-1\",\"hiedehml-1\",\"hieebkja-1\",\"hieebneg-1\",\"hieecjfk-1\",\"hieefbhe-1\",\"hieefojc-1\",\"hieepnej-1\",\"hiefnlji-1\",\"hieghflo-1\",\"hiegknpe-1\",\"hiegpgpd-1\",\"hiehckhf-1\",\"hiehecke-1\",\"hiehegpl-1\",\"hiehhcec-1\",\"hiehikea-1\",\"hiehkgpb-1\",\"hiehnkhc-1\",\"jbjmflak-1\",\"jbjmgjpe-1\",\"jbjopjhe-1\",\"jbjpjlao-1\",\"jbjpjmhc-1\",\"jbkakkom-1\",\"jblalken-1\",\"jblclbpl-1\",\"jbleldam-1\",\"jblpgmjf-1\",\"jbmaahod-1\",\"jbmdfoml-1\",\"jbmfbcop-1\",\"jbmfhanj-1\",\"jbmgbbfp-1\",\"jbmgbnll-1\",\"jclaebhf-1\",\"jclalcdc-1\",\"jdkfakci-1\",\"jdkfhkla-1\",\"jdkfilne-1\",\"jdkfocha-1\",\"jdkgaeic-1\",\"jdkgdcll-1\",\"jdkgilpf-1\",\"jdkhaanh-1\",\"jdkhdpel-1\",\"jdkhnegp-1\",\"jdkhnodp-1\",\"jdkicpef-1\",\"jdkigdbo-1\",\"jdkijicg-1\",\"jdkikigf-1\",\"jdkinjoh-1\",\"jdkipogm-1\",\"jdkjjfie-1\",\"jdkjnjle-1\",\"jdkkojbj-1\",\"jdklmfmd-1\",\"jdkmhglp-1\",\"jdkojhml-1\",\"jdkpbpgm-1\",\"jdlakmpi-1\",\"jdlbcemf-1\",\"jdlckpep-1\",\"jdldhpam-1\",\"jdlflglb-1\",\"jdlfnign-1\",\"jdlfoddm-1\",\"jdlhcfmi-1\",\"jdljjmne-1\",\"jdlkdfgd-1\",\"jdllfkdi-1\",\"jdlmaegd-1\",\"jdlmmkag-1\",\"jdlmojop-1\",\"jdmaojni-1\",\"jdmappil-1\",\"jdmbjjfi-1\",\"jdmcaffm-1\",\"jdmceppe-1\",\"jdmcpalj-1\",\"jdmdddpi-1\",\"jdmdhpff-1\",\"jdmekndd-1\",\"jdmfchgg-1\",\"jdmfcofo-1\",\"jdmfgeda-1\",\"jdmgbdhf-1\",\"jdmghcdh-1\",\"jdmgifcl-1\",\"jdmgkhbk-1\",\"jdmkbaoc-1\",\"jdmkchfe-1\",\"jdmmamai-1\",\"jdmmiinj-1\",\"jdmmmcpl-1\",\"jdmmpjhm-1\",\"jdmonedd-1\",\"jdnacpng-1\",\"jdnaeebf-1\",\"jdnafhnc-1\",\"jdncjjdf-1\",\"jdncjknn-1\",\"jdndbjbb-1\",\"jdodckop-1\",\"jdodejma-1\",\"jdoebpdm-1\",\"jdoecjoc-1\",\"jdofgmcj-1\",\"jdogadal-1\",\"jdogcadn-1\",\"jdogdenp-1\",\"jdogjhll-1\",\"jdogkomk-1\",\"jdohbldn-1\",\"jdohcpjd-1\",\"jdohnfgl-1\",\"jdoijfpg-1\",\"jdojbggk-1\",\"jdojibcf-1\",\"jdojpjif-1\",\"jdokajin-1\",\"jdolimnm-1\",\"jdolincb-1\",\"jdolpdec-1\",\"jdomefkl-1\",\"jdomlgjm-1\",\"jdomohbc-1\",\"jdompnaf-1\",\"jdonahhb-1\",\"jdongoej-1\",\"jdooaojg-1\",\"jdoocgeg-1\",\"jdooocha-1\",\"jdooofcb-1\",\"jdopcncf-1\",\"jdopgehi-1\",\"jdopljba-1\",\"jdpahdpi-1\",\"jdpapkbl-1\",\"jdpbdikk-1\",\"jdpcampe-1\",\"jdpcbhpg-1\",\"jdpcenol-1\",\"jlodjebm-1\",\"jlodljkj-1\",\"jlofaakb-1\",\"jlohbmad-1\",\"jlohgmnb-1\",\"jloinged-1\",\"jloinhah-1\",\"jlojbepn-1\",\"jlojolbl-1\",\"jlojondc-1\",\"jlokejab-1\",\"jlolfban-1\",\"jloliccf-1\",\"jmadeimi-1\",\"jmaedbek-1\",\"jmaefibm-1\",\"jmaeggdm-1\",\"jmaggkii-1\",\"jmahnbli-1\",\"jmaifmkg-1\",\"jmankhdp-1\",\"jmanphjk-1\",\"jmapcfbo-1\",\"jmgmanap-1\",\"jmhbnjca-1\",\"jnleckfe-1\",\"jnlegmap-1\",\"jnlfolda-1\",\"jnlhkkel-1\",\"jnlihbge-1\",\"jnljfdmf-1\",\"jnljjldk-1\",\"jnljmceo-1\",\"jnlkabeh-1\",\"jnlklhgd-1\",\"jnllifia-1\",\"jnllighc-1\",\"jnlljoba-1\",\"jnmefcjl-1\",\"jnmihimg-1\",\"jnmkdjfh-1\",\"jnmkebmn-1\",\"jnmmcphe-1\",\"jnmmeidc-1\",\"jnmoahfa-1\",\"jnmoblpn-1\",\"jnmojgdp-1\",\"jnnagbah-1\",\"jnnbfjcb-1\",\"jnnbhjfm-1\",\"jnnddlbl-1\",\"jnndeeal-1\",\"jnndlhlm-1\",\"jnnednbn-1\",\"jnnfghib-1\",\"jnnfleej-1\",\"jnnfnhpk-1\",\"jnnfnolp-1\",\"jnngkfab-1\",\"jnngnjjm-1\",\"jnnkbema-1\",\"jnnkcfhb-1\",\"joabeeoo-1\",\"joaccinp-1\",\"joadknnm-1\",\"joadnjce-1\",\"joaeddko-1\",\"joafejpk-1\",\"joagipnh-1\",\"joagmhgo-1\",\"joagppmn-1\",\"joahcpcj-1\",\"joaibfjn-1\",\"joaihjda-1\",\"joaihkpn-1\",\"joalgknh-1\",\"joambnil-1\",\"joaoball-1\",\"joaopnkp-1\",\"joapagli-1\",\"joapcgbd-1\",\"jobajgpj-1\",\"jobakgao-1\",\"jobaloih-1\",\"jobbkgfc-1\",\"jobbplmd-1\",\"jobceiao-1\",\"jobcenib-1\",\"jobckljd-1\",\"jobcnbef-1\",\"jobcnncg-1\",\"jobdbocf-1\",\"jobdjiaj-1\",\"jobdjjlf-1\",\"jobdmhni-1\",\"jobebjnh-1\",\"jobkfhpc-1\",\"jobkmjao-1\",\"jobmbagj-1\",\"jobmmmib-1\",\"jobpbklk-1\",\"jobpmjde-1\",\"jocafgke-1\",\"jocaloac-1\",\"jocbldeg-1\",\"jocbnbdn-1\",\"jocbnfoo-1\",\"joccccml-1\",\"joccdgca-1\",\"jocchhpf-1\",\"jocchjip-1\",\"jocchkcb-1\",\"jocclaoc-1\",\"jocclmmb-1\",\"joccpena-1\",\"joccpidn-1\",\"jocdlafh-1\",\"jocebkkk-1\",\"jocejkec-1\",\"jocfingi-1\",\"jocfjkfj-1\",\"jocgbdde-1\",\"jochcbem-1\",\"jochdjpe-1\",\"jocibehg-1\",\"jociljon-1\",\"jocipfij-1\",\"jocjikcp-1\",\"jocjkcln-1\",\"jocjnbea-1\",\"jockllhh-1\",\"jocknpjh-1\",\"jockpfmm-1\",\"jocmegjl-1\",\"jocmphcb-1\",\"jocnpfpn-1\",\"jocobjjb-1\",\"jocoedbf-1\",\"jocpojgp-1\",\"jodafbkm-1\",\"jopokpig-1\",\"jpaacccb-1\",\"jpaaphco-1\",\"jpabhiip-1\",\"jpaciopb-1\",\"jpacipeo-1\",\"jpademef-1\",\"jpadnmjk-1\",\"jpafpajb-1\",\"jpahclnh-1\",\"jpahianh-1\",\"jpaihkle-1\",\"jpajkokh-1\",\"jpakpini-1\",\"jpalejnd-1\",\"jpalfdhn-1\",\"jpamhmah-1\",\"jpammaej-1\",\"jpanmcbe-1\",\"jpapilok-1\",\"jpbaedpn-1\",\"jpbaiadg-1\",\"jpbbgfbm-1\",\"jpbdjpco-1\",\"jpbfeeei-1\",\"jpbfkooe-1\",\"jpfoodph-1\",\"jpfopiad-1\",\"jpfpbbpn-1\",\"jpfpekhk-1\",\"jpgaohcl-1\",\"jpgbnkob-1\",\"jpgccmno-1\",\"jpgcmhhp-1\",\"jpgdbokp-1\",\"jpgdhhce-1\",\"jpgdmppp-1\",\"jpgfadcg-1\",\"jpgfddoo-1\",\"jpgfjbdk-1\",\"jpgfpaif-1\",\"jpghobji-1\",\"jpgicknl-1\",\"jpgikhdn-1\",\"jpgjfdok-1\",\"jpgobfgp-1\",\"jphchcem-1\",\"jphdceol-1\",\"jphedoca-1\",\"jphefbok-1\",\"jphefepg-1\",\"jphgbenc-1\",\"kaanocje-1\",\"kaaphdbm-1\",\"kabinfho-1\",\"kabjopcl-1\",\"kagdhhbk-1\",\"kagdmklf-1\",\"kageacfi-1\",\"kaggipfe-1\",\"kaghgefi-1\",\"kagipgih-1\",\"kagjegeg-1\",\"kaglkkmh-1\",\"kagmikke-1\",\"kagnhbce-1\",\"kagodpha-1\",\"kagojlco-1\",\"kagopied-1\",\"kagpeahn-1\",\"kagpepkn-1\",\"kahbccik-1\",\"kahbemgg-1\",\"kahcmllc-1\",\"kahddana-1\",\"kahddjgg-1\",\"kahdelaa-1\",\"kaheiech-1\",\"kahelopj-1\",\"kahfamjm-1\",\"kahgdbck-1\",\"kahgnbbo-1\",\"kahhlnjm-1\",\"kahibioo-1\",\"kahihclc-1\",\"kahijebk-1\",\"kahknkle-1\",\"kahkobnc-1\",\"kahlaccm-1\",\"kahlickk-1\",\"kahlnacj-1\",\"kahmhpdc-1\",\"kahpheid-1\",\"kahplmln-1\",\"kahppcfd-1\",\"kaialofp-1\",\"kaiaoikn-1\",\"kaiaojoo-1\",\"kaigfaeh-1\",\"kaijoalk-1\",\"kaikehki-1\",\"kaikngjm-1\",\"kaindakl-1\",\"kaiofima-1\",\"kaipbpcb-1\",\"kajfomgk-1\",\"kajgggif-1\",\"kajijoko-1\",\"kajjkecm-1\",\"kajkekig-1\",\"kajlbknb-1\",\"kajmnojk-1\",\"kajondjg-1\",\"kajoplmp-1\",\"kajpahmk-1\",\"kajpofhe-1\",\"kakalapj-1\",\"kakaocnj-1\",\"kakbbljd-1\",\"kakbmhok-1\",\"kakefank-1\",\"kakfdkfg-1\",\"kakfhkgb-1\",\"kakgnjnk-1\",\"kakgphan-1\",\"kakhcgaa-1\",\"kakhpgio-1\",\"kaklbcll-1\",\"kakldlhh-1\",\"kalflcon-1\",\"kamhaaap-1\",\"ohalhnjj-1\",\"ohfchihd-1\"]"
+                  - button "复制当前共享选区的确切 IDs" [ref=f1e580] [cursor=pointer]
+              - cell [ref=f1e581]:
+                - textbox "假设修改后的标签" [ref=f1e582]:
+                  - /placeholder: 留空保留原标签
+                  - text: Uncertain
+                - combobox "假设纳入状态" [ref=f1e583]:
+                  - option "保留纳入状态" [selected]
+                  - option "假设排除"
+                  - option "假设纳入"
+              - cell [ref=f1e584]:
+                - textbox "假设理由" [ref=f1e585]: Relabel program-positive cells supported by exactly two of three markers to Uncertain (stronger marker support assumption) Actual inherited ID set includes only B_program/T_program groups; Mixed_program is unchanged.
+              - cell [ref=f1e586]:
+                - button "移除假设" [ref=f1e587] [cursor=pointer]
+            - row [ref=f1e588]:
+              - cell [ref=f1e589]:
+                - textbox "假设名称" [ref=f1e590]:
+                  - /placeholder: 给这个独立假设命名
+                  - text: unmeasured_CD3D_negative_control
+              - cell [ref=f1e591]:
+                - combobox "假设对象选择方式" [ref=f1e592]:
+                  - option "满足全部 AND 条件" [selected]
+                  - option "明确列出的细胞 ID"
+                - generic [ref=f1e593]:
+                  - generic [ref=f1e595]:
+                    - textbox "条件字段" [ref=f1e596]:
+                      - /placeholder: label / included / attributes.nucleus_count / counts.特征ID
+                      - text: counts.CD3D
+                    - combobox "条件运算" [ref=f1e597]:
+                      - option "等于"
+                      - option "不等于"
+                      - option ">"
+                      - option "≥" [selected]
+                      - option "<"
+                      - option "≤"
+                      - option "属于列表"
+                    - combobox "条件值类型" [ref=f1e598]:
+                      - option "文本"
+                      - option "数字" [selected]
+                      - option "布尔"
+                      - option "null（未知）"
+                      - option "JSON 列表"
+                    - textbox "条件值" [ref=f1e599]:
+                      - /placeholder: 布尔填 true / false；列表填 [1,2] 或 ["A","B"]
+                      - text: "1"
+                    - button "移除条件" [ref=f1e600] [cursor=pointer]
+                  - button "添加 AND 条件" [ref=f1e601] [cursor=pointer]
+              - cell [ref=f1e602]:
+                - textbox "假设修改后的标签" [ref=f1e603]:
+                  - /placeholder: 留空保留原标签
+                  - text: Uncertain
+                - combobox "假设纳入状态" [ref=f1e604]:
+                  - option "保留纳入状态" [selected]
+                  - option "假设排除"
+                  - option "假设纳入"
+              - cell [ref=f1e605]:
+                - textbox "假设理由" [ref=f1e606]: CD3D is absent from this measured panel; membership must remain unknown rather than imputed zero or dropped.
+              - cell [ref=f1e607]:
+                - button "移除假设" [ref=f1e608] [cursor=pointer]
+        - button "添加假设" [ref=f1e169] [cursor=pointer]
+        - generic [ref=f1e170]:
+          - button "保存草稿" [ref=f1e171] [cursor=pointer]
+          - button "冻结全部参数与对象" [disabled] [ref=f1e172]
+          - button "运行已冻结计划" [ref=f1e173] [cursor=pointer]
+        - paragraph [ref=f1e174]: Real lymph-node annotation and weighting sensitivity · plan_b76d1b938ef44534b9093e6bbf62f4f4 · 版本 3 · 已冻结 · 可按此精确版本运行；编辑会生成新草稿。
+        - group [ref=f1e175]:
+          - generic "冻结对象、未知条件及完整计划" [ref=f1e176] [cursor=pointer]
+      - generic [ref=f1e251]:
+        - generic [ref=f1e252]:
+          - heading "冻结计划的全部敏感性结果 · 未写入注释" [level=3] [ref=f1e253]
+          - generic [ref=f1e254]: 已保存 run_fdf9518b468444…
+        - generic [ref=f1e255]:
+          - generic [ref=f1e928]:
+            - text: 完整比较组合
+            - strong [ref=f1e929]: "24"
+            - text: 计划 v3 · 4 个独立假设
+          - generic [ref=f1e930]:
+            - text: 已计算 / 未知 / 失败
+            - strong [ref=f1e931]: 18 / 6 / 0
+            - text: 全部保留，未选择获胜假设
+          - generic [ref=f1e932]:
+            - text: 真实注释版本
+            - strong [ref=f1e933]: 未创建修订
+            - text: 固定基线 rev_0a68d322186040…
+        - generic [ref=f1e262]:
+          - paragraph [ref=f1e934]: 全部组合按两种估计量中最大的 |变化量| 排序；未知与失败保留在表尾。同一行并列展示按边计权和来源对象等权，差异不代表方法准确率。
+          - table [ref=f1e935]:
+            - row [ref=f1e936]:
+              - columnheader "组合 / 假设" [ref=f1e937]
+              - columnheader "半径 / 范围" [ref=f1e938]
+              - columnheader "状态 / 原因" [ref=f1e939]
+              - columnheader "修改与未知对象" [ref=f1e940]
+              - columnheader "按边计权：基线 → 假设" [ref=f1e941]
+              - columnheader "按边变化 / 判定" [ref=f1e942]
+              - columnheader "来源等权：基线 → 假设" [ref=f1e943]
+              - columnheader "来源等权变化 / 判定" [ref=f1e944]
+              - columnheader "等权 − 按边：基线 → 假设" [ref=f1e945]
+              - columnheader "前后分母" [ref=f1e946]
+            - row [ref=f1e947]:
+              - cell "row_0016 require_three_markers" [ref=f1e948]
+              - cell "15 µm 选区内部" [ref=f1e949]
+              - cell "已计算" [ref=f1e950]
+              - cell "命中 2008；实际改 2008；ROI 内改 852；条件未知 0" [ref=f1e951]
+              - cell "-0.048（观察 0.188 / 背景 0.236；分母 6118） → -0.013（观察 0.069 / 背景 0.081；分母 1122）" [ref=f1e952]
+              - cell "0.035 · 阈值判断稳定" [ref=f1e953]
+              - cell "-0.053（观察 0.183 / 背景 0.236；分母 401） → -0.015（观察 0.067 / 背景 0.081；分母 73）" [ref=f1e954]
+              - cell "0.038 · 阈值判断稳定" [ref=f1e955]
+              - cell "-0.005 → -0.002" [ref=f1e956]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 6118；目标边 1153；背景 3383 → 来源 73；有邻居来源 73；孤立 0；边 1122；目标边 77；背景 3383" [ref=f1e957]
+            - row [ref=f1e958]:
+              - cell "row_0013 require_three_markers" [ref=f1e959]
+              - cell "15 µm 全导入窗口邻居" [ref=f1e960]
+              - cell "已计算" [ref=f1e961]
+              - cell "命中 2008；实际改 2008；ROI 内改 852；条件未知 0" [ref=f1e962]
+              - cell "-0.045（观察 0.188 / 背景 0.233；分母 6330） → -0.019（观察 0.068 / 背景 0.087；分母 1169）" [ref=f1e963]
+              - cell "0.026 · 阈值判断稳定" [ref=f1e964]
+              - cell "-0.049（观察 0.183 / 背景 0.233；分母 401） → -0.020（观察 0.067 / 背景 0.087；分母 73）" [ref=f1e965]
+              - cell "0.029 · 阈值判断稳定" [ref=f1e966]
+              - cell "-0.004 → -0.001" [ref=f1e967]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 6330；目标边 1188；背景 7725 → 来源 73；有邻居来源 73；孤立 0；边 1169；目标边 80；背景 7725" [ref=f1e968]
+            - row [ref=f1e969]:
+              - cell "row_0018 require_three_markers" [ref=f1e970]
+              - cell "75 µm 选区内部" [ref=f1e971]
+              - cell "已计算" [ref=f1e972]
+              - cell "命中 2008；实际改 2008；ROI 内改 852；条件未知 0" [ref=f1e973]
+              - cell "-0.031（观察 0.205 / 背景 0.236；分母 128486） → -0.011（观察 0.070 / 背景 0.081；分母 23294）" [ref=f1e974]
+              - cell "0.020 · 阈值判断稳定" [ref=f1e975]
+              - cell "-0.036（观察 0.200 / 背景 0.236；分母 401） → -0.014（观察 0.067 / 背景 0.081；分母 73）" [ref=f1e976]
+              - cell "0.022 · 阈值判断稳定" [ref=f1e977]
+              - cell "-0.005 → -0.003" [ref=f1e978]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 128486；目标边 26339；背景 3383 → 来源 73；有邻居来源 73；孤立 0；边 23294；目标边 1640；背景 3383" [ref=f1e979]
+            - row [ref=f1e980]:
+              - cell "row_0017 require_three_markers" [ref=f1e981]
+              - cell "35 µm 选区内部" [ref=f1e982]
+              - cell "已计算" [ref=f1e983]
+              - cell "命中 2008；实际改 2008；ROI 内改 852；条件未知 0" [ref=f1e984]
+              - cell "-0.040（观察 0.196 / 背景 0.236；分母 31864） → -0.021（观察 0.061 / 背景 0.081；分母 5764）" [ref=f1e985]
+              - cell "0.019 · 阈值判断稳定" [ref=f1e986]
+              - cell "-0.045（观察 0.192 / 背景 0.236；分母 401） → -0.023（观察 0.059 / 背景 0.081；分母 73）" [ref=f1e987]
+              - cell "0.022 · 阈值判断稳定" [ref=f1e988]
+              - cell "-0.005 → -0.002" [ref=f1e989]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 31864；目标边 6252；背景 3383 → 来源 73；有邻居来源 73；孤立 0；边 5764；目标边 349；背景 3383" [ref=f1e990]
+            - row [ref=f1e991]:
+              - cell "row_0015 require_three_markers" [ref=f1e992]
+              - cell "75 µm 全导入窗口邻居" [ref=f1e993]
+              - cell "已计算" [ref=f1e994]
+              - cell "命中 2008；实际改 2008；ROI 内改 852；条件未知 0" [ref=f1e995]
+              - cell "-0.027（观察 0.206 / 背景 0.233；分母 156024） → -0.015（观察 0.072 / 背景 0.087；分母 28774）" [ref=f1e996]
+              - cell "0.012 · 阈值判断稳定" [ref=f1e997]
+              - cell "-0.029（观察 0.204 / 背景 0.233；分母 401） → -0.016（观察 0.071 / 背景 0.087；分母 73）" [ref=f1e998]
+              - cell "0.012 · 阈值判断稳定" [ref=f1e999]
+              - cell "-0.002 → -0.001" [ref=f1e1000]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 156024；目标边 32123；背景 7725 → 来源 73；有邻居来源 73；孤立 0；边 28774；目标边 2074；背景 7725" [ref=f1e1001]
+            - row [ref=f1e1002]:
+              - cell "row_0014 require_three_markers" [ref=f1e1003]
+              - cell "35 µm 全导入窗口邻居" [ref=f1e1004]
+              - cell "已计算" [ref=f1e1005]
+              - cell "命中 2008；实际改 2008；ROI 内改 852；条件未知 0" [ref=f1e1006]
+              - cell "-0.038（观察 0.195 / 背景 0.233；分母 34775） → -0.027（观察 0.060 / 背景 0.087；分母 6402）" [ref=f1e1007]
+              - cell "0.010 · 阈值判断稳定" [ref=f1e1008]
+              - cell "-0.039（观察 0.193 / 背景 0.233；分母 401） → -0.028（观察 0.059 / 背景 0.087；分母 73）" [ref=f1e1009]
+              - cell "0.012 · 阈值判断稳定" [ref=f1e1010]
+              - cell "-0.002 → -0.000" [ref=f1e1011]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 34775；目标边 6790；背景 7725 → 来源 73；有邻居来源 73；孤立 0；边 6402；目标边 382；背景 7725" [ref=f1e1012]
+            - row [ref=f1e1013]:
+              - cell "row_0001 non_single_nucleus_uncertain" [ref=f1e1014]
+              - cell "15 µm 全导入窗口邻居" [ref=f1e1015]
+              - cell "已计算" [ref=f1e1016]
+              - cell "命中 590；实际改 590；ROI 内改 252；条件未知 0" [ref=f1e1017]
+              - cell "-0.045（观察 0.188 / 背景 0.233；分母 6330） → -0.036（观察 0.171 / 背景 0.207；分母 5734）" [ref=f1e1018]
+              - cell "0.009 · 阈值判断稳定" [ref=f1e1019]
+              - cell "-0.049（观察 0.183 / 背景 0.233；分母 401） → -0.039（观察 0.168 / 背景 0.207；分母 364）" [ref=f1e1020]
+              - cell "0.010 · 阈值判断稳定" [ref=f1e1021]
+              - cell "-0.004 → -0.003" [ref=f1e1022]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 6330；目标边 1188；背景 7725 → 来源 364；有邻居来源 364；孤立 0；边 5734；目标边 981；背景 7725" [ref=f1e1023]
+            - row [ref=f1e1024]:
+              - cell "row_0007 non_single_nucleus_excluded" [ref=f1e1025]
+              - cell "15 µm 全导入窗口邻居" [ref=f1e1026]
+              - cell "已计算" [ref=f1e1027]
+              - cell "命中 590；实际改 590；ROI 内改 252；条件未知 0" [ref=f1e1028]
+              - cell "-0.045（观察 0.188 / 背景 0.233；分母 6330） → -0.038（观察 0.186 / 背景 0.224；分母 5265）" [ref=f1e1029]
+              - cell "0.007 · 阈值判断稳定" [ref=f1e1030]
+              - cell "-0.049（观察 0.183 / 背景 0.233；分母 401） → -0.040（观察 0.184 / 背景 0.224；分母 364）" [ref=f1e1031]
+              - cell "0.010 · 阈值判断稳定" [ref=f1e1032]
+              - cell "-0.004 → -0.002" [ref=f1e1033]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 6330；目标边 1188；背景 7725 → 来源 364；有邻居来源 364；孤立 0；边 5265；目标边 981；背景 7135" [ref=f1e1034]
+            - row [ref=f1e1035]:
+              - cell "row_0002 non_single_nucleus_uncertain" [ref=f1e1036]
+              - cell "35 µm 全导入窗口邻居" [ref=f1e1037]
+              - cell "已计算" [ref=f1e1038]
+              - cell "命中 590；实际改 590；ROI 内改 252；条件未知 0" [ref=f1e1039]
+              - cell "-0.038（观察 0.195 / 背景 0.233；分母 34775） → -0.030（观察 0.177 / 背景 0.207；分母 31466）" [ref=f1e1040]
+              - cell "0.007 · 阈值判断稳定" [ref=f1e1041]
+              - cell "-0.039（观察 0.193 / 背景 0.233；分母 401） → -0.032（观察 0.175 / 背景 0.207；分母 364）" [ref=f1e1042]
+              - cell "0.008 · 阈值判断稳定" [ref=f1e1043]
+              - cell "-0.002 → -0.002" [ref=f1e1044]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 34775；目标边 6790；背景 7725 → 来源 364；有邻居来源 364；孤立 0；边 31466；目标边 5559；背景 7725" [ref=f1e1045]
+            - row [ref=f1e1046]:
+              - cell "row_0004 non_single_nucleus_uncertain" [ref=f1e1047]
+              - cell "15 µm 选区内部" [ref=f1e1048]
+              - cell "已计算" [ref=f1e1049]
+              - cell "命中 590；实际改 590；ROI 内改 252；条件未知 0" [ref=f1e1050]
+              - cell "-0.048（观察 0.188 / 背景 0.236；分母 6118） → -0.042（观察 0.171 / 背景 0.213；分母 5528）" [ref=f1e1051]
+              - cell "0.006 · 阈值判断稳定" [ref=f1e1052]
+              - cell "-0.053（观察 0.183 / 背景 0.236；分母 401） → -0.046（观察 0.167 / 背景 0.213；分母 364）" [ref=f1e1053]
+              - cell "0.007 · 阈值判断稳定" [ref=f1e1054]
+              - cell "-0.005 → -0.004" [ref=f1e1055]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 6118；目标边 1153；背景 3383 → 来源 364；有邻居来源 364；孤立 0；边 5528；目标边 948；背景 3383" [ref=f1e1056]
+            - row [ref=f1e1057]:
+              - cell "row_0010 non_single_nucleus_excluded" [ref=f1e1058]
+              - cell "15 µm 选区内部" [ref=f1e1059]
+              - cell "已计算" [ref=f1e1060]
+              - cell "命中 590；实际改 590；ROI 内改 252；条件未知 0" [ref=f1e1061]
+              - cell "-0.048（观察 0.188 / 背景 0.236；分母 6118） → -0.043（观察 0.187 / 背景 0.230；分母 5066）" [ref=f1e1062]
+              - cell "0.005 · 阈值判断稳定" [ref=f1e1063]
+              - cell "-0.053（观察 0.183 / 背景 0.236；分母 401） → -0.046（观察 0.184 / 背景 0.230；分母 364）" [ref=f1e1064]
+              - cell "0.007 · 阈值判断稳定" [ref=f1e1065]
+              - cell "-0.005 → -0.003" [ref=f1e1066]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 6118；目标边 1153；背景 3383 → 来源 364；有邻居来源 364；孤立 0；边 5066；目标边 948；背景 3131" [ref=f1e1067]
+            - row [ref=f1e1068]:
+              - cell "row_0008 non_single_nucleus_excluded" [ref=f1e1069]
+              - cell "35 µm 全导入窗口邻居" [ref=f1e1070]
+              - cell "已计算" [ref=f1e1071]
+              - cell "命中 590；实际改 590；ROI 内改 252；条件未知 0" [ref=f1e1072]
+              - cell "-0.038（观察 0.195 / 背景 0.233；分母 34775） → -0.033（观察 0.191 / 背景 0.224；分母 29057）" [ref=f1e1073]
+              - cell "0.005 · 阈值判断稳定" [ref=f1e1074]
+              - cell "-0.039（观察 0.193 / 背景 0.233；分母 401） → -0.033（观察 0.191 / 背景 0.224；分母 364）" [ref=f1e1075]
+              - cell "0.006 · 阈值判断稳定" [ref=f1e1076]
+              - cell "-0.002 → -0.001" [ref=f1e1077]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 34775；目标边 6790；背景 7725 → 来源 364；有邻居来源 364；孤立 0；边 29057；目标边 5559；背景 7135" [ref=f1e1078]
+            - row [ref=f1e1079]:
+              - cell "row_0003 non_single_nucleus_uncertain" [ref=f1e1080]
+              - cell "75 µm 全导入窗口邻居" [ref=f1e1081]
+              - cell "已计算" [ref=f1e1082]
+              - cell "命中 590；实际改 590；ROI 内改 252；条件未知 0" [ref=f1e1083]
+              - cell "-0.027（观察 0.206 / 背景 0.233；分母 156024） → -0.022（观察 0.185 / 背景 0.207；分母 141393）" [ref=f1e1084]
+              - cell "0.005 · 阈值判断稳定" [ref=f1e1085]
+              - cell "-0.029（观察 0.204 / 背景 0.233；分母 401） → -0.023（观察 0.184 / 背景 0.207；分母 364）" [ref=f1e1086]
+              - cell "0.005 · 阈值判断稳定" [ref=f1e1087]
+              - cell "-0.002 → -0.001" [ref=f1e1088]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 156024；目标边 32123；背景 7725 → 来源 364；有邻居来源 364；孤立 0；边 141393；目标边 26110；背景 7725" [ref=f1e1089]
+            - row [ref=f1e1090]:
+              - cell "row_0005 non_single_nucleus_uncertain" [ref=f1e1091]
+              - cell "35 µm 选区内部" [ref=f1e1092]
+              - cell "已计算" [ref=f1e1093]
+              - cell "命中 590；实际改 590；ROI 内改 252；条件未知 0" [ref=f1e1094]
+              - cell "-0.040（观察 0.196 / 背景 0.236；分母 31864） → -0.036（观察 0.178 / 背景 0.213；分母 28747）" [ref=f1e1095]
+              - cell "0.005 · 阈值判断稳定" [ref=f1e1096]
+              - cell "-0.045（观察 0.192 / 背景 0.236；分母 401） → -0.040（观察 0.174 / 背景 0.213；分母 364）" [ref=f1e1097]
+              - cell "0.005 · 阈值判断稳定" [ref=f1e1098]
+              - cell "-0.005 → -0.004" [ref=f1e1099]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 31864；目标边 6252；背景 3383 → 来源 364；有邻居来源 364；孤立 0；边 28747；目标边 5107；背景 3383" [ref=f1e1100]
+            - row [ref=f1e1101]:
+              - cell "row_0009 non_single_nucleus_excluded" [ref=f1e1102]
+              - cell "75 µm 全导入窗口邻居" [ref=f1e1103]
+              - cell "已计算" [ref=f1e1104]
+              - cell "命中 590；实际改 590；ROI 内改 252；条件未知 0" [ref=f1e1105]
+              - cell "-0.027（观察 0.206 / 背景 0.233；分母 156024） → -0.024（观察 0.200 / 背景 0.224；分母 130840）" [ref=f1e1106]
+              - cell "0.002 · 阈值判断稳定" [ref=f1e1107]
+              - cell "-0.029（观察 0.204 / 背景 0.233；分母 401） → -0.025（观察 0.199 / 背景 0.224；分母 364）" [ref=f1e1108]
+              - cell "0.004 · 阈值判断稳定" [ref=f1e1109]
+              - cell "-0.002 → -0.000" [ref=f1e1110]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 156024；目标边 32123；背景 7725 → 来源 364；有邻居来源 364；孤立 0；边 130840；目标边 26110；背景 7135" [ref=f1e1111]
+            - row [ref=f1e1112]:
+              - cell "row_0006 non_single_nucleus_uncertain" [ref=f1e1113]
+              - cell "75 µm 选区内部" [ref=f1e1114]
+              - cell "已计算" [ref=f1e1115]
+              - cell "命中 590；实际改 590；ROI 内改 252；条件未知 0" [ref=f1e1116]
+              - cell "-0.031（观察 0.205 / 背景 0.236；分母 128486） → -0.028（观察 0.185 / 背景 0.213；分母 116321）" [ref=f1e1117]
+              - cell "0.003 · 阈值判断稳定" [ref=f1e1118]
+              - cell "-0.036（观察 0.200 / 背景 0.236；分母 401） → -0.032（观察 0.181 / 背景 0.213；分母 364）" [ref=f1e1119]
+              - cell "0.004 · 阈值判断稳定" [ref=f1e1120]
+              - cell "-0.005 → -0.004" [ref=f1e1121]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 128486；目标边 26339；背景 3383 → 来源 364；有邻居来源 364；孤立 0；边 116321；目标边 21512；背景 3383" [ref=f1e1122]
+            - row [ref=f1e1123]:
+              - cell "row_0011 non_single_nucleus_excluded" [ref=f1e1124]
+              - cell "35 µm 选区内部" [ref=f1e1125]
+              - cell "已计算" [ref=f1e1126]
+              - cell "命中 590；实际改 590；ROI 内改 252；条件未知 0" [ref=f1e1127]
+              - cell "-0.040（观察 0.196 / 背景 0.236；分母 31864） → -0.038（观察 0.193 / 背景 0.230；分母 26526）" [ref=f1e1128]
+              - cell "0.002 · 阈值判断稳定" [ref=f1e1129]
+              - cell "-0.045（观察 0.192 / 背景 0.236；分母 401） → -0.041（观察 0.189 / 背景 0.230；分母 364）" [ref=f1e1130]
+              - cell "0.004 · 阈值判断稳定" [ref=f1e1131]
+              - cell "-0.005 → -0.003" [ref=f1e1132]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 31864；目标边 6252；背景 3383 → 来源 364；有邻居来源 364；孤立 0；边 26526；目标边 5107；背景 3131" [ref=f1e1133]
+            - row [ref=f1e1134]:
+              - cell "row_0012 non_single_nucleus_excluded" [ref=f1e1135]
+              - cell "75 µm 选区内部" [ref=f1e1136]
+              - cell "已计算" [ref=f1e1137]
+              - cell "命中 590；实际改 590；ROI 内改 252；条件未知 0" [ref=f1e1138]
+              - cell "-0.031（观察 0.205 / 背景 0.236；分母 128486） → -0.031（观察 0.200 / 背景 0.230；分母 107818）" [ref=f1e1139]
+              - cell "0.000 · 阈值判断稳定" [ref=f1e1140]
+              - cell "-0.036（观察 0.200 / 背景 0.236；分母 401） → -0.033（观察 0.197 / 背景 0.230；分母 364）" [ref=f1e1141]
+              - cell "0.002 · 阈值判断稳定" [ref=f1e1142]
+              - cell "-0.005 → -0.003" [ref=f1e1143]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 128486；目标边 26339；背景 3383 → 来源 364；有邻居来源 364；孤立 0；边 107818；目标边 21512；背景 3131" [ref=f1e1144]
+            - row [ref=f1e1145]:
+              - cell "row_0019 unmeasured_CD3D_negative_control" [ref=f1e1146]
+              - cell "15 µm 全导入窗口邻居" [ref=f1e1147]
+              - cell "未知 / 不可判定 hypothesis_selector_has_unknown_observations" [ref=f1e1148]
+              - cell "命中 0；实际改 0；ROI 内改 0；条件未知 7725" [ref=f1e1149]
+              - cell "-0.045（观察 0.188 / 背景 0.233；分母 6330） → 不可判定：hypothesis_selector_has_unknown_observations" [ref=f1e1150]
+              - cell "不可判定 · 不可判定" [ref=f1e1151]
+              - cell "-0.049（观察 0.183 / 背景 0.233；分母 401） → 不可判定：hypothesis_selector_has_unknown_observations" [ref=f1e1152]
+              - cell "不可判定 · 不可判定" [ref=f1e1153]
+              - cell "-0.004 → 不可判定" [ref=f1e1154]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 6330；目标边 1188；背景 7725 → 未计算：hypothesis_selector_has_unknown_observations" [ref=f1e1155]
+            - row [ref=f1e1156]:
+              - cell "row_0020 unmeasured_CD3D_negative_control" [ref=f1e1157]
+              - cell "35 µm 全导入窗口邻居" [ref=f1e1158]
+              - cell "未知 / 不可判定 hypothesis_selector_has_unknown_observations" [ref=f1e1159]
+              - cell "命中 0；实际改 0；ROI 内改 0；条件未知 7725" [ref=f1e1160]
+              - cell "-0.038（观察 0.195 / 背景 0.233；分母 34775） → 不可判定：hypothesis_selector_has_unknown_observations" [ref=f1e1161]
+              - cell "不可判定 · 不可判定" [ref=f1e1162]
+              - cell "-0.039（观察 0.193 / 背景 0.233；分母 401） → 不可判定：hypothesis_selector_has_unknown_observations" [ref=f1e1163]
+              - cell "不可判定 · 不可判定" [ref=f1e1164]
+              - cell "-0.002 → 不可判定" [ref=f1e1165]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 34775；目标边 6790；背景 7725 → 未计算：hypothesis_selector_has_unknown_observations" [ref=f1e1166]
+            - row [ref=f1e1167]:
+              - cell "row_0021 unmeasured_CD3D_negative_control" [ref=f1e1168]
+              - cell "75 µm 全导入窗口邻居" [ref=f1e1169]
+              - cell "未知 / 不可判定 hypothesis_selector_has_unknown_observations" [ref=f1e1170]
+              - cell "命中 0；实际改 0；ROI 内改 0；条件未知 7725" [ref=f1e1171]
+              - cell "-0.027（观察 0.206 / 背景 0.233；分母 156024） → 不可判定：hypothesis_selector_has_unknown_observations" [ref=f1e1172]
+              - cell "不可判定 · 不可判定" [ref=f1e1173]
+              - cell "-0.029（观察 0.204 / 背景 0.233；分母 401） → 不可判定：hypothesis_selector_has_unknown_observations" [ref=f1e1174]
+              - cell "不可判定 · 不可判定" [ref=f1e1175]
+              - cell "-0.002 → 不可判定" [ref=f1e1176]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 156024；目标边 32123；背景 7725 → 未计算：hypothesis_selector_has_unknown_observations" [ref=f1e1177]
+            - row [ref=f1e1178]:
+              - cell "row_0022 unmeasured_CD3D_negative_control" [ref=f1e1179]
+              - cell "15 µm 选区内部" [ref=f1e1180]
+              - cell "未知 / 不可判定 hypothesis_selector_has_unknown_observations" [ref=f1e1181]
+              - cell "命中 0；实际改 0；ROI 内改 0；条件未知 7725" [ref=f1e1182]
+              - cell "-0.048（观察 0.188 / 背景 0.236；分母 6118） → 不可判定：hypothesis_selector_has_unknown_observations" [ref=f1e1183]
+              - cell "不可判定 · 不可判定" [ref=f1e1184]
+              - cell "-0.053（观察 0.183 / 背景 0.236；分母 401） → 不可判定：hypothesis_selector_has_unknown_observations" [ref=f1e1185]
+              - cell "不可判定 · 不可判定" [ref=f1e1186]
+              - cell "-0.005 → 不可判定" [ref=f1e1187]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 6118；目标边 1153；背景 3383 → 未计算：hypothesis_selector_has_unknown_observations" [ref=f1e1188]
+            - row [ref=f1e1189]:
+              - cell "row_0023 unmeasured_CD3D_negative_control" [ref=f1e1190]
+              - cell "35 µm 选区内部" [ref=f1e1191]
+              - cell "未知 / 不可判定 hypothesis_selector_has_unknown_observations" [ref=f1e1192]
+              - cell "命中 0；实际改 0；ROI 内改 0；条件未知 7725" [ref=f1e1193]
+              - cell "-0.040（观察 0.196 / 背景 0.236；分母 31864） → 不可判定：hypothesis_selector_has_unknown_observations" [ref=f1e1194]
+              - cell "不可判定 · 不可判定" [ref=f1e1195]
+              - cell "-0.045（观察 0.192 / 背景 0.236；分母 401） → 不可判定：hypothesis_selector_has_unknown_observations" [ref=f1e1196]
+              - cell "不可判定 · 不可判定" [ref=f1e1197]
+              - cell "-0.005 → 不可判定" [ref=f1e1198]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 31864；目标边 6252；背景 3383 → 未计算：hypothesis_selector_has_unknown_observations" [ref=f1e1199]
+            - row [ref=f1e1200]:
+              - cell "row_0024 unmeasured_CD3D_negative_control" [ref=f1e1201]
+              - cell "75 µm 选区内部" [ref=f1e1202]
+              - cell "未知 / 不可判定 hypothesis_selector_has_unknown_observations" [ref=f1e1203]
+              - cell "命中 0；实际改 0；ROI 内改 0；条件未知 7725" [ref=f1e1204]
+              - cell "-0.031（观察 0.205 / 背景 0.236；分母 128486） → 不可判定：hypothesis_selector_has_unknown_observations" [ref=f1e1205]
+              - cell "不可判定 · 不可判定" [ref=f1e1206]
+              - cell "-0.036（观察 0.200 / 背景 0.236；分母 401） → 不可判定：hypothesis_selector_has_unknown_observations" [ref=f1e1207]
+              - cell "不可判定 · 不可判定" [ref=f1e1208]
+              - cell "-0.005 → 不可判定" [ref=f1e1209]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 128486；目标边 26339；背景 3383 → 未计算：hypothesis_selector_has_unknown_observations" [ref=f1e1210]
+        - paragraph [ref=f1e540]: 每个假设均从版本 rev_0a68d32218604025bd39f72c41cc1b2b 和冻结 ROI sel_c382c6bb421d45a5a5c1497f4caac46c 独立出发。背景：各邻域候选范围。来源等权排除孤立来源并保留其数量；两种估计量均不是显著性检验或独立验证。没有创建注释修订或记录研究者批准。
+        - group [ref=f1e541]:
+          - generic "完整指标、分母、参数与局限" [ref=f1e542] [cursor=pointer]
+      - generic [ref=f1e177]:
+        - generic [ref=f1e178]:
+          - heading "保留可复核记录" [level=3] [ref=f1e179]
+          - paragraph [ref=f1e180]: 导出输入快照、修订、选区、结果、来源与文件校验清单。
+          - generic [ref=f1e181]:
+            - checkbox "保存源数据与覆盖层，避免重复复制完整计数" [checked] [ref=f1e182]
+            - generic [ref=f1e183]: 保存源数据与覆盖层，避免重复复制完整计数
+        - button "导出审阅包 ↗" [ref=f1e184] [cursor=pointer]
+    - generic [ref=f1e185]:
+      - text: Spatial Collab · 研究探索 Alpha
+      - generic [ref=f1e186]: NOT_ESTABLISHED · 不将工程记录解释为科学授权

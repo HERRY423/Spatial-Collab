@@ -1,0 +1,11 @@
+include .mcp.json
+include IMPLEMENTATION_CONTRACT.md
+include V02_CONTRACT.md
+recursive-include .codex-plugin *.json
+recursive-include .claude-plugin *.json
+recursive-include skills *.md
+recursive-include scripts *.py *.ps1
+recursive-include tests *.py *.cjs
+recursive-include docs *.md *.json
+recursive-include src/spatial_collab/static *
+exclude docs/source-manifest.json

@@ -1,0 +1,607 @@
+- generic [ref=f1e1]:
+  - banner [ref=f1e2]:
+    - generic [ref=f1e3]:
+      - generic [ref=f1e4]: ◈
+      - generic [ref=f1e5]:
+        - strong [ref=f1e6]: Spatial Collab
+        - generic [ref=f1e7]: 空间转录组协作工作台
+      - generic [ref=f1e8]: ALPHA 0.4
+    - generic [ref=f1e9]:
+      - generic [ref=f1e10]: ● 本地共享项目
+      - button "↻ 刷新共享状态" [ref=f1e11] [cursor=pointer]
+  - main [ref=f1e12]:
+    - generic [ref=f1e13]:
+      - generic [ref=f1e14]:
+        - generic [ref=f1e15]: OBSERVE · REVISE · RECHECK
+        - heading "v0.4 real lymph-node frozen hypothesis review" [level=1] [ref=f1e187]
+        - paragraph [ref=f1e17]: Xenium · 切片 xenium-prime-reactive-lymph-node · xenium_native_xy · µm · 7,725 个细胞
+      - generic [ref=f1e18]:
+        - generic [ref=f1e19]: 视图版本
+        - code [ref=f1e20]: rev_0a68d32218604025bd39f72c41cc1b2b
+        - generic [ref=f1e21]: 输入来源：xenium_h5_csv
+    - generic [ref=f1e22]: 当前对象：细胞。此处展示质心与原始标记计数；登记图像与掩膜的视觉复核在 napari 中进行，转录本未在此处复核。细胞身份是待检验的工作注释；质心邻近不证明接触或通讯。 当前为声明的导入窗口 [2700,2700,3300,3300] µm，未导入原始整张切片。邻居与背景只来自此窗口。
+    - region [ref=f1e23]:
+      - generic [ref=f1e24]:
+        - heading "核对数据来源与工作注释" [level=2] [ref=f1e25]
+        - generic [ref=f1e26]: 导入时记录
+      - generic [ref=f1e188]:
+        - generic [ref=f1e892]:
+          - generic [ref=f1e893]: 来源切片 ID
+          - strong [ref=f1e894]: xenium-prime-reactive-lymph-node
+        - generic [ref=f1e895]:
+          - generic [ref=f1e896]: 样本 ID
+          - strong [ref=f1e897]: 未单独记录
+        - generic [ref=f1e898]:
+          - generic [ref=f1e899]: 记录平台
+          - strong [ref=f1e900]: Xenium
+        - generic [ref=f1e901]:
+          - generic [ref=f1e902]: 输入格式
+          - strong [ref=f1e903]: xenium_h5_csv
+        - generic [ref=f1e904]:
+          - generic [ref=f1e905]: 导入特征数
+          - strong [ref=f1e906]: "4624"
+        - generic [ref=f1e907]:
+          - generic [ref=f1e908]: 坐标系 / 单位
+          - strong [ref=f1e909]: xenium_native_xy / micrometer
+        - generic [ref=f1e910]:
+          - generic [ref=f1e911]: 导入范围
+          - strong [ref=f1e912]: 空间窗口 [2700,2700,3300,3300] micrometer
+      - generic [ref=f1e210]:
+        - heading "原始来源文件" [level=3] [ref=f1e913]
+        - code [ref=f1e914]: C:\Spatial Transcriptomics\histoweave\datasets_cache\raw_sources\xenium\cells.csv.gz
+        - code [ref=f1e915]: C:\Spatial Transcriptomics\histoweave\datasets_cache\raw_sources\xenium\cell_feature_matrix.h5
+      - paragraph [ref=f1e27]: 自动标记组合工作假设 · 未经细胞身份验证。研究者批准记录：NOT_ESTABLISHED。当前标签来自声明的标记组合规则；可展开查看具体规则、来源版本与计划记录。
+      - paragraph [ref=f1e28]: 切片标识是导入时提供的记录，不是系统自动识别的组织类型。请与原始实验记录及源文件核对。
+      - group [ref=f1e29]:
+        - generic "完整来源文件、导入范围与工作注释规则" [ref=f1e30] [cursor=pointer]
+    - status [ref=f1e31]: 已清空编辑区并建立新的未保存计划。已有版本仍保留。
+    - generic [ref=f1e32]: 使用导入时声明的微米坐标；仍需核对原始标定依据。
+    - generic [ref=f1e33]:
+      - heading "图像与分割的同一对象" [level=2] [ref=f1e34]
+      - paragraph [ref=f1e35]: 登记的图像和掩膜在 napari 中按显式变换加载；当前网页核对来源和确切对象对应关系。像素位置、掩膜标签和细胞 ID 不会互相猜测。
+      - generic [ref=f1e36]:
+        - button "读取图像／分割清单" [ref=f1e37] [cursor=pointer]
+        - combobox "已登记图像或分割" [ref=f1e38]
+        - button "核对选区前 100 个对象" [disabled] [ref=f1e39]
+      - paragraph [ref=f1e40]: 已登记 0 个资产；图像 缺失，分割 缺失。当前仅核对登记记录，读取对象对应时才校验文件内容；缺少证据保持未知，不判断合并分割或真实共表达。
+      - group [ref=f1e1211]:
+        - generic "来源、变换、确切对象对应与局限" [ref=f1e1212] [cursor=pointer]
+    - generic [ref=f1e41]:
+      - generic [ref=f1e42]:
+        - generic [ref=f1e43]:
+          - generic [ref=f1e44]:
+            - generic [ref=f1e45]: "01"
+            - heading "共同观察" [level=2] [ref=f1e46]
+          - generic [ref=f1e47]: 7,725 / 7,725 个视野对象
+        - generic [ref=f1e48]:
+          - group "选择工具" [ref=f1e49]:
+            - button "矩形 / 点选" [ref=f1e50] [cursor=pointer]
+            - button "多边形" [ref=f1e51] [cursor=pointer]
+          - button "适应导入窗口" [ref=f1e214] [cursor=pointer]
+          - button "选择可见细胞" [ref=f1e53] [cursor=pointer]
+        - generic [ref=f1e54]:
+          - generic "细胞质心图，拖动选区；也可使用下方精确 ID 输入选择" [ref=f1e55]
+          - generic: 质心坐标 · µm 拖动框选 · 滚轮缩放
+        - generic [ref=f1e56]:
+          - generic [ref=f1e916]: B_program
+          - generic [ref=f1e918]: Mixed_program
+          - generic [ref=f1e920]: T_program
+          - generic [ref=f1e922]: Unresolved
+          - generic [ref=f1e924]: ○ 已排除细胞
+        - generic [ref=f1e57]:
+          - strong [ref=f1e59]: 已共享 3,383 个细胞
+          - generic [ref=f1e60]: 选区 sel_c382c6bb421d45…
+        - group [ref=f1e61]:
+          - generic "选区坐标、版本与确切细胞 ID" [ref=f1e62] [cursor=pointer]
+        - generic [ref=f1e63]:
+          - generic [ref=f1e64]:
+            - heading "选区的标记证据" [level=3] [ref=f1e65]
+            - generic [ref=f1e66]: 原始计数 · 不自动判定身份
+          - generic [ref=f1e67]:
+            - textbox "标记基因" [ref=f1e68]:
+              - /placeholder: 例如 CD3D, LST1, EPCAM
+            - button "查看证据" [ref=f1e69] [cursor=pointer]
+          - generic [ref=f1e70]: 选择细胞后，可检查标记基因。未测量与测量为零分别显示。
+        - group [ref=f1e71]:
+          - generic "核对稳定特征 ID 与重复符号" [ref=f1e72] [cursor=pointer]
+        - generic [ref=f1e73]:
+          - generic [ref=f1e74]:
+            - heading "检查测量与分割记录" [level=3] [ref=f1e75]
+            - generic [ref=f1e76]: 只读 QC · 不自动排除
+          - generic [ref=f1e77]:
+            - combobox "质量检查对象" [ref=f1e78]:
+              - option "全导入窗口" [selected]
+              - option "当前共享选区"
+            - button "查看 QC 摘要" [ref=f1e79] [cursor=pointer]
+          - generic [ref=f1e80]: 检查源记录的计数、面积、核数量和分割方法。缺失值与测量为零分开显示。
+      - complementary [ref=f1e81]:
+        - generic [ref=f1e82]:
+          - generic [ref=f1e83]:
+            - generic [ref=f1e84]: "02"
+            - heading "提出修订" [level=2] [ref=f1e85]
+          - generic [ref=f1e86]: 覆盖层
+        - paragraph [ref=f1e87]: 对共享选区提出修改，预览后由研究者确认。原始输入保留。
+        - generic [ref=f1e88]: 修改内容
+        - combobox "修改内容" [ref=f1e89]:
+          - option "细胞工作标签" [selected]
+          - option "区域名称"
+          - option "纳入分析状态"
+        - generic [ref=f1e90]: 新值
+        - textbox "新值" [ref=f1e91]:
+          - /placeholder: 例如 T cell
+        - generic [ref=f1e92]: 修订理由
+        - textbox "修订理由" [ref=f1e93]:
+          - /placeholder: 记录观察、标记证据与仍未解决的不确定性
+        - button "预览影响" [ref=f1e94] [cursor=pointer]
+        - generic [ref=f1e95]:
+          - generic [ref=f1e96]:
+            - heading "版本历史" [level=3] [ref=f1e97]
+            - generic [ref=f1e224]: 1 个版本
+          - generic [ref=f1e925]:
+            - strong [ref=f1e926]: rev_0a68d322186040… · 当前
+            - paragraph [ref=f1e927]: Immutable source import
+          - group [ref=f1e98]:
+            - generic "恢复至历史版本" [ref=f1e99] [cursor=pointer]
+            - option "原始 · rev_0a68d322186040…" [selected]
+    - generic [ref=f1e100]:
+      - generic [ref=f1e101]:
+        - generic [ref=f1e102]:
+          - generic [ref=f1e103]: "03"
+          - heading "修订是否改变原有判断？" [level=2] [ref=f1e104]
+        - generic [ref=f1e105]: 同一选区 · 同一参数
+      - paragraph [ref=f1e106]: 检验「来源细胞的邻居中，目标类型的比例超过背景丰度至少多少」。描述性阈值由研究者指定，不输出显著性或因果结论。
+      - generic [ref=f1e107]:
+        - generic [ref=f1e108]:
+          - text: 基线版本
+          - combobox "基线版本" [ref=f1e109]:
+            - option "原始 · rev_0a68d322186040…" [selected]
+        - generic [ref=f1e110]:
+          - text: 修订版本
+          - combobox "修订版本" [ref=f1e111]:
+            - option "原始 · rev_0a68d322186040…" [selected]
+        - generic [ref=f1e112]:
+          - text: 来源类型
+          - textbox "来源类型" [ref=f1e113]: T_program
+        - generic [ref=f1e114]:
+          - text: 目标类型
+          - textbox "目标类型" [ref=f1e115]: B_program
+        - generic [ref=f1e116]:
+          - text: 邻域半径 · µm
+          - spinbutton "邻域半径 · µm" [ref=f1e117]: "35"
+        - generic [ref=f1e118]:
+          - text: 超背景阈值
+          - spinbutton "超背景阈值" [ref=f1e119]: "0.1"
+        - generic [ref=f1e120]:
+          - text: 邻域定义
+          - combobox "邻域定义" [ref=f1e121]:
+            - option "选区内部邻域" [selected]
+            - option "选区来源 + 全导入窗口邻居"
+        - generic [ref=f1e122]:
+          - text: 比较对象
+          - combobox "比较对象" [ref=f1e123]:
+            - option "共享选区的冻结细胞集合" [selected]
+            - option "全导入窗口"
+      - button "运行修订前后检验 →" [ref=f1e124] [cursor=pointer]
+      - generic [ref=f1e125]:
+        - heading "区域与背景：哪个变化值得继续检查？" [level=3] [ref=f1e126]
+        - paragraph [ref=f1e127]: 使用上方相同的基线与修订版本，以当前共享选区为前景。背景默认为导入数据中的其余对象，也可填写另一个已保存选区。两组必须不重叠；标记比较使用左侧基因输入。
+        - generic [ref=f1e128]: 背景选区 ID（留空使用导入数据其余对象）
+        - textbox "背景选区 ID（留空使用导入数据其余对象）" [ref=f1e129]:
+          - /placeholder: sel_… 或留空
+        - button "比较区域组成与标记变化" [ref=f1e130] [cursor=pointer]
+      - generic [ref=f1e131]:
+        - generic [ref=f1e132]: 已保存的检验记录
+        - generic [ref=f1e133]:
+          - combobox "已保存的检验记录" [ref=f1e134]:
+            - option "run_fdf9518b468444… · 当前版本" [selected]
+            - option "run_fd94793108ae48… · 当前版本"
+          - button "读取记录" [ref=f1e135] [cursor=pointer]
+      - generic [ref=f1e136]:
+        - heading "先编辑假设，再冻结全部比较" [level=2] [ref=f1e137]
+        - paragraph [ref=f1e138]: 条件作用于全部导入对象，当前共享 ROI 定义来源对象。所有假设独立从同一基线计算；按边计权与来源对象等权并列，失败和未知结果都保留。冻结计划不会提交注释。
+        - generic [ref=f1e139]:
+          - combobox "已保存假设计划" [ref=f1e140]:
+            - option "Real lymph-node annotation and weighting sensitivity · v3 · 已冻结（最新）" [selected]
+            - option "Real lymph-node annotation and weighting sensitivity · v2 · 草稿（历史）"
+            - option "Real lymph-node annotation and weighting sensitivity · v1 · 草稿（历史）"
+          - button "刷新计划清单" [ref=f1e141] [cursor=pointer]
+          - button "载入计划" [ref=f1e142] [cursor=pointer]
+          - button "另建计划（清空编辑）" [active] [ref=f1e143] [cursor=pointer]
+        - generic [ref=f1e144]:
+          - generic [ref=f1e145]:
+            - text: 计划名称
+            - textbox "计划名称" [ref=f1e146]: 注释敏感性复核
+          - generic [ref=f1e147]:
+            - text: 预先声明的半径 · µm
+            - textbox "预先声明的半径 · µm" [ref=f1e148]: 15, 35, 75
+          - generic [ref=f1e149]:
+            - text: 邻域范围
+            - combobox "邻域范围" [ref=f1e150]:
+              - option "保留外围与选区内部，全部比较" [selected]
+              - option "全导入窗口邻居"
+              - option "只使用选区内部邻居"
+          - generic [ref=f1e151]:
+            - text: 背景定义
+            - combobox "背景定义" [ref=f1e152]:
+              - option "各邻域候选范围" [selected]
+              - option "全部导入对象"
+              - option "指定已保存选区"
+          - generic [ref=f1e153]:
+            - text: 背景选区 ID
+            - textbox "背景选区 ID" [disabled] [ref=f1e154]:
+              - /placeholder: 仅指定选区背景需要
+        - paragraph [ref=f1e155]: 固定版本 rev_0a68d32218604025bd39f72c41cc1b2b · ROI sel_c382c6bb421d45a5a5c1497f4caac46c · 3383 个对象。
+        - button "使用当前共享 ROI 及其版本" [ref=f1e156] [cursor=pointer]
+        - generic [ref=f1e157]:
+          - text: 计划理由
+          - textbox "计划理由" [ref=f1e158]:
+            - /placeholder: 记录为什么检验这些假设、半径和背景
+        - paragraph [ref=f1e159]: 来源与目标工作标签、超背景阈值使用上方输入；共享 ROI、版本与所有参数在冻结时完整记录。每个条件值显式选择文本、数字或布尔类型；未知测量不会当成零。表达条件必须使用 counts.稳定特征ID，可从左侧目录添加。最多 8 个假设、每个 8 个 AND 条件，1–6 个半径，共 96 个组合。
+        - table [ref=f1e161]:
+          - rowgroup [ref=f1e162]:
+            - row [ref=f1e163]:
+              - columnheader "假设名称" [ref=f1e164]
+              - columnheader "对象选择（可叠加 AND 条件）" [ref=f1e165]
+              - columnheader "假设修改" [ref=f1e166]
+              - columnheader "理由" [ref=f1e167]
+              - columnheader "操作" [ref=f1e168]
+          - rowgroup [ref=f1e229]:
+            - row [ref=f1e1213]:
+              - cell [ref=f1e1214]:
+                - textbox "假设名称" [ref=f1e1215]:
+                  - /placeholder: 给这个独立假设命名
+              - cell [ref=f1e1216]:
+                - combobox "假设对象选择方式" [ref=f1e1217]:
+                  - option "满足全部 AND 条件" [selected]
+                  - option "明确列出的细胞 ID"
+                - generic [ref=f1e1218]:
+                  - generic [ref=f1e1220]:
+                    - textbox "条件字段" [ref=f1e1221]:
+                      - /placeholder: label / included / attributes.nucleus_count / counts.特征ID
+                      - text: label
+                    - combobox "条件运算" [ref=f1e1222]:
+                      - option "等于" [selected]
+                      - option "不等于"
+                      - option ">"
+                      - option "≥"
+                      - option "<"
+                      - option "≤"
+                      - option "属于列表"
+                    - combobox "条件值类型" [ref=f1e1223]:
+                      - option "文本" [selected]
+                      - option "数字"
+                      - option "布尔"
+                      - option "null（未知）"
+                      - option "JSON 列表"
+                    - textbox "条件值" [ref=f1e1224]:
+                      - /placeholder: 布尔填 true / false；列表填 [1,2] 或 ["A","B"]
+                    - button "移除条件" [ref=f1e1225] [cursor=pointer]
+                  - button "添加 AND 条件" [ref=f1e1226] [cursor=pointer]
+              - cell "保留纳入状态" [ref=f1e1227]:
+                - textbox "假设修改后的标签" [ref=f1e1228]:
+                  - /placeholder: 留空保留原标签
+                - combobox "假设纳入状态" [ref=f1e1229]:
+                  - option "保留纳入状态" [selected]
+                  - option "假设排除"
+                  - option "假设纳入"
+              - cell [ref=f1e1230]:
+                - textbox "假设理由" [ref=f1e1231]
+              - cell [ref=f1e1232]:
+                - button "移除假设" [ref=f1e1233] [cursor=pointer]
+        - button "添加假设" [ref=f1e169] [cursor=pointer]
+        - generic [ref=f1e170]:
+          - button "保存草稿" [ref=f1e171] [cursor=pointer]
+          - button "冻结全部参数与对象" [disabled] [ref=f1e172]
+          - button "运行已冻结计划" [disabled] [ref=f1e173]
+        - paragraph [ref=f1e174]: 尚未保存计划。填写假设、理由并核对绑定对象后保存。
+        - group [ref=f1e175]:
+          - generic "冻结对象、未知条件及完整计划" [ref=f1e176] [cursor=pointer]
+      - generic [ref=f1e251]:
+        - generic [ref=f1e252]:
+          - heading "冻结计划的全部敏感性结果 · 未写入注释" [level=3] [ref=f1e253]
+          - generic [ref=f1e254]: 已保存 run_fdf9518b468444…
+        - generic [ref=f1e255]:
+          - generic [ref=f1e928]:
+            - text: 完整比较组合
+            - strong [ref=f1e929]: "24"
+            - text: 计划 v3 · 4 个独立假设
+          - generic [ref=f1e930]:
+            - text: 已计算 / 未知 / 失败
+            - strong [ref=f1e931]: 18 / 6 / 0
+            - text: 全部保留，未选择获胜假设
+          - generic [ref=f1e932]:
+            - text: 真实注释版本
+            - strong [ref=f1e933]: 未创建修订
+            - text: 固定基线 rev_0a68d322186040…
+        - generic [ref=f1e262]:
+          - paragraph [ref=f1e934]: 全部组合按两种估计量中最大的 |变化量| 排序；未知与失败保留在表尾。同一行并列展示按边计权和来源对象等权，差异不代表方法准确率。
+          - table [ref=f1e935]:
+            - row [ref=f1e936]:
+              - columnheader "组合 / 假设" [ref=f1e937]
+              - columnheader "半径 / 范围" [ref=f1e938]
+              - columnheader "状态 / 原因" [ref=f1e939]
+              - columnheader "修改与未知对象" [ref=f1e940]
+              - columnheader "按边计权：基线 → 假设" [ref=f1e941]
+              - columnheader "按边变化 / 判定" [ref=f1e942]
+              - columnheader "来源等权：基线 → 假设" [ref=f1e943]
+              - columnheader "来源等权变化 / 判定" [ref=f1e944]
+              - columnheader "等权 − 按边：基线 → 假设" [ref=f1e945]
+              - columnheader "前后分母" [ref=f1e946]
+            - row [ref=f1e947]:
+              - cell "row_0016 require_three_markers" [ref=f1e948]
+              - cell "15 µm 选区内部" [ref=f1e949]
+              - cell "已计算" [ref=f1e950]
+              - cell "命中 2008；实际改 2008；ROI 内改 852；条件未知 0" [ref=f1e951]
+              - cell "-0.048（观察 0.188 / 背景 0.236；分母 6118） → -0.013（观察 0.069 / 背景 0.081；分母 1122）" [ref=f1e952]
+              - cell "0.035 · 阈值判断稳定" [ref=f1e953]
+              - cell "-0.053（观察 0.183 / 背景 0.236；分母 401） → -0.015（观察 0.067 / 背景 0.081；分母 73）" [ref=f1e954]
+              - cell "0.038 · 阈值判断稳定" [ref=f1e955]
+              - cell "-0.005 → -0.002" [ref=f1e956]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 6118；目标边 1153；背景 3383 → 来源 73；有邻居来源 73；孤立 0；边 1122；目标边 77；背景 3383" [ref=f1e957]
+            - row [ref=f1e958]:
+              - cell "row_0013 require_three_markers" [ref=f1e959]
+              - cell "15 µm 全导入窗口邻居" [ref=f1e960]
+              - cell "已计算" [ref=f1e961]
+              - cell "命中 2008；实际改 2008；ROI 内改 852；条件未知 0" [ref=f1e962]
+              - cell "-0.045（观察 0.188 / 背景 0.233；分母 6330） → -0.019（观察 0.068 / 背景 0.087；分母 1169）" [ref=f1e963]
+              - cell "0.026 · 阈值判断稳定" [ref=f1e964]
+              - cell "-0.049（观察 0.183 / 背景 0.233；分母 401） → -0.020（观察 0.067 / 背景 0.087；分母 73）" [ref=f1e965]
+              - cell "0.029 · 阈值判断稳定" [ref=f1e966]
+              - cell "-0.004 → -0.001" [ref=f1e967]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 6330；目标边 1188；背景 7725 → 来源 73；有邻居来源 73；孤立 0；边 1169；目标边 80；背景 7725" [ref=f1e968]
+            - row [ref=f1e969]:
+              - cell "row_0018 require_three_markers" [ref=f1e970]
+              - cell "75 µm 选区内部" [ref=f1e971]
+              - cell "已计算" [ref=f1e972]
+              - cell "命中 2008；实际改 2008；ROI 内改 852；条件未知 0" [ref=f1e973]
+              - cell "-0.031（观察 0.205 / 背景 0.236；分母 128486） → -0.011（观察 0.070 / 背景 0.081；分母 23294）" [ref=f1e974]
+              - cell "0.020 · 阈值判断稳定" [ref=f1e975]
+              - cell "-0.036（观察 0.200 / 背景 0.236；分母 401） → -0.014（观察 0.067 / 背景 0.081；分母 73）" [ref=f1e976]
+              - cell "0.022 · 阈值判断稳定" [ref=f1e977]
+              - cell "-0.005 → -0.003" [ref=f1e978]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 128486；目标边 26339；背景 3383 → 来源 73；有邻居来源 73；孤立 0；边 23294；目标边 1640；背景 3383" [ref=f1e979]
+            - row [ref=f1e980]:
+              - cell "row_0017 require_three_markers" [ref=f1e981]
+              - cell "35 µm 选区内部" [ref=f1e982]
+              - cell "已计算" [ref=f1e983]
+              - cell "命中 2008；实际改 2008；ROI 内改 852；条件未知 0" [ref=f1e984]
+              - cell "-0.040（观察 0.196 / 背景 0.236；分母 31864） → -0.021（观察 0.061 / 背景 0.081；分母 5764）" [ref=f1e985]
+              - cell "0.019 · 阈值判断稳定" [ref=f1e986]
+              - cell "-0.045（观察 0.192 / 背景 0.236；分母 401） → -0.023（观察 0.059 / 背景 0.081；分母 73）" [ref=f1e987]
+              - cell "0.022 · 阈值判断稳定" [ref=f1e988]
+              - cell "-0.005 → -0.002" [ref=f1e989]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 31864；目标边 6252；背景 3383 → 来源 73；有邻居来源 73；孤立 0；边 5764；目标边 349；背景 3383" [ref=f1e990]
+            - row [ref=f1e991]:
+              - cell "row_0015 require_three_markers" [ref=f1e992]
+              - cell "75 µm 全导入窗口邻居" [ref=f1e993]
+              - cell "已计算" [ref=f1e994]
+              - cell "命中 2008；实际改 2008；ROI 内改 852；条件未知 0" [ref=f1e995]
+              - cell "-0.027（观察 0.206 / 背景 0.233；分母 156024） → -0.015（观察 0.072 / 背景 0.087；分母 28774）" [ref=f1e996]
+              - cell "0.012 · 阈值判断稳定" [ref=f1e997]
+              - cell "-0.029（观察 0.204 / 背景 0.233；分母 401） → -0.016（观察 0.071 / 背景 0.087；分母 73）" [ref=f1e998]
+              - cell "0.012 · 阈值判断稳定" [ref=f1e999]
+              - cell "-0.002 → -0.001" [ref=f1e1000]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 156024；目标边 32123；背景 7725 → 来源 73；有邻居来源 73；孤立 0；边 28774；目标边 2074；背景 7725" [ref=f1e1001]
+            - row [ref=f1e1002]:
+              - cell "row_0014 require_three_markers" [ref=f1e1003]
+              - cell "35 µm 全导入窗口邻居" [ref=f1e1004]
+              - cell "已计算" [ref=f1e1005]
+              - cell "命中 2008；实际改 2008；ROI 内改 852；条件未知 0" [ref=f1e1006]
+              - cell "-0.038（观察 0.195 / 背景 0.233；分母 34775） → -0.027（观察 0.060 / 背景 0.087；分母 6402）" [ref=f1e1007]
+              - cell "0.010 · 阈值判断稳定" [ref=f1e1008]
+              - cell "-0.039（观察 0.193 / 背景 0.233；分母 401） → -0.028（观察 0.059 / 背景 0.087；分母 73）" [ref=f1e1009]
+              - cell "0.012 · 阈值判断稳定" [ref=f1e1010]
+              - cell "-0.002 → -0.000" [ref=f1e1011]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 34775；目标边 6790；背景 7725 → 来源 73；有邻居来源 73；孤立 0；边 6402；目标边 382；背景 7725" [ref=f1e1012]
+            - row [ref=f1e1013]:
+              - cell "row_0001 non_single_nucleus_uncertain" [ref=f1e1014]
+              - cell "15 µm 全导入窗口邻居" [ref=f1e1015]
+              - cell "已计算" [ref=f1e1016]
+              - cell "命中 590；实际改 590；ROI 内改 252；条件未知 0" [ref=f1e1017]
+              - cell "-0.045（观察 0.188 / 背景 0.233；分母 6330） → -0.036（观察 0.171 / 背景 0.207；分母 5734）" [ref=f1e1018]
+              - cell "0.009 · 阈值判断稳定" [ref=f1e1019]
+              - cell "-0.049（观察 0.183 / 背景 0.233；分母 401） → -0.039（观察 0.168 / 背景 0.207；分母 364）" [ref=f1e1020]
+              - cell "0.010 · 阈值判断稳定" [ref=f1e1021]
+              - cell "-0.004 → -0.003" [ref=f1e1022]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 6330；目标边 1188；背景 7725 → 来源 364；有邻居来源 364；孤立 0；边 5734；目标边 981；背景 7725" [ref=f1e1023]
+            - row [ref=f1e1024]:
+              - cell "row_0007 non_single_nucleus_excluded" [ref=f1e1025]
+              - cell "15 µm 全导入窗口邻居" [ref=f1e1026]
+              - cell "已计算" [ref=f1e1027]
+              - cell "命中 590；实际改 590；ROI 内改 252；条件未知 0" [ref=f1e1028]
+              - cell "-0.045（观察 0.188 / 背景 0.233；分母 6330） → -0.038（观察 0.186 / 背景 0.224；分母 5265）" [ref=f1e1029]
+              - cell "0.007 · 阈值判断稳定" [ref=f1e1030]
+              - cell "-0.049（观察 0.183 / 背景 0.233；分母 401） → -0.040（观察 0.184 / 背景 0.224；分母 364）" [ref=f1e1031]
+              - cell "0.010 · 阈值判断稳定" [ref=f1e1032]
+              - cell "-0.004 → -0.002" [ref=f1e1033]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 6330；目标边 1188；背景 7725 → 来源 364；有邻居来源 364；孤立 0；边 5265；目标边 981；背景 7135" [ref=f1e1034]
+            - row [ref=f1e1035]:
+              - cell "row_0002 non_single_nucleus_uncertain" [ref=f1e1036]
+              - cell "35 µm 全导入窗口邻居" [ref=f1e1037]
+              - cell "已计算" [ref=f1e1038]
+              - cell "命中 590；实际改 590；ROI 内改 252；条件未知 0" [ref=f1e1039]
+              - cell "-0.038（观察 0.195 / 背景 0.233；分母 34775） → -0.030（观察 0.177 / 背景 0.207；分母 31466）" [ref=f1e1040]
+              - cell "0.007 · 阈值判断稳定" [ref=f1e1041]
+              - cell "-0.039（观察 0.193 / 背景 0.233；分母 401） → -0.032（观察 0.175 / 背景 0.207；分母 364）" [ref=f1e1042]
+              - cell "0.008 · 阈值判断稳定" [ref=f1e1043]
+              - cell "-0.002 → -0.002" [ref=f1e1044]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 34775；目标边 6790；背景 7725 → 来源 364；有邻居来源 364；孤立 0；边 31466；目标边 5559；背景 7725" [ref=f1e1045]
+            - row [ref=f1e1046]:
+              - cell "row_0004 non_single_nucleus_uncertain" [ref=f1e1047]
+              - cell "15 µm 选区内部" [ref=f1e1048]
+              - cell "已计算" [ref=f1e1049]
+              - cell "命中 590；实际改 590；ROI 内改 252；条件未知 0" [ref=f1e1050]
+              - cell "-0.048（观察 0.188 / 背景 0.236；分母 6118） → -0.042（观察 0.171 / 背景 0.213；分母 5528）" [ref=f1e1051]
+              - cell "0.006 · 阈值判断稳定" [ref=f1e1052]
+              - cell "-0.053（观察 0.183 / 背景 0.236；分母 401） → -0.046（观察 0.167 / 背景 0.213；分母 364）" [ref=f1e1053]
+              - cell "0.007 · 阈值判断稳定" [ref=f1e1054]
+              - cell "-0.005 → -0.004" [ref=f1e1055]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 6118；目标边 1153；背景 3383 → 来源 364；有邻居来源 364；孤立 0；边 5528；目标边 948；背景 3383" [ref=f1e1056]
+            - row [ref=f1e1057]:
+              - cell "row_0010 non_single_nucleus_excluded" [ref=f1e1058]
+              - cell "15 µm 选区内部" [ref=f1e1059]
+              - cell "已计算" [ref=f1e1060]
+              - cell "命中 590；实际改 590；ROI 内改 252；条件未知 0" [ref=f1e1061]
+              - cell "-0.048（观察 0.188 / 背景 0.236；分母 6118） → -0.043（观察 0.187 / 背景 0.230；分母 5066）" [ref=f1e1062]
+              - cell "0.005 · 阈值判断稳定" [ref=f1e1063]
+              - cell "-0.053（观察 0.183 / 背景 0.236；分母 401） → -0.046（观察 0.184 / 背景 0.230；分母 364）" [ref=f1e1064]
+              - cell "0.007 · 阈值判断稳定" [ref=f1e1065]
+              - cell "-0.005 → -0.003" [ref=f1e1066]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 6118；目标边 1153；背景 3383 → 来源 364；有邻居来源 364；孤立 0；边 5066；目标边 948；背景 3131" [ref=f1e1067]
+            - row [ref=f1e1068]:
+              - cell "row_0008 non_single_nucleus_excluded" [ref=f1e1069]
+              - cell "35 µm 全导入窗口邻居" [ref=f1e1070]
+              - cell "已计算" [ref=f1e1071]
+              - cell "命中 590；实际改 590；ROI 内改 252；条件未知 0" [ref=f1e1072]
+              - cell "-0.038（观察 0.195 / 背景 0.233；分母 34775） → -0.033（观察 0.191 / 背景 0.224；分母 29057）" [ref=f1e1073]
+              - cell "0.005 · 阈值判断稳定" [ref=f1e1074]
+              - cell "-0.039（观察 0.193 / 背景 0.233；分母 401） → -0.033（观察 0.191 / 背景 0.224；分母 364）" [ref=f1e1075]
+              - cell "0.006 · 阈值判断稳定" [ref=f1e1076]
+              - cell "-0.002 → -0.001" [ref=f1e1077]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 34775；目标边 6790；背景 7725 → 来源 364；有邻居来源 364；孤立 0；边 29057；目标边 5559；背景 7135" [ref=f1e1078]
+            - row [ref=f1e1079]:
+              - cell "row_0003 non_single_nucleus_uncertain" [ref=f1e1080]
+              - cell "75 µm 全导入窗口邻居" [ref=f1e1081]
+              - cell "已计算" [ref=f1e1082]
+              - cell "命中 590；实际改 590；ROI 内改 252；条件未知 0" [ref=f1e1083]
+              - cell "-0.027（观察 0.206 / 背景 0.233；分母 156024） → -0.022（观察 0.185 / 背景 0.207；分母 141393）" [ref=f1e1084]
+              - cell "0.005 · 阈值判断稳定" [ref=f1e1085]
+              - cell "-0.029（观察 0.204 / 背景 0.233；分母 401） → -0.023（观察 0.184 / 背景 0.207；分母 364）" [ref=f1e1086]
+              - cell "0.005 · 阈值判断稳定" [ref=f1e1087]
+              - cell "-0.002 → -0.001" [ref=f1e1088]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 156024；目标边 32123；背景 7725 → 来源 364；有邻居来源 364；孤立 0；边 141393；目标边 26110；背景 7725" [ref=f1e1089]
+            - row [ref=f1e1090]:
+              - cell "row_0005 non_single_nucleus_uncertain" [ref=f1e1091]
+              - cell "35 µm 选区内部" [ref=f1e1092]
+              - cell "已计算" [ref=f1e1093]
+              - cell "命中 590；实际改 590；ROI 内改 252；条件未知 0" [ref=f1e1094]
+              - cell "-0.040（观察 0.196 / 背景 0.236；分母 31864） → -0.036（观察 0.178 / 背景 0.213；分母 28747）" [ref=f1e1095]
+              - cell "0.005 · 阈值判断稳定" [ref=f1e1096]
+              - cell "-0.045（观察 0.192 / 背景 0.236；分母 401） → -0.040（观察 0.174 / 背景 0.213；分母 364）" [ref=f1e1097]
+              - cell "0.005 · 阈值判断稳定" [ref=f1e1098]
+              - cell "-0.005 → -0.004" [ref=f1e1099]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 31864；目标边 6252；背景 3383 → 来源 364；有邻居来源 364；孤立 0；边 28747；目标边 5107；背景 3383" [ref=f1e1100]
+            - row [ref=f1e1101]:
+              - cell "row_0009 non_single_nucleus_excluded" [ref=f1e1102]
+              - cell "75 µm 全导入窗口邻居" [ref=f1e1103]
+              - cell "已计算" [ref=f1e1104]
+              - cell "命中 590；实际改 590；ROI 内改 252；条件未知 0" [ref=f1e1105]
+              - cell "-0.027（观察 0.206 / 背景 0.233；分母 156024） → -0.024（观察 0.200 / 背景 0.224；分母 130840）" [ref=f1e1106]
+              - cell "0.002 · 阈值判断稳定" [ref=f1e1107]
+              - cell "-0.029（观察 0.204 / 背景 0.233；分母 401） → -0.025（观察 0.199 / 背景 0.224；分母 364）" [ref=f1e1108]
+              - cell "0.004 · 阈值判断稳定" [ref=f1e1109]
+              - cell "-0.002 → -0.000" [ref=f1e1110]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 156024；目标边 32123；背景 7725 → 来源 364；有邻居来源 364；孤立 0；边 130840；目标边 26110；背景 7135" [ref=f1e1111]
+            - row [ref=f1e1112]:
+              - cell "row_0006 non_single_nucleus_uncertain" [ref=f1e1113]
+              - cell "75 µm 选区内部" [ref=f1e1114]
+              - cell "已计算" [ref=f1e1115]
+              - cell "命中 590；实际改 590；ROI 内改 252；条件未知 0" [ref=f1e1116]
+              - cell "-0.031（观察 0.205 / 背景 0.236；分母 128486） → -0.028（观察 0.185 / 背景 0.213；分母 116321）" [ref=f1e1117]
+              - cell "0.003 · 阈值判断稳定" [ref=f1e1118]
+              - cell "-0.036（观察 0.200 / 背景 0.236；分母 401） → -0.032（观察 0.181 / 背景 0.213；分母 364）" [ref=f1e1119]
+              - cell "0.004 · 阈值判断稳定" [ref=f1e1120]
+              - cell "-0.005 → -0.004" [ref=f1e1121]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 128486；目标边 26339；背景 3383 → 来源 364；有邻居来源 364；孤立 0；边 116321；目标边 21512；背景 3383" [ref=f1e1122]
+            - row [ref=f1e1123]:
+              - cell "row_0011 non_single_nucleus_excluded" [ref=f1e1124]
+              - cell "35 µm 选区内部" [ref=f1e1125]
+              - cell "已计算" [ref=f1e1126]
+              - cell "命中 590；实际改 590；ROI 内改 252；条件未知 0" [ref=f1e1127]
+              - cell "-0.040（观察 0.196 / 背景 0.236；分母 31864） → -0.038（观察 0.193 / 背景 0.230；分母 26526）" [ref=f1e1128]
+              - cell "0.002 · 阈值判断稳定" [ref=f1e1129]
+              - cell "-0.045（观察 0.192 / 背景 0.236；分母 401） → -0.041（观察 0.189 / 背景 0.230；分母 364）" [ref=f1e1130]
+              - cell "0.004 · 阈值判断稳定" [ref=f1e1131]
+              - cell "-0.005 → -0.003" [ref=f1e1132]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 31864；目标边 6252；背景 3383 → 来源 364；有邻居来源 364；孤立 0；边 26526；目标边 5107；背景 3131" [ref=f1e1133]
+            - row [ref=f1e1134]:
+              - cell "row_0012 non_single_nucleus_excluded" [ref=f1e1135]
+              - cell "75 µm 选区内部" [ref=f1e1136]
+              - cell "已计算" [ref=f1e1137]
+              - cell "命中 590；实际改 590；ROI 内改 252；条件未知 0" [ref=f1e1138]
+              - cell "-0.031（观察 0.205 / 背景 0.236；分母 128486） → -0.031（观察 0.200 / 背景 0.230；分母 107818）" [ref=f1e1139]
+              - cell "0.000 · 阈值判断稳定" [ref=f1e1140]
+              - cell "-0.036（观察 0.200 / 背景 0.236；分母 401） → -0.033（观察 0.197 / 背景 0.230；分母 364）" [ref=f1e1141]
+              - cell "0.002 · 阈值判断稳定" [ref=f1e1142]
+              - cell "-0.005 → -0.003" [ref=f1e1143]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 128486；目标边 26339；背景 3383 → 来源 364；有邻居来源 364；孤立 0；边 107818；目标边 21512；背景 3131" [ref=f1e1144]
+            - row [ref=f1e1145]:
+              - cell "row_0019 unmeasured_CD3D_negative_control" [ref=f1e1146]
+              - cell "15 µm 全导入窗口邻居" [ref=f1e1147]
+              - cell "未知 / 不可判定 hypothesis_selector_has_unknown_observations" [ref=f1e1148]
+              - cell "命中 0；实际改 0；ROI 内改 0；条件未知 7725" [ref=f1e1149]
+              - cell "-0.045（观察 0.188 / 背景 0.233；分母 6330） → 不可判定：hypothesis_selector_has_unknown_observations" [ref=f1e1150]
+              - cell "不可判定 · 不可判定" [ref=f1e1151]
+              - cell "-0.049（观察 0.183 / 背景 0.233；分母 401） → 不可判定：hypothesis_selector_has_unknown_observations" [ref=f1e1152]
+              - cell "不可判定 · 不可判定" [ref=f1e1153]
+              - cell "-0.004 → 不可判定" [ref=f1e1154]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 6330；目标边 1188；背景 7725 → 未计算：hypothesis_selector_has_unknown_observations" [ref=f1e1155]
+            - row [ref=f1e1156]:
+              - cell "row_0020 unmeasured_CD3D_negative_control" [ref=f1e1157]
+              - cell "35 µm 全导入窗口邻居" [ref=f1e1158]
+              - cell "未知 / 不可判定 hypothesis_selector_has_unknown_observations" [ref=f1e1159]
+              - cell "命中 0；实际改 0；ROI 内改 0；条件未知 7725" [ref=f1e1160]
+              - cell "-0.038（观察 0.195 / 背景 0.233；分母 34775） → 不可判定：hypothesis_selector_has_unknown_observations" [ref=f1e1161]
+              - cell "不可判定 · 不可判定" [ref=f1e1162]
+              - cell "-0.039（观察 0.193 / 背景 0.233；分母 401） → 不可判定：hypothesis_selector_has_unknown_observations" [ref=f1e1163]
+              - cell "不可判定 · 不可判定" [ref=f1e1164]
+              - cell "-0.002 → 不可判定" [ref=f1e1165]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 34775；目标边 6790；背景 7725 → 未计算：hypothesis_selector_has_unknown_observations" [ref=f1e1166]
+            - row [ref=f1e1167]:
+              - cell "row_0021 unmeasured_CD3D_negative_control" [ref=f1e1168]
+              - cell "75 µm 全导入窗口邻居" [ref=f1e1169]
+              - cell "未知 / 不可判定 hypothesis_selector_has_unknown_observations" [ref=f1e1170]
+              - cell "命中 0；实际改 0；ROI 内改 0；条件未知 7725" [ref=f1e1171]
+              - cell "-0.027（观察 0.206 / 背景 0.233；分母 156024） → 不可判定：hypothesis_selector_has_unknown_observations" [ref=f1e1172]
+              - cell "不可判定 · 不可判定" [ref=f1e1173]
+              - cell "-0.029（观察 0.204 / 背景 0.233；分母 401） → 不可判定：hypothesis_selector_has_unknown_observations" [ref=f1e1174]
+              - cell "不可判定 · 不可判定" [ref=f1e1175]
+              - cell "-0.002 → 不可判定" [ref=f1e1176]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 156024；目标边 32123；背景 7725 → 未计算：hypothesis_selector_has_unknown_observations" [ref=f1e1177]
+            - row [ref=f1e1178]:
+              - cell "row_0022 unmeasured_CD3D_negative_control" [ref=f1e1179]
+              - cell "15 µm 选区内部" [ref=f1e1180]
+              - cell "未知 / 不可判定 hypothesis_selector_has_unknown_observations" [ref=f1e1181]
+              - cell "命中 0；实际改 0；ROI 内改 0；条件未知 7725" [ref=f1e1182]
+              - cell "-0.048（观察 0.188 / 背景 0.236；分母 6118） → 不可判定：hypothesis_selector_has_unknown_observations" [ref=f1e1183]
+              - cell "不可判定 · 不可判定" [ref=f1e1184]
+              - cell "-0.053（观察 0.183 / 背景 0.236；分母 401） → 不可判定：hypothesis_selector_has_unknown_observations" [ref=f1e1185]
+              - cell "不可判定 · 不可判定" [ref=f1e1186]
+              - cell "-0.005 → 不可判定" [ref=f1e1187]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 6118；目标边 1153；背景 3383 → 未计算：hypothesis_selector_has_unknown_observations" [ref=f1e1188]
+            - row [ref=f1e1189]:
+              - cell "row_0023 unmeasured_CD3D_negative_control" [ref=f1e1190]
+              - cell "35 µm 选区内部" [ref=f1e1191]
+              - cell "未知 / 不可判定 hypothesis_selector_has_unknown_observations" [ref=f1e1192]
+              - cell "命中 0；实际改 0；ROI 内改 0；条件未知 7725" [ref=f1e1193]
+              - cell "-0.040（观察 0.196 / 背景 0.236；分母 31864） → 不可判定：hypothesis_selector_has_unknown_observations" [ref=f1e1194]
+              - cell "不可判定 · 不可判定" [ref=f1e1195]
+              - cell "-0.045（观察 0.192 / 背景 0.236；分母 401） → 不可判定：hypothesis_selector_has_unknown_observations" [ref=f1e1196]
+              - cell "不可判定 · 不可判定" [ref=f1e1197]
+              - cell "-0.005 → 不可判定" [ref=f1e1198]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 31864；目标边 6252；背景 3383 → 未计算：hypothesis_selector_has_unknown_observations" [ref=f1e1199]
+            - row [ref=f1e1200]:
+              - cell "row_0024 unmeasured_CD3D_negative_control" [ref=f1e1201]
+              - cell "75 µm 选区内部" [ref=f1e1202]
+              - cell "未知 / 不可判定 hypothesis_selector_has_unknown_observations" [ref=f1e1203]
+              - cell "命中 0；实际改 0；ROI 内改 0；条件未知 7725" [ref=f1e1204]
+              - cell "-0.031（观察 0.205 / 背景 0.236；分母 128486） → 不可判定：hypothesis_selector_has_unknown_observations" [ref=f1e1205]
+              - cell "不可判定 · 不可判定" [ref=f1e1206]
+              - cell "-0.036（观察 0.200 / 背景 0.236；分母 401） → 不可判定：hypothesis_selector_has_unknown_observations" [ref=f1e1207]
+              - cell "不可判定 · 不可判定" [ref=f1e1208]
+              - cell "-0.005 → 不可判定" [ref=f1e1209]
+              - cell "来源 401；有邻居来源 401；孤立 0；边 128486；目标边 26339；背景 3383 → 未计算：hypothesis_selector_has_unknown_observations" [ref=f1e1210]
+        - paragraph [ref=f1e540]: 每个假设均从版本 rev_0a68d32218604025bd39f72c41cc1b2b 和冻结 ROI sel_c382c6bb421d45a5a5c1497f4caac46c 独立出发。背景：各邻域候选范围。来源等权排除孤立来源并保留其数量；两种估计量均不是显著性检验或独立验证。没有创建注释修订或记录研究者批准。
+        - group [ref=f1e541]:
+          - generic "完整指标、分母、参数与局限" [ref=f1e542] [cursor=pointer]
+      - generic [ref=f1e177]:
+        - generic [ref=f1e178]:
+          - heading "保留可复核记录" [level=3] [ref=f1e179]
+          - paragraph [ref=f1e180]: 导出输入快照、修订、选区、结果、来源与文件校验清单。
+          - generic [ref=f1e181]:
+            - checkbox "保存源数据与覆盖层，避免重复复制完整计数" [checked] [ref=f1e182]
+            - generic [ref=f1e183]: 保存源数据与覆盖层，避免重复复制完整计数
+        - button "导出审阅包 ↗" [ref=f1e184] [cursor=pointer]
+    - generic [ref=f1e185]:
+      - text: Spatial Collab · 研究探索 Alpha
+      - generic [ref=f1e186]: NOT_ESTABLISHED · 不将工程记录解释为科学授权

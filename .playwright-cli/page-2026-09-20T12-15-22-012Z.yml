@@ -1,0 +1,220 @@
+- generic [active] [ref=f2e1]:
+  - banner [ref=f2e2]:
+    - generic [ref=f2e3]:
+      - generic [ref=f2e4]: ◈
+      - generic [ref=f2e5]:
+        - strong [ref=f2e6]: Spatial Collab
+        - generic [ref=f2e7]: 空间转录组协作工作台
+      - generic [ref=f2e8]: ALPHA 0.4
+    - generic [ref=f2e9]:
+      - generic [ref=f2e10]: ● 本地共享项目
+      - button "↻ 刷新共享状态" [ref=f2e11] [cursor=pointer]
+  - main [ref=f2e12]:
+    - generic [ref=f2e13]:
+      - generic [ref=f2e14]:
+        - generic [ref=f2e15]: OBSERVE · REVISE · RECHECK
+        - heading "同一份数据，共同检验判断。" [level=1] [ref=f2e16]
+        - paragraph [ref=f2e17]: 读取项目、切片和坐标系…
+      - generic [ref=f2e18]:
+        - generic [ref=f2e19]: 视图版本
+        - code [ref=f2e20]: —
+        - generic [ref=f2e21]: 来源待核验
+    - generic [ref=f2e22]: 本版本展示细胞质心与原始标记计数，不展示组织图像、转录本位置或分割边界。结论检验限于所选切片的描述性变化。
+    - region [ref=f2e23]:
+      - generic [ref=f2e24]:
+        - heading "核对数据来源与工作注释" [level=2] [ref=f2e25]
+        - generic [ref=f2e26]: 导入时记录
+      - paragraph [ref=f2e27]
+      - paragraph [ref=f2e28]: 切片标识是导入时提供的记录，不是系统自动识别的组织类型。请与原始实验记录及源文件核对。
+      - group [ref=f2e29]:
+        - generic "完整来源文件、导入范围与工作注释规则" [ref=f2e30] [cursor=pointer]
+    - status [ref=f2e31]: 正在打开项目…
+    - generic [ref=f2e33]:
+      - heading "图像与分割的同一对象" [level=2] [ref=f2e34]
+      - paragraph [ref=f2e35]: 登记的图像和掩膜在 napari 中按显式变换加载；当前网页核对来源和确切对象对应关系。像素位置、掩膜标签和细胞 ID 不会互相猜测。
+      - generic [ref=f2e36]:
+        - button "读取图像／分割清单" [ref=f2e37] [cursor=pointer]
+        - combobox "已登记图像或分割" [ref=f2e38]
+        - button "核对选区前 100 个对象" [ref=f2e39] [cursor=pointer]
+      - paragraph [ref=f2e40]: 尚未核对图像／掩膜；不能判断合并分割或真实共表达。
+    - generic [ref=f2e41]:
+      - generic [ref=f2e42]:
+        - generic [ref=f2e43]:
+          - generic [ref=f2e44]:
+            - generic [ref=f2e45]: "01"
+            - heading "共同观察" [level=2] [ref=f2e46]
+          - generic [ref=f2e47]: —
+        - generic [ref=f2e48]:
+          - group "选择工具" [ref=f2e49]:
+            - button "矩形 / 点选" [ref=f2e50] [cursor=pointer]
+            - button "多边形" [ref=f2e51] [cursor=pointer]
+          - button "适应切片" [ref=f2e52] [cursor=pointer]
+          - button "选择可见细胞" [ref=f2e53] [cursor=pointer]
+        - generic [ref=f2e54]:
+          - generic "细胞质心图，拖动选区；也可使用下方精确 ID 输入选择" [ref=f2e55]
+          - generic: 质心坐标 · 待核对单位 拖动框选 · 滚轮缩放
+        - generic [ref=f2e57]:
+          - strong [ref=f2e59]: 尚未选择细胞
+          - generic [ref=f2e60]: 与 Agent 共享确切对象
+        - group [ref=f2e61]:
+          - generic "选区坐标、版本与确切细胞 ID" [ref=f2e62] [cursor=pointer]
+        - generic [ref=f2e63]:
+          - generic [ref=f2e64]:
+            - heading "选区的标记证据" [level=3] [ref=f2e65]
+            - generic [ref=f2e66]: 原始计数 · 不自动判定身份
+          - generic [ref=f2e67]:
+            - textbox "标记基因" [ref=f2e68]:
+              - /placeholder: 例如 CD3D, LST1, EPCAM
+            - button "查看证据" [ref=f2e69] [cursor=pointer]
+          - generic [ref=f2e70]: 选择细胞后，可检查标记基因。未测量与测量为零分别显示。
+        - group [ref=f2e71]:
+          - generic "核对稳定特征 ID 与重复符号" [ref=f2e72] [cursor=pointer]
+        - generic [ref=f2e73]:
+          - generic [ref=f2e74]:
+            - heading "检查测量与分割记录" [level=3] [ref=f2e75]
+            - generic [ref=f2e76]: 只读 QC · 不自动排除
+          - generic [ref=f2e77]:
+            - combobox "质量检查对象" [ref=f2e78]:
+              - option "全部导入对象" [selected]
+              - option "当前共享选区"
+            - button "查看 QC 摘要" [ref=f2e79] [cursor=pointer]
+          - generic [ref=f2e80]: 检查源记录的计数、面积、核数量和分割方法。缺失值与测量为零分开显示。
+      - complementary [ref=f2e81]:
+        - generic [ref=f2e82]:
+          - generic [ref=f2e83]:
+            - generic [ref=f2e84]: "02"
+            - heading "提出修订" [level=2] [ref=f2e85]
+          - generic [ref=f2e86]: 覆盖层
+        - paragraph [ref=f2e87]: 对共享选区提出修改，预览后由研究者确认。原始输入保留。
+        - generic [ref=f2e88]: 修改内容
+        - combobox "修改内容" [ref=f2e89]:
+          - option "细胞类型标签" [selected]
+          - option "区域名称"
+          - option "纳入分析状态"
+        - generic [ref=f2e90]: 新值
+        - textbox "新值" [ref=f2e91]:
+          - /placeholder: 例如 T cell
+        - generic [ref=f2e92]: 修订理由
+        - textbox "修订理由" [ref=f2e93]:
+          - /placeholder: 记录观察、标记证据与仍未解决的不确定性
+        - button "预览影响" [ref=f2e94] [cursor=pointer]
+        - generic [ref=f2e95]:
+          - heading "版本历史" [level=3] [ref=f2e97]
+          - group [ref=f2e98]:
+            - generic "恢复至历史版本" [ref=f2e99] [cursor=pointer]
+    - generic [ref=f2e100]:
+      - generic [ref=f2e101]:
+        - generic [ref=f2e102]:
+          - generic [ref=f2e103]: "03"
+          - heading "修订是否改变原有判断？" [level=2] [ref=f2e104]
+        - generic [ref=f2e105]: 同一选区 · 同一参数
+      - paragraph [ref=f2e106]: 检验「来源细胞的邻居中，目标类型的比例超过背景丰度至少多少」。描述性阈值由研究者指定，不输出显著性或因果结论。
+      - generic [ref=f2e107]:
+        - generic [ref=f2e108]:
+          - text: 基线版本
+          - combobox "基线版本" [ref=f2e109]
+        - generic [ref=f2e110]:
+          - text: 修订版本
+          - combobox "修订版本" [ref=f2e111]
+        - generic [ref=f2e112]:
+          - text: 来源类型
+          - textbox "来源类型" [ref=f2e113]: T cell
+        - generic [ref=f2e114]:
+          - text: 目标类型
+          - textbox "目标类型" [ref=f2e115]: Myeloid
+        - generic [ref=f2e116]:
+          - text: 邻域半径 · µm
+          - spinbutton "邻域半径 · µm" [ref=f2e117]: "35"
+        - generic [ref=f2e118]:
+          - text: 超背景阈值
+          - spinbutton "超背景阈值" [ref=f2e119]: "0.10"
+        - generic [ref=f2e120]:
+          - text: 邻域定义
+          - combobox "邻域定义" [ref=f2e121]:
+            - option "选区内部邻域" [selected]
+            - option "选区来源 + 全切片邻居"
+        - generic [ref=f2e122]:
+          - text: 比较对象
+          - combobox "比较对象" [ref=f2e123]:
+            - option "共享选区的冻结细胞集合" [selected]
+            - option "全切片"
+      - button "运行修订前后检验 →" [ref=f2e124] [cursor=pointer]
+      - generic [ref=f2e125]:
+        - heading "区域与背景：哪个变化值得继续检查？" [level=3] [ref=f2e126]
+        - paragraph [ref=f2e127]: 使用上方相同的基线与修订版本，以当前共享选区为前景。背景默认为导入数据中的其余对象，也可填写另一个已保存选区。两组必须不重叠；标记比较使用左侧基因输入。
+        - generic [ref=f2e128]: 背景选区 ID（留空使用导入数据其余对象）
+        - textbox "背景选区 ID（留空使用导入数据其余对象）" [ref=f2e129]:
+          - /placeholder: sel_… 或留空
+        - button "比较区域组成与标记变化" [ref=f2e130] [cursor=pointer]
+      - generic [ref=f2e131]:
+        - generic [ref=f2e132]: 已保存的检验记录
+        - generic [ref=f2e133]:
+          - combobox "已保存的检验记录" [ref=f2e134]:
+            - option "尚无保存记录" [selected]
+          - button "读取记录" [ref=f2e135] [cursor=pointer]
+      - generic [ref=f2e136]:
+        - heading "先编辑假设，再冻结全部比较" [level=2] [ref=f2e137]
+        - paragraph [ref=f2e138]: 条件作用于全部导入对象，当前共享 ROI 定义来源对象。所有假设独立从同一基线计算；按边计权与来源对象等权并列，失败和未知结果都保留。冻结计划不会提交注释。
+        - generic [ref=f2e139]:
+          - combobox "已保存假设计划" [ref=f2e140]
+          - button "刷新计划清单" [ref=f2e141] [cursor=pointer]
+          - button "载入计划" [ref=f2e142] [cursor=pointer]
+          - button "另建计划（清空编辑）" [ref=f2e143] [cursor=pointer]
+        - generic [ref=f2e144]:
+          - generic [ref=f2e145]:
+            - text: 计划名称
+            - textbox "计划名称" [ref=f2e146]: 注释敏感性复核
+          - generic [ref=f2e147]:
+            - text: 预先声明的半径 · µm
+            - textbox "预先声明的半径 · µm" [ref=f2e148]: 15, 35, 75
+          - generic [ref=f2e149]:
+            - text: 邻域范围
+            - combobox "邻域范围" [ref=f2e150]:
+              - option "保留外围与选区内部，全部比较" [selected]
+              - option "全部导入邻居"
+              - option "只使用选区内部邻居"
+          - generic [ref=f2e151]:
+            - text: 背景定义
+            - combobox "背景定义" [ref=f2e152]:
+              - option "各邻域候选范围" [selected]
+              - option "全部导入对象"
+              - option "指定已保存选区"
+          - generic [ref=f2e153]:
+            - text: 背景选区 ID
+            - textbox "背景选区 ID" [ref=f2e154]:
+              - /placeholder: 仅指定选区背景需要
+        - paragraph [ref=f2e155]: 尚未绑定分析版本与共享 ROI。
+        - button "使用当前共享 ROI 及其版本" [ref=f2e156] [cursor=pointer]
+        - generic [ref=f2e157]:
+          - text: 计划理由
+          - textbox "计划理由" [ref=f2e158]:
+            - /placeholder: 记录为什么检验这些假设、半径和背景
+        - paragraph [ref=f2e159]: 来源与目标工作标签、超背景阈值使用上方输入；共享 ROI、版本与所有参数在冻结时完整记录。每个条件值显式选择文本、数字或布尔类型；未知测量不会当成零。表达条件必须使用 counts.稳定特征ID，可从左侧目录添加。最多 8 个假设、每个 8 个 AND 条件，1–6 个半径，共 96 个组合。
+        - table [ref=f2e161]:
+          - rowgroup [ref=f2e162]:
+            - row [ref=f2e163]:
+              - columnheader "假设名称" [ref=f2e164]
+              - columnheader "对象选择（可叠加 AND 条件）" [ref=f2e165]
+              - columnheader "假设修改" [ref=f2e166]
+              - columnheader "理由" [ref=f2e167]
+              - columnheader "操作" [ref=f2e168]
+          - rowgroup
+        - button "添加假设" [ref=f2e169] [cursor=pointer]
+        - generic [ref=f2e170]:
+          - button "保存草稿" [ref=f2e171] [cursor=pointer]
+          - button "冻结全部参数与对象" [ref=f2e172] [cursor=pointer]
+          - button "运行已冻结计划" [ref=f2e173] [cursor=pointer]
+        - paragraph [ref=f2e174]: 尚未保存计划。
+        - group [ref=f2e175]:
+          - generic "冻结对象、未知条件及完整计划" [ref=f2e176] [cursor=pointer]
+      - generic [ref=f2e177]:
+        - generic [ref=f2e178]:
+          - heading "保留可复核记录" [level=3] [ref=f2e179]
+          - paragraph [ref=f2e180]: 导出输入快照、修订、选区、结果、来源与文件校验清单。
+          - generic [ref=f2e181]:
+            - checkbox "保存源数据与覆盖层，避免重复复制完整计数" [checked] [ref=f2e182]
+            - generic [ref=f2e183]: 保存源数据与覆盖层，避免重复复制完整计数
+        - button "导出审阅包 ↗" [ref=f2e184] [cursor=pointer]
+    - generic [ref=f2e185]:
+      - text: Spatial Collab · 研究探索 Alpha
+      - generic [ref=f2e186]: NOT_ESTABLISHED · 不将工程记录解释为科学授权

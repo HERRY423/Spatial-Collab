@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spatial-collab"
+version = "0.5.0a1"
+description = "Shared spatial RNA and protein exploration with revision-aware descriptive review"
+requires-python = ">=3.11"
+dependencies = ["numpy>=1.26,<3", "scipy>=1.11,<2", "mcp>=1.28,<2", "uvicorn>=0.30,<1", "starlette>=0.40,<2"]
+
+[project.optional-dependencies]
+import = ["anndata>=0.11,<0.14", "h5py>=3.10,<4"]
+spatialdata = ["spatialdata>=0.8,<0.9", "pyarrow>=18,<24", "zarr>=3,<4"]
+napari = ["napari>=0.6,<0.9", "qtpy>=2.4,<3"]
+assets = ["tifffile>=2024.8"]
+figures = ["matplotlib>=3.8,<4"]
+dev = ["pytest>=8,<10", "httpx>=0.27,<1", "build>=1,<2", "ruff>=0.9,<1", "pyyaml>=6,<7"]
+
+[project.scripts]
+spatial-collab = "spatial_collab.__main__:main"
+
+[project.entry-points."napari.manifest"]
+spatial-collab = "spatial_collab:napari.yaml"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+spatial_collab = ["static/*", "napari.yaml"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"

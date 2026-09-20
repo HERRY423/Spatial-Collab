@@ -1,0 +1,24 @@
+{
+  "name": "spatial-collab",
+  "version": "0.5.0-alpha.1",
+  "description": "Explore paired spatial RNA and protein data with shared selections, annotation revisions and reproducible descriptive comparisons.",
+  "author": {
+    "name": "Spatial Collab contributors"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Spatial Collab",
+    "shortDescription": "Review spatial data together and test annotation sensitivity.",
+    "longDescription": "A local research alpha with home, RNA and protein workspaces, exact paired objects, reversible annotation revisions and reproducible region comparisons. Descriptive evidence only.",
+    "developerName": "Spatial Collab contributors",
+    "category": "Productivity",
+    "capabilities": ["Interactive", "Write"],
+    "defaultPrompt": "Open my Spatial Collab project, inspect the selected cells and markers, propose a revision, and compare the neighborhood result after my confirmation."
+  },
+  "mcpServers": {
+    "spatial-collab": {
+      "command": "python",
+      "args": ["${PLUGIN_ROOT}/scripts/run_server.py"]
+    }
+  }
+}

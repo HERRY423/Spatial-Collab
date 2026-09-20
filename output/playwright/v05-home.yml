@@ -1,0 +1,63 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]: ◈
+      - generic [ref=e5]:
+        - strong [ref=e6]: Spatial Collab
+        - generic [ref=e7]: 空间多组学协作工作台
+      - generic [ref=e8]: ALPHA 0.5
+    - navigation "组学工作空间" [ref=e9]:
+      - button "主页" [ref=e10] [cursor=pointer]
+      - button "空间转录组" [ref=e11] [cursor=pointer]
+      - button "空间蛋白组" [ref=e12] [cursor=pointer]
+    - generic [ref=e13]:
+      - generic [ref=e14]: ● 本地共享项目
+      - button "↻ 刷新共享状态" [ref=e15] [cursor=pointer]
+  - main [ref=e16]:
+    - status [ref=e17]: 项目已加载。先选择区域，再检查标记、提出修订并检验影响。
+    - generic [ref=e18]:
+      - generic [ref=e19]:
+        - text: SPATIAL MULTI-OMICS · SHARED RESEARCH
+        - heading "从同一个位置，理解不同层面的证据。" [level=1] [ref=e20]
+        - paragraph [ref=e21]: 统一查看当前样本的 RNA 与蛋白测量。研究者和 Agent 共享选区、注释版本与分析记录，跨页面继续工作。
+        - 'heading "SPOTS mouse spleen 1: full RNA, array coordinates" [level=2] [ref=e42]'
+        - paragraph [ref=e43]: spots-spleen-1 · 阵列坐标（物理尺度未验证） · 当前版本 rev_a515b5f1928b44…
+      - generic [ref=e44]:
+        - generic [ref=e45]:
+          - text: 空间对象 · spot
+          - strong [ref=e46]: "2568"
+        - generic [ref=e47]:
+          - text: RNA 特征
+          - strong [ref=e48]: "32285"
+        - generic [ref=e49]:
+          - text: 蛋白数据层
+          - strong [ref=e50]: "1"
+        - generic [ref=e51]:
+          - text: 共享选区对象
+          - strong [ref=e52]: "1285"
+      - generic [ref=e23]:
+        - article [ref=e24]:
+          - text: 01 / TRANSCRIPTOMICS
+          - heading "空间转录组" [level=2] [ref=e25]
+          - paragraph [ref=e26]: 观察基因表达、检查注释与测量质量，冻结假设并比较修订的影响。
+          - paragraph [ref=e53]: 32285 个实测特征 · 1 个版本
+          - button "进入转录组工作台 →" [ref=e27] [cursor=pointer]
+        - article [ref=e28]:
+          - text: 02 / PROTEOMICS
+          - heading "空间蛋白组" [level=2] [ref=e29]
+          - paragraph [ref=e30]: 查看抗体计数或蛋白信号强度，在同一 ROI 比较蛋白分布及 RNA–蛋白一致性。
+          - paragraph [ref=e54]: SPOTS spleen 1 · 21 antibody channels · 21 个通道
+          - button "进入蛋白组工作台 →" [ref=e31] [cursor=pointer]
+      - generic [ref=e32]:
+        - heading "继续当前研究" [level=2] [ref=e33]
+        - paragraph [ref=e55]: 共享 ROI：1285 个对象 · sel_6ffeebe70e6b4d2aa8458fd0e06c3825 · 当前版本
+        - generic [ref=e34]:
+          - button "查看／调整共享选区" [ref=e35] [cursor=pointer]
+          - button "检查 RNA 测量质量" [ref=e36] [cursor=pointer]
+          - button "导出当前审阅记录" [ref=e37] [cursor=pointer]
+        - heading "最近保存的分析" [level=3] [ref=e38]
+        - button "run_b7e0f48c79ce48… · 当前版本" [ref=e57] [cursor=pointer]
+        - paragraph [ref=e39]: 当前一个项目对应一个空间样本。数据层配对不等于批次校正、多样本整合或已验证的细胞身份。
+    - generic [ref=e40]:
+      - text: Spatial Collab · 空间多组学研究 Alpha
+      - generic [ref=e41]: NOT_ESTABLISHED · 不将工程记录解释为科学授权
