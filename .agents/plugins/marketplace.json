@@ -1,0 +1,20 @@
+{
+  "name": "spatial-collab-marketplace",
+  "interface": {
+    "displayName": "Spatial Collab Research"
+  },
+  "plugins": [
+    {
+      "name": "spatial-collab",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Scientific Research"
+    }
+  ]
+}
