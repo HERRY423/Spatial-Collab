@@ -1,0 +1,49 @@
+{
+  "version": "0.7.0a1 / 0.7.0-alpha.1, unchanged",
+  "tests": {
+    "passed": 509,
+    "skipped": 3,
+    "seconds": 77.78,
+    "log_sha256": "85efb601b699b478c630458fb8c031a344090149fcf0da9677a3b7f7221f5c00"
+  },
+  "runtime_files_source_wheel_installed_matched": 53,
+  "source_manifest_files_verified": 136,
+  "installed_mcp": {
+    "passed": true,
+    "checks": [
+      "create_analysis_power_plan",
+      "get_analysis_catalog",
+      "get_analysis_job",
+      "get_analysis_power_plan",
+      "inspect_analysis_result",
+      "submit_analysis"
+    ],
+    "runtime": "C:\\Spatial\\spatial-collab\\.test-install\\power-delivery\\spatial_collab\\__init__.py"
+  },
+  "browser": {
+    "url": "http://127.0.0.1:8780",
+    "verified": [
+      "method responsibility labels",
+      "exact public family",
+      "resolution blocked at rank 1",
+      "dense rank scenario with conditional MDE and intervals",
+      "retrospective timing retained"
+    ],
+    "errors": 0,
+    "warnings": 0
+  },
+  "evidence_sha256": {
+    "public-power-validation.json": "073937011e7b873af918f4291cceeb70251a1589e495fa1ce06d765facac606c",
+    "protocol-validation.json": "ad6c7538de0fbf1080e789c2f790aa72ed481397d8cf1356e5c7b9c74da4b93e",
+    "browser-power.yml": "7bc8ead136849f2ee610ae2d6e9d056f2c9856e8223b179b3a17aa29b9b1d6c4",
+    "browser-power.png": "144249abd429fe36d6ef53f2a12979d4aa7a537bba4c5ef5516d4335f2e41c92",
+    "browser-resolution.png": "e6ebcf057ece1e29bd1faefb0bfeeacfa3678668d6825dbfe30fb4e7476e8039",
+    "browser-console.txt": "5e022534a5fe0feeb06a8fc815ff2ad8e4598aae62e789579db7dbcbfb58bc2a"
+  },
+  "artifacts_sha256": {
+    "spatial-collab-0.7.0-alpha.1.zip": "5cdecfb00fc6d7f798db0ba9bccc66a5d1bc0c91fe68e731d1f89bea7b6f9cd5",
+    "spatial_collab-0.7.0a1-py3-none-any.whl": "073ed0d5cc22180786c4f9215cbdb557d0b307b5cb52c9ca16f8dd6e3504040d",
+    "spatial_collab-0.7.0a1.tar.gz": "36f54c3125932506fdfa78b1eb962d6b3a02f5fcff8f29cfcbffb504e1141b5b"
+  },
+  "scope": "Numerical correctness and local product/transport acceptance; model-conditional grid MDE, not general biological power, independent validation or externally preregistered research."
+}

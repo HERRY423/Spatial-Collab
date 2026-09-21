@@ -1,0 +1,303 @@
+### Page
+- Page URL: http://127.0.0.1:8780/
+- Page Title: Spatial Collab · 空间多组学协作工作台
+### Snapshot
+```yaml
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]: ◈
+      - generic [ref=e5]:
+        - strong [ref=e6]: Spatial Collab
+        - generic [ref=e7]: 空间多组学协作工作台
+      - generic [ref=e8]: ALPHA 0.7
+    - navigation "组学工作空间" [ref=e9]:
+      - button "主页" [ref=e10] [cursor=pointer]
+      - button "空间转录组" [ref=e11] [cursor=pointer]
+      - button "空间蛋白组" [ref=e12] [cursor=pointer]
+      - button "整合与复核" [ref=e13] [cursor=pointer]
+      - button "全切片与研究统计" [ref=e14] [cursor=pointer]
+    - generic [ref=e15]:
+      - generic [ref=e16]: ● 本地共享项目
+      - button "↻ 刷新共享状态" [ref=e17] [cursor=pointer]
+  - main [ref=e18]:
+    - status [ref=e19]: 已同步其他界面的共享选区、修订或分析记录。
+    - generic [ref=e61]:
+      - generic [ref=e63]:
+        - text: RNA + PROTEIN · COMPARE & REVIEW
+        - heading "空间分析与整合复核" [level=1] [ref=e64]
+        - paragraph [ref=e65]: 同一空间对象上的 RNA、蛋白和联合组织域。簇编号是方法内标签，分歧提示需要检查的位置。
+      - generic [ref=e66]:
+        - heading "运行或载入分析" [level=2] [ref=e67]
+        - generic [ref=e68]:
+          - generic [ref=e69]:
+            - text: 后端
+            - combobox "后端" [ref=e70]:
+              - option "模态平衡 PCA 基线" [selected]
+              - option "空间邻域图增强聚类 (spatial_graph)"
+              - option "SMOPCA 小规模参考"
+          - generic [ref=e71]:
+            - text: 特征选择
+            - combobox "特征选择" [ref=e72]:
+              - option "表达方差 (Variance)" [selected]
+              - option "空间自相关 (Moran's I SVG)"
+          - generic [ref=e73]:
+            - text: 空间域数量
+            - spinbutton "空间域数量" [ref=e74]: "6"
+          - generic [ref=e75]:
+            - text: 随机种子
+            - spinbutton "随机种子" [ref=e76]: "0"
+          - generic [ref=e77]:
+            - text: 拟合范围
+            - combobox "拟合范围" [ref=e78]:
+              - option "当前版本全部纳入对象" [selected]
+              - option "当前共享 ROI"
+          - generic [ref=e79]:
+            - text: 蛋白预处理
+            - combobox "蛋白预处理" [ref=e80]:
+              - option "log1p" [selected]
+              - option "asinh / 5"
+        - paragraph [ref=e81]: 蛋白层沿用蛋白页的选择；RNA 默认支持方差或空间自相关（Moran's I）高变特征。空间图采用稀疏存储；实际拟合仍受特征矩阵和运行环境限制。SMOPCA 限 3,000 个对象；更多方法见下方科学分析。
+        - generic [ref=e82]:
+          - button "在当前版本拟合三组结果" [ref=e83] [cursor=pointer]
+          - button "更新任务状态" [ref=e84] [cursor=pointer]
+          - button "取消任务" [ref=e85] [cursor=pointer]
+          - button "重试失败任务" [ref=e86] [cursor=pointer]
+          - button "读取已保存结果" [ref=e87] [cursor=pointer]
+        - status [ref=e88]: 尚未提交任务
+        - generic [ref=e89]:
+          - generic [ref=e90]:
+            - text: 左侧结果
+            - combobox "左侧结果" [ref=e91]:
+              - option "smopca_with_unimodal_controls · fit · 2568 对象 · 当前 · integration_fa98f1…" [selected]
+              - option "smopca_with_unimodal_controls · fit · 2568 对象 · 当前 · integration_7d4323…"
+              - option "smopca_with_unimodal_controls · fit · 2568 对象 · 当前 · integration_d00e4b…"
+              - option "balanced_pca_kmeans · fit · 2568 对象 · 当前 · integration_84b8ec…"
+          - generic [ref=e92]:
+            - text: 左侧模态
+            - combobox "左侧模态" [ref=e93]:
+              - option "RNA-only" [selected]
+              - option "Protein-only"
+              - option "联合结果"
+          - generic [ref=e94]:
+            - text: 右侧结果
+            - combobox "右侧结果" [ref=e95]:
+              - option "smopca_with_unimodal_controls · fit · 2568 对象 · 当前 · integration_fa98f1…" [selected]
+              - option "smopca_with_unimodal_controls · fit · 2568 对象 · 当前 · integration_7d4323…"
+              - option "smopca_with_unimodal_controls · fit · 2568 对象 · 当前 · integration_d00e4b…"
+              - option "balanced_pca_kmeans · fit · 2568 对象 · 当前 · integration_84b8ec…"
+          - generic [ref=e96]:
+            - text: 右侧模态
+            - combobox "右侧模态" [ref=e97]:
+              - option "联合结果" [selected]
+              - option "RNA-only"
+              - option "Protein-only"
+        - generic [ref=e98]:
+          - button "查看空间域和分歧" [ref=e99] [cursor=pointer]
+          - button "按当前版本筛选左侧原模型" [ref=e100] [cursor=pointer]
+          - button "沿用左侧参数在当前版本重新拟合" [ref=e101] [cursor=pointer]
+          - button "导出含整合结果的审阅包" [ref=e102] [cursor=pointer]
+        - paragraph [ref=e103]: 固定模型筛选保留原嵌入；重新拟合会建立新任务。两者分别保留。
+        - generic [ref=e104]:
+          - generic [ref=e105]:
+            - heading "左侧空间域" [level=3] [ref=e106]
+            - generic "左侧方法空间域" [ref=e107]
+          - generic [ref=e108]:
+            - heading "右侧空间域" [level=3] [ref=e109]
+            - generic "右侧方法空间域" [ref=e110]
+        - heading "优先检查的位置" [level=3] [ref=e111]
+        - paragraph [ref=e112]: 按近邻同簇关系分歧排序，与簇编号置换无关。点击检查会建立精确共享选区；原始特征证据与人工修订沿用 RNA / 蛋白页。
+        - group [ref=e113]:
+          - generic "方法、预处理、拟合对象及完整对照" [ref=e114]
+      - generic [ref=e115]:
+        - heading "运行科学分析" [level=2] [ref=e116]
+        - paragraph [ref=e117]: 从冻结的原始计数开始。各类任务分别保留因子、组成、丰度、配准或统计结果；运行不会修改正式注释。
+        - generic [ref=e118]:
+          - generic [ref=e119]:
+            - text: 样本物种
+            - combobox "样本物种" [ref=e120]:
+              - option "请选择已确认的物种" [selected]
+              - option "人"
+              - option "小鼠"
+          - generic [ref=e121]:
+            - text: 冻结范围
+            - combobox "冻结范围" [ref=e122]:
+              - option "当前版本全部纳入对象" [selected]
+              - option "当前共享选区"
+        - generic [ref=e123]:
+          - button "冻结当前 RNA 输入" [ref=e124] [cursor=pointer]
+          - button "读取方法、输入和结果" [ref=e125] [cursor=pointer]
+        - paragraph [ref=e126]: 其他切片或单细胞参考需先通过本地 analysis import 命令登记原始计数层、物种和注释。参考输入不能由空间簇标签冒充。
+        - generic [ref=e127]:
+          - generic [ref=e128]:
+            - text: 分析方法
+            - combobox "分析方法" [ref=e129]:
+              - option "参考 NNLS 去卷积基线"
+              - option "Moran's I 置换与 FDR" [selected]
+              - option "数据库支持的空间配体—受体检验"
+              - option "MOFA+ 多模态因子"
+              - option "MEFISTO 空间多模态因子"
+              - option "Cell2location 丰度后验"
+              - option "Harmony 表达批次校正"
+              - option "PASTE 切片配准"
+              - option "SpaGCN 空间结构域"
+              - option "稀疏空间图谱聚类基线"
+              - option "PROGENy / ULM 通路活性"
+          - generic [ref=e130]:
+            - text: 空间输入
+            - combobox "空间输入" [ref=e131]:
+              - option "spots-spleen-1 · 300 对象 · 3db00066"
+              - option "spatial-derived-registration-control · 300 对象 · 38faf968"
+              - option "spots-spleen-1 · 300 对象 · 33b6592a" [selected]
+              - option "spatial-derived-registration-control · 300 对象 · c6cd7f83"
+          - generic [ref=e136]:
+            - text: 随机种子
+            - spinbutton "随机种子" [ref=e137]: "0"
+          - generic [ref=e164]:
+            - text: 置换次数
+            - spinbutton "置换次数" [ref=e165]: "99"
+        - paragraph [ref=e138]: 检验全部实测 RNA 基因的正空间自相关并统一校正；置换次数决定最小 p 值。 内置数值方法：核验指定数值定义与复算，不据此保证生物学正确性。
+        - group [ref=e166]:
+          - generic "运行前：检验分辨率与条件功效声明（Moran / LR）" [ref=e167]
+          - paragraph [ref=e168]: 这里估计指定生成模型、空间图和 BH 排序阈值下的功效，不能仅凭样本数给出通用最小效应。BH 排序位置是规划假设，不是预测发现数；修改它必须有理由。
+          - generic [ref=e169]:
+            - generic [ref=e170]:
+              - text: 假定 BH 拒绝排序位置
+              - spinbutton "假定 BH 拒绝排序位置" [ref=e171]: "2486"
+            - generic [ref=e172]:
+              - text: 目标功效
+              - spinbutton "目标功效" [ref=e173]: "0.8"
+            - generic [ref=e174]:
+              - text: 独立模拟次数
+              - spinbutton "独立模拟次数" [ref=e175]: "200"
+            - generic [ref=e176]:
+              - text: 模型 rho 网格
+              - textbox "模型 rho 网格" [ref=e177]: 0,0.2,0.4,0.6,0.8,0.95
+          - paragraph [ref=e178]: 生成模型：Gaussian SAR；rho 为邻接耦合参数，另报告所生成 Moran I 的分布。
+          - generic [ref=e179]:
+            - text: 模型与排序假设的理由
+            - textbox "模型与排序假设的理由" [ref=e180]:
+              - /placeholder: 说明稀疏或广泛信号假设，以及该模型的适用范围
+              - text: 回顾性假设场景：仅演示假定 BH 第2486位阈值下的条件功效，不预测真实数据有2486个信号。
+          - button "冻结假设并评估功效" [ref=e181] [cursor=pointer]
+          - button "不关联当前声明" [ref=e182] [cursor=pointer]
+          - status [ref=e183]: 300 个位置 / 12426 项检验 / 99 次置换：最小 p=0.0100；BH 至少到第 2486 位才有可能满足 q<0.05。假定排序第 2486 位至少需要 99 次置换。 模型条件下的网格 MDE：rho=0.4，生成效应中位数=0.1666。查看下方曲线与 95% 功效区间；这不是通用生物学最小效应。 声明时点：本工作区已有相同输入的分析，属于回顾性敏感性评估
+          - table [ref=e187]:
+            - row [ref=e188]:
+              - columnheader "模型 rho" [ref=e189]
+              - columnheader "生成效应中位数" [ref=e190]
+              - columnheader "估计功效" [ref=e191]
+              - columnheader "功效 95% 区间" [ref=e192]
+            - row [ref=e193]:
+              - cell "0" [ref=e194]
+              - cell "0.002668" [ref=e195]
+              - cell "1.0%" [ref=e196]
+              - cell "0.3%–3.6%" [ref=e197]
+            - row [ref=e198]:
+              - cell "0.2" [ref=e199]
+              - cell "0.07339" [ref=e200]
+              - cell "44.0%" [ref=e201]
+              - cell "37.3%–50.9%" [ref=e202]
+            - row [ref=e203]:
+              - cell "0.4" [ref=e204]
+              - cell "0.1666" [ref=e205]
+              - cell "94.5%" [ref=e206]
+              - cell "90.4%–96.9%" [ref=e207]
+            - row [ref=e208]:
+              - cell "0.6" [ref=e209]
+              - cell "0.3003" [ref=e210]
+              - cell "100.0%" [ref=e211]
+              - cell "98.1%–100.0%" [ref=e212]
+            - row [ref=e213]:
+              - cell "0.8" [ref=e214]
+              - cell "0.5138" [ref=e215]
+              - cell "100.0%" [ref=e216]
+              - cell "98.1%–100.0%" [ref=e217]
+            - row [ref=e218]:
+              - cell "0.95" [ref=e219]
+              - cell "0.8098" [ref=e220]
+              - cell "100.0%" [ref=e221]
+              - cell "98.1%–100.0%" [ref=e222]
+          - group [ref=e184]:
+            - generic "冻结声明、完整曲线和不确定性" [ref=e185]
+        - generic [ref=e139]:
+          - button "运行所选分析" [ref=e140] [cursor=pointer]
+          - button "更新运行状态" [ref=e141] [cursor=pointer]
+          - button "取消分析" [ref=e142] [cursor=pointer]
+          - button "重试失败分析" [ref=e143] [cursor=pointer]
+        - generic [ref=e144]:
+          - text: 恢复最近的分析任务
+          - combobox "恢复最近的分析任务" [ref=e145]:
+            - option "paste · succeeded · 0368f28c" [selected]
+            - option "cell2location · succeeded · e14997a1"
+            - option "mefisto · succeeded · fb652f09"
+            - option "mofa · succeeded · 1b07c68c"
+            - option "progeny · succeeded · 1152f867"
+            - option "spatial_lr · succeeded · 92544407"
+            - option "moran_svg · succeeded · 9f107e09"
+            - option "spatial_spectral · succeeded · 0dd911fb"
+            - option "spagcn · succeeded · 1b996c84"
+            - option "paste · failed · 0df80fc4"
+            - option "harmony · succeeded · 60431292"
+            - option "cell2location · failed · 977ee125"
+            - option "nnls · succeeded · 79eecd38"
+            - option "mefisto · failed · eaaacd50"
+            - option "mofa · failed · 18d5c2ab"
+            - option "nnls · succeeded · ddf60e93"
+            - option "nnls · succeeded · 26ad6daa"
+            - option "moran_svg · succeeded · 7cfe1850"
+            - option "spatial_spectral · succeeded · 8726ddaf"
+            - option "nnls · failed · 88f0181c"
+        - status [ref=e146]: 尚未运行
+        - generic [ref=e147]:
+          - generic [ref=e148]:
+            - text: 保存的科学结果
+            - combobox "保存的科学结果" [ref=e149]:
+              - option "spatial_spectral · 8f12acd452" [selected]
+              - option "moran_svg · 6d48114c6a"
+              - option "nnls · a13fe7423d"
+              - option "nnls · 5d58b327bb"
+              - option "nnls · 56bc290d89"
+              - option "harmony · 7d97f95446"
+              - option "spagcn · 669c790a16"
+              - option "spatial_spectral · 9da393237f"
+              - option "moran_svg · c840491b82"
+              - option "spatial_lr · 7b05285373"
+              - option "progeny · b41fa74e1b"
+              - option "mofa · fd71dceacd"
+              - option "mefisto · 0fbaa399b6"
+              - option "cell2location · 92535eb26e"
+              - option "paste · c862c33c00"
+              - option "moran_svg · 15bdb044b2"
+              - option "spatial_lr · 906ec5c7ef"
+          - generic [ref=e150]:
+            - text: 查看内容
+            - combobox "查看内容" [ref=e151]:
+              - option "默认结果" [selected]
+              - option "结构域"
+              - option "因子 / 校正表示"
+              - option "RNA 贡献比例"
+              - option "细胞丰度后验均值"
+              - option "细胞丰度 5% 分位数"
+              - option "细胞丰度 95% 分位数"
+              - option "PROGENy 通路活性"
+              - option "通路检验校正值"
+              - option "推断对应坐标"
+        - generic [ref=e152]:
+          - button "查看结果与原始对象" [ref=e153] [cursor=pointer]
+          - button "下一页" [ref=e154] [cursor=pointer]
+        - paragraph
+        - generic [ref=e155]:
+          - text: 地图显示的分量 / 细胞类型
+          - combobox "地图显示的分量 / 细胞类型" [ref=e156]
+        - generic "本页分析结果空间图" [ref=e157]
+        - paragraph
+        - group [ref=e158]:
+          - generic "完整参数、统计假设与解释范围" [ref=e159]
+      - generic [ref=e160]:
+        - heading "模态关系与研究设计" [level=2] [ref=e161]
+        - button "查看已登记的对应关系、派生层和样本设计" [ref=e162] [cursor=pointer]
+    - generic [ref=e42]:
+      - text: Spatial Collab · 空间多组学研究 Alpha
+      - generic [ref=e43]: NOT_ESTABLISHED · 不将工程记录解释为科学授权
+```

@@ -81,7 +81,8 @@ def test_workbench_plan_workflow_exact_versions_and_unknown_rows(tmp_path, monke
     assert len(project.summary()["revisions"]) == 1
     assert not set(c["name"] for c in calls) & {"propose_revision", "apply_revision", "revert_revision"}
     run_calls = [c["arguments"] for c in calls if c["name"] == "run_hypothesis_plan"]
-    assert run_calls and all(set(c) == {"plan_id", "version"} for c in run_calls)
+    assert run_calls and all(set(c) == {"plan_id", "version", "project_id"} for c in run_calls)
+    assert all(c["project_id"] == project.summary()["project_id"] for c in run_calls)
     records = hypotheses.list_hypothesis_plans(project)["plans"]
     assert len(records) == 1
     frozen = hypotheses.get_hypothesis_plan(project, records[0]["plan_id"], 2)

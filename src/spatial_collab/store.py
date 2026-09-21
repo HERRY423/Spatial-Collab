@@ -633,6 +633,10 @@ class Project:
         if not isinstance(result, dict):
             raise SpatialError("Analysis result must be an object.")
         payload = json.loads(_json(result))
+        region_method = {"spatial-collab.region-contrast.v1": "region_comparison", "spatial-collab.protein-region.v1": "protein_region_comparison"}.get(payload.get("analysis_schema"))
+        if region_method:
+            from .method_contracts import contract
+            payload["method_contract"] = contract(region_method)
         with self._db(write=True) as db:
             base = self._record(db, "revisions", payload.get("base_revision"))
             target = self._record(db, "revisions", payload.get("target_revision"))
@@ -702,7 +706,7 @@ class Project:
             from .array_assays import export_record
             files["protein_assays.json"] = [export_record(self, a) if a["schema"].endswith(".v2") else a for a in assays]
         from . import objects
-        research = [objects.get(self, oid, kind) for kind in ("integration", "correspondence", "measurementlayer", "molecularrelation", "study", "studyresult", "atlas", "pyramid", "assaydescriptor", "integrationexperiment", "integrationexperimentrun", "analysisinput", "analysisresult") for oid in objects.catalog(self, kind)]
+        research = [objects.get(self, oid, kind) for kind in ("integration", "correspondence", "measurementlayer", "molecularrelation", "study", "studyresult", "atlas", "pyramid", "assaydescriptor", "integrationexperiment", "integrationexperimentrun", "analysisinput", "powerdesign", "powerplan", "analysisresult") for oid in objects.catalog(self, kind)]
         if research:
             files["research_objects.json"] = research
         contents = {name: (_json(value) + "\n").encode("utf-8") for name, value in files.items()}

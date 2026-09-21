@@ -10,11 +10,17 @@ node_modules/
 .venv-v06/
 .venv-v07/
 output/scalability/*-tmp/
+output/power/*-tmp/
 output/v07/*-tmp/
 output/v07/wheels/
 projects/
 .test-install/
+.runtime/
+runtime.json
+gateway.local.json
+.env
 *.log
 output/v06/*-tmp/
 output/v06/protocol-*/
 output/v06/upstream/
+.playwright-cli/

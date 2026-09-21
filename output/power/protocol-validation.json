@@ -1,0 +1,161 @@
+{
+  "runtime": "C:\\Spatial\\spatial-collab\\.test-install\\power-delivery\\spatial_collab\\__init__.py",
+  "project": "C:\\Spatial\\spatial-collab\\output\\power\\protocol-tmp",
+  "checks": [
+    "get_analysis_catalog",
+    "create_analysis_power_plan",
+    "get_analysis_power_plan",
+    "submit_analysis",
+    "get_analysis_job",
+    "get_analysis_job",
+    "get_analysis_job",
+    "get_analysis_job",
+    "get_analysis_job",
+    "get_analysis_job",
+    "get_analysis_job",
+    "get_analysis_job",
+    "get_analysis_job",
+    "inspect_analysis_result"
+  ],
+  "all_passed": true,
+  "tiers": {
+    "mofa": "external_adapter",
+    "mefisto": "external_adapter",
+    "nnls": "internal_numerical",
+    "cell2location": "external_adapter",
+    "harmony": "external_adapter",
+    "paste": "external_adapter",
+    "spagcn": "external_adapter",
+    "spatial_spectral": "external_adapter",
+    "moran_svg": "internal_numerical",
+    "spatial_lr": "internal_numerical",
+    "progeny": "external_adapter"
+  },
+  "power_plan": {
+    "assumptions": {
+      "effect_grid": [
+        0,
+        0.4,
+        0.8,
+        0.95
+      ],
+      "model": "gaussian_sar",
+      "rationale": "Prospective synthetic transport control, not biological calibration.",
+      "simulations": 80
+    },
+    "design_id": "powerdesign_4700c1484f8a93cfd6f8804293ea72bc",
+    "object_kind": "powerplan",
+    "resolved": {
+      "coordinates_sha256": "9e3fcc7f7a587f8f605c9313df404c18f90dc1f8f1174c05de3016629b307185",
+      "eligibility": "Exact measured/filter/constant eligibility; no observed Moran/LR statistic or p-value is used.",
+      "family_sha256": "0a2b4ad995acc6f5a040c90e6daa08ca78405335b76027f3fd2889b714991a1a",
+      "family_size": 3,
+      "input_id": "analysisinput_bcd6f522551560a4eb63f85a00b4e567",
+      "input_sha256": "bcd6f522551560a4eb63f85a00b4e567be7f6db3351e37a5b98efeebb967a22c",
+      "method": "moran_svg",
+      "neighbors": 6,
+      "observations": 64,
+      "permutations": 99,
+      "resource_sha256": null
+    },
+    "result": {
+      "biological_calibration": "NOT_ESTABLISHED; design simulation uses graph and declared model, not observed effect estimates, count dropout, complex subunit noise or tissue-specific nuisances.",
+      "curve": [
+        {
+          "generated_effect_median": -0.03479733260743697,
+          "generated_effect_range90": [
+            -0.11823492149987821,
+            0.06111038065773673
+          ],
+          "power": 0.0,
+          "power_ci95": [
+            0.0,
+            0.0458181295355271
+          ],
+          "rejections": 0,
+          "rho": 0,
+          "simulations": 80
+        },
+        {
+          "generated_effect_median": 0.1026875075066101,
+          "generated_effect_range90": [
+            -0.012140739114851638,
+            0.26448424587122654
+          ],
+          "power": 0.2625,
+          "power_ci95": [
+            0.1785740148850936,
+            0.36818959664428175
+          ],
+          "rejections": 21,
+          "rho": 0.4,
+          "simulations": 80
+        },
+        {
+          "generated_effect_median": 0.45191339174885736,
+          "generated_effect_range90": [
+            0.22072355199194982,
+            0.6832306317331975
+          ],
+          "power": 0.975,
+          "power_ci95": [
+            0.9133556701442198,
+            0.9931171067970292
+          ],
+          "rejections": 78,
+          "rho": 0.8,
+          "simulations": 80
+        },
+        {
+          "generated_effect_median": 0.7508808377922239,
+          "generated_effect_range90": [
+            0.4343726743660451,
+            0.8856016109230878
+          ],
+          "power": 1.0,
+          "power_ci95": [
+            0.9541818704644728,
+            0.9999999999999999
+          ],
+          "rejections": 80,
+          "rho": 0.95,
+          "simulations": 80
+        }
+      ],
+      "effect_definition": "rho in the declared generative model; not log fold change, a universal Moran I, or biochemical interaction strength",
+      "generated_effect_name": "Moran I",
+      "mde_generated_effect_median": 0.45191339174885736,
+      "mde_reason": "Smallest tested nonzero rho whose pointwise lower confidence bound and all larger grid points meet target; no interpolation or monotonicity assumption. Not an exact continuous minimum.",
+      "mde_rho": 0.8,
+      "model": "gaussian_sar",
+      "resolution": {
+        "alpha": 0.05,
+        "assumed_bh_rank": 1,
+        "current_analysis_permutation_cap": 9999,
+        "decision_rule": "q < alpha",
+        "effect_size_from_counts_alone": null,
+        "family_size": 3,
+        "interpretation": "Sample size and p-value resolution do not uniquely determine a minimum detectable effect. Zero discoveries do not establish biological absence.",
+        "minimum_p": 0.01,
+        "minimum_permutations_at_assumed_rank": 60,
+        "minimum_possible_bh_rejection_rank": 1,
+        "observations": 64,
+        "permutations": 99,
+        "rank_resolution_attainable": true,
+        "rank_scope": "Sufficient BH cutoff conditional on declared rejection rank; actual BH rank is unknown. Other signals can rescue a lower-ranked p-value.",
+        "rank_threshold": 0.016666666666666666,
+        "required_budget_within_current_runner": true
+      },
+      "scope": "Power for p < alpha * declared_rank / family_size, a sufficient BH rejection condition; not full-family BH power or study-level power.",
+      "status": "simulated",
+      "target_power": 0.8,
+      "uncertainty": "Pointwise 95% Wilson intervals, not simultaneous confidence bounds or a validated sample-size guarantee."
+    },
+    "timing": "before_target_run_in_this_workspace",
+    "object_id": "powerplan_c6f8621eb38d4a25529a87c3a4d0cf79",
+    "object_sha256": "c6f8621eb38d4a25529a87c3a4d0cf79690f985b64f3e6586cc1850b9af27daf"
+  },
+  "result_id": "analysisresult_5cd3575f9b4874512970a8c4dea7d7c1",
+  "environment_sha256": "3402049b8b016ad0f75031adec9bda93c239e71a4a50446dda25ee8118c6bf62",
+  "scope": "Actual MCP stdio and configured child process; synthetic prospective ordering, not external preregistration or host adoption."
+}

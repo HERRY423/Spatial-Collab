@@ -379,6 +379,7 @@ def verify_bundle(bundle_path: str | Path, recompute: bool = True, recompute_wor
     recomputation returns ``recompute_status='mismatch'`` and the mismatched
     top-level scientific fields. The original bundle is never modified.
     """
+    from . import objects
     if type(recompute) is not bool:
         raise SpatialError("recompute must be true or false.")
     folder = Path(bundle_path).resolve()
@@ -396,6 +397,23 @@ def verify_bundle(bundle_path: str | Path, recompute: bool = True, recompute_wor
                               "Recomputation verifies the declared descriptive calculation, not biological validity or the original scientific conclusion."]}
     result["integration_verification"] = []
     result["workflow_verification"] = []
+    result["power_verification"] = []
+    for saved in project.research_objects.values():
+        if saved["object_kind"] != "powerplan":
+            continue
+        from .power import simulate
+        from .spatial_statistics import graph
+        declaration = objects.get(project, saved["design_id"], "powerdesign")
+        source = objects.get(project, saved["resolved"]["input_id"], "analysisinput")
+        if (declaration["resolved"] != saved["resolved"] or declaration["assumptions"] != saved["assumptions"] or
+                source["object_sha256"] != saved["resolved"]["input_sha256"]):
+            raise SpatialError("Power declaration/input identity mismatch.")
+        rebuilt = simulate(saved["resolved"], graph(source["coordinates"], saved["resolved"]["neighbors"]), saved["assumptions"]) if recompute else None
+        matches = _equal(saved["result"], rebuilt) if rebuilt else None
+        result["power_verification"].append({"plan_id": saved["object_id"], "recompute_matches": matches})
+    if any(r["recompute_matches"] is False for r in result["power_verification"]):
+        result.update(recompute_matches=False, recompute_status="mismatch", mismatched_fields=["power_outputs"])
+        return result
     result["study_verification"] = []
     result["external_spatial_resources"] = [
         {"id": saved["object_id"], "kind": saved["object_kind"], "status": "manifest_only_pixels_or_atlas_database_not_in_review_bundle"}
@@ -421,6 +439,9 @@ def verify_bundle(bundle_path: str | Path, recompute: bool = True, recompute_wor
             # Training timing is retained as diagnostics, not a scientific output.
             left = {k: v for k, v in saved["output"].items() if k != "training_diagnostics"}
             right = {k: v for k, v in rebuilt["output"].items() if k != "training_diagnostics"}
+            if "power_evidence" not in left:
+                right.pop("power_evidence", None)  # historical results had no planning feature
+                right.pop("discovery_summary", None)
             status = "recomputed_matched" if _equal(left, right) else "recomputed_mismatch"
         result["workflow_verification"].append({"result_id": saved["object_id"], "method": saved["method"], "status": status})
     for saved in project.research_objects.values():

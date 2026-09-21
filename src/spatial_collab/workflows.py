@@ -11,7 +11,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(prog="spatial-collab analysis")
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("catalog")
-    for command in ("configure", "import", "snapshot", "run", "status", "result"):
+    for command in ("configure", "import", "snapshot", "run", "power", "status", "result"):
         p = sub.add_parser(command)
         p.add_argument("--project", required=True)
         if command == "configure":
@@ -35,11 +35,13 @@ def main(argv=None):
             p.add_argument("--species", required=True, choices=["human", "mouse"])
             p.add_argument("--revision-id")
             p.add_argument("--observation-ids", help="JSON file containing explicit included IDs")
-        elif command == "run":
+        elif command in {"run", "power"}:
             p.add_argument(
                 "--spec", required=True, help="JSON recipe with method, input_ids, parameters, seed"
             )
             p.add_argument("--background", action="store_true")
+            if command == "power":
+                p.add_argument("--assumptions", required=True, help="JSON with model, BH rank, target power, effect grid and rationale")
         elif command == "status":
             p.add_argument("job_id")
         else:
@@ -69,6 +71,9 @@ def main(argv=None):
                 project, args.revision_id or project.context()["head_revision"], args.species, ids
             )
             result = {k: record[k] for k in ("object_id", "shape", "kind", "species")}
+        elif args.command == "power":
+            from .power import create_configured
+            result = create_configured(project, json.loads(Path(args.spec).read_text(encoding="utf-8-sig")), json.loads(Path(args.assumptions).read_text(encoding="utf-8-sig")))
         elif args.command == "run":
             spec = json.loads(Path(args.spec).read_text(encoding="utf-8-sig"))
             result = jobs.submit(project, spec, launch=args.background)

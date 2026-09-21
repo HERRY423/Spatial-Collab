@@ -1,0 +1,43 @@
+{
+  "version": "0.8.0a1",
+  "source_manifest_files_verified": 148,
+  "source_wheel_installed_files_matched": 57,
+  "source_zip_plugin_files_matched": 186,
+  "runtime": "C:\\Users\\13264\\AppData\\Local\\SpatialCollab\\runtime\\Scripts\\python.exe",
+  "plugin_root": "C:\\Users\\13264\\.codex\\plugins\\cache\\personal\\spatial-collab\\0.8.0-alpha.1",
+  "private_workspace_empty": true,
+  "protocol": {
+    "installed_wheel": {
+      "tool_count": 77,
+      "cell_count": 480,
+      "ui_resource": true,
+      "download_sha256_verified": true,
+      "real_chatgpt": false
+    },
+    "plugin_launcher": {
+      "tool_count": 77,
+      "cell_count": 480,
+      "ui_resource": true,
+      "download_sha256_verified": true,
+      "real_chatgpt": false
+    }
+  },
+  "tests": {
+    "passed": 521,
+    "skipped": 3,
+    "seconds": 62.53,
+    "log_sha256": "b4cfeb6021a435c745fbd6c2509b46491f8d511cae403512e78bbc4f77947a81"
+  },
+  "artifacts": {
+    "spatial-collab-0.8.0-alpha.1.zip": "3890d74777858ae2c7e3b0e212dbdad5a4b89c59c9487daccb0cbbf7e9266399",
+    "spatial_collab-0.8.0a1-py3-none-any.whl": "77d881946546f55ded27c9f872e1a848f05557459ad5f37be49970d1a3358b7a",
+    "spatial_collab-0.8.0a1.tar.gz": "84777c3703e98accbc64c0ff977dd64a2387cfbea5330a56c99669102d12feb5"
+  },
+  "chatgpt": {
+    "status": "BLOCKED_ACCOUNT_PERMISSIONS",
+    "live_iframe_accepted": false,
+    "reason": "User reports no developer mode or tunnel permissions."
+  },
+  "public_service": "RESOURCE_SERVER_TESTED_LOCALLY_NOT_DEPLOYED",
+  "evidence_scope": "Local engineering, exact package bytes and real MCP transports; no biological validation or live ChatGPT acceptance."
+}

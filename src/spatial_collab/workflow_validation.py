@@ -2,12 +2,22 @@
 
 import numpy as np
 from . import objects
-from .store import SpatialError
+from .store import SpatialError, _hash
 
 
 def validate_result(project, record):
     if record.get("schema") != "spatial-collab.analysis-result.v1":
         raise SpatialError("Unknown analysis result schema.")
+    if "execution_receipt" in record:
+        from .method_contracts import contract
+        receipt = record["execution_receipt"]
+        if (record.get("method_contract") != contract(record["method"]) or
+                receipt.get("method_contract") != record["method_contract"] or
+                receipt.get("environment_sha256") != _hash(record["environment"]) or
+                receipt.get("implementation_sha256") != record["implementation_sha256"] or
+                receipt.get("output_sha256") != _hash(record["output"]) or
+                receipt.get("input_hashes") != [r["input_sha256"] for r in record["inputs"]]):
+            raise SpatialError("Method responsibility or execution receipt integrity mismatch.")
     n = []
     for link in record["inputs"]:
         source = objects.get(project, link["input_id"], "analysisinput")

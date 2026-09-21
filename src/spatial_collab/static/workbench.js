@@ -7,6 +7,7 @@
   let state = null, proposal = null, run = null, quality = null, mode = "rect", dragging = null, polygon = [];
   let viewBounds = null, transform = null, zoomTimer = null, busy = false;
   let hostCapabilities = {}, requestId = 0, hostOrigin = null;
+  let activeProjectId = null, tornDown = false;
   let contextCursor = null, pollTimer = null, polling = false;
   let plan = null, planDirty = false, variantEditors = [];
   let planBinding = null, planInitialized = false, planList = [], planContextHash = null;
@@ -60,6 +61,7 @@
 
   function rpc(method, params, timeout = 30_000) {
     return new Promise((resolve, reject) => {
+      if (tornDown) { reject(new Error("此视图已经关闭，请重新打开项目。")); return; }
       const id = `spatial-${++requestId}`;
       const timer = setTimeout(() => { pending.delete(id); reject(new Error("宿主未响应，请刷新或使用本地工作台。")); }, timeout);
       pending.set(id, { resolve, reject, timer });
@@ -82,30 +84,49 @@
     }
     if (msg.method === "ui/notifications/tool-result") {
       const result = msg.params?.structuredContent;
+      if (result?.project_id && result?.view) activeProjectId = result.project_id;
       if (result?.view && result?.head_revision) render(result);
       else if (state && !busy) refresh().catch(error => status(error.message, "error"));
     }
     if (msg.method === "ui/resource-teardown" && msg.id !== undefined) {
+      tornDown = true;
       clearTimeout(zoomTimer);
       clearInterval(pollTimer);
+      for (const item of pending.values()) { clearTimeout(item.timer); item.reject(new Error("视图已关闭。")); }
+      pending.clear();
       window.parent.postMessage({ jsonrpc: "2.0", id: msg.id, result: {} }, hostOrigin || "*");
     }
     if (msg.method === "ping" && msg.id !== undefined) {
       window.parent.postMessage({ jsonrpc: "2.0", id: msg.id, result: {} }, hostOrigin || "*");
     }
+    if (msg.method === "ui/notifications/host-context-changed") {
+      const context = msg.params || {};
+      if (context.theme) document.documentElement.dataset.theme = context.theme;
+      if (context.availableDisplayModes) hostCapabilities.availableDisplayModes = context.availableDisplayModes;
+    }
+    if (msg.method === "ui/notifications/tool-input" && msg.params?.arguments?.project_id) {
+      activeProjectId = msg.params.arguments.project_id;
+    }
   });
 
   async function call(name, args = {}) {
+    if (activeProjectId && !("project_id" in args)) args = { ...args, project_id: activeProjectId };
+    const requestedProject = args.project_id;
+    const assertCurrentProject = () => {
+      if (requestedProject && activeProjectId !== requestedProject) throw new Error("项目已切换，旧请求的结果未显示。请在当前项目重试。");
+    };
     if (local) {
       const response = await fetch(`/api/tool/${encodeURIComponent(name)}`, {
         method: "POST", headers: { "Content-Type": "application/json", "X-Spatial-CSRF": localToken }, body: JSON.stringify(args),
       });
       const payload = await response.json();
+      assertCurrentProject();
       if (!response.ok || !payload.ok) throw new Error(payload.result?.error || payload.error || "请求失败");
       return payload.result;
     }
     if (!hostCapabilities.serverTools) throw new Error("此宿主未提供工具调用能力。请通过 Agent 工具或本地工作台继续。");
-    const result = await rpc("tools/call", { name, arguments: args }, ["run_comparison", "run_hypothesis_plan", "run_protein_comparison", "export_review_bundle"].includes(name) ? 120_000 : 30_000);
+    const result = await rpc("tools/call", { name, arguments: args }, ["run_comparison", "run_hypothesis_plan", "run_protein_comparison", "export_review_bundle", "import_uploaded_project", "prepare_download"].includes(name) ? 120_000 : 30_000);
+    assertCurrentProject();
     if (result.isError) throw new Error(result.structuredContent?.error || result.content?.find(x => x.type === "text")?.text || "工具执行失败");
     if (result.structuredContent) return result.structuredContent;
     const text = result.content?.find(x => x.type === "text")?.text;
@@ -173,7 +194,8 @@
   }
 
   function render(next) {
-    const sourceChanged = state && state.source_sha256 !== next.source_sha256;
+    activeProjectId = next.project_id || activeProjectId;
+    const sourceChanged = state && (state.project_id !== next.project_id || state.source_sha256 !== next.source_sha256);
     const objectChanged = state && (state.head_revision !== next.head_revision || state.selection?.selection_id !== next.selection?.selection_id);
     if (objectChanged) {
       clearProteinView("共享选区或版本已变化，请重新读取蛋白证据。");
@@ -1309,12 +1331,13 @@
   action("integrationExport", async () => {const r=await call("export_review_bundle", {compact:true});$("integrationDetails").textContent=pretty(r);status("已导出源数据、修订和全部整合结果。");});
   action("multimodalContext",async()=>{$("multimodalDetails").textContent=pretty(await call("get_multimodal_context"));});
 
-  let analysisJob = null, analysisPage = null, analysisCatalog = [];
+  let analysisJob = null, analysisPage = null, analysisCatalog = [], analysisPowerPlan = null;
   async function refreshAnalysis() {
     const [catalog, inputs, results, jobs] = await Promise.all([call("get_analysis_catalog"),call("list_analysis_inputs"),call("list_analysis_results"),call("list_analysis_jobs")]);
     function options(id, rows, value, label, blank=false) { const e=$(id), old=e.value; e.replaceChildren(); if(blank){const o=textNode("option","无第二输入");o.value="";e.append(o);} for(const row of rows){const o=textNode("option",label(row));o.value=value(row);e.append(o);} if([...e.options].some(o=>o.value===old))e.value=old; }
     analysisCatalog=catalog.methods;
-    options("analysisMethod",catalog.methods,r=>r.method,r=>r.name+(r.available?"":" · 环境待安装"));
+    const methodSelect=$("analysisMethod"), oldMethod=methodSelect.value;methodSelect.replaceChildren();
+    for(const [tier,label] of [["internal_numerical","内置数值方法"],["external_adapter","外部方法适配器"]]){const group=document.createElement("optgroup");group.label=label;for(const row of catalog.methods.filter(r=>r.method_contract.tier===tier)){const option=textNode("option",row.name+(row.available?"":" · 环境待安装"));option.value=row.method;group.append(option);}methodSelect.append(group);}if([...methodSelect.options].some(o=>o.value===oldMethod))methodSelect.value=oldMethod;
     options("analysisPrimary",inputs.inputs.filter(r=>r.kind==="spatial"),r=>r.object_id,r=>`${r.sample_id} · ${r.shape[0]} 对象 · ${r.object_id.slice(-8)}`);
     options("analysisSecondary",inputs.inputs,r=>r.object_id,r=>`${r.kind} · ${r.sample_id} · ${r.shape[0]} 对象`,true);
     options("analysisResult",results.results,r=>r.result_id,r=>`${r.method} · ${r.result_id.slice(-10)}`);
@@ -1329,7 +1352,15 @@
     const hints={mofa:"比较 RNA 与蛋白的共同变化及各自贡献；本方法不使用空间坐标。",mefisto:"使用空间坐标和稀疏高斯过程拟合 RNA / 蛋白因子；需要同对象配对测量。",nnls:"将单细胞参考的表达签名拟合到空间位置，输出 RNA 贡献比例及残差。",cell2location:"根据单细胞参考和每位置细胞数先验估计丰度后验；请同时检查区间与训练记录。",harmony:"校正表达表示中的批次差异；请填写输入顺序对应的条件和批次。",paste:"估计完整重叠切片之间的空间对应；推断坐标与实测坐标分别保留。",spagcn:"使用官方 SpaGCN 的表达和空间邻接模型识别组织域。",spatial_spectral:"在稀疏空间图上结合表达相似性识别组织域，作为可复算基线。",moran_svg:"检验全部实测 RNA 基因的正空间自相关并统一校正；置换次数决定最小 p 值。",spatial_lr:"使用物种匹配的共识数据库，检验相邻位置的配体受体共表达；复合体要求全部亚基可测。",progeny:"使用 PROGENy 足迹与官方 ULM 推断 RNA 通路活性。当前使用学术资源范围；其他范围通过明确配方选择。"};
     $("analysisMethodHint").textContent=(hints[method]||"")+(desc&&!desc.available?" 当前分析环境尚缺该方法，请安装后重新读取方法列表。":"");
     $("analysisSubmit").disabled=!desc?.available;
+    $("analysisMethodHint").textContent+=desc?` ${desc.method_contract.label}：${desc.method_contract.tier==="internal_numerical"?"核验指定数值定义与复算，不据此保证生物学正确性。":"负责输入冻结、调用与输出追踪；不为外部模型正确性背书。"}`:"";
+    $("analysisPowerPanel").hidden=!["moran_svg","spatial_lr"].includes(method);
+    $("powerModel").textContent=method==="moran_svg"?"生成模型：Gaussian SAR；rho 为邻接耦合参数，另报告所生成 Moran I 的分布。":"生成模型：lognormal neighbor coupling；rho 为邻域耦合参数，另报告相对随机摆放期望的 LR 超额分数。两者均未校准为真实组织的效应。";
   }
+  function powerRecipe(){return {method:$("analysisMethod").value,input_ids:[$("analysisPrimary").value],parameters:{permutations:Number($("analysisPermutations").value)},seed:Number($("analysisSeed").value)};}
+  function renderPowerCurve(r){const holder=$("analysisPowerCurve");holder.replaceChildren();if(!r.curve?.length)return;const table=document.createElement("table"),header=document.createElement("tr");for(const title of ["模型 rho","生成效应中位数","估计功效","功效 95% 区间"])header.append(textNode("th",title));table.append(header);for(const row of r.curve){const tr=document.createElement("tr");for(const value of [String(row.rho),row.generated_effect_median.toPrecision(4),`${(row.power*100).toFixed(1)}%`,row.power_ci95.map(v=>`${(v*100).toFixed(1)}%`).join("–")])tr.append(textNode("td",value));table.append(tr);}holder.append(table);}
+  action("analysisPowerClear",async()=>{analysisPowerPlan=null;$("analysisPowerSummary").textContent="下次运行不关联声明；历史冻结记录仍保留。";$("analysisPowerCurve").replaceChildren();$("analysisPowerDetails").textContent="";});
+  function powerText(r){const d=r.resolution;return `${d.observations} 个位置 / ${d.family_size} 项检验 / ${d.permutations} 次置换：最小 p=${d.minimum_p.toPrecision(3)}；BH 至少到第 ${d.minimum_possible_bh_rejection_rank} 位才有可能满足 q<${d.alpha}。假定排序第 ${d.assumed_bh_rank} 位至少需要 ${d.minimum_permutations_at_assumed_rank} 次置换。`+(r.status==="resolution_blocked_at_declared_rank"?" 此排序阈值受置换分辨率阻断，没有任何有限效应可以通过；其他信号使实际拒绝排序升高时需另行评估。":r.status==="simulated"?` 模型条件下的网格 MDE：${r.mde_rho===null?"当前网格尚未证明达到目标功效":`rho=${r.mde_rho}，生成效应中位数=${Number(r.mde_generated_effect_median).toPrecision(4)}`}。查看下方曲线与 95% 功效区间；这不是通用生物学最小效应。`:" 尚未指定模型并模拟最小可检出效应。")}
+  action("analysisPowerCreate",async()=>{const spec=powerRecipe();const r=await call("create_analysis_power_plan",{spec,assumptions:{model:spec.method==="moran_svg"?"gaussian_sar":"lognormal_neighbor_coupling",bh_rank:Number($("powerRank").value),target_power:Number($("powerTarget").value),simulations:Number($("powerSimulations").value),effect_grid:$("powerGrid").value.split(",").map(Number),seed:spec.seed,rationale:$("powerRationale").value}});analysisPowerPlan=r;renderPowerCurve(r.result);$("analysisPowerSummary").textContent=powerText(r.result)+` 声明时点：${r.timing==="retrospective_sensitivity"?"本工作区已有相同输入的分析，属于回顾性敏感性评估":"在本工作区目标分析之前冻结；不等于外部预注册"}`;$("analysisPowerDetails").textContent=pretty(r);});
   $("analysisMethod").addEventListener("change",updateAnalysisMethod);
   action("analysisRefresh",refreshAnalysis);
   $("analysisSavedJob").addEventListener("change",async()=>{try{analysisJobStatus(await call("get_analysis_job",{job_id:$("analysisSavedJob").value}));}catch(e){status(e.message,"error");}});
@@ -1346,12 +1377,14 @@
     if(["moran_svg","spatial_lr"].includes(method))p.permutations=number("analysisPermutations");
     if(method==="paste"){if(!$("analysisFullOverlap").checked)throw new Error("请先检查并确认完整重叠假设。");p.overlap_assumption="full_overlap";}
     if(method==="harmony"){p.sample_conditions=$("analysisConditions").value.split(",").map(s=>s.trim());p.sample_batches=$("analysisBatches").value.split(",").map(s=>s.trim());}
-    analysisJobStatus(await call("submit_analysis",{spec:{method,input_ids,parameters:p,seed:number("analysisSeed")}}));});
+    const spec={method,input_ids,parameters:p,seed:number("analysisSeed")};if(["moran_svg","spatial_lr"].includes(method)&&analysisPowerPlan)spec.power_plan_id=analysisPowerPlan.object_id;
+    analysisJobStatus(await call("submit_analysis",{spec}));});
   action("analysisPoll",async()=>{if(!analysisJob&&$("analysisSavedJob").value)analysisJob={id:$("analysisSavedJob").value};if(!analysisJob)throw new Error("尚未提交分析任务。");analysisJobStatus(await call("get_analysis_job",{job_id:analysisJob.id}));if(analysisJob.status==="succeeded"){await refreshAnalysis();$("analysisResult").value=analysisJob.result_id;}});
   action("analysisCancel",async()=>{if(!analysisJob)throw new Error("尚无任务。");analysisJobStatus(await call("cancel_analysis_job",{job_id:analysisJob.id}));});
   action("analysisRetry",async()=>{if(!analysisJob)throw new Error("尚无任务。");analysisJobStatus(await call("retry_analysis_job",{job_id:analysisJob.id}));});
   async function inspectAnalysis(offset=0){const args={result_id:$("analysisResult").value,offset,limit:30};if($("analysisField").value)args.field=$("analysisField").value;const r=await call("inspect_analysis_result",args);analysisPage=r;$("analysisResultSummary").textContent=`${r.method} · ${r.total} 条结果 · 当前页 ${offset+1}–${offset+r.rows.length} · ${r.same_current_project_revision?"对应当前项目版本":"历史版本或外部样本，保留原始身份"}`;$("analysisDetails").textContent=pretty({...r,rows:undefined});const holder=$("analysisRows");holder.replaceChildren();for(const row of r.rows){const line=textNode("div","","row");line.append(textNode("span",row.cell_id?`${row.cell_id} · ${JSON.stringify(row.value)}`:JSON.stringify(row)));if(row.cell_id&&r.same_current_project_revision){const b=textNode("button","检查原始证据");b.addEventListener("click",async()=>{try{await select({cell_ids:[row.cell_id]});showPage("rna");renderMarkers(await call("inspect_selection",{genes:parseQueries($("genes").value)}));}catch(e){status(e.message,"error");}});line.append(b);}holder.append(line);}renderAnalysisMap(r);}
   function renderAnalysisMap(r,keepColumn=false){
+    if(!keepColumn){$("analysisResultSummary").textContent+=` · ${r.method_contract?.label||"历史结果未分层"}`;const p=r.metadata.power_evidence;if(p){$("analysisResultSummary").textContent+=` · q<0.05：${r.metadata.discovery_summary?.discoveries??"未汇总"} 项。 `+powerText(p.plan?.result||{resolution:p.resolution});}}
     const rows=r.rows.filter(x=>x.xy), canvas=$("analysisMap"), ctx=canvas.getContext("2d");
     canvas.width=900;canvas.height=340;ctx.clearRect(0,0,900,340);
     if(!rows.length){$("analysisMapCaption").textContent="此结果按基因 / 分子关系汇总，不是逐位置地图。";return;}
@@ -1580,7 +1613,7 @@
     if (local) $("connection").textContent = "● 本地共享项目";
     else {
       if (window.parent === window) throw new Error("请在兼容 MCP Apps 的宿主中打开，或启动本地工作台。");
-      const init = await rpc("ui/initialize", { appInfo: { name: "Spatial Collab Workbench", version: "0.5.0-alpha.1" },
+      const init = await rpc("ui/initialize", { appInfo: { name: "Spatial Collab Workbench", version: "0.8.0-alpha.1" },
         appCapabilities: { availableDisplayModes: ["inline", "fullscreen"] }, protocolVersion: "2026-01-26" });
       if (init.protocolVersion !== "2026-01-26") throw new Error("宿主协商的 MCP Apps 版本尚未受此 Alpha 支持。可继续使用工具或本地工作台。");
       hostCapabilities = init.hostCapabilities || {};
@@ -1591,14 +1624,31 @@
     if (state.metadata.source_kind === "atlas_workspace") {
       await showPage("atlas"); status("大数据工作区已加载。选择数据集后浏览全切片、分子与图像，或冻结区域进行分析。", "success");
     }
-    if (local) pollTimer = setInterval(async () => {
-      if (busy || polling || document.hidden || dragging || polygon.length) return;
+    pollTimer = setInterval(async () => {
+      if (tornDown || busy || polling || document.hidden || dragging || polygon.length) return;
       polling = true;
       try { const context = await call("get_context", { after_cursor: contextCursor });
         if (context.changed) { await refresh(); status("已同步其他界面的共享选区、修订或分析记录。", "success"); }
       } catch (error) { status(`共享同步暂不可用：${error.message}`, "error"); }
       finally { polling = false; }
-    }, 2500);
+    }, local ? 2500 : 5000);
   }
+  window.SpatialCollab = {
+    call,
+    currentProject: () => activeProjectId,
+    openProject: async projectId => {
+      if (busy || polling) throw new Error("共享状态正在更新，请稍后切换项目。");
+      busy = true; enableActions();
+      try {
+      activeProjectId = projectId;
+      state = null; proposal = null; run = null; viewBounds = null; contextCursor = null;
+      plan = null; planDirty = false; planContextHash = null; proteinViewData = null; proteinRun = null;
+      planBinding = null; planInitialized = false; planList = []; variantEditors = [];
+      polygon = []; assetList = []; assetInspection = null; analysisPage = null;
+      await refresh(); await refreshAssets(); await showPage("home");
+      } finally { busy = false; enableActions(); }
+    },
+    fullscreen: () => rpc("ui/request-display-mode", { mode: "fullscreen" }),
+  };
   initialize().catch(error => status(error.message, "error"));
 })();

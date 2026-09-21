@@ -97,7 +97,7 @@ function findButton(root, title) {
   assert.match(get('planBinding').textContent, /当前共享选区或视图不同/);
   assert.deepEqual(JSON.parse(h.getEditors()[1].ids.value), ['s']);
   await click('runPlan');
-  assert.deepEqual(requests.filter(r => r.name === 'run_hypothesis_plan').at(-1).args, { plan_id: frozen.plan_id, version: 2 });
+  assert.deepEqual(requests.filter(r => r.name === 'run_hypothesis_plan').at(-1).args, { plan_id: frozen.plan_id, version: 2, project_id: original.project_id });
   // A concurrently appended draft makes local edits stale. No overwrite or run.
   await input(get('planName'), 'unsaved local edit');
   assert(get('runPlan').disabled && get('freezePlan').disabled);

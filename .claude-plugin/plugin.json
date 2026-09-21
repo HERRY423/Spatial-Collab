@@ -1,6 +1,6 @@
 {
   "name": "spatial-collab",
-  "version": "0.7.0-alpha.1",
+  "version": "0.8.0-alpha.1",
   "description": "Shared spatial RNA and protein exploration, reversible annotation revisions and descriptive region comparisons.",
   "author": {"name": "Spatial Collab contributors"},
   "keywords": ["spatial-transcriptomics", "spatial-proteomics", "multiomics", "annotation-review", "mcp"]

@@ -16,6 +16,7 @@ from .integration import numerical_environment
 from .spatial_statistics import graph, normalized_counts, svg, bh
 from .store import SpatialError, _hash
 from .workflow_inputs import load_counts
+from .method_contracts import contract, execution_receipt
 
 METHODS = {
     "progeny": (
@@ -91,6 +92,7 @@ def catalog():
         rows.append(
             {
                 "method": key,
+                "method_contract": contract(key),
                 "name": name,
                 "task": task,
                 "available": available,
@@ -121,6 +123,7 @@ def catalog():
     return {
         "methods": rows,
         "availability_meaning": "Package discoverability only; successful runtime receipt is separate.",
+        "additional_internal_methods": [contract("region_comparison"), contract("protein_region_comparison")],
     }
 
 
@@ -691,7 +694,7 @@ def _symbol_lookup(record):
     return {g: i for i, g in enumerate(symbols) if g is not None and counts[g] == 1}
 
 
-def _lr(record, raw, params, seed, checkpoint):
+def _lr_pairs(record, params):
     import liana
 
     resource_name = "mouseconsensus" if record["species"] == "mouse" else "consensus"
@@ -711,6 +714,11 @@ def _lr(record, raw, params, seed, checkpoint):
                 "Requested ligand-receptor pairs are absent from the pinned species-specific database."
             )
         pairs = requested
+    return pairs, resource_name, resource_digest
+
+
+def _lr(record, raw, params, seed, checkpoint):
+    pairs, resource_name, resource_digest = _lr_pairs(record, params)
     lookup = _symbol_lookup(record)
     y = normalized_counts(raw)
     w = graph(record["coordinates"], _integer(params, "neighbors", 6, 1, min(64, raw.shape[0] - 1)))
@@ -854,8 +862,8 @@ def _pathways(record, raw, params, checkpoint, frozen_network=None):
 
 @threadpool_limits.wrap(limits=1, user_api="blas")
 def run(project, spec, checkpoint=lambda: None, *, frozen_pathway_network=None):
-    if not isinstance(spec, dict) or set(spec) - {"method", "input_ids", "parameters", "seed"}:
-        raise SpatialError("Workflow spec accepts method, input_ids, parameters and seed only.")
+    if not isinstance(spec, dict) or set(spec) - {"method", "input_ids", "parameters", "seed", "power_plan_id"}:
+        raise SpatialError("Workflow spec accepts method, input_ids, parameters, seed and power_plan_id only.")
     method = spec.get("method")
     if method not in METHODS:
         raise SpatialError("Unknown executable method.")
@@ -882,6 +890,14 @@ def run(project, spec, checkpoint=lambda: None, *, frozen_pathway_network=None):
             f"Missing optional method package: {METHODS[method][3]}; install the analysis environment. No fallback executed."
         )
     checkpoint()
+    power_evidence = None
+    if method in {"moran_svg", "spatial_lr"}:
+        from . import power
+        resolved, _ = power.design(project, spec)
+        power_evidence = {"resolved": resolved, "resolution": power.resolution(resolved["observations"], resolved["family_size"], resolved["permutations"]),
+                          "plan": power.bind(project, spec), "mde_without_declared_model": "not_estimated"}
+    elif spec.get("power_plan_id"):
+        raise SpatialError("Power plans apply only to Moran or spatial LR workflows.")
     if method in {"mofa", "mefisto"}:
         output = _multimodal(project, records[0], matrices[0], params, method, seed, checkpoint)
     elif method in {"nnls", "cell2location"}:
@@ -917,9 +933,17 @@ def run(project, spec, checkpoint=lambda: None, *, frozen_pathway_network=None):
     else:
         output = _lr(records[0], matrices[0], params, seed, checkpoint)
     checkpoint()
+    if power_evidence:
+        actual_family = output.get("tested_features", output.get("tested_pairs"))
+        if actual_family != power_evidence["resolved"]["family_size"]:
+            raise SpatialError("Observed test family differs from the frozen power design.")
+        output["power_evidence"] = power_evidence
+        output["discovery_summary"] = {"alpha": .05, "rule": "q < alpha", "discoveries": sum(r["q_value"] is not None and r["q_value"] < .05 for r in output["rows"]),
+                                       "interpretation": "Read alongside power_evidence; zero discoveries are not evidence of absent spatial biology."}
     result = {
         "schema": "spatial-collab.analysis-result.v1",
         "method": method,
+        "method_contract": contract(method),
         "task": METHODS[method][1],
         "recipe": spec,
         "inputs": [
@@ -942,6 +966,7 @@ def run(project, spec, checkpoint=lambda: None, *, frozen_pathway_network=None):
     from pathlib import Path
 
     result["implementation_sha256"] = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+    result["execution_receipt"] = execution_receipt(method, result["environment"], [r["object_sha256"] for r in records], result["output"], result["implementation_sha256"])
     from .workflow_validation import validate_result
 
     validate_result(project, result)

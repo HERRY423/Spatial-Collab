@@ -109,6 +109,8 @@ def _cache_key(project, recipe):
             "workflow_jobs.py",
             "workflow_validation.py",
             "paste_compat.py",
+            "power.py",
+            "method_contracts.py",
         )
     }
     assay = None
@@ -116,7 +118,8 @@ def _cache_key(project, recipe):
         from .proteomics import get_assay
 
         assay = get_assay(project, recipe["parameters"]["assay_id"])["assay_sha256"]
-    return _hash({"recipe": recipe, "inputs": inputs, "assay": assay, "runtime": rt, "code": code})
+    power_hash = objects.get(project, recipe["power_plan_id"], "powerplan")["object_sha256"] if recipe.get("power_plan_id") else None
+    return _hash({"recipe": recipe, "inputs": inputs, "assay": assay, "runtime": rt, "code": code, "power_plan": power_hash})
 
 
 def _enqueue(project, recipe, key, rt, launch, force):
@@ -334,6 +337,8 @@ def inspect(project, result_id, offset=0, limit=100, field=None, input_index=0):
     return {
         "result_id": result_id,
         "method": r["method"],
+        "method_contract": r.get("method_contract", {"tier": "legacy_unclassified", "label": "历史结果，未声明方法责任"}),
+        "execution_receipt": r.get("execution_receipt"),
         "task": r["task"],
         "field": field,
         "total": len(rows),

@@ -8,7 +8,11 @@
 
 **保持当前版本号的大数据与统计改造：**新增磁盘空间索引、完整密度金字塔、单分子与细胞/核边界、原生 tiled OME-TIFF 瓦片联动，以及受试者级 Welch、配对检验和含批次项的随机截距 LMM。新增“全切片与研究统计”页面；全景浏览与有界 ROI 分析分别执行。见 [操作与适用范围](docs/SCALABILITY_AND_STUDY.md) 和 [规模、像素、公开计数及统计验收](docs/SCALABILITY_VALIDATION.md)。
 
-当前开发版本：**0.7.0-alpha.1，受限研究原型，尚未发布**。以下为 v0.5 基线能力：主页汇总当前样本、测量层、共享 ROI、版本和已保存分析；RNA 与配对蛋白使用同一组空间对象。原始文件保持不变，研究者和模型共享项目数据库中的选区、版本、具体修订提案和结果，不以聊天历史为数据状态。
+当前开发版本：**0.8.0-alpha.1，受限研究原型，尚未公开发布**。新增私有安装环境、文件往返、显式项目路由与 OAuth 资源服务；详见 [私有接入指南](docs/PRIVATE_CHATGPT.md)。当前账号缺少 ChatGPT 开发模式/隧道权限，真实 ChatGPT 接入仍待权限开放与宿主验收。以下为 v0.5 基线能力：主页汇总当前样本、测量层、共享 ROI、版本和已保存分析；RNA 与配对蛋白使用同一组空间对象。原始文件保持不变，研究者和模型共享项目数据库中的选区、版本、具体修订提案和结果，不以聊天历史为数据状态。
+
+**方法责任正式分两层，版本不变：**内置数值层包括 Moran 置换/FDR、参考 NNLS、自定义空间 LR，以及原有 RNA/蛋白区域比较；我们负责明确的数值定义、回归验证与可复算性，不以此保证生物学结论。MOFA+/MEFISTO、Cell2location、Harmony、PASTE、SpaGCN、scikit-learn 谱聚类和 decoupler PROGENy/ULM 属于**外部方法适配器**：负责输入冻结、环境清单哈希、调用、输出保存和边界标注，不为上游算法正确性背书。LIANA 在 LR 中提供先验数据库，不是当前检验算法。
+
+**Moran/LR 先做可检出性声明：**结果附完整家族的置换分辨率，运行前可冻结明确模型、BH 排序假设和目标功效，得到带模拟区间的条件 MDE。300 spots / 12,426 检验 / 99 次置换下，最小 p=0.01，BH 至少到第 2,486 位才可能通过 `q<0.05`；按第 1 位阈值规划时没有任何有限可检出效应，不能把零发现解释成无空间信号。说明、模型公式、接口及责任表见 [功效与方法契约](docs/POWER_AND_METHOD_CONTRACTS.md)。
 
 新增蛋白 H5AD / 宽表 CSV 接入、单通道空间图、原始值 / log1p / asinh 显示、固定 ROI 的修订前后蛋白区域比较，以及配对 RNA 的原始 / 面板归一化 Spearman 对照。缺失值与实测零值分别保留。完整验证两片 SPOTS 的 5,336 个 spots、每片 21 个蛋白通道，真实矩阵逐值一致，离线包可复算。见 [蛋白组使用说明](docs/PROTEOMICS.md) 和 [v0.5 真实数据与验证](docs/V05_PROTEIN_REVIEW.md)。本版是同一样本的多模态协作基础，尚无跨样本整合、蛋白背景校正或自动联合注释。
 
@@ -116,7 +120,7 @@ claude --plugin-dir C:\Spatial\spatial-collab
 
 ## ChatGPT / Codex
 
-同一后端提供 MCP stdio、Streamable HTTP `/mcp`，以及标准 MCP Apps HTML 资源。`open_project` 关联交互视图；其余工具也可独立工作。本地 Codex 包使用 `.codex-plugin/plugin.json` 中的 `${PLUGIN_ROOT}` 配置；没有写入个人插件市场或修改宿主配置。
+同一后端提供 MCP stdio、Streamable HTTP `/mcp`，以及标准 MCP Apps HTML 资源。`open_project` 关联交互视图；其余工具也可独立工作。本地 Codex 包使用 `.codex-plugin/plugin.json` 中的 `${PLUGIN_ROOT}` 配置和专用运行环境。首次安装与私有连接见 [私有接入指南](docs/PRIVATE_CHATGPT.md)。
 
 ChatGPT 开发连接需要 [官方支持的远程 HTTPS 端点或 Secure MCP Tunnel](https://developers.openai.com/plugins/deploy/connect-chatgpt)。对于当前本地原型，优先让 Secure MCP Tunnel 启动下面的 stdio 进程，并在该进程环境设置 `SPATIAL_COLLAB_PROJECT`：
 
@@ -126,7 +130,7 @@ python C:\Spatial\spatial-collab\scripts\run_server.py
 
 在 ChatGPT 中按官方指引添加该测试连接，然后调用 `open_project`。开发模式是否可用由账号与工作区策略决定。此交付**没有创建隧道、公开端点或市场发布**，没有记录真实 ChatGPT iframe 中的宿主验收。把 `localhost` URL 粘贴给云端 ChatGPT 不等于完成连接。
 
-当前 HTTP 服务只绑定回环地址，并限制 Host/Origin。不要直接把它公开到互联网。正式远程部署还需要按研究环境实现身份、授权与传输控制；这部分没有作为已实现能力交付。
+本地 HTTP 服务只绑定回环地址，并限制 Host/Origin。新增独立 OAuth 资源入口支持显式用户与项目授权、签名令牌校验和访问限制；部署仍需实际身份提供方和 TLS 代理。真实 ChatGPT iframe、公共身份服务及云端部署仍未验收。
 
 ## 指标具体检验什么
 

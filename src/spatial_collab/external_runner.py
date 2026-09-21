@@ -16,7 +16,7 @@ from typing import Any
 
 from .integration import input_identity, register_result, SCHEMA
 from .proteomics import get_assay
-from .store import Project, SpatialError, _json
+from .store import Project, SpatialError, _json, _hash
 
 
 def export_input_contract(
@@ -138,6 +138,12 @@ def ingest_external_result(
         )
     if type(method.get("uses_annotations")) is not bool:
         raise SpatialError("Explicitly declare whether the external fit used annotations.")
+    from .method_contracts import contract
+    # This bridge always receives external outputs, even if named after a core method.
+    boundary = contract("external_bridge:" + str(method.get("name", "unknown")))
+    spec.setdefault("provenance", {})["method_contract"] = boundary
+    spec["provenance"]["environment_sha256"] = _hash(method["environment"])
+    spec["provenance"]["execution_scope"] = "Externally declared execution; bridge validates identity/schema, not upstream method correctness."
     if execution_evidence is not None:
         prov = spec.setdefault("provenance", {})
         prov["execution_evidence"] = execution_evidence

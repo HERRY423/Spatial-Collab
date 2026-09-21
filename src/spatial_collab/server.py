@@ -3,10 +3,12 @@
 from __future__ import annotations
 
 import hashlib
+import inspect
 import json
 import logging
 import math
 import secrets
+import threading
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlsplit
@@ -35,10 +37,15 @@ READ_TOOLS = {"open_project", "get_selection", "inspect_selection", "get_run", "
 READ_TOOLS.update({"get_overview", "list_assays", "inspect_protein"})
 READ_TOOLS.update({"list_integrations", "get_integration", "inspect_integration", "compare_integrations", "get_integration_job", "get_multimodal_context"})
 READ_TOOLS.add("compare_study")
+READ_TOOLS.add("get_analysis_power_plan")
 READ_TOOLS.add("get_integration_sensitivity")
 READ_TOOLS.update({"get_analysis_catalog", "list_analysis_inputs", "get_analysis_job", "list_analysis_jobs", "list_analysis_results", "inspect_analysis_result"})
 READ_TOOLS.update({"list_atlases", "get_atlas_view", "list_pyramids", "get_pyramid_tile", "list_study_analyses"})
+READ_TOOLS.update({"list_projects", "get_transfer", "read_download"})
 TOOL_NAMES = (
+    "list_projects", "begin_upload", "append_upload", "complete_upload", "get_transfer",
+    "discard_transfer", "import_uploaded_project", "prepare_download", "read_download",
+    "create_analysis_power_plan", "get_analysis_power_plan",
     "list_atlases", "get_atlas_view", "share_atlas_view", "freeze_atlas_roi", "list_pyramids", "get_pyramid_tile", "register_study_design", "run_study_inference", "list_study_analyses",
     "open_project", "get_selection", "set_selection", "inspect_selection",
     "propose_revision", "apply_revision", "revert_revision", "run_comparison",
@@ -62,6 +69,7 @@ class ToolService:
 
     def __init__(self, project_root: str | Path):
         self.project = Project(Path(project_root).resolve())
+        self.call_lock = threading.RLock()
         self._calls = {
             name: validate_call(config=ConfigDict(strict=True))(getattr(self, name))
             for name in TOOL_NAMES
@@ -72,11 +80,70 @@ class ToolService:
             raise SpatialError("Unknown tool")
         if arguments is not None and not isinstance(arguments, dict):
             raise SpatialError("Tool arguments must be an object")
+        arguments = dict(arguments or {})
+        project_id = arguments.pop("project_id", None)
+        if project_id is not None:
+            if not isinstance(project_id, str):
+                raise SpatialError("project_id must be a string.")
+            from .transfers import projects
+            matches = [p for p in projects(self.project) if p.summary()["project_id"] == project_id]
+            if not matches:
+                raise SpatialError("Project is not available to this connection.")
+            if matches[0].root != self.project.root:
+                return ToolService(matches[0].root).call(name, arguments)
         try:
-            return self._calls[name](**(arguments or {}))
+            result = self._calls[name](**arguments)
+            result.setdefault("project_id", self.project.summary()["project_id"])
+            return result
         except ValidationError as exc:
             issues = [f"{'.'.join(str(x) for x in e['loc'])}: {e['msg']}" for e in exc.errors()]
             raise SpatialError("Invalid arguments: " + "; ".join(issues)) from None
+
+    def list_projects(self) -> dict:
+        """List only this connection's primary project and uploaded projects. Pin project_id on subsequent calls; never accept filesystem paths."""
+        from .transfers import projects
+        return {"projects": [{"project_id": p.summary()["project_id"], "name": p.summary()["metadata"]["name"],
+                              "cell_count": p.summary()["cell_count"]} for p in projects(self.project)]}
+
+    def begin_upload(self, filename: str, size: int, sha256: str) -> dict:
+        """Reserve a bounded upload after the user selects a JSON snapshot or H5AD. Do not place file bytes in the conversation; use the workbench file picker."""
+        from .transfers import Transfers
+        return Transfers(self.project).begin(filename, size, sha256)
+
+    def append_upload(self, file_id: str, offset: int, data_base64: str) -> dict:
+        """Append a checked 256 KiB upload chunk; same-byte retries are safe. Intended for the UI, not model-generated data."""
+        from .transfers import Transfers
+        return Transfers(self.project).append(file_id, offset, data_base64)
+
+    def complete_upload(self, file_id: str) -> dict:
+        """Verify complete length and SHA256 before an explicit import. Upload does not change existing project data."""
+        from .transfers import Transfers
+        return Transfers(self.project).complete(file_id)
+
+    def get_transfer(self, file_id: str) -> dict:
+        """Read transfer size, checksum, state, resume offset and expiry without exposing local paths."""
+        from .transfers import Transfers
+        return Transfers(self.project, create=False).status(file_id)
+
+    def discard_transfer(self, file_id: str) -> dict:
+        """Delete only a temporary uploaded/download copy; imported projects and original review exports are retained."""
+        from .transfers import Transfers
+        return Transfers(self.project).discard(file_id)
+
+    def import_uploaded_project(self, file_id: str, options: dict) -> dict:
+        """Validate an uploaded JSON snapshot or H5AD into a NEW project. H5AD needs explicit counts_layer, slice_id, coordinate_system and units. Never overwrites the primary project. Use returned project_id on every subsequent call."""
+        from .transfers import Transfers
+        return Transfers(self.project).import_project(file_id, options)
+
+    def prepare_download(self, run_id: str | None = None, compact: bool = True) -> dict:
+        """Create a checksummed ZIP and a project-scoped download handle. Use the workbench Download button to retrieve bytes; a server path is not a ChatGPT attachment."""
+        from .transfers import Transfers
+        return Transfers(self.project).export(run_id, compact)
+
+    def read_download(self, file_id: str, offset: int = 0, length: int = 262144) -> dict:
+        """Read one bounded, project-owned ZIP chunk for the workbench download bridge."""
+        from .transfers import Transfers
+        return Transfers(self.project, create=False).read(file_id, offset, length)
 
     def open_project(self, revision_id: str | None = None, bounds: list[float] | None = None) -> dict:
         """Open shared workbench with exact revision and centroid view. At most 10000 cells; narrow bounds [xmin,ymin,xmax,ymax] if larger. No silent sampling."""
@@ -128,6 +195,17 @@ class ToolService:
                      "notice": "View exceeds 10000 cells. Zoom in; no cells were sampled." if limited else "Centroids only; polygon selection uses centroid containment."},
             "scientific_authorization": "NOT_ESTABLISHED",
         }
+
+    def create_analysis_power_plan(self, spec: dict, assumptions: dict) -> dict:
+        """Freeze model/graph/family/rank assumptions before Moran/LR analysis; report exact permutation resolution and conditional simulated MDE, never universal or observed power."""
+        from .power import create_configured
+        return create_configured(self.project, spec, assumptions)
+
+    def get_analysis_power_plan(self, plan_id: str) -> dict:
+        """Read a frozen power declaration and uncertainty, retaining prospective/retrospective local timing."""
+        from .objects import get
+        plan = get(self.project, plan_id, "powerplan")
+        return {**plan, "declaration": get(self.project, plan["design_id"], "powerdesign")}
 
     def get_analysis_catalog(self) -> dict:
         """List executable algorithms by scientific task; availability is package discovery, not validated biology."""
@@ -530,15 +608,20 @@ class ToolService:
         return run_hypothesis_plan(self.project, plan_id, version)
 
 
+def workbench_script() -> str:
+    return "\n".join((STATIC / name).read_text(encoding="utf-8") for name in ("workbench.js", "transfer-ui.js"))
+
+
 def workbench_html(csrf_token: str = "") -> str:
     html = (STATIC / "workbench.html").read_text(encoding="utf-8")
     return html.replace("/*__STYLE__*/", (STATIC / "workbench.css").read_text(encoding="utf-8")).replace(
-        "/*__SCRIPT__*/", (STATIC / "workbench.js").read_text(encoding="utf-8")).replace("__CSRF_TOKEN__", csrf_token)
+        "/*__SCRIPT__*/", workbench_script()).replace("__CSRF_TOKEN__", csrf_token)
 
 
 def _safe_result(service: ToolService, name: str, arguments: dict) -> CallToolResult:
     try:
-        result = service.call(name, arguments)
+        with service.call_lock:
+            result = service.call(name, arguments)
         # All exact IDs remain in structuredContent; text is bounded to avoid echoing thousands of points.
         summary = {k: v for k, v in result.items() if k not in {"view", "cells"}}
         text = json.dumps(summary, ensure_ascii=False, allow_nan=False)
@@ -561,24 +644,36 @@ class PinnedFastMCP(FastMCP):
         return await run_in_threadpool(_safe_result, self.spatial_service, name, arguments)
 
 
-def create_server(project_root: str | Path) -> FastMCP:
-    service = ToolService(project_root)
+def create_server(project_root: str | Path, *, service=None, token_verifier=None, auth=None,
+                  transport_security=None) -> FastMCP:
+    service = service or ToolService(project_root)
     server = PinnedFastMCP(
         "Spatial Collab", instructions="Explore the shared pinned spatial transcriptomics project. Always read revision and selection before proposing edits. A proposal is not approval; only apply after explicit researcher confirmation. Changes are overlays. Results are descriptive and may be stale. Do not invent reviewer identity or biological authority.",
         host="127.0.0.1", stateless_http=True, json_response=True,
-        transport_security=TransportSecuritySettings(enable_dns_rebinding_protection=True,
+        token_verifier=token_verifier, auth=auth,
+        transport_security=transport_security or TransportSecuritySettings(enable_dns_rebinding_protection=True,
             allowed_hosts=["localhost:*", "127.0.0.1:*", "[::1]:*"],
             allowed_origins=["http://localhost:*", "http://127.0.0.1:*", "http://[::1]:*"]),
     )
     for name in TOOL_NAMES:
         method = getattr(service, name)
-
+        # Route by an opaque project identity, never a model-provided path. The
+        # strict dispatcher above still validates the original method arguments.
+        def routed(*args, _method=method, **kwargs):
+            return _method(*args, **kwargs)
+        parameters = list(inspect.signature(method).parameters.values())
+        parameters.append(inspect.Parameter("project_id", inspect.Parameter.KEYWORD_ONLY,
+                                           default=None, annotation=str | None))
+        routed.__signature__ = inspect.signature(method).replace(parameters=parameters)
+        routed.__annotations__ = dict(method.__annotations__, project_id=str | None)
         meta = {"ui": {"visibility": ["model", "app"]}}
+        if name in {"append_upload", "read_download"}:
+            meta["ui"]["visibility"] = ["app"]
         if name == "open_project":
             meta["ui"]["resourceUri"] = UI_URI
-        server.add_tool(method, name=name, description=method.__doc__,
+        server.add_tool(routed, name=name, description=method.__doc__,
                         annotations=ToolAnnotations(readOnlyHint=name in READ_TOOLS,
-                            destructiveHint=False, idempotentHint=name in READ_TOOLS, openWorldHint=False),
+                            destructiveHint=name == "discard_transfer", idempotentHint=name in READ_TOOLS, openWorldHint=False),
                         meta=meta, structured_output=False)
 
     @server.resource(UI_URI, name="spatial_collab_workbench", title="空间转录组协作工作台",
@@ -626,7 +721,7 @@ def create_app(project_root: str | Path):
 
     async def index(request):
         html = workbench_html(app.state.csrf_token)
-        script = (STATIC / "workbench.js").read_text(encoding="utf-8")
+        script = workbench_script()
         import base64
         digest = base64.b64encode(hashlib.sha256(script.encode()).digest()).decode()
         return HTMLResponse(html, headers={"Content-Security-Policy":
