@@ -19,6 +19,9 @@ MAX_BYTES = 32 * 1024**2
 
 
 def _validate(record, project):
+    if isinstance(record, dict) and record.get("schema") == "spatial-collab.protein-assay.v2":
+        from .array_assays import validate
+        return validate(project, record)
     if not isinstance(record, dict) or record.get("schema") != SCHEMA:
         raise SpatialError("Unsupported protein assay record.")
     payload = {k: v for k, v in record.items() if k != "assay_sha256"}
@@ -91,18 +94,42 @@ def list_assays(project):
 
 def get_assay(project, assay_id):
     _text(assay_id, "assay_id", limit=128)
-    for record in _records(project):
+    if hasattr(project, "protein_assays"):
+        candidates = [r for r in project.protein_assays if r.get("assay_id") == assay_id]
+        return _validate(candidates[0], project) if candidates else _unknown_assay()
+    import re
+    if not re.fullmatch(r"protein_[0-9a-f]{24}", assay_id):
+        raise SpatialError("Invalid protein assay ID.")
+    path = project.root / "assays" / (assay_id + ".json")
+    if path.is_file():
+        if not path.resolve().is_relative_to(project.root.resolve()) or path.stat().st_size > MAX_BYTES:
+            raise SpatialError("Invalid protein record path/size.")
+        # Read and hash just the requested immutable record, never all assays.
+        raw = path.read_bytes()
+        digest = hashlib.sha256(raw).hexdigest()
+        cache = getattr(project, "_protein_cache", {})
+        if cache.get(assay_id, (None,))[0] == digest and json.loads(raw).get("schema") == SCHEMA:
+            return cache[assay_id][1]
+        record = _validate(json.loads(raw), project)
         if record["assay_id"] == assay_id:
+            project._protein_cache = {assay_id: (digest, record)}
             return record
+    return _unknown_assay()
+
+
+def _unknown_assay():
     raise SpatialError("Unknown protein assay; register a matching local source first.")
 
 
 def register_protein(project, path, *, sample_id, source_sha256, name, measurement_type,
                      matrix="X", spatial_key="spatial", coordinate_system, units,
                      feature_id_key=None, feature_symbol_key=None, allow_partial=False,
-                     registration_note, format_id="h5ad", id_column="cell_id", x_column="x", y_column="y"):
+                     registration_note, format_id="h5ad", id_column="cell_id", x_column="x", y_column="y",
+                     coordinate_transform=None, coordinate_tolerance=0.0, storage="auto"):
     """CLI-only registration; no guessed cross-sample or nearest-neighbor pairing."""
     path = Path(path).resolve(strict=True)
+    if storage not in {"auto", "json", "chunked"}:
+        raise SpatialError("Use auto, json or chunked protein storage.")
     if path.stat().st_size > 256 * 1024**2:
         raise SpatialError("Protein input exceeds 256 MiB.")
     if measurement_type not in {"antibody_count", "intensity"} or type(allow_partial) is not bool:
@@ -140,7 +167,7 @@ def register_protein(project, path, *, sample_id, source_sha256, name, measureme
             xy = np.asarray(data.obsm[spatial_key])
             raw = data.X if matrix == "X" else data.layers[matrix]
             raw = raw.to_memory() if hasattr(raw, "to_memory") else raw
-            values = raw.toarray() if hasattr(raw, "toarray") else np.asarray(raw)
+            values = raw if hasattr(raw, "toarray") else np.asarray(raw)
         finally:
             data.file.close()
     elif format_id == "csv":
@@ -175,8 +202,38 @@ def register_protein(project, path, *, sample_id, source_sha256, name, measureme
     if xy.shape != (len(ids), 2) or not np.isfinite(xy).all():
         raise SpatialError("Protein coordinates must be finite N x 2.")
     expected = np.asarray([[raw_ids[i]["x"], raw_ids[i]["y"]] for i in ids])
-    if not np.array_equal(xy, expected):
+    original_xy_sha256 = _hash(xy.tolist())
+    if type(coordinate_tolerance) not in (int, float) or not math.isfinite(coordinate_tolerance) or coordinate_tolerance < 0:
+        raise SpatialError("Coordinate tolerance must be nonnegative and finite in declared project units.")
+    if coordinate_transform is not None:
+        affine = np.asarray(coordinate_transform, dtype=float)
+        if affine.shape != (3, 3) or not np.isfinite(affine).all() or not np.array_equal(affine[2], [0, 0, 1]) or abs(np.linalg.det(affine)) < 1e-15:
+            raise SpatialError("Declare an invertible finite 3x3 affine coordinate transform.")
+        xy = (np.column_stack([xy, np.ones(len(xy))]) @ affine.T)[:, :2]
+    if not np.all(np.abs(xy - expected) <= coordinate_tolerance):
         raise SpatialError("Protein coordinates do not exactly match the corresponding original IDs.")
+    use_chunks = storage == "chunked" or storage == "auto" and len(ids) * len(features) > 100_000
+    if not use_chunks:
+        values = values.toarray() if hasattr(values, "toarray") else np.asarray(values)
+    checked_values = values.data if hasattr(values, "tocsr") else np.asarray(values)
+    if np.isinf(checked_values).any() or (checked_values < 0).any():
+        raise SpatialError("Protein measurements must be nonnegative or explicit missing NaN.")
+    if measurement_type == "antibody_count" and np.any(checked_values[np.isfinite(checked_values)] % 1):
+        raise SpatialError("Antibody counts must be integers.")
+    if use_chunks:
+        from .array_assays import save
+        if hashlib.sha256(path.read_bytes()).hexdigest() != source_digest:
+            raise SpatialError("Protein input changed while importing.")
+        return save(project, {"modality": "protein", "project_id": summary["project_id"], "source_sha256": source_sha256,
+             "sample_id": sample_id, "name": name, "measurement_type": measurement_type, "coordinate_system": coordinate_system,
+             "units": units, "features": features, "missing_observation_count": len(cells) - len(ids), "allow_partial": allow_partial,
+             "source_file": {"path": str(path), "sha256": source_digest}, "reader": format_id, "matrix": matrix,
+             "registration_note": registration_note, "created_at": _now(),
+             "pairing": "exact original ID plus explicit coordinate conversion/tolerance in declared frame",
+             "coordinate_conversion": {"original_xy_sha256": original_xy_sha256, "transformed_xy_sha256": _hash(xy.tolist()),
+                   "affine": coordinate_transform, "tolerance": coordinate_tolerance, "tolerance_units": units,
+                   "maximum_absolute_residual": float(np.max(np.abs(xy - expected)))},
+             "scientific_authorization": "NOT_ESTABLISHED"}, [raw_ids[cid]["cell_id"] for cid in ids], values)
     values = np.asarray(values, dtype=float)
     if values.shape != (len(ids), len(features)) or np.isinf(values).any() or (values < 0).any():
         raise SpatialError("Protein measurements must be finite nonnegative values or explicit missing NaN.")
@@ -193,6 +250,9 @@ def register_protein(project, path, *, sample_id, source_sha256, name, measureme
               "matrix": matrix if format_id == "h5ad" else "wide_csv",
               "registration_note": registration_note, "created_at": _now(),
               "pairing": "exact original ID and exact recorded XY; declared same sample/frame",
+              "coordinate_conversion": {"original_xy_sha256": original_xy_sha256, "transformed_xy_sha256": _hash(xy.tolist()),
+                   "affine": coordinate_transform, "tolerance": coordinate_tolerance, "tolerance_units": units,
+                   "maximum_absolute_residual": float(np.max(np.abs(xy - expected)))},
               "values": {raw_ids[cid]["cell_id"]: [None if np.isnan(v) else float(v) for v in row]
                          for cid, row in zip(ids, values)}, "scientific_authorization": "NOT_ESTABLISHED"}
     record["assay_id"] = "protein_" + _hash(record)[:24]
@@ -245,7 +305,8 @@ def _summary(cells, ids, assay, feature, scale, cofactor):
             "label_counts": dict(sorted(Counter(c["label"] for c in active).items()))}
 
 
-def inspect_protein(project, assay_id, revision_id, feature, selection_id=None, scale="raw", cofactor=5.0):
+def inspect_protein(project, assay_id, revision_id, feature, selection_id=None, scale="raw", cofactor=5.0,
+                    bounds=None, limit=10000, offset=0):
     assay = get_assay(project, assay_id)
     index = _feature(assay, feature)
     cells = project.cells(revision_id)
@@ -254,16 +315,22 @@ def inspect_protein(project, assay_id, revision_id, feature, selection_id=None, 
         raise SpatialError("Protein selection must belong to the requested revision.")
     ids = set(selection["cell_ids"]) if selection else {c["cell_id"] for c in cells}
     stats = _summary(cells, ids, assay, index, scale, cofactor)
+    if type(limit) is not int or not 1 <= limit <= 10000 or type(offset) is not int or offset < 0:
+        raise SpatialError("Use limit 1..10000 and nonnegative offset.")
+    if bounds is not None and (not isinstance(bounds, list) or len(bounds) != 4 or not np.isfinite(bounds).all() or bounds[0] > bounds[2] or bounds[1] > bounds[3]):
+        raise SpatialError("Bounds require finite xmin,ymin,xmax,ymax.")
+    visible = [c for c in cells if bounds is None or bounds[0] <= c["x"] <= bounds[2] and bounds[1] <= c["y"] <= bounds[3]]
     points = []
-    if len(cells) <= 10_000:
-        for cell in cells:
+    for cell in visible[offset:offset + limit]:
             value = assay["values"].get(cell["cell_id"], [None] * len(assay["features"]))[index]
             points.append({"cell_id": cell["cell_id"], "x": cell["x"], "y": cell["y"], "included": cell["included"],
                            "value": value, "display_value": None if value is None else float(_transform(np.array([value]), scale, cofactor)[0])})
     return {"assay_id": assay_id, "assay_sha256": assay["assay_sha256"], "feature": assay["features"][index],
             "revision_id": revision_id, "selection_id": selection_id, "scale": scale, "cofactor": cofactor,
             "measurement_type": assay["measurement_type"], "summary": stats, "points": points,
-            "view_complete": len(cells) <= 10_000, "view_notice": "All imported points; no sampling. Views over 10000 omitted.",
+            "view_complete": offset == 0 and len(visible) <= limit, "view_notice": "Exact viewport page; statistics use the full selected ID set, never the displayed page.",
+            "bounds": bounds, "offset": offset, "total_in_view": len(visible),
+            "next_offset": offset + limit if offset + limit < len(visible) else None, "display_sampling": False,
             "scientific_authorization": "NOT_ESTABLISHED"}
 
 

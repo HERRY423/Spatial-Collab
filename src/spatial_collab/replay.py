@@ -21,7 +21,7 @@ MAX_FILE_BYTES = 256 * 1024 * 1024
 _BASE_FILES = {"source_snapshot.json", "revisions.json", "selection.json", "provenance.json",
                "proposals.json", "selections.json"}
 _RUN_FILES = {"result.json", "result_status_at_export.json", "run_selection.json", "base_cells.json", "target_cells.json"}
-_KNOWN_FILES = _BASE_FILES | _RUN_FILES | {"current_cells.json", "protein_assays.json"}
+_KNOWN_FILES = _BASE_FILES | _RUN_FILES | {"current_cells.json", "protein_assays.json", "research_objects.json"}
 
 
 def _decode(content: bytes, name: str) -> Any:
@@ -73,6 +73,8 @@ def _read_verified(folder: Path) -> tuple[dict, dict]:
     required = _BASE_FILES | (result_files if has_run else set() if compact else {"current_cells.json"})
     if "protein_assays.json" in members:
         required = required | {"protein_assays.json"}
+    if "research_objects.json" in members:
+        required = required | {"research_objects.json"}
     if set(members) != required:
         raise SpatialError(f"Bundle manifest member set is incomplete or inconsistent; required: {', '.join(sorted(required))}")
     total, files = 0, {}
@@ -112,6 +114,9 @@ class _BundleProject:
         return {"metadata": deepcopy(self.source["metadata"]), "cell_count": len(self.source["cells"]),
                 "project_id": self.provenance["project_id"], "source_sha256": _hash(self.source),
                 "head_revision": self.provenance["head_revision_at_export"]}
+
+    def context(self):
+        return self.summary()
 
     def get_revision(self, revision_id):
         try:
@@ -239,6 +244,26 @@ def _validate_records(files: dict) -> tuple[_BundleProject, dict | None]:
         raise SpatialError("Invalid exported protein assays.")
     from .proteomics import _records
     _records(project)
+    from . import objects
+    records = files.get("research_objects.json", [])
+    if not isinstance(records, list):
+        raise SpatialError("Research objects must be a list.")
+    project.research_objects = {r["object_id"]: r for r in records}
+    if len(project.research_objects) != len(records):
+        raise SpatialError("Duplicate exported research object IDs.")
+    for record in records:
+        verified = objects.get(project, record["object_id"], record["object_kind"])
+        if verified["object_kind"] == "integration":
+            from .integration import register_result
+            checked = register_result(project, verified)
+            if checked["object_id"] != verified["object_id"]:
+                raise SpatialError("Exported integration does not satisfy the original contract.")
+        elif verified["object_kind"] == "analysisinput":
+            from .workflow_inputs import load_counts
+            load_counts(project, verified["object_id"])
+        elif verified["object_kind"] == "analysisresult":
+            from .workflow_validation import validate_result
+            validate_result(project, verified)
     proposals_list = files["proposals.json"]
     if not isinstance(proposals_list, list):
         raise SpatialError("Exported proposals must be a list.")
@@ -347,7 +372,7 @@ def _equal(left: Any, right: Any) -> bool:
     return left == right
 
 
-def verify_bundle(bundle_path: str | Path, recompute: bool = True) -> dict:
+def verify_bundle(bundle_path: str | Path, recompute: bool = True, recompute_workflows: bool = False) -> dict:
     """Verify a review bundle, then recompute its metric from source + overlays.
 
     Invalid/tampered bundles raise SpatialError. A valid bundle with a differing
@@ -369,6 +394,69 @@ def verify_bundle(bundle_path: str | Path, recompute: bool = True) -> dict:
               "scientific_authorization": "NOT_ESTABLISHED",
               "limitations": ["Manifest verification establishes internal consistency, not external authenticity.",
                               "Recomputation verifies the declared descriptive calculation, not biological validity or the original scientific conclusion."]}
+    result["integration_verification"] = []
+    result["workflow_verification"] = []
+    result["study_verification"] = []
+    result["external_spatial_resources"] = [
+        {"id": saved["object_id"], "kind": saved["object_kind"], "status": "manifest_only_pixels_or_atlas_database_not_in_review_bundle"}
+        for saved in project.research_objects.values() if saved["object_kind"] in {"atlas", "pyramid"}
+    ]
+    for saved in project.research_objects.values():
+        if saved["object_kind"] != "studyresult":
+            continue
+        from .study_inference import infer
+        rebuilt = infer(project, saved["study_id"], saved["records"], saved["plan"]) if recompute else None
+        matches = _equal(saved["results"], rebuilt["results"]) if rebuilt else None
+        result["study_verification"].append({"result_id": saved["object_id"], "recompute_matches": matches, "status": "recomputed_matched" if matches else "recomputed_mismatch" if rebuilt else "hash_verified_not_recomputed"})
+    if any(r["recompute_matches"] is False for r in result["study_verification"]):
+        result.update(recompute_matches=False, recompute_status="mismatch", mismatched_fields=["study_outputs"])
+        return result
+    for saved in project.research_objects.values():
+        if saved["object_kind"] != "analysisresult":
+            continue
+        status = "input_and_output_contracts_verified_not_recomputed"
+        if recompute and recompute_workflows:
+            from .workflow_methods import run as run_workflow
+            rebuilt = run_workflow(project, saved["recipe"], frozen_pathway_network=saved["output"].get("resource_network") if saved["method"] == "progeny" else None)
+            # Training timing is retained as diagnostics, not a scientific output.
+            left = {k: v for k, v in saved["output"].items() if k != "training_diagnostics"}
+            right = {k: v for k, v in rebuilt["output"].items() if k != "training_diagnostics"}
+            status = "recomputed_matched" if _equal(left, right) else "recomputed_mismatch"
+        result["workflow_verification"].append({"result_id": saved["object_id"], "method": saved["method"], "status": status})
+    for saved in project.research_objects.values():
+        if saved["object_kind"] != "integration":
+            continue
+        status = "identity_and_hash_verified"
+        if recompute and saved["mode"] == "fit" and saved["method"]["name"] in {"balanced_pca_kmeans", "smopca_with_unimodal_controls", "spatial_graph_kmeans"}:
+            from .integration import run_baseline
+            import numpy as np
+            identity, method = saved["input"], saved["method"]
+            rebuilt = run_baseline(project, identity["fit_revision"], identity["protein_assay_id"],
+                rna_features=identity["rna_features"], protein_features=identity["protein_features"],
+                observation_ids=identity["fit_observation_ids"] if saved["fit_scope"] == "explicit_roi" else None,
+                components=method["parameters"]["components"], clusters=method["parameters"]["clusters"], seed=method["seed"],
+                protein_transform=saved["preprocessing"]["protein"], backend=method["parameters"]["backend"],
+                feature_selection=method["parameters"].get("feature_selection", "variance"))
+            matches = rebuilt["observation_ids"] == saved["observation_ids"] and rebuilt["domains"] == saved["domains"]
+            for key, values in saved["representations"].items():
+                a, b = np.asarray(values), np.asarray(rebuilt["representations"][key])
+                signs = np.sign(np.sum(a * b, axis=0))
+                signs[signs == 0] = 1
+                matches = matches and np.allclose(a, b * signs, rtol=1e-7, atol=1e-9)
+            status = "recomputed_matched" if matches else "recomputed_mismatch"
+        elif recompute and saved["mode"] == "fixed_model_filter":
+            status = "parent_embeddings_and_retained_ids_verified"
+        result["integration_verification"].append({"result_id": saved["object_id"], "status": status})
+    if any(r["status"] == "recomputed_mismatch" for r in result["integration_verification"] + result["workflow_verification"]):
+        result.update(recompute_matches=False, recompute_status="mismatch", mismatched_fields=[
+            name for name, records in (("integration_outputs", result["integration_verification"]),
+                                       ("workflow_outputs", result["workflow_verification"]))
+            if any(r["status"] == "recomputed_mismatch" for r in records)])
+        return result
+    if run is None and (result["integration_verification"] or result["workflow_verification"]) and recompute:
+        numerical = [r for r in result["integration_verification"] + result["workflow_verification"] if r["status"].startswith("recomputed_")]
+        result.update(recompute_matches=True if numerical else None,
+                      recompute_status="matched" if numerical else "external_outputs_verified_not_recomputed")
     if not recompute or run is None:
         return result
     params = run.get("parameters")

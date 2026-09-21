@@ -13,6 +13,7 @@ import json
 import math
 from pathlib import Path
 import re
+from typing import Any
 
 import numpy as np
 
@@ -384,3 +385,104 @@ def register_array_snapshot(project, data, *, origin_sources, **declaration):
     elif array_digest(_load(destination, None)) != digest:
         raise SpatialError("Existing frozen layer snapshot differs from its content identity.")
     return register_asset(project, destination, origin_sources=origin_sources, **declaration)
+
+
+def _encode_png_rgba(rgba: np.ndarray) -> bytes:
+    """Encode an H x W x 4 uint8 numpy array into a valid PNG without third-party dependencies."""
+    import struct
+    import zlib
+    h, w, _ = rgba.shape
+    raw_scanlines = bytearray()
+    for row in rgba:
+        raw_scanlines.append(0)  # Filter type 0 (None)
+        raw_scanlines.extend(row.tobytes())
+    compressed = zlib.compress(bytes(raw_scanlines), level=6)
+
+    def chunk(tag: bytes, data: bytes) -> bytes:
+        length = struct.pack(">I", len(data))
+        crc = struct.pack(">I", zlib.crc32(tag + data) & 0xffffffff)
+        return length + tag + data + crc
+
+    sig = b"\x89PNG\r\n\x1a\n"
+    ihdr_data = struct.pack(">IIBBBBB", w, h, 8, 6, 0, 0, 0)
+    ihdr = chunk(b"IHDR", ihdr_data)
+    idat = chunk(b"IDAT", compressed)
+    iend = chunk(b"IEND", b"")
+    return sig + ihdr + idat + iend
+
+
+def _hsv_to_rgb(h: float, s: float, v: float) -> tuple[float, float, float]:
+    i = int(h * 6.0)
+    f = (h * 6.0) - i
+    p = v * (1.0 - s)
+    q = v * (1.0 - s * f)
+    t = v * (1.0 - s * (1.0 - f))
+    i = i % 6
+    if i == 0:
+        return v, t, p
+    if i == 1:
+        return q, v, p
+    if i == 2:
+        return p, v, t
+    if i == 3:
+        return p, q, v
+    if i == 4:
+        return t, p, v
+    return v, p, q
+
+
+def get_asset_raster(project, asset_id: str, max_dimension: int = 1024) -> dict[str, Any]:
+    """Render a downsampled, verified 2D asset plane to a lightweight base64 PNG data URL."""
+    import base64
+    project = _project(project)
+    record, data = _verified(project, asset_id)
+    h, w = data.shape
+    step = max(1, math.ceil(max(h, w) / max_dimension))
+    downsampled = data[::step, ::step]
+    dh, dw = downsampled.shape
+
+    rgba = np.zeros((dh, dw, 4), dtype=np.uint8)
+    if record["kind"] == "image":
+        if np.issubdtype(downsampled.dtype, np.floating) or np.issubdtype(downsampled.dtype, np.integer):
+            p1, p99 = np.percentile(downsampled, (1, 99))
+            if p99 > p1:
+                norm = np.clip((downsampled.astype(float) - p1) / (p99 - p1), 0.0, 1.0)
+            else:
+                norm = np.zeros_like(downsampled, dtype=float)
+            gray = (norm * 255.0).astype(np.uint8)
+            rgba[..., 0] = gray
+            rgba[..., 1] = gray
+            rgba[..., 2] = gray
+            rgba[..., 3] = 255
+    else:  # segmentation
+        labels = downsampled.astype(np.int64)
+        unique_labels = np.unique(labels[labels > 0])
+        for lbl in unique_labels:
+            hue = (int(lbl) * 0.618033988749895) % 1.0
+            r, g, b = _hsv_to_rgb(hue, 0.75, 0.9)
+            mask = labels == lbl
+            rgba[mask, 0] = int(r * 255)
+            rgba[mask, 1] = int(g * 255)
+            rgba[mask, 2] = int(b * 255)
+            rgba[mask, 3] = 160
+
+    png_bytes = _encode_png_rgba(rgba)
+    data_url = f"data:image/png;base64,{base64.b64encode(png_bytes).decode('ascii')}"
+
+    # Downsampled affine: pixel (x, y) in downsampled plane corresponds to (x*step, y*step) in original
+    scale_mat = np.array([[step, 0.0, 0.0], [0.0, step, 0.0], [0.0, 0.0, 1.0]])
+    downsampled_affine = np.asarray(record["pixel_to_world"]) @ scale_mat
+
+    # Calculate corners in world space
+    corners_ds = np.array([[0.0, 0.0, 1.0], [dw, 0.0, 1.0], [dw, dh, 1.0], [0.0, dh, 1.0]])
+    corners_world = (downsampled_affine @ corners_ds.T)[:2].T
+    bounds = [float(corners_world[:, 0].min()), float(corners_world[:, 1].min()),
+              float(corners_world[:, 0].max()), float(corners_world[:, 1].max())]
+
+    return {"asset_id": asset_id, "name": record["name"], "kind": record["kind"],
+            "data_url": data_url, "shape": [h, w], "downsampled_shape": [dh, dw],
+            "width": dw, "height": dh,
+            "step": step, "pixel_to_world": downsampled_affine.tolist(),
+            "original_pixel_to_world": record["pixel_to_world"], "bounds": bounds,
+            "world_bounds": bounds}
+

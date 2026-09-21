@@ -1,0 +1,349 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]: ◈
+      - generic [ref=e5]:
+        - strong [ref=e6]: Spatial Collab
+        - generic [ref=e7]: 空间多组学协作工作台
+      - generic [ref=e8]: ALPHA 0.7
+    - navigation "组学工作空间" [ref=e9]:
+      - button "主页" [ref=e10] [cursor=pointer]
+      - button "空间转录组" [ref=e11] [cursor=pointer]
+      - button "空间蛋白组" [ref=e12] [cursor=pointer]
+      - button "整合与复核" [ref=e13] [cursor=pointer]
+    - generic [ref=e14]:
+      - generic [ref=e15]: ● 本地共享项目
+      - button "↻ 刷新共享状态" [ref=e16] [cursor=pointer]
+  - main [ref=e17]:
+    - status [ref=e18]: 已同步其他界面的共享选区、修订或分析记录。
+    - generic [ref=e43]:
+      - generic [ref=e45]:
+        - text: RNA + PROTEIN · COMPARE & REVIEW
+        - heading "比较整合结果，检查分歧区域" [level=1] [ref=e46]
+        - paragraph [ref=e47]: 同一空间对象上的 RNA、蛋白和联合组织域。簇编号是方法内标签，分歧提示需要检查的位置。
+      - generic [ref=e48]:
+        - heading "运行或载入分析" [level=2] [ref=e49]
+        - generic [ref=e50]:
+          - generic [ref=e51]:
+            - text: 后端
+            - combobox "后端" [ref=e52]:
+              - option "模态平衡 PCA 基线" [selected]
+              - option "空间邻域图增强聚类 (spatial_graph)"
+              - option "SMOPCA 小规模参考"
+          - generic [ref=e53]:
+            - text: 特征选择
+            - combobox "特征选择" [ref=e54]:
+              - option "表达方差 (Variance)" [selected]
+              - option "空间自相关 (Moran's I SVG)"
+          - generic [ref=e55]:
+            - text: 空间域数量
+            - spinbutton "空间域数量" [ref=e56]: "6"
+          - generic [ref=e57]:
+            - text: 随机种子
+            - spinbutton "随机种子" [ref=e58]: "0"
+          - generic [ref=e59]:
+            - text: 拟合范围
+            - combobox "拟合范围" [ref=e60]:
+              - option "当前版本全部纳入对象" [selected]
+              - option "当前共享 ROI"
+          - generic [ref=e61]:
+            - text: 蛋白预处理
+            - combobox "蛋白预处理" [ref=e62]:
+              - option "log1p" [selected]
+              - option "asinh / 5"
+        - paragraph [ref=e63]: 蛋白层沿用蛋白页的选择；RNA 默认支持方差或空间自相关（Moran's I）高变特征。空间图采用稀疏存储；实际拟合仍受特征矩阵和运行环境限制。SMOPCA 限 3,000 个对象；更多方法见下方科学分析。
+        - generic [ref=e64]:
+          - button "在当前版本拟合三组结果" [ref=e65] [cursor=pointer]
+          - button "更新任务状态" [ref=e66] [cursor=pointer]
+          - button "取消任务" [ref=e67] [cursor=pointer]
+          - button "重试失败任务" [ref=e68] [cursor=pointer]
+          - button "读取已保存结果" [ref=e69] [cursor=pointer]
+        - status [ref=e70]: 尚未提交任务
+        - generic [ref=e71]:
+          - generic [ref=e72]:
+            - text: 左侧结果
+            - combobox "左侧结果" [ref=e73]:
+              - option "smopca_with_unimodal_controls · fit · 2568 对象 · 当前 · integration_fa98f1…" [selected]
+              - option "smopca_with_unimodal_controls · fit · 2568 对象 · 当前 · integration_7d4323…"
+              - option "smopca_with_unimodal_controls · fit · 2568 对象 · 当前 · integration_d00e4b…"
+              - option "balanced_pca_kmeans · fit · 2568 对象 · 当前 · integration_84b8ec…"
+          - generic [ref=e74]:
+            - text: 左侧模态
+            - combobox "左侧模态" [ref=e75]:
+              - option "RNA-only" [selected]
+              - option "Protein-only"
+              - option "联合结果"
+          - generic [ref=e76]:
+            - text: 右侧结果
+            - combobox "右侧结果" [ref=e77]:
+              - option "smopca_with_unimodal_controls · fit · 2568 对象 · 当前 · integration_fa98f1…" [selected]
+              - option "smopca_with_unimodal_controls · fit · 2568 对象 · 当前 · integration_7d4323…"
+              - option "smopca_with_unimodal_controls · fit · 2568 对象 · 当前 · integration_d00e4b…"
+              - option "balanced_pca_kmeans · fit · 2568 对象 · 当前 · integration_84b8ec…"
+          - generic [ref=e78]:
+            - text: 右侧模态
+            - combobox "右侧模态" [ref=e79]:
+              - option "联合结果" [selected]
+              - option "RNA-only"
+              - option "Protein-only"
+        - generic [ref=e80]:
+          - button "查看空间域和分歧" [ref=e81] [cursor=pointer]
+          - button "按当前版本筛选左侧原模型" [ref=e82] [cursor=pointer]
+          - button "沿用左侧参数在当前版本重新拟合" [ref=e83] [cursor=pointer]
+          - button "导出含整合结果的审阅包" [ref=e84] [cursor=pointer]
+        - paragraph [ref=e85]: 固定模型筛选保留原嵌入；重新拟合会建立新任务。两者分别保留。
+        - generic [ref=e86]:
+          - generic [ref=e87]:
+            - heading "左侧空间域" [level=3] [ref=e88]
+            - generic "左侧方法空间域" [ref=e89]
+          - generic [ref=e90]:
+            - heading "右侧空间域" [level=3] [ref=e91]
+            - generic "右侧方法空间域" [ref=e92]
+        - heading "优先检查的位置" [level=3] [ref=e93]
+        - paragraph [ref=e94]: 按近邻同簇关系分歧排序，与簇编号置换无关。点击检查会建立精确共享选区；原始特征证据与人工修订沿用 RNA / 蛋白页。
+        - group [ref=e95]:
+          - generic "方法、预处理、拟合对象及完整对照" [ref=e96]
+      - generic [ref=e97]:
+        - heading "运行科学分析" [level=2] [ref=e98]
+        - paragraph [ref=e99]: 从冻结的原始计数开始。各类任务分别保留因子、组成、丰度、配准或统计结果；运行不会修改正式注释。
+        - generic [ref=e100]:
+          - generic [ref=e101]:
+            - text: 样本物种
+            - combobox "样本物种" [ref=e102]:
+              - option "请选择已确认的物种" [selected]
+              - option "人"
+              - option "小鼠"
+          - generic [ref=e103]:
+            - text: 冻结范围
+            - combobox "冻结范围" [ref=e104]:
+              - option "当前版本全部纳入对象" [selected]
+              - option "当前共享选区"
+        - generic [ref=e105]:
+          - button "冻结当前 RNA 输入" [ref=e106] [cursor=pointer]
+          - button "读取方法、输入和结果" [ref=e107] [cursor=pointer]
+        - paragraph [ref=e108]: 其他切片或单细胞参考需先通过本地 analysis import 命令登记原始计数层、物种和注释。参考输入不能由空间簇标签冒充。
+        - generic [ref=e109]:
+          - generic [ref=e110]:
+            - text: 分析方法
+            - combobox "分析方法" [ref=e111]:
+              - option "PROGENy / ULM 通路活性 · 环境待安装"
+              - option "MOFA+ 多模态因子 · 环境待安装"
+              - option "MEFISTO 空间多模态因子 · 环境待安装"
+              - option "参考 NNLS 去卷积基线" [selected]
+              - option "Cell2location 丰度后验 · 环境待安装"
+              - option "Harmony 表达批次校正 · 环境待安装"
+              - option "PASTE 切片配准 · 环境待安装"
+              - option "SpaGCN 空间结构域 · 环境待安装"
+              - option "稀疏空间图谱聚类基线"
+              - option "Moran's I 置换与 FDR"
+              - option "数据库支持的空间配体—受体检验 · 环境待安装"
+          - generic [ref=e112]:
+            - text: 空间输入
+            - combobox "空间输入" [ref=e113]:
+              - option "spots-spleen-1 · 300 对象 · 3db00066"
+              - option "spatial-derived-registration-control · 300 对象 · 38faf968"
+              - option "spots-spleen-1 · 300 对象 · 33b6592a" [selected]
+              - option "spatial-derived-registration-control · 300 对象 · c6cd7f83"
+          - generic [ref=e114]:
+            - text: 第二切片 / 单细胞参考
+            - combobox "第二切片 / 单细胞参考" [ref=e115]:
+              - option "无第二输入"
+              - option "spatial · spots-spleen-1 · 300 对象"
+              - option "reference · public-sln-spleen-reference · 3105 对象"
+              - option "spatial · spatial-derived-registration-control · 300 对象"
+              - option "spatial · spots-spleen-1 · 300 对象"
+              - option "reference · public-sln-spleen-reference · 3105 对象" [selected]
+              - option "spatial · spatial-derived-registration-control · 300 对象"
+          - generic [ref=e116]:
+            - text: RNA 特征数
+            - spinbutton "RNA 特征数" [ref=e117]: "512"
+          - generic [ref=e118]:
+            - text: 因子 / 主成分数
+            - spinbutton "因子 / 主成分数" [ref=e119]: "8"
+          - generic [ref=e120]:
+            - text: 结构域数
+            - spinbutton "结构域数" [ref=e121]: "6"
+          - generic [ref=e122]:
+            - text: 随机种子
+            - spinbutton "随机种子" [ref=e123]: "0"
+          - generic [ref=e124]:
+            - text: 训练轮数
+            - spinbutton "训练轮数" [ref=e125]: "200"
+          - generic [ref=e126]:
+            - text: 置换次数
+            - spinbutton "置换次数" [ref=e127]: "99"
+          - generic [ref=e128]:
+            - text: 每位置预期细胞数（Cell2location 必填）
+            - spinbutton "每位置预期细胞数（Cell2location 必填）" [ref=e129]
+        - group [ref=e130]:
+          - generic "跨样本设计与配准假设" [ref=e131]
+        - generic [ref=e132]:
+          - button "运行所选分析" [ref=e133] [cursor=pointer]
+          - button "更新运行状态" [ref=e134] [cursor=pointer]
+          - button "取消分析" [ref=e135] [cursor=pointer]
+          - button "重试失败分析" [ref=e136] [cursor=pointer]
+        - generic [ref=e137]:
+          - text: 恢复最近的分析任务
+          - combobox "恢复最近的分析任务" [ref=e138]:
+            - option "nnls · succeeded · ddf60e93"
+            - option "nnls · succeeded · 26ad6daa" [selected]
+            - option "moran_svg · succeeded · 7cfe1850"
+            - option "spatial_spectral · succeeded · 8726ddaf"
+            - option "nnls · failed · 88f0181c"
+        - status [ref=e139]: analysisjob_0c17768623574916b6af7867ddf60e93 · succeeded
+        - generic [ref=e140]:
+          - generic [ref=e141]:
+            - text: 保存的科学结果
+            - combobox "保存的科学结果" [ref=e142]:
+              - option "spatial_spectral · 8f12acd452"
+              - option "moran_svg · 6d48114c6a"
+              - option "nnls · a13fe7423d"
+              - option "nnls · 5d58b327bb" [selected]
+          - generic [ref=e143]:
+            - text: 查看内容
+            - combobox "查看内容" [ref=e144]:
+              - option "默认结果" [selected]
+              - option "结构域"
+              - option "因子 / 校正表示"
+              - option "RNA 贡献比例"
+              - option "细胞丰度后验均值"
+              - option "细胞丰度 5% 分位数"
+              - option "细胞丰度 95% 分位数"
+              - option "PROGENy 通路活性"
+              - option "通路检验校正值"
+              - option "推断对应坐标"
+        - generic [ref=e145]:
+          - button "查看结果与原始对象" [ref=e146] [cursor=pointer]
+          - button "下一页" [ref=e147] [cursor=pointer]
+        - paragraph [ref=e157]: nnls · 300 条结果 · 当前页 1–30 · 对应当前项目版本
+        - generic [ref=e148]:
+          - text: 地图显示的分量 / 细胞类型
+          - combobox "地图显示的分量 / 细胞类型" [ref=e149]:
+            - option "Activated CD4 T" [selected]
+            - option "B1 B"
+            - option "CD122+ CD8 T"
+            - option "CD4 T"
+            - option "CD8 T"
+            - option "Erythrocytes"
+            - option "GD T"
+            - option "ICOS-high Tregs"
+            - option "Ifit3-high B"
+            - option "Ifit3-high CD4 T"
+            - option "Ifit3-high CD8 T"
+            - option "Ly6-high mono"
+            - option "Ly6-low mono"
+            - option "MZ B"
+            - option "MZ/Marco-high macrophages"
+            - option "Mature B"
+            - option "Migratory DCs"
+            - option "NK"
+            - option "NKT"
+            - option "Neutrophils"
+            - option "Plasma B"
+            - option "Red-pulp macrophages"
+            - option "Transitional B"
+            - option "Tregs"
+            - option "cDC1s"
+            - option "cDC2s"
+            - option "pDCs"
+        - generic "本页分析结果空间图" [ref=e150]
+        - paragraph [ref=e158]: 仅本页 30 / 300 个对象；实测输入坐标。蓝 0.00 → 红 0.00。完整范围请导出结果；原始证据通过下方对象按钮检查。
+        - generic [ref=e159]:
+          - generic [ref=e160]:
+            - generic [ref=e161]: sample:spots-spleen-1::cell:AAAGGGATGTAGCAAG-1 · [0,0,0,0,0,0,0,0,0,0,0,0.06706694742305368,0,0,0,0,0,0,0,0,0.015210531467102566,0.9177225211098438,0,0,0,0,0]
+            - button "检查原始证据" [ref=e162] [cursor=pointer]
+          - generic [ref=e163]:
+            - generic [ref=e164]: sample:spots-spleen-1::cell:AAATGGTCAATGTGCC-1 · [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.03399736084375764,0.9660026391562424,0,0,0,0,0]
+            - button "检查原始证据" [ref=e165] [cursor=pointer]
+          - generic [ref=e166]:
+            - generic [ref=e167]: sample:spots-spleen-1::cell:AAATTAACGGGTAGCT-1 · [0,0,0,0,0,0,0,0,0,0,0,0.007647336828632742,0,0,0,0,0,0,0,0,0,0.9923526631713672,0,0,0,0,0]
+            - button "检查原始证据" [ref=e168] [cursor=pointer]
+          - generic [ref=e169]:
+            - generic [ref=e170]: sample:spots-spleen-1::cell:AACCGAGCTTGGTCAT-1 · [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0014957223601780457,0.998504277639822,0,0,0,0,0]
+            - button "检查原始证据" [ref=e171] [cursor=pointer]
+          - generic [ref=e172]:
+            - generic [ref=e173]: sample:spots-spleen-1::cell:AACGCGGTCTCCAGCC-1 · [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.03900953395498738,0.9609904660450126,0,0,0,0,0]
+            - button "检查原始证据" [ref=e174] [cursor=pointer]
+          - generic [ref=e175]:
+            - generic [ref=e176]: sample:spots-spleen-1::cell:AACTGGGTCCCGACGT-1 · [0,0,0,0,0,0,0,0,0,0,0,0.0519394355950635,0,0,0,0,0,0,0,0,0.027616970719417905,0.9204435936855185,0,0,0,0,0]
+            - button "检查原始证据" [ref=e177] [cursor=pointer]
+          - generic [ref=e178]:
+            - generic [ref=e179]: sample:spots-spleen-1::cell:AAGACTGCAAGCTACT-1 · [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.02764002278847838,0.9723599772115216,0,0,0,0,0]
+            - button "检查原始证据" [ref=e180] [cursor=pointer]
+          - generic [ref=e181]:
+            - generic [ref=e182]: sample:spots-spleen-1::cell:AAGCTCGTGCCAAGTC-1 · [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0647812908841581,0.9352187091158418,0,0,0,0,0]
+            - button "检查原始证据" [ref=e183] [cursor=pointer]
+          - generic [ref=e184]:
+            - generic [ref=e185]: sample:spots-spleen-1::cell:AAGGAGCGGTTGGTGC-1 · [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.037093909041836244,0.9629060909581637,0,0,0,0,0]
+            - button "检查原始证据" [ref=e186] [cursor=pointer]
+          - generic [ref=e187]:
+            - generic [ref=e188]: sample:spots-spleen-1::cell:AATGCAACCGGGTACC-1 · [0,0,0,0,0,0,0,0,0,0,0,0.016870665300158978,0,0,0,0,0,0,0,0,0.0008482804479090439,0.982281054251932,0,0,0,0,0]
+            - button "检查原始证据" [ref=e189] [cursor=pointer]
+          - generic [ref=e190]:
+            - generic [ref=e191]: sample:spots-spleen-1::cell:ACAACAGCATGAGCTA-1 · [0,0,0,0,0,0,0,0,0,0,0,0.00747436412398269,0,0,0,0,0,0,0,0,0.039875782777609774,0.9526498530984074,0,0,0,0,0]
+            - button "检查原始证据" [ref=e192] [cursor=pointer]
+          - generic [ref=e193]:
+            - generic [ref=e194]: sample:spots-spleen-1::cell:ACACAAAGACGGGTGG-1 · [0,0,0,0,0,0,0,0,0,0,0,0.05072690447213192,0,0,0,0,0,0,0,0,0.014372780099148236,0.9349003154287199,0,0,0,0,0]
+            - button "检查原始证据" [ref=e195] [cursor=pointer]
+          - generic [ref=e196]:
+            - generic [ref=e197]: sample:spots-spleen-1::cell:ACACCCAGCATGCAGC-1 · [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.05838463029770779,0.9416153697022923,0,0,0,0,0]
+            - button "检查原始证据" [ref=e198] [cursor=pointer]
+          - generic [ref=e199]:
+            - generic [ref=e200]: sample:spots-spleen-1::cell:ACACGAGACTCCTTCT-1 · [0,0,0,0,0,0,0,0,0,0,0,0.1852514296768298,0,0,0.027992668830860438,0,0,0,0,0,0,0.7867559014923098,0,0,0,0,0]
+            - button "检查原始证据" [ref=e201] [cursor=pointer]
+          - generic [ref=e202]:
+            - generic [ref=e203]: sample:spots-spleen-1::cell:ACACGGGAACTTAGGG-1 · [0,0,0,0,0,0,0,0,0,0,0,0.0013467559222418372,0,0,0,0,0,0,0,0,0.015352886810091915,0.9833003572676662,0,0,0,0,0]
+            - button "检查原始证据" [ref=e204] [cursor=pointer]
+          - generic [ref=e205]:
+            - generic [ref=e206]: sample:spots-spleen-1::cell:ACATAATAAGGCGGTG-1 · [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.07356233872362367,0.9264376612763764,0,0,0,0,0]
+            - button "检查原始证据" [ref=e207] [cursor=pointer]
+          - generic [ref=e208]:
+            - generic [ref=e209]: sample:spots-spleen-1::cell:ACATCGATCGTTTACC-1 · [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.048513218484146116,0.9514867815158539,0,0,0,0,0]
+            - button "检查原始证据" [ref=e210] [cursor=pointer]
+          - generic [ref=e211]:
+            - generic [ref=e212]: sample:spots-spleen-1::cell:ACCACAAGTTTCTATC-1 · [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.0335404977369063,0.9664595022630937,0,0,0,0,0]
+            - button "检查原始证据" [ref=e213] [cursor=pointer]
+          - generic [ref=e214]:
+            - generic [ref=e215]: sample:spots-spleen-1::cell:ACCATATCCGCAATAA-1 · [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.06621105123274217,0.9337889487672578,0,0,0,0,0]
+            - button "检查原始证据" [ref=e216] [cursor=pointer]
+          - generic [ref=e217]:
+            - generic [ref=e218]: sample:spots-spleen-1::cell:ACCGACTGAGTCCCAC-1 · [0,0,0,0,0,0,0,0,0,0,0,0.05584689054769977,0,0,0,0,0,0,0,0,0.0075985316269108275,0.9365545778253893,0,0,0,0,0]
+            - button "检查原始证据" [ref=e219] [cursor=pointer]
+          - generic [ref=e220]:
+            - generic [ref=e221]: sample:spots-spleen-1::cell:ACGATCATACATAGAG-1 · [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.026397346016433003,0.9736026539835669,0,0,0,0,0]
+            - button "检查原始证据" [ref=e222] [cursor=pointer]
+          - generic [ref=e223]:
+            - generic [ref=e224]: sample:spots-spleen-1::cell:ACGCATTCGTGAGTAC-1 · [0,0,0,0,0,0,0,0,0,0,0,0.03160612849157774,0,0,0,0,0,0,0,0,0.03724391959896608,0.9311499519094562,0,0,0,0,0]
+            - button "检查原始证据" [ref=e225] [cursor=pointer]
+          - generic [ref=e226]:
+            - generic [ref=e227]: sample:spots-spleen-1::cell:ACGCGGGCCAAGGACA-1 · [0,0,0,0,0,0,0,0,0,0,0,0.23343549398606697,0,0,0.0010170978853967724,0,0,0,0,0,0.0016155542937620728,0.7639318538347742,0,0,0,0,0]
+            - button "检查原始证据" [ref=e228] [cursor=pointer]
+          - generic [ref=e229]:
+            - generic [ref=e230]: sample:spots-spleen-1::cell:ACGTAGATTGCTGATG-1 · [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.03770943705095219,0.9622905629490478,0,0,0,0,0]
+            - button "检查原始证据" [ref=e231] [cursor=pointer]
+          - generic [ref=e232]:
+            - generic [ref=e233]: sample:spots-spleen-1::cell:ACGTGCGCCTCGTGCA-1 · [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.09090811522887439,0.9090918847711256,0,0,0,0,0]
+            - button "检查原始证据" [ref=e234] [cursor=pointer]
+          - generic [ref=e235]:
+            - generic [ref=e236]: sample:spots-spleen-1::cell:ACTCAATAAAGGCACG-1 · [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0]
+            - button "检查原始证据" [ref=e237] [cursor=pointer]
+          - generic [ref=e238]:
+            - generic [ref=e239]: sample:spots-spleen-1::cell:ACTCTTGTATAGTAAC-1 · [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.03362251405983165,0.9663774859401684,0,0,0,0,0]
+            - button "检查原始证据" [ref=e240] [cursor=pointer]
+          - generic [ref=e241]:
+            - generic [ref=e242]: sample:spots-spleen-1::cell:ACTGTCCAGGATTATA-1 · [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.07479790280743939,0.9252020971925605,0,0,0,0,0]
+            - button "检查原始证据" [ref=e243] [cursor=pointer]
+          - generic [ref=e244]:
+            - generic [ref=e245]: sample:spots-spleen-1::cell:ACTGTCTTCTTTAGAA-1 · [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.07503299819735616,0.9249670018026438,0,0,0,0,0]
+            - button "检查原始证据" [ref=e246] [cursor=pointer]
+          - generic [ref=e247]:
+            - generic [ref=e248]: sample:spots-spleen-1::cell:ACTTATTAGGATCGGT-1 · [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0.03814274296236865,0.9618572570376314,0,0,0,0,0]
+            - button "检查原始证据" [ref=e249] [cursor=pointer]
+        - group [ref=e151]:
+          - generic "完整参数、统计假设与解释范围" [ref=e152]
+      - generic [ref=e153]:
+        - heading "模态关系与研究设计" [level=2] [ref=e154]
+        - button "查看已登记的对应关系、派生层和样本设计" [ref=e155] [cursor=pointer]
+    - generic [ref=e41]:
+      - text: Spatial Collab · 空间多组学研究 Alpha
+      - generic [ref=e42]: NOT_ESTABLISHED · 不将工程记录解释为科学授权

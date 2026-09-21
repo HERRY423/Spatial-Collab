@@ -1,0 +1,731 @@
+[
+  {
+    "result_id": "integration_10f9e5303ca0e4284be38afba9188a69",
+    "source_sha256": "511307fc3009d9a3d5e9f49ba0d00088bb1298e6642a8ac4ff0f5a704678eaff",
+    "sample_id": "spatial-cite-tonsil",
+    "observations": 2491,
+    "rna_features_used": 128,
+    "protein_features_used": 283,
+    "elapsed_seconds": 151.87189479998779,
+    "method": {
+      "name": "balanced_pca_kmeans",
+      "version": "balanced-pca-kmeans/1",
+      "code_reference": "spatial_collab.integration:balanced-pca-kmeans/1",
+      "environment": {
+        "python": "3.13.9",
+        "numpy": "2.3.5",
+        "scipy": "1.16.3"
+      },
+      "parameters": {
+        "components": 8,
+        "clusters": 6,
+        "backend": "balanced_pca"
+      },
+      "seed": 20260920,
+      "uses_annotations": false
+    },
+    "rna_joint_comparison": {
+      "left_id": "integration_10f9e5303ca0e4284be38afba9188a69",
+      "right_id": "integration_10f9e5303ca0e4284be38afba9188a69",
+      "common_count": 2491,
+      "left_only_count": 0,
+      "right_only_count": 0,
+      "adjusted_rand_index": 0.12655340359004694,
+      "mean_boundary_disagreement": 0.4103439047236719,
+      "rows": [
+        {
+          "cell_id": "sample:spatial-cite-tonsil::cell:10x2",
+          "x": 10.0,
+          "y": 2.0,
+          "left_domain": "5",
+          "right_domain": "4",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spatial-cite-tonsil::cell:11x17",
+          "x": 11.0,
+          "y": 17.0,
+          "left_domain": "0",
+          "right_domain": "2",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spatial-cite-tonsil::cell:12x11",
+          "x": 12.0,
+          "y": 11.0,
+          "left_domain": "0",
+          "right_domain": "2",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spatial-cite-tonsil::cell:14x7",
+          "x": 14.0,
+          "y": 7.0,
+          "left_domain": "2",
+          "right_domain": "0",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spatial-cite-tonsil::cell:17x10",
+          "x": 17.0,
+          "y": 10.0,
+          "left_domain": "4",
+          "right_domain": "0",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spatial-cite-tonsil::cell:17x22",
+          "x": 17.0,
+          "y": 22.0,
+          "left_domain": "3",
+          "right_domain": "0",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spatial-cite-tonsil::cell:21x12",
+          "x": 21.0,
+          "y": 12.0,
+          "left_domain": "3",
+          "right_domain": "2",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spatial-cite-tonsil::cell:24x49",
+          "x": 24.0,
+          "y": 49.0,
+          "left_domain": "4",
+          "right_domain": "4",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spatial-cite-tonsil::cell:26x21",
+          "x": 26.0,
+          "y": 21.0,
+          "left_domain": "4",
+          "right_domain": "2",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spatial-cite-tonsil::cell:26x22",
+          "x": 26.0,
+          "y": 22.0,
+          "left_domain": "4",
+          "right_domain": "0",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spatial-cite-tonsil::cell:2x10",
+          "x": 2.0,
+          "y": 10.0,
+          "left_domain": "4",
+          "right_domain": "2",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spatial-cite-tonsil::cell:2x2",
+          "x": 2.0,
+          "y": 2.0,
+          "left_domain": "3",
+          "right_domain": "4",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spatial-cite-tonsil::cell:30x24",
+          "x": 30.0,
+          "y": 24.0,
+          "left_domain": "2",
+          "right_domain": "2",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spatial-cite-tonsil::cell:31x27",
+          "x": 31.0,
+          "y": 27.0,
+          "left_domain": "3",
+          "right_domain": "1",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spatial-cite-tonsil::cell:32x24",
+          "x": 32.0,
+          "y": 24.0,
+          "left_domain": "2",
+          "right_domain": "2",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spatial-cite-tonsil::cell:33x46",
+          "x": 33.0,
+          "y": 46.0,
+          "left_domain": "4",
+          "right_domain": "1",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spatial-cite-tonsil::cell:38x11",
+          "x": 38.0,
+          "y": 11.0,
+          "left_domain": "4",
+          "right_domain": "0",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spatial-cite-tonsil::cell:39x12",
+          "x": 39.0,
+          "y": 12.0,
+          "left_domain": "4",
+          "right_domain": "4",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spatial-cite-tonsil::cell:39x38",
+          "x": 39.0,
+          "y": 38.0,
+          "left_domain": "4",
+          "right_domain": "3",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spatial-cite-tonsil::cell:3x41",
+          "x": 3.0,
+          "y": 41.0,
+          "left_domain": "0",
+          "right_domain": "3",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        }
+      ],
+      "offset": 0,
+      "next_offset": 20,
+      "label_comparison": "Permutation-invariant co-membership on six nearest common observations; numeric labels are not aligned identities.",
+      "scope": "Common output observations only; removed observations are counted separately.",
+      "scientific_authorization": "NOT_ESTABLISHED"
+    },
+    "evidence_scope": "public_data_engineering_execution_not_independent_biological_or_user_validation"
+  },
+  {
+    "result_id": "integration_84b8ec877017dc5fabebc582e3facff7",
+    "source_sha256": "eef803ace07152d84d1034ba5d0340e2f6897c4c04b771b265c4a72ee3664492",
+    "sample_id": "spots-spleen-1",
+    "observations": 2568,
+    "rna_features_used": 128,
+    "protein_features_used": 21,
+    "elapsed_seconds": 33.7054036000045,
+    "method": {
+      "name": "balanced_pca_kmeans",
+      "version": "balanced-pca-kmeans/1",
+      "code_reference": "spatial_collab.integration:balanced-pca-kmeans/1",
+      "environment": {
+        "python": "3.13.9",
+        "numpy": "2.3.5",
+        "scipy": "1.16.3"
+      },
+      "parameters": {
+        "components": 8,
+        "clusters": 6,
+        "backend": "balanced_pca"
+      },
+      "seed": 20260920,
+      "uses_annotations": false
+    },
+    "rna_joint_comparison": {
+      "left_id": "integration_84b8ec877017dc5fabebc582e3facff7",
+      "right_id": "integration_84b8ec877017dc5fabebc582e3facff7",
+      "common_count": 2568,
+      "left_only_count": 0,
+      "right_only_count": 0,
+      "adjusted_rand_index": 0.20856443689587792,
+      "mean_boundary_disagreement": 0.41660176531671855,
+      "rows": [
+        {
+          "cell_id": "sample:spots-spleen-1::cell:AAGGGACAGATTCTGT-1",
+          "x": 26.0,
+          "y": 92.0,
+          "left_domain": "1",
+          "right_domain": "0",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-1::cell:AATATCGAGGGTTCTC-1",
+          "x": 27.0,
+          "y": 101.0,
+          "left_domain": "3",
+          "right_domain": "1",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-1::cell:ACACATGATCAAATCT-1",
+          "x": 60.0,
+          "y": 16.0,
+          "left_domain": "4",
+          "right_domain": "1",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-1::cell:ACATCTCAACGCGTAA-1",
+          "x": 4.0,
+          "y": 74.0,
+          "left_domain": "2",
+          "right_domain": "1",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-1::cell:ACGCGGGCCAAGGACA-1",
+          "x": 34.0,
+          "y": 62.0,
+          "left_domain": "4",
+          "right_domain": "4",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-1::cell:ATATGTCTCCCTAGCC-1",
+          "x": 35.0,
+          "y": 97.0,
+          "left_domain": "4",
+          "right_domain": "4",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-1::cell:ATCGGCAAGCAGTCCA-1",
+          "x": 20.0,
+          "y": 96.0,
+          "left_domain": "4",
+          "right_domain": "0",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-1::cell:CACATCGTGCACGCGC-1",
+          "x": 60.0,
+          "y": 38.0,
+          "left_domain": "0",
+          "right_domain": "0",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-1::cell:CATGCTGGCTCCAATT-1",
+          "x": 12.0,
+          "y": 60.0,
+          "left_domain": "4",
+          "right_domain": "1",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-1::cell:CCAATAGTGCCGTCGA-1",
+          "x": 34.0,
+          "y": 42.0,
+          "left_domain": "4",
+          "right_domain": "0",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-1::cell:CCCGAAGTTTCGCGAA-1",
+          "x": 45.0,
+          "y": 11.0,
+          "left_domain": "4",
+          "right_domain": "1",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-1::cell:CCCGTAAGTCTAGGCC-1",
+          "x": 40.0,
+          "y": 28.0,
+          "left_domain": "5",
+          "right_domain": "4",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-1::cell:CGTCAGTGCGCACAAG-1",
+          "x": 11.0,
+          "y": 49.0,
+          "left_domain": "3",
+          "right_domain": "4",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-1::cell:CTAACCGCGCGCCCGT-1",
+          "x": 37.0,
+          "y": 35.0,
+          "left_domain": "5",
+          "right_domain": "2",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-1::cell:CTACGAACTAGGTCGA-1",
+          "x": 5.0,
+          "y": 73.0,
+          "left_domain": "3",
+          "right_domain": "1",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-1::cell:CTCGCACCTATATAGT-1",
+          "x": 24.0,
+          "y": 68.0,
+          "left_domain": "4",
+          "right_domain": "0",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-1::cell:CTTCATAGCTCAAGAA-1",
+          "x": 19.0,
+          "y": 37.0,
+          "left_domain": "0",
+          "right_domain": "0",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-1::cell:GAACTTGTGCACGGGA-1",
+          "x": 18.0,
+          "y": 124.0,
+          "left_domain": "2",
+          "right_domain": "1",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-1::cell:GAATAGTGCTCGATTA-1",
+          "x": 60.0,
+          "y": 36.0,
+          "left_domain": "0",
+          "right_domain": "0",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-1::cell:GAATTATAGTGAAAGG-1",
+          "x": 34.0,
+          "y": 68.0,
+          "left_domain": "5",
+          "right_domain": "3",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        }
+      ],
+      "offset": 0,
+      "next_offset": 20,
+      "label_comparison": "Permutation-invariant co-membership on six nearest common observations; numeric labels are not aligned identities.",
+      "scope": "Common output observations only; removed observations are counted separately.",
+      "scientific_authorization": "NOT_ESTABLISHED"
+    },
+    "evidence_scope": "public_data_engineering_execution_not_independent_biological_or_user_validation"
+  },
+  {
+    "result_id": "integration_6de2d9195a9fe759a1518b89aaf9addc",
+    "source_sha256": "32fe41d6d7cd03f7cdb282867561b01ae33e5fa833a83f173479731bf70ae906",
+    "sample_id": "spots-spleen-2",
+    "observations": 2768,
+    "rna_features_used": 128,
+    "protein_features_used": 21,
+    "elapsed_seconds": 36.04218230000697,
+    "method": {
+      "name": "balanced_pca_kmeans",
+      "version": "balanced-pca-kmeans/1",
+      "code_reference": "spatial_collab.integration:balanced-pca-kmeans/1",
+      "environment": {
+        "python": "3.13.9",
+        "numpy": "2.3.5",
+        "scipy": "1.16.3"
+      },
+      "parameters": {
+        "components": 8,
+        "clusters": 6,
+        "backend": "balanced_pca"
+      },
+      "seed": 20260920,
+      "uses_annotations": false
+    },
+    "rna_joint_comparison": {
+      "left_id": "integration_6de2d9195a9fe759a1518b89aaf9addc",
+      "right_id": "integration_6de2d9195a9fe759a1518b89aaf9addc",
+      "common_count": 2768,
+      "left_only_count": 0,
+      "right_only_count": 0,
+      "adjusted_rand_index": 0.18892683026618712,
+      "mean_boundary_disagreement": 0.43226156069364163,
+      "rows": [
+        {
+          "cell_id": "sample:spots-spleen-2::cell:AAAGTCGACCCTCAGT-1",
+          "x": 37.0,
+          "y": 15.0,
+          "left_domain": "1",
+          "right_domain": "5",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-2::cell:AACTAGGCTTGGGTGT-1",
+          "x": 55.0,
+          "y": 61.0,
+          "left_domain": "5",
+          "right_domain": "5",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-2::cell:AATGCACCAAGCAATG-1",
+          "x": 19.0,
+          "y": 97.0,
+          "left_domain": "0",
+          "right_domain": "1",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-2::cell:AATTCATTGTCATGCA-1",
+          "x": 63.0,
+          "y": 9.0,
+          "left_domain": "3",
+          "right_domain": "2",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-2::cell:ACGACTGGTCATACTC-1",
+          "x": 64.0,
+          "y": 34.0,
+          "left_domain": "0",
+          "right_domain": "1",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-2::cell:ACGAGATATTTGCTTA-1",
+          "x": 9.0,
+          "y": 81.0,
+          "left_domain": "0",
+          "right_domain": "2",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-2::cell:ACGCTGTGAGGCGTAG-1",
+          "x": 39.0,
+          "y": 13.0,
+          "left_domain": "5",
+          "right_domain": "3",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-2::cell:ACGTACTTTGGCACGG-1",
+          "x": 70.0,
+          "y": 32.0,
+          "left_domain": "3",
+          "right_domain": "5",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-2::cell:AGTAATTTGCAAGCGT-1",
+          "x": 69.0,
+          "y": 9.0,
+          "left_domain": "0",
+          "right_domain": "2",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-2::cell:AGTTACTCTATCGTGG-1",
+          "x": 15.0,
+          "y": 89.0,
+          "left_domain": "3",
+          "right_domain": "0",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-2::cell:ATAAGTACCCGATTGT-1",
+          "x": 9.0,
+          "y": 113.0,
+          "left_domain": "1",
+          "right_domain": "2",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-2::cell:ATCTTGACTTGTCCAA-1",
+          "x": 30.0,
+          "y": 108.0,
+          "left_domain": "5",
+          "right_domain": "1",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-2::cell:ATGACTATGCGACATT-1",
+          "x": 48.0,
+          "y": 88.0,
+          "left_domain": "3",
+          "right_domain": "1",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-2::cell:ATTATGCCATAGGGAG-1",
+          "x": 21.0,
+          "y": 53.0,
+          "left_domain": "3",
+          "right_domain": "1",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-2::cell:CAATTGGGCCGCACTC-1",
+          "x": 56.0,
+          "y": 4.0,
+          "left_domain": "1",
+          "right_domain": "2",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-2::cell:CACAGCACCCACGGCA-1",
+          "x": 31.0,
+          "y": 59.0,
+          "left_domain": "5",
+          "right_domain": "1",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-2::cell:CACTAAAGTTGCCTAT-1",
+          "x": 35.0,
+          "y": 51.0,
+          "left_domain": "0",
+          "right_domain": "1",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-2::cell:CATAACGGACAGTCGT-1",
+          "x": 36.0,
+          "y": 94.0,
+          "left_domain": "5",
+          "right_domain": "2",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-2::cell:CATAGGGACACTTGTG-1",
+          "x": 75.0,
+          "y": 21.0,
+          "left_domain": "0",
+          "right_domain": "2",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        },
+        {
+          "cell_id": "sample:spots-spleen-2::cell:CCATCGCAGTTAAACT-1",
+          "x": 50.0,
+          "y": 62.0,
+          "left_domain": "0",
+          "right_domain": "1",
+          "boundary_disagreement": 1.0,
+          "current_label": "Unannotated",
+          "included": true
+        }
+      ],
+      "offset": 0,
+      "next_offset": 20,
+      "label_comparison": "Permutation-invariant co-membership on six nearest common observations; numeric labels are not aligned identities.",
+      "scope": "Common output observations only; removed observations are counted separately.",
+      "scientific_authorization": "NOT_ESTABLISHED"
+    },
+    "evidence_scope": "public_data_engineering_execution_not_independent_biological_or_user_validation"
+  }
+]

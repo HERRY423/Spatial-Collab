@@ -1,0 +1,383 @@
+{
+  "scope": "public data execution and numerical checks, not independent biological or human-efficiency validation",
+  "attempts": 19,
+  "failed_attempts": [
+    {
+      "id": "analysisjob_b3cdb81bda73474896b1669988f0181c",
+      "method": "nnls",
+      "error": "SpatialError: Need 2..5000 shared measured features."
+    },
+    {
+      "id": "analysisjob_268e5513559b4a22aa48a6d118d5c2ab",
+      "method": "mofa",
+      "error": "SpatialError: Data must contain finite JSON-compatible values."
+    },
+    {
+      "id": "analysisjob_7d8f7f6edd5e487d95dc46baeaaacd50",
+      "method": "mefisto",
+      "error": "SpatialError: Data must contain finite JSON-compatible values."
+    },
+    {
+      "id": "analysisjob_810700b7525741ecbda3218f977ee125",
+      "method": "cell2location",
+      "error": "TypeError: scvi.train._trainrunner.TrainRunner() got multiple values for keyword argument 'devices'"
+    },
+    {
+      "id": "analysisjob_932c2607a2384a909722e91f0df80fc4",
+      "method": "paste",
+      "error": "TypeError: my_fused_gromov_wasserstein.<locals>.line_search() takes 5 positional arguments but 6 were given"
+    }
+  ],
+  "methods": {
+    "nnls": {
+      "status": "succeeded",
+      "result_id": "analysisresult_b48df14e1c5989a938eda156bc290d89",
+      "elapsed_seconds": 2.918214400007855,
+      "error": null,
+      "contract_verified": true,
+      "source_observations": [
+        300,
+        3105
+      ],
+      "implementation_sha256": "1afed9153a3149aa3e7013e45006e4e179b260be72ca2356fe09db054d38ee6f",
+      "package_version": "1.16.3",
+      "rna_contribution_fraction_shape": [
+        300,
+        27
+      ],
+      "cell_types": [
+        "Activated CD4 T",
+        "B1 B",
+        "CD122+ CD8 T",
+        "CD4 T",
+        "CD8 T",
+        "Erythrocytes",
+        "GD T",
+        "ICOS-high Tregs",
+        "Ifit3-high B",
+        "Ifit3-high CD4 T",
+        "Ifit3-high CD8 T",
+        "Ly6-high mono",
+        "Ly6-low mono",
+        "MZ B",
+        "MZ/Marco-high macrophages",
+        "Mature B",
+        "Migratory DCs",
+        "NK",
+        "NKT",
+        "Neutrophils",
+        "Plasma B",
+        "Red-pulp macrophages",
+        "Transitional B",
+        "Tregs",
+        "cDC1s",
+        "cDC2s",
+        "pDCs"
+      ],
+      "signature_condition_number": 417.19636772894586,
+      "median_residual_l2": 0.05414940062388922,
+      "max_fraction_sum_error": 2.220446049250313e-16
+    },
+    "spatial_spectral": {
+      "status": "succeeded",
+      "result_id": "analysisresult_6cc743ef04325742cc43a29da393237f",
+      "elapsed_seconds": 1.2624376000021584,
+      "error": null,
+      "contract_verified": true,
+      "source_observations": [
+        300
+      ],
+      "implementation_sha256": "1afed9153a3149aa3e7013e45006e4e179b260be72ca2356fe09db054d38ee6f",
+      "package_version": "1.7.2",
+      "embedding_shape": [
+        300,
+        8
+      ],
+      "domain_sizes": {
+        "5": 66,
+        "2": 56,
+        "3": 48,
+        "0": 35,
+        "4": 48,
+        "1": 47
+      }
+    },
+    "moran_svg": {
+      "status": "succeeded",
+      "result_id": "analysisresult_ada95c6389c7c17502b9b7c840491b82",
+      "elapsed_seconds": 5.3403822999680415,
+      "error": null,
+      "contract_verified": true,
+      "source_observations": [
+        300
+      ],
+      "implementation_sha256": "1afed9153a3149aa3e7013e45006e4e179b260be72ca2356fe09db054d38ee6f",
+      "package_version": "1.16.3",
+      "row_statuses": {
+        "tested": 12426,
+        "below_detection_filter": 19859
+      },
+      "fdr_below_005": 0
+    },
+    "mofa": {
+      "status": "succeeded",
+      "result_id": "analysisresult_92c69b519aeb98bd25d699fd71dceacd",
+      "elapsed_seconds": 3.2308817000011913,
+      "error": null,
+      "contract_verified": true,
+      "source_observations": [
+        300
+      ],
+      "implementation_sha256": "8b6dda7ea455178e6d960d41fe8fc4c5db4c2846df8763450052f19a3dcfd2d8",
+      "package_version": "0.7.5",
+      "embedding_shape": [
+        300,
+        4
+      ],
+      "rna_features": 256,
+      "protein_features": 21,
+      "spatial_covariates_used": false,
+      "iterations_requested": 100
+    },
+    "mefisto": {
+      "status": "succeeded",
+      "result_id": "analysisresult_1d8d7acbbd939911ecbcd60fbaa399b6",
+      "elapsed_seconds": 4.814060300006531,
+      "error": null,
+      "contract_verified": true,
+      "source_observations": [
+        300
+      ],
+      "implementation_sha256": "8b6dda7ea455178e6d960d41fe8fc4c5db4c2846df8763450052f19a3dcfd2d8",
+      "package_version": "0.7.5",
+      "embedding_shape": [
+        300,
+        4
+      ],
+      "rna_features": 128,
+      "protein_features": 21,
+      "spatial_covariates_used": true,
+      "iterations_requested": 60
+    },
+    "cell2location": {
+      "status": "succeeded",
+      "result_id": "analysisresult_d4a31d3927c6bb0e0a4b3e92535eb26e",
+      "elapsed_seconds": 39.49261850002222,
+      "error": null,
+      "contract_verified": true,
+      "source_observations": [
+        300,
+        3105
+      ],
+      "implementation_sha256": "8b6dda7ea455178e6d960d41fe8fc4c5db4c2846df8763450052f19a3dcfd2d8",
+      "package_version": "0.1.5",
+      "abundance_shape": [
+        300,
+        27
+      ],
+      "median_posterior_interval_width": 0.15537530183792114,
+      "training_epochs": 200,
+      "cells_per_location_prior": 8,
+      "convergence_established": false
+    },
+    "harmony": {
+      "status": "succeeded",
+      "result_id": "analysisresult_04dabca8c34ae3a91093537d97f95446",
+      "elapsed_seconds": 2.2936277000117116,
+      "error": null,
+      "contract_verified": true,
+      "source_observations": [
+        300,
+        300
+      ],
+      "implementation_sha256": "1afed9153a3149aa3e7013e45006e4e179b260be72ca2356fe09db054d38ee6f",
+      "package_version": "0.0.10",
+      "embedding_shape": [
+        600,
+        8
+      ],
+      "cross_batch_neighbor_fraction": {
+        "after": 0.533,
+        "before": 0.5301111111111111
+      },
+      "control_only_not_independent_slices": true
+    },
+    "paste": {
+      "status": "succeeded",
+      "result_id": "analysisresult_dbc55c62a159dc1d8cceecc862c33c00",
+      "elapsed_seconds": 2.248095699993428,
+      "error": null,
+      "contract_verified": true,
+      "source_observations": [
+        300,
+        300
+      ],
+      "implementation_sha256": "8b6dda7ea455178e6d960d41fe8fc4c5db4c2846df8763450052f19a3dcfd2d8",
+      "package_version": "1.4.0",
+      "derived_control_coordinate_rmse": 0.0,
+      "control_only_not_independent_slices": true,
+      "marginal_max_error": 0.0
+    },
+    "spagcn": {
+      "status": "succeeded",
+      "result_id": "analysisresult_e4f819726d3af5e5b01018669c790a16",
+      "elapsed_seconds": 3.6740525999921374,
+      "error": null,
+      "contract_verified": true,
+      "source_observations": [
+        300
+      ],
+      "implementation_sha256": "1afed9153a3149aa3e7013e45006e4e179b260be72ca2356fe09db054d38ee6f",
+      "package_version": "1.2.7",
+      "embedding_shape": [
+        300,
+        8
+      ],
+      "domain_sizes": {
+        "0": 101,
+        "5": 59,
+        "1": 49,
+        "2": 59,
+        "3": 25,
+        "4": 7
+      }
+    },
+    "spatial_lr": {
+      "status": "succeeded",
+      "result_id": "analysisresult_715b60167e485fc99fec837b05285373",
+      "elapsed_seconds": 42.771445300022606,
+      "error": null,
+      "contract_verified": true,
+      "source_observations": [
+        300
+      ],
+      "implementation_sha256": "1afed9153a3149aa3e7013e45006e4e179b260be72ca2356fe09db054d38ee6f",
+      "package_version": "1.10.0",
+      "row_statuses": {
+        "tested": 3937,
+        "unmeasured_or_ambiguous_required_subunit": 52
+      },
+      "fdr_below_005": 0
+    },
+    "progeny": {
+      "status": "succeeded",
+      "result_id": "analysisresult_a4cc893c4eed5ef01672dfb41fa74e1b",
+      "elapsed_seconds": 21.963858100003563,
+      "error": null,
+      "contract_verified": true,
+      "source_observations": [
+        300
+      ],
+      "implementation_sha256": "1afed9153a3149aa3e7013e45006e4e179b260be72ca2356fe09db054d38ee6f",
+      "package_version": "2.2.0",
+      "pathway_activity_shape": [
+        300,
+        14
+      ],
+      "pathways": [
+        "Androgen",
+        "EGFR",
+        "Estrogen",
+        "Hypoxia",
+        "JAK-STAT",
+        "MAPK",
+        "NFkB",
+        "PI3K",
+        "TGFb",
+        "TNFa",
+        "Trail",
+        "VEGF",
+        "WNT",
+        "p53"
+      ],
+      "coverage": [
+        {
+          "database_targets": 100,
+          "measured_targets": 99,
+          "pathway": "Androgen",
+          "status": "tested"
+        },
+        {
+          "database_targets": 100,
+          "measured_targets": 100,
+          "pathway": "EGFR",
+          "status": "tested"
+        },
+        {
+          "database_targets": 100,
+          "measured_targets": 98,
+          "pathway": "Estrogen",
+          "status": "tested"
+        },
+        {
+          "database_targets": 100,
+          "measured_targets": 94,
+          "pathway": "Hypoxia",
+          "status": "tested"
+        },
+        {
+          "database_targets": 99,
+          "measured_targets": 93,
+          "pathway": "JAK-STAT",
+          "status": "tested"
+        },
+        {
+          "database_targets": 99,
+          "measured_targets": 97,
+          "pathway": "MAPK",
+          "status": "tested"
+        },
+        {
+          "database_targets": 93,
+          "measured_targets": 91,
+          "pathway": "NFkB",
+          "status": "tested"
+        },
+        {
+          "database_targets": 100,
+          "measured_targets": 95,
+          "pathway": "PI3K",
+          "status": "tested"
+        },
+        {
+          "database_targets": 100,
+          "measured_targets": 100,
+          "pathway": "TGFb",
+          "status": "tested"
+        },
+        {
+          "database_targets": 93,
+          "measured_targets": 90,
+          "pathway": "TNFa",
+          "status": "tested"
+        },
+        {
+          "database_targets": 99,
+          "measured_targets": 89,
+          "pathway": "Trail",
+          "status": "tested"
+        },
+        {
+          "database_targets": 100,
+          "measured_targets": 95,
+          "pathway": "VEGF",
+          "status": "tested"
+        },
+        {
+          "database_targets": 100,
+          "measured_targets": 100,
+          "pathway": "WNT",
+          "status": "tested"
+        },
+        {
+          "database_targets": 99,
+          "measured_targets": 97,
+          "pathway": "p53",
+          "status": "tested"
+        }
+      ],
+      "resource_sha256": "21f385cc713aee8c4061ff9f204c2c7465458a81d387489f0a8b9e015e401f7c",
+      "resource_species_mapping": "official decoupler human-to-mouse HCOP translation (default minimum 3 evidence resources, up to 5 orthologs); not a mouse perturbation-trained footprint"
+    }
+  }
+}

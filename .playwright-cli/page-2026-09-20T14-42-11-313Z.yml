@@ -1,0 +1,50 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]: ◈
+      - generic [ref=e5]:
+        - strong [ref=e6]: Spatial Collab
+        - generic [ref=e7]: 空间多组学协作工作台
+      - generic [ref=e8]: ALPHA 0.5
+    - navigation "组学工作空间" [ref=e9]:
+      - button "主页" [ref=e10] [cursor=pointer]
+      - button "空间转录组" [ref=e11] [cursor=pointer]
+      - button "空间蛋白组" [ref=e12] [cursor=pointer]
+      - button "整合与复核" [ref=e13] [cursor=pointer]
+    - generic [ref=e14]:
+      - generic [ref=e15]: ● 本地共享项目
+      - button "↻ 刷新共享状态" [ref=e16] [cursor=pointer]
+  - main [ref=e17]:
+    - status [ref=e18]: 正在打开项目…
+    - generic [ref=e19]:
+      - generic [ref=e20]:
+        - text: SPATIAL MULTI-OMICS · SHARED RESEARCH
+        - heading "从同一个位置，理解不同层面的证据。" [level=1] [ref=e21]
+        - paragraph [ref=e22]: 统一查看当前样本的 RNA 与蛋白测量。研究者和 Agent 共享选区、注释版本与分析记录，跨页面继续工作。
+        - heading "正在读取研究项目…" [level=2] [ref=e23]
+        - paragraph
+      - generic [ref=e24]:
+        - article [ref=e25]:
+          - text: 01 / TRANSCRIPTOMICS
+          - heading "空间转录组" [level=2] [ref=e26]
+          - paragraph [ref=e27]: 观察基因表达、检查注释与测量质量，冻结假设并比较修订的影响。
+          - paragraph
+          - button "进入转录组工作台 →" [ref=e28] [cursor=pointer]
+        - article [ref=e29]:
+          - text: 02 / PROTEOMICS
+          - heading "空间蛋白组" [level=2] [ref=e30]
+          - paragraph [ref=e31]: 查看抗体计数或蛋白信号强度，在同一 ROI 比较蛋白分布及 RNA–蛋白一致性。
+          - paragraph
+          - button "进入蛋白组工作台 →" [ref=e32] [cursor=pointer]
+      - generic [ref=e33]:
+        - heading "继续当前研究" [level=2] [ref=e34]
+        - paragraph
+        - generic [ref=e35]:
+          - button "查看／调整共享选区" [ref=e36] [cursor=pointer]
+          - button "检查 RNA 测量质量" [ref=e37] [cursor=pointer]
+          - button "导出当前审阅记录" [ref=e38] [cursor=pointer]
+        - heading "最近保存的分析" [level=3] [ref=e39]
+        - paragraph [ref=e40]: 当前一个项目对应一个空间样本。数据层配对不等于批次校正、多样本整合或已验证的细胞身份。
+    - generic [ref=e41]:
+      - text: Spatial Collab · 空间多组学研究 Alpha
+      - generic [ref=e42]: NOT_ESTABLISHED · 不将工程记录解释为科学授权

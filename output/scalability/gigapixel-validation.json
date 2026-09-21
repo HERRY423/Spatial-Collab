@@ -1,0 +1,90 @@
+{
+  "scope": "synthetic gigapixel tiled I/O and affine control; not pathology or image registration validation",
+  "shape": [
+    32768,
+    32768
+  ],
+  "full_resolution_pixels": 1073741824,
+  "levels": 8,
+  "encoded_file_bytes": 16006239,
+  "generation_seconds": 11.356733199965674,
+  "peak_working_set_bytes": 707813376,
+  "rss_after_bytes": 80646144,
+  "whole_image_array_created": false,
+  "image_id": "pyramid_331cbd15a3d5ec83b0a831bbbf2bac65",
+  "atlas_id": "atlas_025969e89f394d41d4b2d869f0138297",
+  "tile_checks": [
+    {
+      "level": 0,
+      "tile": [
+        127,
+        127
+      ],
+      "seconds": 0.6207632999867201,
+      "pixels_equal": true
+    },
+    {
+      "level": 1,
+      "tile": [
+        63,
+        63
+      ],
+      "seconds": 0.009879699966404587,
+      "pixels_equal": true
+    },
+    {
+      "level": 2,
+      "tile": [
+        31,
+        31
+      ],
+      "seconds": 0.009748000011313707,
+      "pixels_equal": true
+    },
+    {
+      "level": 3,
+      "tile": [
+        15,
+        15
+      ],
+      "seconds": 0.013918499986175448,
+      "pixels_equal": true
+    },
+    {
+      "level": 4,
+      "tile": [
+        7,
+        7
+      ],
+      "seconds": 0.00944669998716563,
+      "pixels_equal": true
+    },
+    {
+      "level": 5,
+      "tile": [
+        3,
+        3
+      ],
+      "seconds": 0.010477499978151172,
+      "pixels_equal": true
+    },
+    {
+      "level": 6,
+      "tile": [
+        1,
+        1
+      ],
+      "seconds": 0.009396500012371689,
+      "pixels_equal": true
+    },
+    {
+      "level": 7,
+      "tile": [
+        0,
+        0
+      ],
+      "seconds": 0.009709799953270704,
+      "pixels_equal": true
+    }
+  ]
+}

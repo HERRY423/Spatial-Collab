@@ -11,6 +11,10 @@ import sys
 def main(argv=None):
     parser = argparse.ArgumentParser(prog="spatial-collab", description="Spatial Collab research alpha")
     commands = parser.add_subparsers(dest="command", required=True)
+    workflow = commands.add_parser("analysis", help="Executable algorithms, sparse input registration and durable analysis jobs")
+    workflow.add_argument("arguments", nargs=argparse.REMAINDER)
+    large = commands.add_parser("large-data", help="Stream large datasets and native TIFF pyramids into disk-backed atlases")
+    large.add_argument("arguments", nargs=argparse.REMAINDER)
     commands.add_parser("formats", help="List lazy reader contracts, required inputs and limits")
     probe = commands.add_parser("probe", help="Inspect source filenames/headers without loading or importing")
     probe.add_argument("path")
@@ -26,6 +30,7 @@ def main(argv=None):
     verify = commands.add_parser("verify-bundle", help="Verify and recompute an exported review bundle offline")
     verify.add_argument("bundle")
     verify.add_argument("--integrity-only", action="store_true")
+    verify.add_argument("--include-workflows", action="store_true", help="Also refit task-specific algorithms; may require optional environment and long training")
     asset = commands.add_parser("register-asset", help="Register a local image/mask using an explicit source/frame/mapping JSON declaration")
     asset.add_argument("--project", required=True)
     asset.add_argument("--path", required=True)
@@ -64,9 +69,43 @@ def main(argv=None):
     protein.add_argument("path")
     protein.add_argument("--project", required=True)
     protein.add_argument("--options", required=True)
+    integration_import = commands.add_parser("import-integration", help="Register an external IntegrationResult JSON with exact source/axis checks")
+    integration_import.add_argument("path")
+    integration_import.add_argument("--project", required=True)
+    integrate = commands.add_parser("integrate", help="Run bounded paired baselines, retaining single-modality controls")
+    integrate.add_argument("--project", required=True)
+    integrate.add_argument("--assay-id", required=True)
+    integrate.add_argument("--revision-id")
+    integrate.add_argument("--backend", choices=["balanced_pca", "smopca"], default="balanced_pca")
+    integrate.add_argument("--components", type=int, default=10)
+    integrate.add_argument("--clusters", type=int, default=6)
+    integrate.add_argument("--seed", type=int, default=0)
+    integrate.add_argument("--options", help="Optional exact feature/ROI/processing arguments in JSON")
     args = parser.parse_args(argv)
     try:
-        if args.command == "register-protein":
+        if args.command == "large-data":
+            from .large_data import main as large_main
+            return large_main(args.arguments)
+        if args.command == "analysis":
+            from .workflows import main as workflow_main
+            return workflow_main(args.arguments)
+        if args.command == "import-integration":
+            from .integration import register_result
+            from .store import Project
+            path = Path(args.path)
+            if path.stat().st_size > 128 * 1024**2:
+                raise ValueError("Integration result exceeds 128 MiB.")
+            r = register_result(Project(args.project), json.loads(path.read_text(encoding="utf-8-sig")))
+            result = {"result_id": r["object_id"], "object_sha256": r["object_sha256"]}
+        elif args.command == "integrate":
+            from .integration import run_baseline
+            from .store import Project
+            project = Project(args.project)
+            options = json.loads(Path(args.options).read_text(encoding="utf-8-sig")) if args.options else {}
+            r = run_baseline(project, args.revision_id or project.context()["head_revision"], args.assay_id,
+                             backend=args.backend, components=args.components, clusters=args.clusters, seed=args.seed, **options)
+            result = {"result_id": r["object_id"], "object_sha256": r["object_sha256"]}
+        elif args.command == "register-protein":
             from .proteomics import register_protein
             from .store import Project
             option_path = Path(args.options)
@@ -106,7 +145,7 @@ def main(argv=None):
             result = create_demo(args.project).summary()
         elif args.command == "verify-bundle":
             from .replay import verify_bundle
-            result = verify_bundle(args.bundle, recompute=not args.integrity_only)
+            result = verify_bundle(args.bundle, recompute=not args.integrity_only, recompute_workflows=args.include_workflows)
             print(json.dumps(result, ensure_ascii=False, indent=2))
             return 1 if result.get("recompute_matches") is False else 0
         elif args.command == "import-h5ad":

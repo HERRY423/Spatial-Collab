@@ -1,0 +1,41 @@
+........................................................................ [ 15%]
+........................................................................ [ 31%]
+........................................................................ [ 46%]
+........................................................................ [ 62%]
+..............................s...s..................................... [ 77%]
+........................................................................ [ 93%]
+..............................                                           [100%]
+============================== warnings summary ===============================
+tests\test_server.py:7
+  C:\Spatial\spatial-collab\tests\test_server.py:7: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient
+
+tests/test_h5ad_identity.py: 22 warnings
+  C:\Spatial\spatial-collab\tests\test_h5ad_identity.py:16: UserWarning: Variable names are not unique. To make them unique, call `.var_names_make_unique`.
+    data = ad.AnnData(X=sparse.csr_matrix([[2, 3, 0], [0, 4, 7]]), obs=obs,
+
+tests/test_h5ad_identity.py::test_custom_slice_column_cannot_hide_mixed_sample_ids
+  C:\Spatial\spatial-collab\tests\test_h5ad_identity.py:87: UserWarning: Variable names are not unique. To make them unique, call `.var_names_make_unique`.
+    data = ad.read_h5ad(path)
+
+tests/test_importers.py::test_h5ad_rejects_ambiguous_inputs[options2-Duplicate]
+  C:\Spatial\spatial-collab\tests\test_importers.py:12: UserWarning: Variable names are not unique. To make them unique, call `.var_names_make_unique`.
+    data = ad.AnnData(X=matrix.copy(), obs=pd.DataFrame({"cell_type": ["T cell", "Myeloid"],
+
+tests/test_proteomics.py::test_wide_csv_intensity_and_duplicate_symbol_mapping
+  C:\Spatial\spatial-collab\src\spatial_collab\proteomics.py:152: UserWarning: Variable names are not unique. To make them unique, call `.var_names_make_unique`.
+    data = ad.read_h5ad(path, backed="r")
+
+tests/test_server.py::test_browser_api_rejects_forms_and_oversized_bodies
+  C:\Users\13264\anaconda3\Lib\site-packages\httpx\_models.py:408: DeprecationWarning: Use 'content=<...>' to upload raw bytes/text content.
+    headers, stream = encode_request(
+
+tests/test_spatialdata_adapter.py::test_public_spatialdata_roundtrip_joins_shuffled_ids_after_nonidentity_transform[points]
+  C:\Users\13264\anaconda3\Lib\site-packages\ome_zarr\writer.py:1175: DeprecationWarning: Call to deprecated class Scaler. (Downsampling via the `Scaler` class has been deprecated. Please use the `scale_factors` argument instead.) -- Deprecated since version 0.14.0.
+    scaler: Scaler | None = Scaler(order=0),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+SKIPPED [1] tests\test_napari_adapter.py:206: optional real napari runtime unavailable
+SKIPPED [1] tests\test_napari_assets.py:30: optional native napari runtime unavailable
+460 passed, 2 skipped, 28 warnings in 53.30s

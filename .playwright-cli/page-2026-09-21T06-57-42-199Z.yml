@@ -1,0 +1,51 @@
+- generic [active] [ref=f2e1]:
+  - banner [ref=f2e2]:
+    - generic [ref=f2e3]:
+      - generic [ref=f2e4]: ◈
+      - generic [ref=f2e5]:
+        - strong [ref=f2e6]: Spatial Collab
+        - generic [ref=f2e7]: 空间多组学协作工作台
+      - generic [ref=f2e8]: ALPHA 0.7
+    - navigation "组学工作空间" [ref=f2e9]:
+      - button "主页" [ref=f2e10] [cursor=pointer]
+      - button "空间转录组" [ref=f2e11] [cursor=pointer]
+      - button "空间蛋白组" [ref=f2e12] [cursor=pointer]
+      - button "整合与复核" [ref=f2e13] [cursor=pointer]
+      - button "全切片与研究统计" [ref=f2e14] [cursor=pointer]
+    - generic [ref=f2e15]:
+      - generic [ref=f2e16]: ● 本地共享项目
+      - button "↻ 刷新共享状态" [ref=f2e17] [cursor=pointer]
+  - main [ref=f2e18]:
+    - status [ref=f2e19]: 正在打开项目…
+    - generic [ref=f2e20]:
+      - generic [ref=f2e21]:
+        - text: SPATIAL MULTI-OMICS · SHARED RESEARCH
+        - heading "从同一个位置，理解不同层面的证据。" [level=1] [ref=f2e22]
+        - paragraph [ref=f2e23]: 统一查看当前样本的 RNA 与蛋白测量。研究者和 Agent 共享选区、注释版本与分析记录，跨页面继续工作。
+        - heading "正在读取研究项目…" [level=2] [ref=f2e24]
+        - paragraph
+      - generic [ref=f2e25]:
+        - article [ref=f2e26]:
+          - text: 01 / TRANSCRIPTOMICS
+          - heading "空间转录组" [level=2] [ref=f2e27]
+          - paragraph [ref=f2e28]: 观察基因表达、检查注释与测量质量，冻结假设并比较修订的影响。
+          - paragraph
+          - button "进入转录组工作台 →" [ref=f2e29] [cursor=pointer]
+        - article [ref=f2e30]:
+          - text: 02 / PROTEOMICS
+          - heading "空间蛋白组" [level=2] [ref=f2e31]
+          - paragraph [ref=f2e32]: 查看抗体计数或蛋白信号强度，在同一 ROI 比较蛋白分布及 RNA–蛋白一致性。
+          - paragraph
+          - button "进入蛋白组工作台 →" [ref=f2e33] [cursor=pointer]
+      - generic [ref=f2e34]:
+        - heading "继续当前研究" [level=2] [ref=f2e35]
+        - paragraph
+        - generic [ref=f2e36]:
+          - button "查看／调整共享选区" [ref=f2e37] [cursor=pointer]
+          - button "检查 RNA 测量质量" [ref=f2e38] [cursor=pointer]
+          - button "导出当前审阅记录" [ref=f2e39] [cursor=pointer]
+        - heading "最近保存的分析" [level=3] [ref=f2e40]
+        - paragraph [ref=f2e41]: 当前一个项目对应一个空间样本。数据层配对不等于批次校正、多样本整合或已验证的细胞身份。
+    - generic [ref=f2e42]:
+      - text: Spatial Collab · 空间多组学研究 Alpha
+      - generic [ref=f2e43]: NOT_ESTABLISHED · 不将工程记录解释为科学授权

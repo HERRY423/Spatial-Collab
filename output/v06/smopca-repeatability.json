@@ -1,0 +1,302 @@
+{
+  "reference_id": "integration_d00e4bdd321f77f1c5b13c4fda3e886b",
+  "new_result_ids": [
+    "integration_7d432338d7ac6abc78a9a0ecaf4a38be",
+    "integration_fa98f1686a45ec0ecf7eb4c2457978fc"
+  ],
+  "reference_environment": {
+    "numpy": "2.3.5",
+    "python": "3.13.9",
+    "scipy": "1.16.3",
+    "smopca": {
+      "license": "MIT",
+      "runtime_status": "local_reference_adapter",
+      "sklearn": "1.7.2",
+      "source_sha256": "b52c439a492e4bd52f75d0113dfa94ca1c33fda5b0c5df0834490bec0b44f65d",
+      "upstream_commit": "9d59651d78149520661c57bab8a14d42446e6654"
+    }
+  },
+  "environment": {
+    "python": "3.13.9",
+    "numpy": "2.3.5",
+    "scipy": "1.16.3",
+    "numpy_build": {
+      "Compilers": {
+        "c": {
+          "name": "msvc",
+          "linker": "link",
+          "version": "19.44.35219",
+          "commands": "cl"
+        },
+        "cython": {
+          "name": "cython",
+          "linker": "cython",
+          "version": "3.2.1",
+          "commands": "cython"
+        },
+        "c++": {
+          "name": "msvc",
+          "linker": "link",
+          "version": "19.44.35219",
+          "commands": "cl"
+        }
+      },
+      "Machine Information": {
+        "host": {
+          "cpu": "x86_64",
+          "family": "x86_64",
+          "endian": "little",
+          "system": "windows"
+        },
+        "build": {
+          "cpu": "x86_64",
+          "family": "x86_64",
+          "endian": "little",
+          "system": "windows"
+        }
+      },
+      "Build Dependencies": {
+        "blas": {
+          "name": "scipy-openblas",
+          "found": true,
+          "version": "0.3.30",
+          "detection method": "pkgconfig",
+          "include directory": "C:/Users/runneradmin/AppData/Local/Temp/cibw-run-tire4up4/cp313-win_amd64/build/venv/Lib/site-packages/scipy_openblas64/include",
+          "lib directory": "C:/Users/runneradmin/AppData/Local/Temp/cibw-run-tire4up4/cp313-win_amd64/build/venv/Lib/site-packages/scipy_openblas64/lib",
+          "openblas configuration": "OpenBLAS 0.3.30  USE64BITINT DYNAMIC_ARCH NO_AFFINITY Haswell MAX_THREADS=24",
+          "pc file directory": "D:/a/numpy-release/numpy-release/.openblas"
+        },
+        "lapack": {
+          "name": "scipy-openblas",
+          "found": true,
+          "version": "0.3.30",
+          "detection method": "pkgconfig",
+          "include directory": "C:/Users/runneradmin/AppData/Local/Temp/cibw-run-tire4up4/cp313-win_amd64/build/venv/Lib/site-packages/scipy_openblas64/include",
+          "lib directory": "C:/Users/runneradmin/AppData/Local/Temp/cibw-run-tire4up4/cp313-win_amd64/build/venv/Lib/site-packages/scipy_openblas64/lib",
+          "openblas configuration": "OpenBLAS 0.3.30  USE64BITINT DYNAMIC_ARCH NO_AFFINITY Haswell MAX_THREADS=24",
+          "pc file directory": "D:/a/numpy-release/numpy-release/.openblas"
+        }
+      },
+      "Python Information": {
+        "path": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\build-env-d_fxr4of\\Scripts\\python.exe",
+        "version": "3.13"
+      },
+      "SIMD Extensions": {
+        "baseline": [
+          "SSE",
+          "SSE2",
+          "SSE3"
+        ],
+        "found": [
+          "SSSE3",
+          "SSE41",
+          "POPCNT",
+          "SSE42",
+          "AVX",
+          "F16C",
+          "FMA3",
+          "AVX2"
+        ],
+        "not found": [
+          "AVX512F",
+          "AVX512CD",
+          "AVX512_SKX",
+          "AVX512_CLX",
+          "AVX512_CNL",
+          "AVX512_ICL"
+        ]
+      }
+    },
+    "scipy_build": {
+      "Compilers": {
+        "c": {
+          "name": "gcc",
+          "linker": "ld.bfd",
+          "version": "10.3.0",
+          "commands": "cc"
+        },
+        "cython": {
+          "name": "cython",
+          "linker": "cython",
+          "version": "3.1.6",
+          "commands": "cython"
+        },
+        "c++": {
+          "name": "gcc",
+          "linker": "ld.bfd",
+          "version": "10.3.0",
+          "commands": "c++"
+        },
+        "fortran": {
+          "name": "gcc",
+          "linker": "ld.bfd",
+          "version": "10.3.0",
+          "commands": "gfortran"
+        },
+        "pythran": {
+          "version": "0.18.0",
+          "include directory": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\build-env-q5d46lv0\\Lib\\site-packages/pythran"
+        }
+      },
+      "Machine Information": {
+        "host": {
+          "cpu": "x86_64",
+          "family": "x86_64",
+          "endian": "little",
+          "system": "windows"
+        },
+        "build": {
+          "cpu": "x86_64",
+          "family": "x86_64",
+          "endian": "little",
+          "system": "windows"
+        },
+        "cross-compiled": false
+      },
+      "Build Dependencies": {
+        "blas": {
+          "name": "scipy-openblas",
+          "found": true,
+          "version": "0.3.29.dev",
+          "detection method": "pkgconfig",
+          "include directory": "C:/Users/runneradmin/AppData/Local/Temp/cibw-run-xk3pp1yj/cp313-win_amd64/build/venv/Lib/site-packages/scipy_openblas32/include",
+          "lib directory": "C:/Users/runneradmin/AppData/Local/Temp/cibw-run-xk3pp1yj/cp313-win_amd64/build/venv/Lib/site-packages/scipy_openblas32/lib",
+          "openblas configuration": "OpenBLAS 0.3.29.dev DYNAMIC_ARCH NO_AFFINITY Haswell MAX_THREADS=24",
+          "pc file directory": "D:/a/scipy/scipy"
+        },
+        "lapack": {
+          "name": "scipy-openblas",
+          "found": true,
+          "version": "0.3.29.dev",
+          "detection method": "pkgconfig",
+          "include directory": "C:/Users/runneradmin/AppData/Local/Temp/cibw-run-xk3pp1yj/cp313-win_amd64/build/venv/Lib/site-packages/scipy_openblas32/include",
+          "lib directory": "C:/Users/runneradmin/AppData/Local/Temp/cibw-run-xk3pp1yj/cp313-win_amd64/build/venv/Lib/site-packages/scipy_openblas32/lib",
+          "openblas configuration": "OpenBLAS 0.3.29.dev DYNAMIC_ARCH NO_AFFINITY Haswell MAX_THREADS=24",
+          "pc file directory": "D:/a/scipy/scipy"
+        },
+        "pybind11": {
+          "name": "pybind11",
+          "version": "3.0.1",
+          "detection method": "config-tool",
+          "include directory": "unknown"
+        }
+      },
+      "Python Information": {
+        "path": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\build-env-q5d46lv0\\Scripts\\python.exe",
+        "version": "3.13"
+      }
+    },
+    "thread_environment": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1"
+    },
+    "smopca": {
+      "upstream_commit": "9d59651d78149520661c57bab8a14d42446e6654",
+      "source_sha256": "b52c439a492e4bd52f75d0113dfa94ca1c33fda5b0c5df0834490bec0b44f65d",
+      "sklearn": "1.7.2",
+      "license": "MIT",
+      "runtime_status": "local_reference_adapter"
+    }
+  },
+  "cross_build": {
+    "joint": {
+      "sign_aligned_max_abs_difference": 5.231370892033738e-13,
+      "embedding_allclose": true,
+      "domain_ids_equal": true
+    },
+    "protein_only": {
+      "sign_aligned_max_abs_difference": 1.0302869668521453e-13,
+      "embedding_allclose": true,
+      "domain_ids_equal": true
+    },
+    "rna_only": {
+      "sign_aligned_max_abs_difference": 1.1057821325266559e-13,
+      "embedding_allclose": true,
+      "domain_ids_equal": true
+    }
+  },
+  "same_build": {
+    "rna_only": {
+      "sign_aligned_max_abs_difference": 0.0,
+      "embedding_allclose": true,
+      "domain_ids_equal": true
+    },
+    "protein_only": {
+      "sign_aligned_max_abs_difference": 0.0,
+      "embedding_allclose": true,
+      "domain_ids_equal": true
+    },
+    "joint": {
+      "sign_aligned_max_abs_difference": 0.0,
+      "embedding_allclose": true,
+      "domain_ids_equal": true
+    }
+  },
+  "cross_build_joint_comparison": {
+    "left_id": "integration_d00e4bdd321f77f1c5b13c4fda3e886b",
+    "right_id": "integration_7d432338d7ac6abc78a9a0ecaf4a38be",
+    "common_count": 2568,
+    "left_only_count": 0,
+    "right_only_count": 0,
+    "adjusted_rand_index": 1.0,
+    "mean_boundary_disagreement": 0.0,
+    "rows": [
+      {
+        "cell_id": "sample:spots-spleen-1::cell:AAACACCAATAACTGC-1",
+        "x": 59.0,
+        "y": 19.0,
+        "left_domain": "2",
+        "right_domain": "2",
+        "boundary_disagreement": 0.0,
+        "current_label": "Unannotated",
+        "included": true
+      },
+      {
+        "cell_id": "sample:spots-spleen-1::cell:AAACAGAGCGACTCCT-1",
+        "x": 14.0,
+        "y": 94.0,
+        "left_domain": "5",
+        "right_domain": "5",
+        "boundary_disagreement": 0.0,
+        "current_label": "Unannotated",
+        "included": true
+      },
+      {
+        "cell_id": "sample:spots-spleen-1::cell:AAACAGCTTTCAGAAG-1",
+        "x": 43.0,
+        "y": 9.0,
+        "left_domain": "2",
+        "right_domain": "2",
+        "boundary_disagreement": 0.0,
+        "current_label": "Unannotated",
+        "included": true
+      },
+      {
+        "cell_id": "sample:spots-spleen-1::cell:AAACAGGGTCTATATT-1",
+        "x": 47.0,
+        "y": 13.0,
+        "left_domain": "0",
+        "right_domain": "0",
+        "boundary_disagreement": 0.0,
+        "current_label": "Unannotated",
+        "included": true
+      },
+      {
+        "cell_id": "sample:spots-spleen-1::cell:AAACCGGGTAGGTACC-1",
+        "x": 42.0,
+        "y": 28.0,
+        "left_domain": "4",
+        "right_domain": "4",
+        "boundary_disagreement": 0.0,
+        "current_label": "Unannotated",
+        "included": true
+      }
+    ],
+    "offset": 0,
+    "next_offset": 5,
+    "label_comparison": "Permutation-invariant co-membership on six nearest common observations; numeric labels are not aligned identities.",
+    "scope": "Common output observations only; removed observations are counted separately.",
+    "scientific_authorization": "NOT_ESTABLISHED"
+  }
+}

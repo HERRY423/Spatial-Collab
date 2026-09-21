@@ -1,0 +1,119 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]: ◈
+      - generic [ref=e5]:
+        - strong [ref=e6]: Spatial Collab
+        - generic [ref=e7]: 空间多组学协作工作台
+      - generic [ref=e8]: ALPHA 0.7
+    - navigation "组学工作空间" [ref=e9]:
+      - button "主页" [ref=e10] [cursor=pointer]
+      - button "空间转录组" [ref=e11] [cursor=pointer]
+      - button "空间蛋白组" [ref=e12] [cursor=pointer]
+      - button "整合与复核" [ref=e13] [cursor=pointer]
+      - button "全切片与研究统计" [ref=e14] [cursor=pointer]
+    - generic [ref=e15]:
+      - generic [ref=e16]: ● 本地共享项目
+      - button "↻ 刷新共享状态" [ref=e17] [cursor=pointer]
+  - main [ref=e18]:
+    - status [ref=e19]: 已同步其他界面的共享选区、修订或分析记录。
+    - generic [ref=e60]:
+      - generic [ref=e62]:
+        - generic [ref=e63]: MULTISCALE · MOLECULES · MORPHOLOGY
+        - heading "从整张切片到单个分子" [level=1] [ref=e64]
+        - paragraph [ref=e65]: 全景显示全部对象的密度，放大后读取精确位置。图像、分割和转录本使用登记的同一坐标系。
+      - generic [ref=e66]:
+        - generic [ref=e67]:
+          - button "读取大型数据集" [ref=e68] [cursor=pointer]
+          - generic [ref=e69]:
+            - text: 数据集
+            - combobox "数据集" [ref=e70]:
+              - option "Synthetic million-object scale control · 1,000,000 对象"
+              - option "Synthetic million-object scale control · 1,000,000 对象"
+              - option "Synthetic million-object scale control · 1,000,000 对象"
+              - option "Synthetic million-object scale control · 1,000,000 对象" [selected]
+          - generic [ref=e71]:
+            - text: 主要图层
+            - combobox "主要图层" [ref=e72]:
+              - option "细胞 / spot / bin"
+              - option "单分子转录本" [selected]
+          - generic [ref=e73]:
+            - text: 转录本特征 ID
+            - textbox "转录本特征 ID" [ref=e74]:
+              - /placeholder: 留空显示全部分子
+          - button "读取视野" [ref=e75] [cursor=pointer]
+          - button "整张切片" [ref=e76] [cursor=pointer]
+        - generic [ref=e77]:
+          - generic [ref=e78]:
+            - text: 组织图像
+            - combobox "组织图像" [ref=e79]:
+              - option "无图像"
+              - option "5 层金字塔 · 4096 × 4096"
+              - option "8 层金字塔 · 32768 × 32768" [selected]
+          - generic [ref=e80]:
+            - checkbox "显示细胞 / 核分割边界" [checked] [active] [ref=e81]
+            - generic [ref=e82]: 显示细胞 / 核分割边界
+          - generic [ref=e83]:
+            - text: 底图透明度
+            - slider "底图透明度" [ref=e84]: "70"
+        - status [ref=e85]: Synthetic million-object scale control · 当前视野 3,081 个分子 · 精确位置
+        - generic "多分辨率切片，滚轮缩放，拖动选择视野，按 Shift 拖动平移" [ref=e86]
+        - paragraph [ref=e87]: 滚轮缩放 · 拖动框选视野 · Shift + 拖动平移。密度格没有细胞身份，不能作为单个细胞选中。所有分子保留原始质量分数与归属，二维投影保留 z 坐标。
+        - button "将当前精确视野冻结为分析输入" [ref=e89] [cursor=pointer]
+        - group [ref=e90]:
+          - generic "来源、坐标、分辨率与当前视野记录" [ref=e91]
+      - generic [ref=e92]:
+        - heading "以受试者为单位比较多张切片" [level=2] [ref=e93]
+        - paragraph [ref=e94]: 连续型切片摘要进入模型；细胞与 ROI 不充当独立受试者。必须明确条件、批次、ROI 定义和来源。原始计数与未转换比例不直接使用本面板的高斯模型。
+        - group [ref=e95]:
+          - generic "登记研究设计与结果文件" [ref=e96]
+        - generic [ref=e97]:
+          - generic [ref=e98]:
+            - text: 已登记研究
+            - combobox "已登记研究" [ref=e99]:
+              - option "mixedlm_synthetic_control" [selected]
+          - generic [ref=e100]:
+            - text: 方法
+            - combobox "方法" [ref=e101]:
+              - option "批次调整 + 受试者随机截距" [selected]
+              - option "受试者均值 Welch 检验"
+              - option "同一受试者配对检验"
+          - generic [ref=e102]:
+            - text: 对照条件
+            - textbox "对照条件" [ref=e103]: control
+          - generic [ref=e104]:
+            - text: 研究条件
+            - textbox "研究条件" [ref=e105]: case
+          - generic [ref=e106]:
+            - text: ROI 类别
+            - textbox "ROI 类别" [ref=e107]: tissue
+          - generic [ref=e108]:
+            - text: 全部检验指标（逗号分隔）
+            - textbox "全部检验指标（逗号分隔）" [ref=e109]:
+              - /placeholder: 例如 pathway_score
+          - generic [ref=e110]:
+            - text: 数值协变量（可留空）
+            - textbox "数值协变量（可留空）" [ref=e111]:
+              - /placeholder: 例如 age
+          - generic [ref=e112]:
+            - text: 缺失数据
+            - combobox "缺失数据" [ref=e113]:
+              - option "有缺失时保留未检验状态" [selected]
+              - option "明确排除有缺失的整位受试者"
+        - generic [ref=e114]:
+          - text: 分析理由
+          - textbox "分析理由" [ref=e115]:
+            - /placeholder: 说明比较问题、指标定义和高斯模型适用依据
+        - generic [ref=e116]:
+          - checkbox "已核对指标为适合高斯分析的连续型切片摘要" [ref=e117]
+          - generic [ref=e118]: 已核对指标为适合高斯分析的连续型切片摘要
+        - button "运行并保存统计结果" [ref=e119] [cursor=pointer]
+        - status [ref=e120]: 以受试者为独立单位 · 1 项完整检验家族 · 已声明 ROI 设计
+        - generic [ref=e127]:
+          - strong [ref=e128]: signal
+          - generic [ref=e129]: 差异 1.469 · 95% CI 1.386 至 1.551 · p=3.238e-267 · q=3.238e-267
+        - group [ref=e125]:
+          - generic "效应、区间、FDR、设计及收敛诊断" [ref=e126]
+    - generic [ref=e42]:
+      - text: Spatial Collab · 空间多组学研究 Alpha
+      - generic [ref=e43]: NOT_ESTABLISHED · 不将工程记录解释为科学授权

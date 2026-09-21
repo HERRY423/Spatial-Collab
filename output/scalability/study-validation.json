@@ -1,0 +1,233 @@
+{
+  "controls": [
+    {
+      "method": "welch",
+      "result_id": "studyresult_9bcfa69bfec479c4287498286f4dc4ab",
+      "results": [
+        {
+          "metric": "signal",
+          "status": "tested",
+          "p_value": 0.12280421543869434,
+          "q_value": 0.12280421543869434,
+          "missing_sections": [],
+          "excluded_subjects": [],
+          "effect_definition": "case minus control",
+          "subjects_per_condition": {
+            "control": 12,
+            "case": 12
+          },
+          "section_count": 72,
+          "units": "score",
+          "method_version": "control-v1",
+          "effect": 0.8591457468817659,
+          "statistic": 1.6067674485702674,
+          "degrees_of_freedom": 21.33693530253787,
+          "confidence_interval": [
+            -0.25176486245187724,
+            1.9700563562154092
+          ],
+          "subject_values": {
+            "control": [
+              2.314311254082996,
+              1.0510594008005898,
+              1.1086880816243223,
+              -1.3241023464437653,
+              0.7801504990616926,
+              -1.7511412156292891,
+              2.2342468687329387,
+              0.1345802628264744,
+              1.1002042720933716,
+              2.99822879643912,
+              1.2725437670971846,
+              -0.23900132354276896
+            ],
+            "case": [
+              2.0188292491568167,
+              2.3911904045286465,
+              1.2879123657859948,
+              0.5165229875960377,
+              0.4804219680297261,
+              2.7520300046815787,
+              3.0173471257408253,
+              0.3102997911123561,
+              1.1569071937120603,
+              4.059090439402682,
+              0.6088335006235701,
+              1.3901322493537605
+            ]
+          },
+          "weighting": "equal section mean within subject, equal subjects"
+        }
+      ],
+      "scope": "synthetic known generating model, not a biological cohort"
+    },
+    {
+      "method": "paired_t",
+      "result_id": "studyresult_a7d455134e3af895a006614c323a8eaa",
+      "results": [
+        {
+          "metric": "signal",
+          "status": "tested",
+          "p_value": 1.240260317204297e-21,
+          "q_value": 1.240260317204297e-21,
+          "missing_sections": [],
+          "excluded_subjects": [],
+          "effect_definition": "case minus control",
+          "subjects_per_condition": {
+            "control": 24,
+            "case": 24
+          },
+          "section_count": 144,
+          "units": "score",
+          "method_version": "control-v1",
+          "effect": 1.4686000506338317,
+          "statistic": 35.64763991308916,
+          "degrees_of_freedom": 23.0,
+          "confidence_interval": [
+            1.383376157023698,
+            1.5538239442439654
+          ],
+          "subject_ids": [
+            "0",
+            "1",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "2",
+            "20",
+            "21",
+            "22",
+            "23",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+          ],
+          "subject_differences": [
+            1.2683419242359264,
+            1.1228037755069178,
+            1.528114396058435,
+            1.4043758036713716,
+            1.337091488836327,
+            1.4936667379306954,
+            1.8440873222690972,
+            1.37910406494865,
+            1.7943209426075253,
+            1.6365883770480774,
+            1.8133120646520298,
+            1.6300659120929923,
+            1.0600613986123366,
+            1.3454123070956479,
+            1.6667096105365906,
+            1.4735557279330074,
+            1.563854450292037,
+            1.3744335548168782,
+            1.5113254709020554,
+            1.5329493002905425,
+            1.4840807278970902,
+            1.2630386657888977,
+            1.2825276352719188,
+            1.43657955591691
+          ],
+          "weighting": "equal section mean within subject/condition, paired by subject_id"
+        }
+      ],
+      "scope": "synthetic known generating model, not a biological cohort"
+    },
+    {
+      "method": "mixedlm",
+      "result_id": "studyresult_eda3b5ac18531ddb2434856321e21d80",
+      "results": [
+        {
+          "metric": "signal",
+          "status": "tested",
+          "p_value": 3.238048674573381e-267,
+          "q_value": 3.238048674573381e-267,
+          "missing_sections": [],
+          "excluded_subjects": [],
+          "effect_definition": "case minus control",
+          "subjects_per_condition": {
+            "control": 24,
+            "case": 24
+          },
+          "section_count": 144,
+          "units": "score",
+          "method_version": "control-v1",
+          "converged": true,
+          "random_intercept_variance": 3.346260377422015,
+          "residual_variance": 0.0636600391281655,
+          "warnings": [],
+          "fixed_effect_terms": [
+            "intercept",
+            "case_vs_control",
+            "batch:b1"
+          ],
+          "fixed_effect_estimates": [
+            0.9789800698819677,
+            1.4686000506338317,
+            0.5617349612677539
+          ],
+          "subject_count": 24,
+          "inference": "asymptotic_two_sided_normal_Wald_REML",
+          "design_rank": 3,
+          "effect": 1.4686000506338317,
+          "standard_error": 0.04205156858223982,
+          "confidence_interval": [
+            1.3861804907192257,
+            1.5510196105484377
+          ],
+          "weighting": "section outcomes modeled with a subject random intercept, not independent cells"
+        }
+      ],
+      "scope": "synthetic known generating model, not a biological cohort"
+    }
+  ],
+  "replay": {
+    "bundle_path": "C:\\Spatial\\spatial-collab\\output\\scalability\\study-tmp\\project\\exports\\review_adcbc09915cc40879617cf3626cc922f",
+    "integrity": "verified",
+    "integrity_verified": true,
+    "files_verified": 7,
+    "source_sha256": "e3960de1b91b30c845ed548e782063466f03cb4ddfe6a26ea4aa977ecdb3b7a9",
+    "revision_count": 1,
+    "run_id": null,
+    "recompute_status": "no_result_in_bundle",
+    "recompute_matches": null,
+    "mismatched_fields": [],
+    "scientific_authorization": "NOT_ESTABLISHED",
+    "limitations": [
+      "Manifest verification establishes internal consistency, not external authenticity.",
+      "Recomputation verifies the declared descriptive calculation, not biological validity or the original scientific conclusion."
+    ],
+    "integration_verification": [],
+    "workflow_verification": [],
+    "study_verification": [
+      {
+        "result_id": "studyresult_9bcfa69bfec479c4287498286f4dc4ab",
+        "recompute_matches": true,
+        "status": "recomputed_matched"
+      },
+      {
+        "result_id": "studyresult_a7d455134e3af895a006614c323a8eaa",
+        "recompute_matches": true,
+        "status": "recomputed_matched"
+      },
+      {
+        "result_id": "studyresult_eda3b5ac18531ddb2434856321e21d80",
+        "recompute_matches": true,
+        "status": "recomputed_matched"
+      }
+    ],
+    "external_spatial_resources": []
+  },
+  "project": "C:\\Spatial\\spatial-collab\\output\\scalability\\study-tmp\\project"
+}

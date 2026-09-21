@@ -1,0 +1,99 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]: ◈
+      - generic [ref=e5]:
+        - strong [ref=e6]: Spatial Collab
+        - generic [ref=e7]: 空间多组学协作工作台
+      - generic [ref=e8]: ALPHA 0.5
+    - navigation "组学工作空间" [ref=e9]:
+      - button "主页" [disabled] [ref=e10]
+      - button "空间转录组" [disabled] [ref=e11]
+      - button "空间蛋白组" [disabled] [ref=e12]
+      - button "整合与复核" [disabled] [ref=e13]
+    - generic [ref=e14]:
+      - generic [ref=e15]: ● 本地共享项目
+      - button "↻ 刷新共享状态" [disabled] [ref=e16]
+  - main [ref=e17]:
+    - status [ref=e18]: 已同步其他界面的共享选区、修订或分析记录。
+    - generic [ref=e60]:
+      - generic [ref=e62]:
+        - text: RNA + PROTEIN · COMPARE & REVIEW
+        - heading "比较整合结果，检查分歧区域" [level=1] [ref=e63]
+        - paragraph [ref=e64]: 同一空间对象上的 RNA、蛋白和联合组织域。簇编号是方法内标签，分歧提示需要检查的位置。
+      - generic [ref=e65]:
+        - heading "运行或载入分析" [level=2] [ref=e66]
+        - generic [ref=e67]:
+          - generic [ref=e68]:
+            - text: 后端
+            - combobox "后端" [disabled] [ref=e69]:
+              - option "模态平衡 PCA 基线" [selected]
+              - text: SMOPCA 小规模参考
+          - generic [ref=e70]:
+            - text: 空间域数量
+            - spinbutton "空间域数量" [disabled] [ref=e71]: "6"
+          - generic [ref=e72]:
+            - text: 随机种子
+            - spinbutton "随机种子" [disabled] [ref=e73]: "0"
+          - generic [ref=e74]:
+            - text: 拟合范围
+            - combobox "拟合范围" [disabled] [ref=e75]:
+              - option "当前版本全部纳入对象" [selected]
+              - option "当前共享 ROI"
+          - generic [ref=e76]:
+            - text: 蛋白预处理
+            - combobox "蛋白预处理" [disabled] [ref=e77]:
+              - option "log1p" [selected]
+              - option "asinh / 5"
+        - paragraph [ref=e78]: 蛋白层沿用蛋白页的选择；RNA 默认记录方差最高的 128 个特征，分别标准化后平衡模态尺度。没有隐式补值。SMOPCA 限 3,000 个对象。
+        - generic [ref=e79]:
+          - button "在当前版本拟合三组结果" [disabled] [ref=e80]
+          - button "更新任务状态" [disabled] [ref=e81]
+          - button "取消任务" [disabled] [ref=e82]
+          - button "重试失败任务" [disabled] [ref=e83]
+          - button "读取已保存结果" [disabled] [ref=e84]
+        - status [ref=e85]: 尚未提交任务
+        - generic [ref=e86]:
+          - generic [ref=e87]:
+            - text: 左侧结果
+            - combobox "左侧结果" [disabled] [ref=e88]:
+              - option "balanced_pca_kmeans · fit · 2568 对象 · 当前 · integration_84b8ec…" [selected]
+          - generic [ref=e89]:
+            - text: 左侧模态
+            - combobox "左侧模态" [disabled] [ref=e90]:
+              - option "RNA-only" [selected]
+              - option "Protein-only"
+              - option "联合结果"
+          - generic [ref=e91]:
+            - text: 右侧结果
+            - combobox "右侧结果" [disabled] [ref=e92]:
+              - option "balanced_pca_kmeans · fit · 2568 对象 · 当前 · integration_84b8ec…" [selected]
+          - generic [ref=e93]:
+            - text: 右侧模态
+            - combobox "右侧模态" [disabled] [ref=e94]:
+              - option "联合结果" [selected]
+              - option "RNA-only"
+              - option "Protein-only"
+        - generic [ref=e95]:
+          - button "查看空间域和分歧" [disabled] [ref=e96]
+          - button "按当前版本筛选左侧原模型" [disabled] [ref=e97]
+          - button "沿用左侧参数在当前版本重新拟合" [disabled] [ref=e98]
+          - button "导出含整合结果的审阅包" [disabled] [ref=e99]
+        - paragraph [ref=e100]: 固定模型筛选保留原嵌入；重新拟合会建立新任务。两者分别保留。
+        - generic [ref=e101]:
+          - generic [ref=e102]:
+            - heading "左侧空间域" [level=3] [ref=e103]
+            - generic "左侧方法空间域" [ref=e104]
+          - generic [ref=e105]:
+            - heading "右侧空间域" [level=3] [ref=e106]
+            - generic "右侧方法空间域" [ref=e107]
+        - heading "优先检查的位置" [level=3] [ref=e108]
+        - paragraph [ref=e109]: 按近邻同簇关系分歧排序，与簇编号置换无关。点击检查会建立精确共享选区；原始特征证据与人工修订沿用 RNA / 蛋白页。
+        - group [ref=e110]:
+          - generic "方法、预处理、拟合对象及完整对照" [ref=e111]
+      - generic [ref=e112]:
+        - heading "模态关系与研究设计" [level=2] [ref=e113]
+        - button "查看已登记的对应关系、派生层和样本设计" [disabled] [ref=e114]
+    - generic [ref=e41]:
+      - text: Spatial Collab · 空间多组学研究 Alpha
+      - generic [ref=e42]: NOT_ESTABLISHED · 不将工程记录解释为科学授权

@@ -1,0 +1,132 @@
+{
+  "scope": "synthetic scale and numerical identity control, not biological or platform validation",
+  "version_unchanged": "0.7.0a1",
+  "project": "C:\\Spatial\\spatial-collab\\output\\scalability\\million-tmp\\project",
+  "atlas_id": "atlas_630a0ef33d1c0f89aa53f97f0b7d738f",
+  "image_id": "pyramid_60ae31743399224da29879a6e9bd66f9",
+  "totals": {
+    "cells": 1000000,
+    "features": 30001,
+    "counts": 2000000,
+    "transcripts": 2000000,
+    "boundaries": 2000
+  },
+  "database_bytes": 593809408,
+  "generation_seconds": 0.0023107999586500227,
+  "import_seconds": 122.78790190001018,
+  "query_seconds": {
+    "whole_cells": 0.4643363000359386,
+    "whole_transcripts": 3.943364200007636,
+    "exact_roi": 0.009350600012112409,
+    "molecule_feature": 2.4373349999659695,
+    "boundaries": 0.007154399994760752,
+    "exact_roi_freeze": 1.0872379999491386,
+    "five_pyramid_levels": 0.6122323000454344
+  },
+  "answers": {
+    "whole_cells": {
+      "atlas_id": "atlas_630a0ef33d1c0f89aa53f97f0b7d738f",
+      "layer": "cells",
+      "bounds": [
+        -0.4000000059604645,
+        -0.4000000059604645,
+        999.4000244140625,
+        999.1
+      ],
+      "total": 1000000,
+      "mode": "aggregate_density",
+      "complete": true,
+      "aggregate_total": 1000000,
+      "feature": null,
+      "notice": "All matching objects counted; bins are density aggregates, not cells or a sampled point cloud."
+    },
+    "whole_transcripts": {
+      "atlas_id": "atlas_630a0ef33d1c0f89aa53f97f0b7d738f",
+      "layer": "transcripts",
+      "bounds": [
+        -0.4000000059604645,
+        -0.4000000059604645,
+        999.4000244140625,
+        999.1
+      ],
+      "total": 2000000,
+      "mode": "aggregate_density",
+      "complete": true,
+      "aggregate_total": 2000000,
+      "feature": null,
+      "notice": "All matching objects counted; bins are density aggregates, not cells or a sampled point cloud."
+    },
+    "exact_roi": {
+      "atlas_id": "atlas_630a0ef33d1c0f89aa53f97f0b7d738f",
+      "layer": "cells",
+      "bounds": [
+        -0.5,
+        -0.5,
+        31.5,
+        31.5
+      ],
+      "total": 1024,
+      "mode": "exact_points",
+      "complete": true,
+      "feature": null
+    },
+    "molecule_feature": {
+      "atlas_id": "atlas_630a0ef33d1c0f89aa53f97f0b7d738f",
+      "layer": "transcripts",
+      "bounds": [
+        -0.4000000059604645,
+        -0.4000000059604645,
+        999.4000244140625,
+        999.1
+      ],
+      "total": 68,
+      "mode": "exact_points",
+      "complete": true,
+      "feature": "G0"
+    },
+    "boundaries": {
+      "atlas_id": "atlas_630a0ef33d1c0f89aa53f97f0b7d738f",
+      "layer": "boundaries",
+      "bounds": [
+        -0.5,
+        -0.5,
+        31.5,
+        0.5
+      ],
+      "total": 64,
+      "mode": "exact_boundaries",
+      "complete": true,
+      "vertex_budget": 100000
+    }
+  },
+  "frozen_roi_shape": [
+    1024,
+    30001
+  ],
+  "pyramid_levels": 5,
+  "peak_working_set_bytes": 268623872,
+  "rss_after_bytes": 99168256,
+  "sources": {
+    "cells": {
+      "path": "C:\\Spatial\\spatial-collab\\output\\scalability\\million-tmp\\cells.csv",
+      "sha256": "0702c789b6c89c533721d6afb0a3df34895307edfda460fa5933947f277272c2"
+    },
+    "features": {
+      "path": "C:\\Spatial\\spatial-collab\\output\\scalability\\million-tmp\\features.csv",
+      "sha256": "00652e2cee8192c24d70edb9bd35d5165a5896330280949e7cac9dc10158def3"
+    },
+    "counts": {
+      "path": "C:\\Spatial\\spatial-collab\\output\\scalability\\million-tmp\\counts.csv",
+      "sha256": "439c54e04d48bced7e6b9762b4e9b8885a61dd18572c067038b53e1292e3b291"
+    },
+    "transcripts": {
+      "path": "C:\\Spatial\\spatial-collab\\output\\scalability\\million-tmp\\transcripts.csv",
+      "sha256": "101c4e95564c053d7752d75b341977ec7682fe4247c8bd222d08d68e70a9c9e0"
+    },
+    "boundaries": {
+      "path": "C:\\Spatial\\spatial-collab\\output\\scalability\\million-tmp\\boundaries.csv",
+      "sha256": "d2b13a5e02c1fb62e820163c7f5dfb5ebfcc3a09d9b4288a79362aa8a5650e03"
+    }
+  },
+  "database_sha256": "350551341dff5a5f0b87cbb557ae6e95acced7768777746924b5433aaac5652b"
+}

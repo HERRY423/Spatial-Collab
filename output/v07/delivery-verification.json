@@ -1,0 +1,147 @@
+{
+  "version": "0.7.0a1",
+  "scope": "local engineering and public-data execution; no independent biological or efficiency validation",
+  "full_suite": {
+    "passed": 476,
+    "skipped": 4
+  },
+  "post_mcp_fix_targeted": {
+    "passed": 15
+  },
+  "installed_wheel_protocol": "passed actual stdio discovery, freeze, submit, poll, inspect",
+  "wheel_source_files_verified": 47,
+  "source_manifest_files_verified": 117,
+  "public_methods_succeeded": 11,
+  "bundle": {
+    "bundle_path": "C:\\Spatial\\spatial-collab\\projects\\v05-real-data\\spots-spleen-1\\exports\\review_ba656ddba482454484724f84b630cd2c",
+    "integrity": "verified",
+    "integrity_verified": true,
+    "files_verified": 8,
+    "source_sha256": "eef803ace07152d84d1034ba5d0340e2f6897c4c04b771b265c4a72ee3664492",
+    "revision_count": 1,
+    "run_id": null,
+    "recompute_status": "not_requested",
+    "recompute_matches": null,
+    "mismatched_fields": [],
+    "scientific_authorization": "NOT_ESTABLISHED",
+    "limitations": [
+      "Manifest verification establishes internal consistency, not external authenticity.",
+      "Recomputation verifies the declared descriptive calculation, not biological validity or the original scientific conclusion."
+    ],
+    "integration_verification": [
+      {
+        "result_id": "integration_84b8ec877017dc5fabebc582e3facff7",
+        "status": "identity_and_hash_verified"
+      },
+      {
+        "result_id": "integration_d00e4bdd321f77f1c5b13c4fda3e886b",
+        "status": "identity_and_hash_verified"
+      },
+      {
+        "result_id": "integration_7d432338d7ac6abc78a9a0ecaf4a38be",
+        "status": "identity_and_hash_verified"
+      },
+      {
+        "result_id": "integration_fa98f1686a45ec0ecf7eb4c2457978fc",
+        "status": "identity_and_hash_verified"
+      }
+    ],
+    "workflow_verification": [
+      {
+        "result_id": "analysisresult_2a95896e09569cbf7aa6a48f12acd452",
+        "method": "spatial_spectral",
+        "status": "input_and_output_contracts_verified_not_recomputed"
+      },
+      {
+        "result_id": "analysisresult_c4b2d80bf9675a8b04ff576d48114c6a",
+        "method": "moran_svg",
+        "status": "input_and_output_contracts_verified_not_recomputed"
+      },
+      {
+        "result_id": "analysisresult_10c259a37811889a8b496fa13fe7423d",
+        "method": "nnls",
+        "status": "input_and_output_contracts_verified_not_recomputed"
+      },
+      {
+        "result_id": "analysisresult_96f4b3c36362a89adc922d5d58b327bb",
+        "method": "nnls",
+        "status": "input_and_output_contracts_verified_not_recomputed"
+      },
+      {
+        "result_id": "analysisresult_b48df14e1c5989a938eda156bc290d89",
+        "method": "nnls",
+        "status": "input_and_output_contracts_verified_not_recomputed"
+      },
+      {
+        "result_id": "analysisresult_04dabca8c34ae3a91093537d97f95446",
+        "method": "harmony",
+        "status": "input_and_output_contracts_verified_not_recomputed"
+      },
+      {
+        "result_id": "analysisresult_e4f819726d3af5e5b01018669c790a16",
+        "method": "spagcn",
+        "status": "input_and_output_contracts_verified_not_recomputed"
+      },
+      {
+        "result_id": "analysisresult_6cc743ef04325742cc43a29da393237f",
+        "method": "spatial_spectral",
+        "status": "input_and_output_contracts_verified_not_recomputed"
+      },
+      {
+        "result_id": "analysisresult_ada95c6389c7c17502b9b7c840491b82",
+        "method": "moran_svg",
+        "status": "input_and_output_contracts_verified_not_recomputed"
+      },
+      {
+        "result_id": "analysisresult_715b60167e485fc99fec837b05285373",
+        "method": "spatial_lr",
+        "status": "input_and_output_contracts_verified_not_recomputed"
+      },
+      {
+        "result_id": "analysisresult_a4cc893c4eed5ef01672dfb41fa74e1b",
+        "method": "progeny",
+        "status": "input_and_output_contracts_verified_not_recomputed"
+      },
+      {
+        "result_id": "analysisresult_92c69b519aeb98bd25d699fd71dceacd",
+        "method": "mofa",
+        "status": "input_and_output_contracts_verified_not_recomputed"
+      },
+      {
+        "result_id": "analysisresult_1d8d7acbbd939911ecbcd60fbaa399b6",
+        "method": "mefisto",
+        "status": "input_and_output_contracts_verified_not_recomputed"
+      },
+      {
+        "result_id": "analysisresult_d4a31d3927c6bb0e0a4b3e92535eb26e",
+        "method": "cell2location",
+        "status": "input_and_output_contracts_verified_not_recomputed"
+      },
+      {
+        "result_id": "analysisresult_dbc55c62a159dc1d8cceecc862c33c00",
+        "method": "paste",
+        "status": "input_and_output_contracts_verified_not_recomputed"
+      }
+    ]
+  },
+  "progeny_frozen_network_replay": {
+    "method": "progeny",
+    "frozen_network_replay": true,
+    "recompute_matches": true,
+    "result_id": "analysisresult_a4cc893c4eed5ef01672dfb41fa74e1b"
+  },
+  "artifacts": {
+    "spatial-collab-0.7.0-alpha.1.zip": "42b803dafc93c89718b03c352219c35dc4cd9355ecec15d4d0b72ca1eb10f2e1",
+    "spatial_collab-0.7.0a1-py3-none-any.whl": "39db8f4f7e55237c0d2a0ef405ea92a3204e86b2698d1c67e517f81df3a6190d",
+    "spatial_collab-0.7.0a1.tar.gz": "61908f514ee68e8b9aa1a6d19e58563401e2e874ba55f7b400693199dc28c5ea"
+  },
+  "browser": "installed wheel at 127.0.0.1:8777; result pagination, map and source links; see browser-final.png and browser-console.txt",
+  "retained_delivery_failures": [
+    "MCP environment probe inherited stdin timeout; fixed and rechecked",
+    "pytest default temp directory access error; explicit fresh workspace temp passed",
+    "browser stale token after service restart; reload establishes new token"
+  ],
+  "historical_notes": [
+    "git diff --check reports existing trailing blank lines in assets.py and workbench.css; preserved unrelated edits"
+  ]
+}

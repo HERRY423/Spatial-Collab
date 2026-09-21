@@ -1,0 +1,23 @@
+{
+  "scope": "public SPOTS exact sparse counts, coordinates and producer-ID retention; no actual molecule or histology data in this dataset",
+  "source_input_id": "analysisinput_1d1dabc1a7b372919b635fd033b6592a",
+  "source_input_sha256": "1d1dabc1a7b372919b635fd033b6592acdacbe18491cdd16055529e12ed2f8f8",
+  "shape": [
+    300,
+    32285
+  ],
+  "nonzero_counts": 1052344,
+  "exact_sparse_difference_nnz": 0,
+  "coordinates_equal": true,
+  "identities_equal_under_declared_qualification": true,
+  "atlas_id": "atlas_4fb0a676ea60ea8ce08e6d61fdf9ebac",
+  "import_seconds": 15.76678519998677,
+  "project": "C:\\Spatial\\spatial-collab\\output\\scalability\\public-tmp\\project",
+  "totals": {
+    "cells": 300,
+    "features": 32285,
+    "counts": 1052344,
+    "transcripts": 0,
+    "boundaries": 0
+  }
+}

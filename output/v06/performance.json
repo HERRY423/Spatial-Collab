@@ -1,0 +1,15 @@
+{
+  "input_kind": "synthetic",
+  "observations": 12001,
+  "protein_features": 21,
+  "assays": 6,
+  "all_assay_scan_median_seconds": 0.1096782999811694,
+  "target_assay_median_seconds": 0.017688399995677173,
+  "pages": [
+    10000,
+    2001
+  ],
+  "exact_statistics_equal_across_pages": true,
+  "array_storage_bytes": 2016936,
+  "scope": "One machine, warm filesystem, three repetitions; no user-efficiency or broad scalability claim."
+}

@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def main():
     version = json.loads((ROOT / ".codex-plugin/plugin.json").read_text(encoding="utf-8"))["version"]
     paths = []
-    for directory in ("src/spatial_collab", "scripts", "skills", "docs", "tests", ".codex-plugin", ".claude-plugin"):
+    for directory in ("src/spatial_collab", "scripts", "skills", "docs", "tests", "requirements", ".codex-plugin", ".claude-plugin"):
         paths.extend(p for p in (ROOT / directory).rglob("*") if p.is_file() and "__pycache__" not in p.parts)
     paths.extend(ROOT / name for name in ("README.md", "pyproject.toml", "MANIFEST.in", ".mcp.json", ".gitignore",
                                          "IMPLEMENTATION_CONTRACT.md", "V02_CONTRACT.md"))

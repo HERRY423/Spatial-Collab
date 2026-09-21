@@ -7,7 +7,14 @@ build/
 dist/
 node_modules/
 .venv/
+.venv-v06/
+.venv-v07/
+output/scalability/*-tmp/
+output/v07/*-tmp/
+output/v07/wheels/
 projects/
 .test-install/
 *.log
-
+output/v06/*-tmp/
+output/v06/protocol-*/
+output/v06/upstream/

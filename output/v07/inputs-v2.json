@@ -1,0 +1,13 @@
+{
+  "roi": "analysisinput_1d1dabc1a7b372919b635fd033b6592a",
+  "reference": "analysisinput_bed0634974f010700d2ff764a0e593db",
+  "transformed_control": "analysisinput_662a550936974e0018d9d69cc6cd7f83",
+  "reference_shape": [
+    3105,
+    13553
+  ],
+  "roi_shape": [
+    300,
+    32285
+  ]
+}

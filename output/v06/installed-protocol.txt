@@ -1,0 +1,14 @@
+Processing request of type ListToolsRequest
+CALL open_project
+Processing request of type CallToolRequest
+PASS open_project
+Processing request of type CallToolRequest
+Processing request of type CallToolRequest
+CALL get_context
+PASS get_context
+CALL list_integrations
+PASS list_integrations
+CALL get_multimodal_context
+Processing request of type CallToolRequest
+PASS get_multimodal_context
+STDIO_CLOSED

@@ -1,0 +1,68 @@
+{
+  "version": "0.7.0a1 / 0.7.0-alpha.1; unchanged",
+  "tests": {
+    "passed": 493,
+    "skipped": 3,
+    "seconds": 54.11,
+    "skips": [
+      "SpatialData absent",
+      "two native napari checks unavailable"
+    ],
+    "log": "C:\\Spatial\\scale-delivery-final.log",
+    "sha256": "85197d7249e5c8a685e3c55f66c51f16cfec4d9fee91268b1e0e8675b03ee63b"
+  },
+  "runtime_source_and_installed_wheel_files_verified": 51,
+  "source_manifest_files_verified": 130,
+  "installed_protocol": {
+    "transport": "actual MCP stdio; not host adoption or independent scientific validation",
+    "checks": [
+      "list_atlases",
+      "get_atlas_view",
+      "share_atlas_view",
+      "get_context",
+      "get_atlas_view",
+      "get_pyramid_tile",
+      "freeze_atlas_roi",
+      "register_study_design",
+      "run_study_inference",
+      "list_study_analyses"
+    ],
+    "all_passed": true,
+    "census": 1000000,
+    "frozen_shape": [
+      4,
+      30001
+    ],
+    "mixedlm_status": "tested"
+  },
+  "browser": {
+    "runtime": "C:\\Spatial\\spatial-collab\\.test-install\\scalability-final",
+    "url": "http://127.0.0.1:8778",
+    "verified": [
+      "empty workspace opens atlas panel",
+      "million-object full census",
+      "8-level image",
+      "zoom/pan molecules and cell/nucleus boundaries"
+    ],
+    "console_errors": 0,
+    "console_warnings": 0
+  },
+  "artifacts_sha256": {
+    "spatial-collab-0.7.0-alpha.1.zip": "ced694037aa48ccb3fd73bf96eb324bb347754fb6790d8bc18b93db6497e3fc0",
+    "spatial_collab-0.7.0a1-py3-none-any.whl": "593e6d8c910e04cccbd1b8bf98f0f5c45cf52d299ec45b2b690b44c90ef08683",
+    "spatial_collab-0.7.0a1.tar.gz": "7a63f2942b52ddb98ab07a68103633bbd84640395e231de55a1798fffada9f26"
+  },
+  "evidence_sha256": {
+    "million-optimized.json": "046925e7894041867593df432c8c346ed3b345f9bf3141760830e0cc2c60a457",
+    "gigapixel-validation.json": "b09858323cea31f31755de3988648ac6cc9762103def75a8225909d58f9bd97f",
+    "gigapixel-read.json": "1331e9217f268734aedf3b5a6420380c48ebe0e2996512ff600388dbe6ef3828",
+    "public-validation.json": "f9384aecd8e5c085b91a4082fb92df06a4b9997f3c1abf7ffcd8d834f9b5e857",
+    "study-validation.json": "d461ba6d372fa42c57482c4e1bb8037ef92195e0bcfdaffe819ed9d0869bdd0b",
+    "protocol-validation.json": "1553a998f035032311b8f8ed87b831a1ba131b773b78e18a3f4e1b67a7aa50ed",
+    "browser-empty-workspace.png": "0db5222e7d375b1077d9c907ae557643457d5d561d7e6df3ad77d32cacc50050",
+    "browser-installed-million.png": "02a5a47a5d688dc8e07f670c5aece7dd86cd3557cc202a97bc9470accbd853ff",
+    "browser-installed-boundaries.png": "9c0b1eb36201596b29723ae343a2a6349cd79df9e3c974f6a529f40719726e35",
+    "browser-console.txt": "5e022534a5fe0feeb06a8fc815ff2ad8e4598aae62e789579db7dbcbfb58bc2a"
+  },
+  "scope": "Local engineering and numerical verification; synthetic scale/model controls and public SPOTS count integrity. Not independent biological, multi-patient, host adoption or user-benefit validation."
+}

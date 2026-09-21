@@ -1,0 +1,30 @@
+{
+  "status": "awaiting_independent_scientist",
+  "reviewer_code": null,
+  "tasks": [
+    {
+      "id": "T1",
+      "source_sha256": null,
+      "revision_id": null,
+      "observation_ids": [],
+      "grading_evidence": [],
+      "frozen_at": null
+    },
+    {
+      "id": "T2",
+      "source_sha256": null,
+      "revision_id": null,
+      "observation_ids": [],
+      "grading_evidence": [],
+      "frozen_at": null
+    },
+    {
+      "id": "T3",
+      "source_sha256": null,
+      "revision_id": null,
+      "observation_ids": [],
+      "grading_evidence": [],
+      "frozen_at": null
+    }
+  ]
+}

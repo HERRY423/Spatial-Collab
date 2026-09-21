@@ -1,0 +1,44 @@
+{
+  "source_sha256": "67ee4f78382c53580be49a2ba65e74a3c350834cf7ee08cc3a29e6bd8b11a336",
+  "observations": 2491,
+  "rna_features": 28417,
+  "protein_features": 283,
+  "all_raw_ids_coordinates_rna_and_protein_values_equal": true,
+  "replay": {
+    "bundle_path": "C:\\Spatial\\spatial-collab\\projects\\v05-real-data\\spots-spleen-1\\exports\\review_f37f9d64460148339e4e49012498c548",
+    "integrity": "verified",
+    "integrity_verified": true,
+    "files_verified": 8,
+    "source_sha256": "eef803ace07152d84d1034ba5d0340e2f6897c4c04b771b265c4a72ee3664492",
+    "revision_count": 1,
+    "run_id": null,
+    "recompute_status": "matched",
+    "recompute_matches": true,
+    "mismatched_fields": [],
+    "scientific_authorization": "NOT_ESTABLISHED",
+    "limitations": [
+      "Manifest verification establishes internal consistency, not external authenticity.",
+      "Recomputation verifies the declared descriptive calculation, not biological validity or the original scientific conclusion."
+    ],
+    "integration_verification": [
+      {
+        "result_id": "integration_84b8ec877017dc5fabebc582e3facff7",
+        "status": "recomputed_matched"
+      },
+      {
+        "result_id": "integration_d00e4bdd321f77f1c5b13c4fda3e886b",
+        "status": "recomputed_matched"
+      },
+      {
+        "result_id": "integration_7d432338d7ac6abc78a9a0ecaf4a38be",
+        "status": "recomputed_matched"
+      },
+      {
+        "result_id": "integration_fa98f1686a45ec0ecf7eb4c2457978fc",
+        "status": "recomputed_matched"
+      }
+    ]
+  },
+  "elapsed_seconds": 207.66292869998142,
+  "evidence_scope": "engineering_consistency_not_independent_biology_or_user_efficiency"
+}

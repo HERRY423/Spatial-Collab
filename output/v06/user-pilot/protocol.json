@@ -1,0 +1,54 @@
+{
+  "status": "prepared_not_enrolled",
+  "planned_participants": 6,
+  "observed_participants": 0,
+  "arms": [
+    "notebook_viewer",
+    "generic_agent_tools",
+    "agent_spatial_collab"
+  ],
+  "assignment": "All six workflow orders balanced in blocks of six; three disjoint task variants, fixed across arms.",
+  "tasks": [
+    {
+      "id": "T1",
+      "question": "Compare RNA, protein and joint domains; inspect a high-disagreement region, cite raw measured features and decide retain/uncertain/exclude with a reason."
+    },
+    {
+      "id": "T2",
+      "question": "Use a distinct predefined region. Apply a justified inclusion hypothesis in a working copy; compare fixed-model filtering with refitting and explain denominators."
+    },
+    {
+      "id": "T3",
+      "question": "Resume an interrupted review on another predefined region, recover exact versions, diagnose a supplied stale-result or foreign-ID case and replay the exported computation."
+    }
+  ],
+  "before_enrollment": [
+    "Independent scientist fixes three task ROIs and evidence rubrics before seeing trial outputs.",
+    "Separate training task and washout; match backend, model and machine settings across arms.",
+    "Obtain participant consent; use anonymous participant codes. Do not record patient information.",
+    "Recruit 6-10 researchers independently; developer-operated runs cannot fill human observations."
+  ],
+  "rubric": {
+    "identity_and_version": 1,
+    "measured_vs_unmeasured": 1,
+    "raw_evidence_cited": 1,
+    "fixed_vs_refit_distinguished": 1,
+    "denominators_explained": 1,
+    "replay_success": 1,
+    "no_unsupported_biological_claim": 1
+  },
+  "critical_failure": "Silent object mismatch, version mixing, invented measurements or unapproved annotation mutation.",
+  "primary_endpoints": [
+    "Within-participant active time ratio at non-decreased independently graded correctness.",
+    "Critical failures and correctly completed tasks."
+  ],
+  "secondary_endpoints": [
+    "Waiting and total time separately",
+    "Rework",
+    "Omissions",
+    "Replay success",
+    "Resource consumption"
+  ],
+  "target_not_claim": "Approximately 30% less active time without lower correctness; exploratory pilot, not proven benefit.",
+  "scientific_authorization": "NOT_ESTABLISHED"
+}

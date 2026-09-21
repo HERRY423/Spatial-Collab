@@ -9,3 +9,5 @@ recursive-include tests *.py *.cjs
 recursive-include docs *.md *.json
 recursive-include src/spatial_collab/static *
 exclude docs/source-manifest.json
+recursive-include requirements *.in *.txt
+recursive-include src/spatial_collab/vendor *.txt

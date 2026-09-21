@@ -129,7 +129,10 @@ def _validate_import(cells: Any, metadata: Any) -> dict:
         if not isinstance(digest, str) or len(digest) != 64 or any(c not in "0123456789abcdefABCDEF" for c in digest):
             raise SpatialError("Each source file must record a valid SHA256.")
     meta["source_files"] = source_files
-    if not isinstance(cells, list) or not cells:
+    empty_workspace = meta.get("source_kind") == "atlas_workspace"
+    if empty_workspace and (cells != [] or panel or replicates or meta["units"] != "unknown"):
+        raise SpatialError("An atlas_workspace is an empty container, with no primary observations, panel or physical coordinate claim.")
+    if not isinstance(cells, list) or (not cells and not empty_workspace):
         raise SpatialError("cells must be a nonempty list.")
     identifiers, clean = set(), []
     genes = set(panel)
@@ -265,6 +268,14 @@ class Project:
             raise
         finally:
             db.close()
+
+    @classmethod
+    def create_workspace(cls, root: str | Path, name: str = "Spatial atlas workspace") -> "Project":
+        """Start directly with disk-backed datasets, without invented primary cells."""
+        return cls.create(root, [], {"name": name, "slice_id": "no_primary_slice",
+                         "source_kind": "atlas_workspace", "coordinate_system": "no_primary_frame",
+                         "units": "unknown", "panel_genes": [], "biological_replicates": 0,
+                         "limitations": ["Empty container: select an explicitly identified atlas for observations, coordinates and ROI analyses."]})
 
     @classmethod
     def create(cls, root: str | Path, cells: list[dict], metadata: dict) -> "Project":
@@ -430,6 +441,13 @@ class Project:
             for table in ("revisions", "proposals", "runs"):
                 row = db.execute(f"SELECT id FROM {table} ORDER BY rowid DESC LIMIT 1").fetchone()
                 state["latest_" + table.rstrip("s") + "_id"] = row[0] if row else None
+            if db.execute("SELECT 1 FROM sqlite_master WHERE name='research_objects'").fetchone():
+                state["research_objects"] = [r[0] for r in db.execute("SELECT id FROM research_objects ORDER BY rowid")]
+            if db.execute("SELECT 1 FROM sqlite_master WHERE name='integration_jobs'").fetchone():
+                state["integration_jobs"] = [list(r) for r in db.execute("SELECT id,status,result_id FROM integration_jobs ORDER BY rowid")]
+            atlas_view = db.execute("SELECT value FROM state WHERE key='atlas_view'").fetchone()
+            if atlas_view:
+                state["atlas_view"] = json.loads(atlas_view[0])
         from .hypotheses import hypothesis_context
         state["hypotheses"] = hypothesis_context(self)
         from .proteomics import assay_context
@@ -681,7 +699,12 @@ class Project:
         from .proteomics import _records
         assays = _records(self)
         if assays:
-            files["protein_assays.json"] = assays
+            from .array_assays import export_record
+            files["protein_assays.json"] = [export_record(self, a) if a["schema"].endswith(".v2") else a for a in assays]
+        from . import objects
+        research = [objects.get(self, oid, kind) for kind in ("integration", "correspondence", "measurementlayer", "molecularrelation", "study", "studyresult", "atlas", "pyramid", "assaydescriptor", "integrationexperiment", "integrationexperimentrun", "analysisinput", "analysisresult") for oid in objects.catalog(self, kind)]
+        if research:
+            files["research_objects.json"] = research
         contents = {name: (_json(value) + "\n").encode("utf-8") for name, value in files.items()}
         if any(len(value) > 256 * 1024**2 for value in contents.values()) or sum(map(len, contents.values())) > 512 * 1024**2:
             raise SpatialError("Export exceeds replay budget (256 MiB per file / 512 MiB total). Use compact=True to avoid redundant materializations or an explicitly bounded project.")

@@ -12,6 +12,11 @@
   let planBinding = null, planInitialized = false, planList = [], planContextHash = null;
   let assetList = [], assetInspection = null, featurePage = null, featureQuery = "";
   let page = "home", overview = null, proteinViewData = null, proteinRun = null, proteinTransform = null;
+  let colorMode = "label";
+  let activeAssetRaster = null, assetRasterImg = null, assetOpacity = 0.7;
+  let cellExpressionMap = new Map(), activeFeatureName = "";
+  let integrationJob = null;
+  let lastIntegrationViews = null, lastIntegrationFrame = null, lastDisagreementSet = new Set(), syncedHoverCellId = null;
   const coordinateUnit = () => ({micrometer:"µm",pixel:"像素（物理尺度未验证）",array_index:"阵列坐标（物理尺度未验证）",unknown:"未知单位"}[state?.metadata.units] || "未知单位");
   function enableActions() {
     document.querySelectorAll("button,input,select,textarea").forEach(control => control.disabled = busy);
@@ -36,6 +41,22 @@
   const selected = () => state?.selection;
   const selectedIds = () => new Set(selected()?.cell_ids || []);
   const textNode = (tag, text, className) => { const node = document.createElement(tag); node.textContent = text; if (className) node.className = className; return node; };
+  function viridisColor(t) {
+    const stops = [
+      [68, 1, 84],
+      [59, 82, 139],
+      [33, 145, 140],
+      [94, 201, 98],
+      [253, 231, 37]
+    ];
+    t = Math.max(0, Math.min(1, t));
+    const idx = t * (stops.length - 1);
+    const i = Math.floor(idx);
+    const f = idx - i;
+    if (i >= stops.length - 1) return `rgb(${stops[stops.length - 1].join(",")})`;
+    const c0 = stops[i], c1 = stops[i + 1];
+    return `rgb(${Math.round(c0[0] + f * (c1[0] - c0[0]))},${Math.round(c0[1] + f * (c1[1] - c0[1]))},${Math.round(c0[2] + f * (c1[2] - c0[2]))})`;
+  }
 
   function rpc(method, params, timeout = 30_000) {
     return new Promise((resolve, reject) => {
@@ -109,6 +130,7 @@
         selection_id: plan.spec.selection_id } : null,
       scientific_authorization: "NOT_ESTABLISHED",
       active_workspace: page,
+      atlas_view: page==="atlas"&&atlasCurrent()?{atlas_id:atlasCurrent().object_id,atlas_sha256:atlasCurrent().object_sha256,bounds:atlasBounds,layer:$("atlasLayer").value,feature:$("atlasGene").value||null,image_id:$("atlasImage").value||null,display_mode:atlasData?.mode}:null,
       protein_view: proteinViewData ? { assay_id: proteinViewData.assay_id, assay_sha256: proteinViewData.assay_sha256,
         feature: proteinViewData.feature, revision_id: proteinViewData.revision_id, selection_id: proteinViewData.selection_id } : null,
     };
@@ -155,6 +177,15 @@
     const objectChanged = state && (state.head_revision !== next.head_revision || state.selection?.selection_id !== next.selection?.selection_id);
     if (objectChanged) {
       clearProteinView("共享选区或版本已变化，请重新读取蛋白证据。");
+      for (const id of ["integrationLeftMap", "integrationRightMap"]) {
+        const c = $(id); if (c) c.getContext("2d").clearRect(0, 0, c.width, c.height);
+      }
+      $("integrationReviewRows").replaceChildren();
+      $("analysisRows").replaceChildren(); $("analysisResultSummary").textContent="共享状态已变化，请重新读取科学结果。";
+      $("analysisMap").getContext("2d").clearRect(0,0,$("analysisMap").width,$("analysisMap").height);
+      $("integrationSummary").textContent = "共享选区或版本已变化，请重新对照结果与当前对象。";
+      $("integrationLeftTitle").textContent = "待重新读取";
+      $("integrationRightTitle").textContent = "待重新读取";
       proposal = null; show("proposal", false); $("confirmation").checked = false;
       $("markerTable").replaceChildren(textNode("p", "共享版本或选区已变更。请在当前版本重新选择细胞并检查标记证据。", "muted"));
       assetInspection = null; show("assetRecord", false);
@@ -300,15 +331,88 @@
       ctx.fillText((b[0] + i * (b[2] - b[0]) / 4).toFixed(0), px - 9, oy - 12);
       ctx.fillText((b[1] + i * (b[3] - b[1]) / 4).toFixed(0), 7, py + 3);
     }
-    const labels = [...new Set(state.view.cells.map(c => c.label))].sort();
-    const sel = selectedIds(), radius = state.view.cells.length > 3000 ? 2.2 : 3.2;
-    for (const cell of state.view.cells) {
-      const p = worldToPixel([cell.x, cell.y]);
-      const color = palette[labels.indexOf(cell.label) % palette.length];
-      ctx.globalAlpha = sel.size && !sel.has(cell.cell_id) ? 0.38 : 0.88;
-      ctx.beginPath(); ctx.arc(p[0], p[1], radius, 0, Math.PI * 2);
-      if (cell.included) { ctx.fillStyle = color; ctx.fill(); } else { ctx.strokeStyle = color; ctx.stroke(); }
-      if (sel.has(cell.cell_id)) { ctx.strokeStyle = "#f0e9ff"; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(p[0], p[1], radius + 2, 0, Math.PI * 2); ctx.stroke(); }
+    if (activeAssetRaster && assetRasterImg) {
+      ctx.save();
+      ctx.globalAlpha = assetOpacity;
+      const p = activeAssetRaster.pixel_to_world;
+      const sc = transform.scale;
+      const a = sc * p[0][0];
+      const b = sc * p[1][0];
+      const c = sc * p[0][1];
+      const d = sc * p[1][1];
+      const e = sc * p[0][2] + transform.ox - transform.bounds[0] * sc;
+      const f = sc * p[1][2] + transform.oy - transform.bounds[1] * sc;
+      ctx.transform(a, b, c, d, e, f);
+      ctx.drawImage(assetRasterImg, 0, 0);
+      ctx.restore();
+    }
+    if (colorMode === "density") {
+      const cells = state.view.cells;
+      const b = transform.bounds;
+      const nx = 70, ny = 70;
+      const dx = (b[2] - b[0]) / nx, dy = (b[3] - b[1]) / ny;
+      if (dx > 0 && dy > 0) {
+        const grid = new Float32Array(nx * ny);
+        let maxDensity = 0;
+        for (const cell of cells) {
+          if (!cell.included) continue;
+          const ix = Math.floor((cell.x - b[0]) / dx);
+          const iy = Math.floor((cell.y - b[1]) / dy);
+          if (ix >= 0 && ix < nx && iy >= 0 && iy < ny) {
+            const count = ++grid[iy * nx + ix];
+            if (count > maxDensity) maxDensity = count;
+          }
+        }
+        if (maxDensity > 0) {
+          for (let iy = 0; iy < ny; iy++) {
+            for (let ix = 0; ix < nx; ix++) {
+              const count = grid[iy * nx + ix];
+              if (count === 0) continue;
+              const norm = Math.pow(count / maxDensity, 0.65);
+              const p0 = worldToPixel([b[0] + ix * dx, b[1] + iy * dy]);
+              const p1 = worldToPixel([b[0] + (ix + 1) * dx, b[1] + (iy + 1) * dy]);
+              ctx.fillStyle = viridisColor(norm);
+              ctx.fillRect(Math.min(p0[0], p1[0]), Math.min(p0[1], p1[1]), Math.abs(p1[0] - p0[0]) + 0.5, Math.abs(p1[1] - p0[1]) + 0.5);
+            }
+          }
+        }
+      }
+    } else if (colorMode === "expression") {
+      const sel = selectedIds(), radius = state.view.cells.length > 3000 ? 2.2 : 3.2;
+      let minExpr = 0, maxExpr = 0;
+      if (cellExpressionMap.size > 0) {
+        const vals = [...cellExpressionMap.values()];
+        minExpr = Math.min(...vals); maxExpr = Math.max(...vals);
+      }
+      for (const cell of state.view.cells) {
+        const p = worldToPixel([cell.x, cell.y]);
+        let color;
+        if (cellExpressionMap.has(cell.cell_id)) {
+          const val = cellExpressionMap.get(cell.cell_id);
+          const ratio = maxExpr > minExpr ? (val - minExpr) / (maxExpr - minExpr) : 0.5;
+          color = viridisColor(ratio);
+          ctx.globalAlpha = sel.size && !sel.has(cell.cell_id) ? 0.38 : 0.95;
+        } else {
+          color = "#4a5568";
+          ctx.globalAlpha = 0.25;
+        }
+        ctx.beginPath(); ctx.arc(p[0], p[1], radius, 0, Math.PI * 2);
+        if (cell.included) { ctx.fillStyle = color; ctx.fill(); } else { ctx.strokeStyle = color; ctx.stroke(); }
+        if (sel.has(cell.cell_id)) { ctx.strokeStyle = "#f0e9ff"; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(p[0], p[1], radius + 2, 0, Math.PI * 2); ctx.stroke(); }
+        if (lastDisagreementSet.has(cell.cell_id)) { ctx.strokeStyle = "#ff4d6d"; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.arc(p[0], p[1], radius + 3, 0, Math.PI * 2); ctx.stroke(); }
+      }
+    } else {
+      const labels = [...new Set(state.view.cells.map(c => c.label))].sort();
+      const sel = selectedIds(), radius = state.view.cells.length > 3000 ? 2.2 : 3.2;
+      for (const cell of state.view.cells) {
+        const p = worldToPixel([cell.x, cell.y]);
+        const color = palette[labels.indexOf(cell.label) % palette.length];
+        ctx.globalAlpha = sel.size && !sel.has(cell.cell_id) ? 0.38 : 0.88;
+        ctx.beginPath(); ctx.arc(p[0], p[1], radius, 0, Math.PI * 2);
+        if (cell.included) { ctx.fillStyle = color; ctx.fill(); } else { ctx.strokeStyle = color; ctx.stroke(); }
+        if (sel.has(cell.cell_id)) { ctx.strokeStyle = "#f0e9ff"; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(p[0], p[1], radius + 2, 0, Math.PI * 2); ctx.stroke(); }
+        if (lastDisagreementSet.has(cell.cell_id)) { ctx.strokeStyle = "#ff4d6d"; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.arc(p[0], p[1], radius + 3, 0, Math.PI * 2); ctx.stroke(); }
+      }
     }
     ctx.globalAlpha = 1;
     if (dragging && dragging.current && mode === "rect") {
@@ -349,9 +453,16 @@
     if (dragging) { dragging.current = p; draw(); show("hoverCard", false); return; }
     const cell = nearest(p); show("hoverCard", Boolean(cell));
     if (cell) {
-      $("hoverCard").textContent = `${cell.cell_id}\n${cell.label}${cell.included ? "" : " · 已排除"}\nx ${cell.x.toFixed(2)} · y ${cell.y.toFixed(2)} ${coordinateUnit()}`;
+      let text = `${cell.cell_id}\n${cell.label}${cell.included ? "" : " · 已排除"}\nx ${cell.x.toFixed(2)} · y ${cell.y.toFixed(2)} ${coordinateUnit()}`;
+      if (cellExpressionMap.has(cell.cell_id)) {
+        text += `\n${activeFeatureName || "特征"}: ${cellExpressionMap.get(cell.cell_id)} 计数`;
+      }
+      if (lastDisagreementSet.has(cell.cell_id)) {
+        text += "\n⚠️ 整合方法分歧位点";
+      }
+      $("hoverCard").textContent = text;
       $("hoverCard").style.left = `${Math.min(p[0] + 14, canvas.clientWidth - 225)}px`;
-      $("hoverCard").style.top = `${Math.max(0, p[1] - 70)}px`;
+      $("hoverCard").style.top = `${Math.max(0, p[1] - 80)}px`;
     }
   });
   canvas.addEventListener("pointerleave", () => show("hoverCard", false));
@@ -377,11 +488,56 @@
 
   function renderMarkers(evidence) {
     const data = evidence.expression || evidence.expression_summaries || {};
+    cellExpressionMap.clear();
+    const measuredEntry = Object.entries(data).find(([_, v]) => v.measured);
+    if (measuredEntry && evidence.cells?.length) {
+      activeFeatureName = measuredEntry[0];
+      const featId = (measuredEntry[1].feature_resolution || {}).feature_id || activeFeatureName;
+      for (const c of evidence.cells) {
+        if (c.counts && c.counts[featId] != null) {
+          cellExpressionMap.set(c.cell_id, c.counts[featId]);
+        }
+      }
+      const vals = [...cellExpressionMap.values()];
+      if (vals.length) {
+        const minVal = Math.min(...vals), maxVal = Math.max(...vals);
+        $("colorbarTitle").textContent = `${activeFeatureName} 表达量`;
+        $("colorbarMin").textContent = fmt(minVal);
+        $("colorbarMid").textContent = fmt((minVal + maxVal) / 2);
+        $("colorbarMax").textContent = fmt(maxVal);
+      }
+      if (colorMode === "expression") draw();
+    }
     const wrapper = textNode("div", "", "table-scroll"), table = document.createElement("table"), head = document.createElement("tr");
     ["基因", "测量状态", "均值", "非零细胞", "零计数细胞"].forEach(x => head.append(textNode("th", x))); table.append(head);
     for (const [gene, value] of Object.entries(data)) {
       const row = document.createElement("tr");
       const available = value.measured && value.cell_count > 0;
+      row.style.cursor = available ? "pointer" : "default";
+      if (available) {
+        row.title = "点击在切片上查看该特征空间表达分布";
+        row.addEventListener("click", () => {
+          activeFeatureName = gene;
+          cellExpressionMap.clear();
+          const featId = (value.feature_resolution || {}).feature_id || gene;
+          if (evidence.cells) {
+            for (const c of evidence.cells) {
+              if (c.counts && c.counts[featId] != null) {
+                cellExpressionMap.set(c.cell_id, c.counts[featId]);
+              }
+            }
+          }
+          const vals = [...cellExpressionMap.values()];
+          if (vals.length) {
+            const minVal = Math.min(...vals), maxVal = Math.max(...vals);
+            $("colorbarTitle").textContent = `${activeFeatureName} 表达量`;
+            $("colorbarMin").textContent = fmt(minVal);
+            $("colorbarMid").textContent = fmt((minVal + maxVal) / 2);
+            $("colorbarMax").textContent = fmt(maxVal);
+          }
+          setColorMode("expression");
+        });
+      }
       [gene, value.status === "ambiguous" ? `符号有歧义：${value.feature_resolution.candidate_feature_ids.join(", ")}` : !value.measured ? "未测量" : (value.cell_count > 0 ? "面板已测量" : "面板内 · 选区为空"), available ? fmt(value.mean) : "—", available ? value.nonzero_cells : "—", available ? value.zero_cells : "—"].forEach(x => row.append(textNode("td", String(x))));
       table.append(row);
     }
@@ -800,6 +956,15 @@
     assetList = result.assets; const previous = $("assetChoice").value; $("assetChoice").replaceChildren();
     for (const asset of assetList) { const option = textNode("option", `${asset.kind === "image" ? "图像" : "分割"} · ${asset.name} · 映射 ${asset.mapping_status}`); option.value = asset.asset_id; $("assetChoice").append(option); }
     if (assetList.some(a => a.asset_id === previous)) $("assetChoice").value = previous;
+    const prevMapAsset = $("mapAssetSelect").value;
+    $("mapAssetSelect").replaceChildren();
+    const noneOpt = textNode("option", "无底图"); noneOpt.value = ""; $("mapAssetSelect").append(noneOpt);
+    for (const asset of assetList) {
+      const option = textNode("option", `${asset.kind === "image" ? "图像" : "分割"} · ${asset.name}`);
+      option.value = asset.asset_id;
+      $("mapAssetSelect").append(option);
+    }
+    if (assetList.some(a => a.asset_id === prevMapAsset)) $("mapAssetSelect").value = prevMapAsset;
     $("assetNotice").textContent = `已登记 ${assetList.length} 个资产；图像 ${result.image_available ? "有登记" : "缺失"}，分割 ${result.segmentation_available ? "有登记" : "缺失"}。当前仅核对登记记录，读取对象对应时才校验文件内容；缺少证据保持未知，不判断合并分割或真实共表达。`;
     $("assetDetails").textContent = pretty(result); show("assetRecord", true);
     $("assetSummary").replaceChildren();
@@ -878,6 +1043,58 @@
   });
 
   action("refresh", async () => { await refresh(); status("已从服务端刷新共享状态。", "success"); });
+  function setColorMode(mode) {
+    colorMode = mode;
+    $("colorModeLabel").classList.toggle("active", mode === "label");
+    $("colorModeExpression").classList.toggle("active", mode === "expression");
+    $("colorModeDensity").classList.toggle("active", mode === "density");
+    show("expressionColorbar", mode === "expression");
+    show("legend", mode === "label");
+    draw();
+  }
+  action("colorModeLabel", () => setColorMode("label"));
+  action("colorModeExpression", async () => {
+    setColorMode("expression");
+    if (cellExpressionMap.size === 0) {
+      try {
+        const genes = parseQueries($("genes").value);
+        if (genes.length && selected()?.cell_ids.length) {
+          const evidence = await call("inspect_selection", { genes });
+          renderMarkers(evidence);
+        }
+      } catch (e) {
+        status("请先在切片上选择细胞并输入标记特征，以读取连续表达分布。", "error");
+      }
+    }
+  });
+  action("colorModeDensity", () => setColorMode("density"));
+  $("mapAssetSelect").addEventListener("change", async () => {
+    const assetId = $("mapAssetSelect").value;
+    if (!assetId) {
+      activeAssetRaster = null;
+      assetRasterImg = null;
+      draw();
+      return;
+    }
+    try {
+      status("正在读取并对齐底图栅格…");
+      const raster = await call("get_asset_raster", { asset_id: assetId });
+      activeAssetRaster = raster;
+      const img = new Image();
+      img.onload = () => {
+        assetRasterImg = img;
+        draw();
+        status(`已对齐加载底图 ${raster.name}（${raster.width}×${raster.height}，步长 ${raster.step}）。`, "success");
+      };
+      img.src = raster.data_url;
+    } catch (err) {
+      status(`底图加载失败: ${err.message}`, "error");
+    }
+  });
+  $("mapAssetOpacity").addEventListener("input", e => {
+    assetOpacity = Number(e.target.value) / 100;
+    draw();
+  });
   action("modeRect", () => { mode = "rect"; polygon = []; $("modeRect").classList.add("active"); $("modePolygon").classList.remove("active"); show("finishPolygon", false); draw(); });
   action("modePolygon", () => { mode = "polygon"; polygon = []; $("modePolygon").classList.add("active"); $("modeRect").classList.remove("active"); show("finishPolygon", true); status("依次点击多边形顶点，然后点击「完成多边形」。按质心是否落入区域选择细胞。"); });
   action("finishPolygon", async () => { if (polygon.length < 3) throw new Error("多边形至少需要三个顶点。"); await select({ polygon }); polygon = []; draw(); });
@@ -943,14 +1160,283 @@
   action("export", async () => { const result = await call("export_review_bundle", { run_id: run?.run_id || null, compact: $("compactExport").checked });
     $("exportResult").textContent = pretty(result); show("exportResult", true); status("审阅包已写入本项目的 exports 目录。校验和证明文件完整性，不证明生物学结论。", "success"); });
 
+  async function refreshIntegrations() {
+    const data = await call("list_integrations");
+    for (const id of ["integrationLeft", "integrationRight"]) {
+      const old = $(id).value; $(id).replaceChildren();
+      for (const r of [...data.results].reverse()) {
+        const o = textNode("option", `${r.method} · ${r.mode} · ${r.observation_count} 对象 · ${r.historical_view ? "历史" : "当前"} · ${short(r.result_id)}`);
+        o.value = r.result_id; $(id).append(o);
+      }
+      if (data.results.some(r => r.result_id === old)) $(id).value = old;
+    }
+  }
+  function integrationJobView(r) {
+    integrationJob = r.id;
+    $("integrationJobStatus").textContent = `任务 ${r.id} · ${r.status}${r.cache_hit ? " · 已复用相同输入结果" : ""}${r.error ? " · " + r.error : ""}`;
+  }
+  async function integrationPoll() {
+    if (!integrationJob) throw new Error("尚无任务");
+    const r = await call("get_integration_job", {job_id: integrationJob});
+    integrationJobView(r);
+    if (r.status === "succeeded") await refreshIntegrations();
+  }
+  action("integrationSubmit", async () => {
+    if (!currentAssay()) throw new Error("请先在蛋白页选择配对蛋白层。");
+    const spec = {
+      revision_id: state.head_revision,
+      assay_id: currentAssay().assay_id,
+      backend: $("integrationBackend").value,
+      feature_selection: $("integrationFeatureSelection").value,
+      clusters: Number($("integrationClusters").value),
+      components: Math.min(10, currentAssay().features.length),
+      seed: Number($("integrationSeed").value),
+      protein_transform: $("integrationProteinScale").value,
+    };
+    if ($("integrationScope").value === "roi") {
+      if (!selected() || selected().stale) throw new Error("请先建立当前版本选区");
+      spec.observation_ids = selected().cell_ids;
+    }
+    integrationJobView(await call("submit_integration", {spec}));
+  });
+  action("integrationPoll", integrationPoll);
+  action("integrationCancel", async () => { if (!integrationJob) throw new Error("尚无任务"); integrationJobView(await call("cancel_integration_job", {job_id: integrationJob})); });
+  action("integrationRetry", async () => { if (!integrationJob) throw new Error("尚无任务"); integrationJobView(await call("retry_integration_job", {job_id: integrationJob})); });
+  action("integrationRefresh", refreshIntegrations);
+  action("integrationFixed", async () => { const r = await call("filter_integration", {result_id: $("integrationLeft").value, revision_id: state.head_revision}); await refreshIntegrations(); $("integrationRight").value = r.result_id; status("已保留固定模型筛选结果；没有重新拟合。", "success"); });
+  action("integrationRefit", async () => {
+    const old = await call("get_integration", {result_id: $("integrationLeft").value});
+    if (!old.method.parameters.backend) throw new Error("外部结果没有可运行后端；请在原环境重新拟合后导入。");
+    const spec = {
+      revision_id: state.head_revision,
+      assay_id: old.input.protein_assay_id,
+      rna_features: old.input.rna_features,
+      protein_features: old.input.protein_features,
+      components: old.method.parameters.components,
+      clusters: old.method.parameters.clusters,
+      backend: old.method.parameters.backend,
+      feature_selection: old.method.parameters.feature_selection || "variance",
+      seed: old.method.seed,
+      protein_transform: old.preprocessing.protein,
+    };
+    if (old.fit_scope === "explicit_roi") { throw new Error("ROI 重新拟合请先在当前版本建立精确 ROI，再使用拟合按钮；不会静默改变拟合范围。"); }
+    integrationJobView(await call("submit_integration", {spec}));
+  });
+  function renderIntegrationMaps() {
+    if (!lastIntegrationViews || !lastIntegrationFrame) return;
+    integrationMap("integrationLeftMap", lastIntegrationViews[0].points, lastIntegrationFrame, lastDisagreementSet, syncedHoverCellId);
+    integrationMap("integrationRightMap", lastIntegrationViews[1].points, lastIntegrationFrame, lastDisagreementSet, syncedHoverCellId);
+  }
+  function integrationMap(id, points, frame, disagreements = new Set(), hoveredCellId = null) {
+    const canvas = $(id), ratio = devicePixelRatio || 1; const w = canvas.clientWidth || 450, h = 340; canvas.width = w*ratio; canvas.height=h*ratio;
+    const c = canvas.getContext("2d"); c.scale(ratio,ratio); c.clearRect(0,0,w,h);
+    const colors = new Map([...new Set(points.map(p=>p.domain))].sort().map((d,i)=>[d,palette[i%palette.length]]));
+    const scale = Math.min((w-24)/(frame[2]-frame[0]||1),(h-24)/(frame[3]-frame[1]||1));
+    for(const p of points) {
+      const px = 12+(p.x-frame[0])*scale, py = 12+(p.y-frame[1])*scale;
+      c.fillStyle = p.included ? colors.get(p.domain) : "#666";
+      c.beginPath(); c.arc(px, py, 2.5, 0, Math.PI*2); c.fill();
+      if (disagreements.has(p.cell_id)) {
+        c.strokeStyle = "#ff4d6d"; c.lineWidth = 1.2;
+        c.beginPath(); c.arc(px, py, 4.5, 0, Math.PI*2); c.stroke();
+      }
+      if (hoveredCellId && p.cell_id === hoveredCellId) {
+        c.strokeStyle = "#ffffff"; c.lineWidth = 2.0;
+        c.beginPath(); c.arc(px, py, 6.0, 0, Math.PI*2); c.stroke();
+      }
+    }
+  }
+  action("integrationCompare", async () => {
+    const args = {left_id: $("integrationLeft").value, right_id: $("integrationRight").value, left_partition: $("integrationLeftPartition").value, right_partition: $("integrationRightPartition").value, limit:50};
+    const result = await call("compare_integrations", args);
+    const views = await Promise.all([call("inspect_integration", {result_id:args.left_id,partition:args.left_partition,limit:10000}),call("inspect_integration", {result_id:args.right_id,partition:args.right_partition,limit:10000})]);
+    lastIntegrationViews = views;
+    const points = views.flatMap(v=>v.points);
+    lastIntegrationFrame = [Math.min(...points.map(p=>p.x)),Math.min(...points.map(p=>p.y)),Math.max(...points.map(p=>p.x)),Math.max(...points.map(p=>p.y))];
+    lastDisagreementSet = new Set(result.rows.map(r => r.cell_id));
+    renderIntegrationMaps();
+    $("integrationLeftTitle").textContent=`${args.left_partition} · ${views[0].mode} · ${views[0].historical_view ? "历史" : "当前"}`;
+    $("integrationRightTitle").textContent=`${args.right_partition} · ${views[1].mode} · ${views[1].historical_view ? "历史" : "当前"}`;
+    $("integrationSummary").textContent=`共同对象 ${result.common_count} · 左侧独有 ${result.left_only_count} · 右侧独有 ${result.right_only_count} · ARI ${fmt(result.adjusted_rand_index)} · 平均边界分歧 ${fmt(result.mean_boundary_disagreement)}。各图颜色独立编号；统计使用全部共同对象。${views.some(v=>v.next_offset!==null) ? "图仅展示前 10000 个对象，请通过 Agent 的视口分页检查其余对象。" : ""}`;
+    $("integrationDetails").textContent=pretty({comparison:result,views:views.map(({points,...rest})=>rest)});
+    const holder=$("integrationReviewRows"); holder.replaceChildren();
+    for(const r of result.rows) {
+      const row=textNode("div", "", "row disagreement-row");
+      row.append(textNode("span", `${r.cell_id} · ${r.left_domain} / ${r.right_domain} · 边界分歧 ${fmt(r.boundary_disagreement)} · 当前标签 ${r.current_label}`));
+      const spotBtn = textNode("button", "聚焦分歧点", "quiet");
+      spotBtn.addEventListener("click", () => {
+        syncedHoverCellId = r.cell_id;
+        renderIntegrationMaps();
+      });
+      const button=textNode("button","检查原始证据 / 提出修订");
+      button.addEventListener("click",async()=>{
+        try {
+          await select({cell_ids:[r.cell_id]});
+          showPage("rna");
+          renderMarkers(await call("inspect_selection", {genes:parseQueries($("genes").value)}));
+        } catch(e){status(e.message,"error");}
+      });
+      row.append(spotBtn, button);
+      holder.append(row);
+    }
+  });
+  for (const [mid, idx] of [["integrationLeftMap", 0], ["integrationRightMap", 1]]) {
+    $(mid).addEventListener("pointermove", e => {
+      if (!lastIntegrationViews || !lastIntegrationFrame) return;
+      const pts = lastIntegrationViews[idx].points;
+      const rect = $(mid).getBoundingClientRect();
+      const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+      const w = $(mid).clientWidth || 450, h = 340;
+      const scale = Math.min((w-24)/(lastIntegrationFrame[2]-lastIntegrationFrame[0]||1),(h-24)/(lastIntegrationFrame[3]-lastIntegrationFrame[1]||1));
+      let nearestCell = null, minDist = 120;
+      for (const p of pts) {
+        const px = 12+(p.x-lastIntegrationFrame[0])*scale, py = 12+(p.y-lastIntegrationFrame[1])*scale;
+        const d = (px - mx)**2 + (py - my)**2;
+        if (d < minDist) { minDist = d; nearestCell = p; }
+      }
+      if (nearestCell && syncedHoverCellId !== nearestCell.cell_id) {
+        syncedHoverCellId = nearestCell.cell_id;
+        renderIntegrationMaps();
+      }
+    });
+    $(mid).addEventListener("pointerleave", () => {
+      if (syncedHoverCellId) {
+        syncedHoverCellId = null;
+        renderIntegrationMaps();
+      }
+    });
+  }
+  action("integrationExport", async () => {const r=await call("export_review_bundle", {compact:true});$("integrationDetails").textContent=pretty(r);status("已导出源数据、修订和全部整合结果。");});
+  action("multimodalContext",async()=>{$("multimodalDetails").textContent=pretty(await call("get_multimodal_context"));});
+
+  let analysisJob = null, analysisPage = null, analysisCatalog = [];
+  async function refreshAnalysis() {
+    const [catalog, inputs, results, jobs] = await Promise.all([call("get_analysis_catalog"),call("list_analysis_inputs"),call("list_analysis_results"),call("list_analysis_jobs")]);
+    function options(id, rows, value, label, blank=false) { const e=$(id), old=e.value; e.replaceChildren(); if(blank){const o=textNode("option","无第二输入");o.value="";e.append(o);} for(const row of rows){const o=textNode("option",label(row));o.value=value(row);e.append(o);} if([...e.options].some(o=>o.value===old))e.value=old; }
+    analysisCatalog=catalog.methods;
+    options("analysisMethod",catalog.methods,r=>r.method,r=>r.name+(r.available?"":" · 环境待安装"));
+    options("analysisPrimary",inputs.inputs.filter(r=>r.kind==="spatial"),r=>r.object_id,r=>`${r.sample_id} · ${r.shape[0]} 对象 · ${r.object_id.slice(-8)}`);
+    options("analysisSecondary",inputs.inputs,r=>r.object_id,r=>`${r.kind} · ${r.sample_id} · ${r.shape[0]} 对象`,true);
+    options("analysisResult",results.results,r=>r.result_id,r=>`${r.method} · ${r.result_id.slice(-10)}`);
+    options("analysisSavedJob",jobs.jobs,r=>r.id,r=>`${r.recipe.method} · ${r.status} · ${r.id.slice(-8)}`);
+    updateAnalysisMethod();
+  }
+  function updateAnalysisMethod(){
+    const method=$("analysisMethod").value, desc=analysisCatalog.find(x=>x.method===method);
+    const fields={analysisSecondary:["nnls","cell2location","harmony","paste"],analysisFeatures:["mofa","mefisto","nnls","cell2location","harmony","paste","spagcn","spatial_spectral"],analysisComponents:["mofa","mefisto","harmony","spagcn","spatial_spectral"],analysisClusters:["spagcn","spatial_spectral"],analysisEpochs:["mofa","mefisto","cell2location","spagcn"],analysisPermutations:["moran_svg","spatial_lr"],analysisCellsPerSpot:["cell2location"]};
+    for(const [id,methods] of Object.entries(fields))$(id).closest("label").hidden=!methods.includes(method);
+    $("analysisDesign").hidden=!["harmony","paste"].includes(method);
+    const hints={mofa:"比较 RNA 与蛋白的共同变化及各自贡献；本方法不使用空间坐标。",mefisto:"使用空间坐标和稀疏高斯过程拟合 RNA / 蛋白因子；需要同对象配对测量。",nnls:"将单细胞参考的表达签名拟合到空间位置，输出 RNA 贡献比例及残差。",cell2location:"根据单细胞参考和每位置细胞数先验估计丰度后验；请同时检查区间与训练记录。",harmony:"校正表达表示中的批次差异；请填写输入顺序对应的条件和批次。",paste:"估计完整重叠切片之间的空间对应；推断坐标与实测坐标分别保留。",spagcn:"使用官方 SpaGCN 的表达和空间邻接模型识别组织域。",spatial_spectral:"在稀疏空间图上结合表达相似性识别组织域，作为可复算基线。",moran_svg:"检验全部实测 RNA 基因的正空间自相关并统一校正；置换次数决定最小 p 值。",spatial_lr:"使用物种匹配的共识数据库，检验相邻位置的配体受体共表达；复合体要求全部亚基可测。",progeny:"使用 PROGENy 足迹与官方 ULM 推断 RNA 通路活性。当前使用学术资源范围；其他范围通过明确配方选择。"};
+    $("analysisMethodHint").textContent=(hints[method]||"")+(desc&&!desc.available?" 当前分析环境尚缺该方法，请安装后重新读取方法列表。":"");
+    $("analysisSubmit").disabled=!desc?.available;
+  }
+  $("analysisMethod").addEventListener("change",updateAnalysisMethod);
+  action("analysisRefresh",refreshAnalysis);
+  $("analysisSavedJob").addEventListener("change",async()=>{try{analysisJobStatus(await call("get_analysis_job",{job_id:$("analysisSavedJob").value}));}catch(e){status(e.message,"error");}});
+  action("analysisSnapshot",async()=>{const args={revision_id:state.head_revision,species:$("analysisSpecies").value};if($("analysisScope").value==="roi"){const s=await call("get_selection");if(!s.selection||s.selection.stale||s.selection.revision_id!==state.head_revision)throw new Error("请在当前版本建立共享选区。");args.observation_ids=s.selection.cell_ids;}const r=await call("prepare_analysis_input",args);$("analysisStatus").textContent=`已冻结 ${r.shape[0]} 个对象、${r.shape[1]} 个 RNA 特征`;await refreshAnalysis();$("analysisPrimary").value=r.input_id;});
+  function analysisJobStatus(r){analysisJob=r;$("analysisStatus").textContent=`${r.id} · ${r.status}${r.error?" · "+r.error:""}${r.cache_hit?" · 相同输入记录":""}`;}
+  action("analysisSubmit",async()=>{const method=$("analysisMethod").value, input_ids=[$("analysisPrimary").value], p={};const number=id=>Number($(id).value);
+    if(["nnls","cell2location","harmony","paste"].includes(method)){if(!$("analysisSecondary").value)throw new Error("请选择第二输入或单细胞参考。");input_ids.push($("analysisSecondary").value);}
+    if(!["moran_svg","spatial_lr","progeny"].includes(method))p.n_features=number("analysisFeatures");
+    if(["mofa","mefisto","harmony","spagcn","spatial_spectral"].includes(method))p.components=number("analysisComponents");
+    if(["mofa","mefisto"].includes(method)){if(!currentAssay())throw new Error("请先在蛋白页选择配对蛋白层。");p.assay_id=currentAssay().assay_id;p.iterations=number("analysisEpochs");}
+    if(["spagcn","spatial_spectral"].includes(method))p.clusters=number("analysisClusters");
+    if(["spagcn","cell2location"].includes(method))p.max_epochs=number("analysisEpochs");
+    if(method==="cell2location"){if(!$("analysisCellsPerSpot").value)throw new Error("请依据组织学提供每位置预期细胞数。");p.cells_per_location=number("analysisCellsPerSpot");}
+    if(["moran_svg","spatial_lr"].includes(method))p.permutations=number("analysisPermutations");
+    if(method==="paste"){if(!$("analysisFullOverlap").checked)throw new Error("请先检查并确认完整重叠假设。");p.overlap_assumption="full_overlap";}
+    if(method==="harmony"){p.sample_conditions=$("analysisConditions").value.split(",").map(s=>s.trim());p.sample_batches=$("analysisBatches").value.split(",").map(s=>s.trim());}
+    analysisJobStatus(await call("submit_analysis",{spec:{method,input_ids,parameters:p,seed:number("analysisSeed")}}));});
+  action("analysisPoll",async()=>{if(!analysisJob&&$("analysisSavedJob").value)analysisJob={id:$("analysisSavedJob").value};if(!analysisJob)throw new Error("尚未提交分析任务。");analysisJobStatus(await call("get_analysis_job",{job_id:analysisJob.id}));if(analysisJob.status==="succeeded"){await refreshAnalysis();$("analysisResult").value=analysisJob.result_id;}});
+  action("analysisCancel",async()=>{if(!analysisJob)throw new Error("尚无任务。");analysisJobStatus(await call("cancel_analysis_job",{job_id:analysisJob.id}));});
+  action("analysisRetry",async()=>{if(!analysisJob)throw new Error("尚无任务。");analysisJobStatus(await call("retry_analysis_job",{job_id:analysisJob.id}));});
+  async function inspectAnalysis(offset=0){const args={result_id:$("analysisResult").value,offset,limit:30};if($("analysisField").value)args.field=$("analysisField").value;const r=await call("inspect_analysis_result",args);analysisPage=r;$("analysisResultSummary").textContent=`${r.method} · ${r.total} 条结果 · 当前页 ${offset+1}–${offset+r.rows.length} · ${r.same_current_project_revision?"对应当前项目版本":"历史版本或外部样本，保留原始身份"}`;$("analysisDetails").textContent=pretty({...r,rows:undefined});const holder=$("analysisRows");holder.replaceChildren();for(const row of r.rows){const line=textNode("div","","row");line.append(textNode("span",row.cell_id?`${row.cell_id} · ${JSON.stringify(row.value)}`:JSON.stringify(row)));if(row.cell_id&&r.same_current_project_revision){const b=textNode("button","检查原始证据");b.addEventListener("click",async()=>{try{await select({cell_ids:[row.cell_id]});showPage("rna");renderMarkers(await call("inspect_selection",{genes:parseQueries($("genes").value)}));}catch(e){status(e.message,"error");}});line.append(b);}holder.append(line);}renderAnalysisMap(r);}
+  function renderAnalysisMap(r,keepColumn=false){
+    const rows=r.rows.filter(x=>x.xy), canvas=$("analysisMap"), ctx=canvas.getContext("2d");
+    canvas.width=900;canvas.height=340;ctx.clearRect(0,0,900,340);
+    if(!rows.length){$("analysisMapCaption").textContent="此结果按基因 / 分子关系汇总，不是逐位置地图。";return;}
+    const width=Array.isArray(rows[0].value)?rows[0].value.length:1;
+    if(!keepColumn){$("analysisValueColumn").replaceChildren();const names=r.metadata.cell_types||r.metadata.pathways||[];for(let i=0;i<width;i++){const o=document.createElement("option");o.value=i;o.textContent=names[i]||`分量 ${i+1}`;$("analysisValueColumn").append(o);}}
+    const col=Number($("analysisValueColumn").value)||0, vals=rows.map(x=>Array.isArray(x.value)?x.value[col]:x.value);
+    const numeric=vals.every(x=>typeof x==="number"&&Number.isFinite(x)), cats=[...new Set(vals)].sort();
+    const xs=rows.map(x=>x.xy[0]),ys=rows.map(x=>x.xy[1]),xmin=Math.min(...xs),xmax=Math.max(...xs),ymin=Math.min(...ys),ymax=Math.max(...ys);
+    const low=numeric?Math.min(...vals):0,high=numeric?Math.max(...vals):Math.max(1,cats.length-1);
+    const scale=Math.min(820/Math.max(xmax-xmin,1),270/Math.max(ymax-ymin,1));
+    rows.forEach((x,i)=>{const v=numeric?vals[i]:cats.indexOf(vals[i]),f=(v-low)/Math.max(high-low,1e-12);ctx.fillStyle=`hsl(${240-220*f},70%,45%)`;ctx.beginPath();ctx.arc(40+(x.xy[0]-xmin)*scale,30+(x.xy[1]-ymin)*scale,5,0,2*Math.PI);ctx.fill();});
+    $("analysisMapCaption").textContent=`仅本页 ${rows.length} / ${r.total} 个对象；实测输入坐标。${numeric?`蓝 ${low.toPrecision(3)} → 红 ${high.toPrecision(3)}`:`类别 ${cats.join(", ")}`}。完整范围请导出结果；原始证据通过下方对象按钮检查。`;
+  }
+  $("analysisValueColumn").addEventListener("change",()=>{if(analysisPage)renderAnalysisMap(analysisPage,true);});
+  action("analysisInspect",()=>inspectAnalysis());
+  action("analysisNext",()=>{if(!analysisPage||analysisPage.next_offset===null)throw new Error("没有下一页。");return inspectAnalysis(analysisPage.next_offset);});
+
+  let atlases=[], atlasBounds=null, atlasData=null, atlasEdges=null, atlasImages=[], atlasTiles=[], atlasEpoch=0, atlasTimer=null, atlasDrag=null;
+  const atlasCanvas=$("atlasMap"), atlasCtx=atlasCanvas.getContext("2d"), tileCache=new Map();
+  const atlasCurrent=()=>atlases.find(r=>r.object_id===$("atlasChoice").value);
+  function atlasTransform(){const b=atlasBounds,s=Math.min(atlasCanvas.width/(b[2]-b[0]),atlasCanvas.height/(b[3]-b[1]));return {s,x:(atlasCanvas.width-(b[2]-b[0])*s)/2,y:(atlasCanvas.height-(b[3]-b[1])*s)/2};}
+  function atlasPoint(x,y){const b=atlasBounds,t=atlasTransform();return [t.x+(x-b[0])*t.s,t.y+(y-b[1])*t.s];}
+  function atlasWorld(e){const r=atlasCanvas.getBoundingClientRect(),b=atlasBounds,t=atlasTransform();return [b[0]+((e.clientX-r.left)*atlasCanvas.width/r.width-t.x)/t.s,b[1]+((e.clientY-r.top)*atlasCanvas.height/r.height-t.y)/t.s];}
+  function drawAtlas(){
+    if(!atlasBounds)return;
+    atlasCanvas.width=Math.max(400,atlasCanvas.clientWidth||900);atlasCanvas.height=560;
+    const c=atlasCtx;c.clearRect(0,0,atlasCanvas.width,560);c.fillStyle="#10161b";c.fillRect(0,0,atlasCanvas.width,560);const frame=atlasTransform();c.save();c.beginPath();c.rect(frame.x,frame.y,(atlasBounds[2]-atlasBounds[0])*frame.s,(atlasBounds[3]-atlasBounds[1])*frame.s);c.clip();
+    c.globalAlpha=Number($("atlasOpacity").value)/100;
+    for(const tile of atlasTiles){const [p,q,r]=tile.world_corners.map(([x,y])=>atlasPoint(x,y));c.save();c.setTransform((q[0]-p[0])/tile.width,(q[1]-p[1])/tile.width,(r[0]-p[0])/tile.height,(r[1]-p[1])/tile.height,p[0],p[1]);c.drawImage(tile.image,0,0);c.restore();}
+    c.globalAlpha=1;
+    const records=atlasData?.records||[],maximum=Math.max(1,...records.map(r=>r.count||1));
+    for(const r of records){const [x,y]=atlasPoint(r.x,r.y);if(atlasData.mode==="aggregate_density"){const [xx,yy]=atlasPoint(r.x+r.width,r.y+r.height);c.fillStyle=viridisColor(Math.log1p(r.count)/Math.log1p(maximum));c.globalAlpha=.8;c.fillRect(x,y,Math.max(1,xx-x),Math.max(1,yy-y));}else{c.fillStyle=atlasData.layer==="transcripts"?"#ffd37e":"#75c8bb";c.beginPath();c.arc(x,y,atlasData.layer==="transcripts"?1.8:2.5,0,Math.PI*2);c.fill();}}
+    c.globalAlpha=1;
+    for(const r of atlasEdges?.records||[]){c.strokeStyle=r.kind==="nucleus"?"#dbb0ff":"#86e9dc";c.beginPath();r.polygon.forEach(([x,y],i)=>{const p=atlasPoint(x,y);if(i)c.lineTo(...p);else c.moveTo(...p);});c.closePath();c.stroke();}c.restore();
+  }
+  async function readAtlasImages(){atlasImages=(await call("list_pyramids",{atlas_id:atlasCurrent().object_id})).images;const s=$("atlasImage");s.replaceChildren();const none=textNode("option","无图像");none.value="";s.append(none);for(const r of atlasImages){const o=textNode("option",`${r.levels.length} 层金字塔 · ${r.levels[0].width} × ${r.levels[0].height}`);o.value=r.object_id;s.append(o);}atlasTiles=[];tileCache.clear();}
+  async function loadAtlasTiles(epoch){
+    const img=atlasImages.find(r=>r.object_id===$("atlasImage").value);atlasTiles=[];if(!img)return;
+    const a=img.pixel_to_world,b=atlasBounds,det=a[0][0]*a[1][1]-a[0][1]*a[1][0];
+    const inv=(x,y)=>[(a[1][1]*(x-a[0][2])-a[0][1]*(y-a[1][2]))/det,(-a[1][0]*(x-a[0][2])+a[0][0]*(y-a[1][2]))/det];
+    const corners=[[b[0],b[1]],[b[2],b[1]],[b[0],b[3]],[b[2],b[3]]].map(p=>inv(...p));
+    const xs=corners.map(p=>p[0]),ys=corners.map(p=>p[1]),base=img.levels[0];let level=0;
+    const desired=Math.max((Math.max(...xs)-Math.min(...xs))/atlasCanvas.width,(Math.max(...ys)-Math.min(...ys))/560);
+    for(let i=1;i<img.levels.length;i++)if(base.width/img.levels[i].width<=desired)level=i;
+    let tasks=[];
+    function tasksAt(l){const v=img.levels[l],sx=v.width/base.width,sy=v.height/base.height,out=[];const x0=Math.max(0,Math.floor((Math.min(...xs)+.5)*sx/256)),x1=Math.min(Math.ceil(v.width/256)-1,Math.floor((Math.max(...xs)+.5)*sx/256)),y0=Math.max(0,Math.floor((Math.min(...ys)+.5)*sy/256)),y1=Math.min(Math.ceil(v.height/256)-1,Math.floor((Math.max(...ys)+.5)*sy/256));for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++)out.push({image_id:img.object_id,level:l,x,y});return out;}
+    tasks=tasksAt(level);while(tasks.length>64&&level<img.levels.length-1)tasks=tasksAt(++level);
+    if(tasks.length>64)throw new Error("该图像缺少足够粗的金字塔层；请放大视野，或生成更完整的图像金字塔。");
+    let cursor=0;async function worker(){while(cursor<tasks.length&&epoch===atlasEpoch){const args=tasks[cursor++],key=JSON.stringify(args);let tile=tileCache.get(key);if(!tile){const r=await call("get_pyramid_tile",args),image=new Image();await new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=()=>reject(new Error("图像瓦片无法解码"));image.src=r.data_url;});tile={...r,image};tileCache.set(key,tile);while(tileCache.size>64)tileCache.delete(tileCache.keys().next().value);}if(epoch===atlasEpoch){atlasTiles.push(tile);drawAtlas();}}}
+    await Promise.all(Array.from({length:Math.min(4,tasks.length)},()=>worker()));
+  }
+  async function loadAtlas(){
+    const current=atlasCurrent();if(!current)return;const epoch=++atlasEpoch;atlasBounds=atlasBounds||current.bounds.slice();atlasTiles=[];
+    const args={atlas_id:current.object_id,bounds:atlasBounds,layer:$("atlasLayer").value};if(args.layer==="transcripts"&&$("atlasGene").value.trim())args.feature=$("atlasGene").value.trim();
+    $("atlasStatus").textContent="正在按视野读取磁盘索引…";
+    const [r,edges]=await Promise.all([call("get_atlas_view",args),$("atlasBoundaries").checked?call("get_atlas_view",{atlas_id:current.object_id,bounds:atlasBounds,layer:"boundaries"}):Promise.resolve(null)]);if(epoch!==atlasEpoch)return;
+    atlasData=r;atlasEdges=edges;$("atlasStatus").textContent=`${current.metadata.name} · 当前视野 ${r.total.toLocaleString()} 个${r.layer==="transcripts"?"分子":"对象"} · ${r.mode==="aggregate_density"?"全部计入密度格，放大查看精确对象":"精确位置"}${edges?.mode==="zoom_required"?" · 分割边界过密，请继续放大":""}`;
+    $("atlasDetails").textContent=pretty({dataset:current,view:{...r,records:undefined},boundaries:edges?{...edges,records:undefined}:null});drawAtlas();await call("share_atlas_view",{...args,image_id:$("atlasImage").value||null});if(epoch!==atlasEpoch)return;await updateContext();await loadAtlasTiles(epoch);
+  }
+  async function refreshAtlas(){atlases=(await call("list_atlases")).atlases;const s=$("atlasChoice"),old=s.value;s.replaceChildren();for(const r of atlases){const o=textNode("option",`${r.metadata.name} · ${r.totals.cells.toLocaleString()} 对象`);o.value=r.object_id;s.append(o);}if(atlases.some(r=>r.object_id===old))s.value=old;if(atlasCurrent()){atlasBounds=atlasCurrent().bounds.slice();await readAtlasImages();await loadAtlas();}else $("atlasStatus").textContent="尚未登记大型数据集。请按 large-data 操作说明导入；原有项目继续保留。";await refreshStudies();}
+  const atlasAsync=fn=>()=>Promise.resolve().then(fn).catch(e=>{$("atlasStatus").textContent=e.message;});
+  action("atlasRefresh",refreshAtlas);action("atlasApply",loadAtlas);action("atlasFit",async()=>{atlasBounds=atlasCurrent()?.bounds.slice();await loadAtlas();});
+  $("atlasChoice").addEventListener("change",atlasAsync(async()=>{atlasBounds=atlasCurrent().bounds.slice();await readAtlasImages();await loadAtlas();}));
+  for(const id of ["atlasLayer","atlasBoundaries","atlasImage"])$(id).addEventListener("change",atlasAsync(loadAtlas));$("atlasOpacity").addEventListener("input",drawAtlas);
+  atlasCanvas.addEventListener("wheel",e=>{if(!atlasBounds)return;e.preventDefault();const p=atlasWorld(e),scale=e.deltaY>0?1.5:1/1.5;atlasBounds=atlasBounds.map((v,i)=>p[i%2]+(v-p[i%2])*scale);clearTimeout(atlasTimer);atlasTimer=setTimeout(atlasAsync(loadAtlas),180);},{passive:false});
+  atlasCanvas.addEventListener("pointerdown",e=>{if(atlasBounds){atlasDrag={point:atlasWorld(e),bounds:atlasBounds.slice(),pan:e.shiftKey};atlasCanvas.setPointerCapture(e.pointerId);}});
+  atlasCanvas.addEventListener("pointermove",e=>{if(!atlasBounds||atlasData?.mode!=="exact_points")return;const p=atlasWorld(e),t=atlasTransform();let nearest=null,distance=64;for(const row of atlasData.records){const d=((row.x-p[0])*t.s)**2+((row.y-p[1])*t.s)**2;if(d<distance){distance=d;nearest=row;}}atlasCanvas.title=nearest?`${nearest.feature||nearest.label||"对象"} · ${nearest.source_id||nearest.cell_id} · x=${nearest.x}, y=${nearest.y}${atlasData.layer==="transcripts"?` · z=${nearest.z??"未提供"} · qv=${nearest.qv??"未提供"} · 源归属=${nearest.cell_id??"未分配"}`:""}`:"";});
+  atlasCanvas.addEventListener("pointerup",e=>{if(!atlasDrag)return;const p=atlasWorld(e),d=atlasDrag;atlasDrag=null;if(d.pan){atlasBounds=d.bounds.map((v,i)=>v+d.point[i%2]-p[i%2]);}else{if(Math.abs(p[0]-d.point[0])<1e-8||Math.abs(p[1]-d.point[1])<1e-8)return;atlasBounds=[Math.min(p[0],d.point[0]),Math.min(p[1],d.point[1]),Math.max(p[0],d.point[0]),Math.max(p[1],d.point[1])];}atlasAsync(loadAtlas)();});
+  action("atlasFreeze",async()=>{if(!atlasCurrent()||!atlasBounds)throw new Error("请先读取数据集与视野。");const r=await call("freeze_atlas_roi",{atlas_id:atlasCurrent().object_id,bounds:atlasBounds});$("atlasFrozen").textContent=`已冻结 ${r.shape[0]} 对象 × ${r.shape[1]} 特征；可在整合与复核中选择输入 ${r.input_id}`;await refreshAnalysis();});
+  async function refreshStudies(){const r=await call("list_study_analyses"),s=$("studyChoice"),old=s.value;s.replaceChildren();for(const d of r.study){const o=textNode("option",d.study_id);o.value=d.object_id;s.append(o);}if(r.study.some(d=>d.object_id===old))s.value=old;if(r.studyresult.length)renderStudy(r.studyresult.at(-1));}
+  async function readStudyFile(id){const f=$(id).files[0];if(!f||f.size>2_000_000)throw new Error("请选择小于 2 MB 的 JSON 文件。");return JSON.parse(await f.text());}
+  action("studyRegister",async()=>{const r=await call("register_study_design",{spec:await readStudyFile("studyDesignFile")});await refreshStudies();$("studyChoice").value=r.object_id;$("studyStatus").textContent="设计已冻结；登记本身不等于独立核实样本身份。";});
+  function renderStudy(r){$("studyDetails").textContent=pretty(r);const holder=$("studyResults");holder.replaceChildren();for(const row of r.results){const box=textNode("div","","row");box.append(textNode("strong",row.metric),textNode("span",row.status==="tested"?`差异 ${fmt(row.effect)} · 95% CI ${row.confidence_interval.map(fmt).join(" 至 ")} · p=${Number(row.p_value).toPrecision(4)} · q=${Number(row.q_value).toPrecision(4)}`:`未检验：${row.reason}`));holder.append(box);}$("studyStatus").textContent=`以受试者为独立单位 · ${r.family_size} 项完整检验家族 · ${r.roi_inference==="exploratory_posthoc"?"事后探索 ROI":"已声明 ROI 设计"}`;}
+  action("studyRun",async()=>{if(!$("studyScaleConfirmed").checked)throw new Error("请先核对指标尺度适用性。");const parse=id=>$(id).value.split(",").map(x=>x.trim()).filter(Boolean);const r=await call("run_study_inference",{study_id:$("studyChoice").value,records:await readStudyFile("studyRecordsFile"),plan:{method:$("studyMethod").value,control:$("studyControl").value,case:$("studyCase").value,roi_class:$("studyRoi").value,metrics:parse("studyMetrics"),covariates:parse("studyCovariates"),adjust_batch:true,missing_policy:$("studyMissing").value,outcome_scale:"continuous_section_summary",rationale:$("studyRationale").value}});renderStudy(r);});
+
   function showPage(next) {
     page = next;
-    for (const [name, nav] of [["home", "navHome"], ["rna", "navRna"], ["protein", "navProtein"]]) {
+    for (const [name, nav] of [["home", "navHome"], ["rna", "navRna"], ["protein", "navProtein"], ["integration", "navIntegration"], ["atlas", "navAtlas"]]) {
       show(`${name}View`, name === page); $(nav).className = name === page ? "active" : "";
       if ($(nav).setAttribute) $(nav).setAttribute("aria-current", name === page ? "page" : "false");
     }
     if (page === "rna") draw();
+    if (page === "atlas") refreshAtlas().catch(e=>status(e.message,"error"));
     if (page === "protein") drawProtein();
+    if (page === "integration") {refreshIntegrations().catch(e => status(e.message, "error"));refreshAnalysis().catch(e=>status(e.message,"error"));}
     if (state) updateContext();
   }
   function metric(holder, label, value) {
@@ -1070,7 +1556,7 @@
       scale: $("proteinScale").value, cofactor: Number($("proteinCofactor").value), rna_gene: $("pairedRnaGene").value.trim() || null });
     renderProteinRun(run); await refresh(); status("蛋白区域比较已保存，全部通道和未知结果均保留。", "success");
   }
-  for (const [id, next] of [["navHome", "home"], ["navRna", "rna"], ["navProtein", "protein"], ["openRna", "rna"], ["openProtein", "protein"], ["proteinToRna", "rna"], ["homeSelectionAction", "rna"]]) action(id, () => showPage(next));
+  for (const [id, next] of [["navAtlas", "atlas"], ["navIntegration", "integration"], ["navHome", "home"], ["navRna", "rna"], ["navProtein", "protein"], ["openRna", "rna"], ["openProtein", "protein"], ["proteinToRna", "rna"], ["homeSelectionAction", "rna"]]) action(id, () => showPage(next));
   action("homeQcAction", async () => { showPage("rna"); quality = await call("inspect_quality", { revision_id: state.head_revision }); renderQuality(quality); status("已读取 RNA 测量质量。", "success"); });
   action("homeExport", async () => { const result = await call("export_review_bundle", { run_id: run?.run_id || null, compact: true }); $("exportResult").textContent = pretty(result); show("exportResult", true); showPage("rna"); status(`审阅记录已导出：${pretty(result)}`, "success"); });
   action("proteinInspect", readProtein);
@@ -1101,7 +1587,10 @@
       notify("ui/notifications/initialized", {}); $("connection").textContent = "● MCP Apps 共享项目";
       new ResizeObserver(() => notify("ui/notifications/size-changed", { height: document.documentElement.scrollHeight })).observe(document.body);
     }
-    await refresh(); status("项目已加载。先选择区域，再检查标记、提出修订并检验影响。", "success");
+    await refresh(); refreshAssets().catch(() => {}); status("项目已加载。先选择区域，再检查标记、提出修订并检验影响。", "success");
+    if (state.metadata.source_kind === "atlas_workspace") {
+      await showPage("atlas"); status("大数据工作区已加载。选择数据集后浏览全切片、分子与图像，或冻结区域进行分析。", "success");
+    }
     if (local) pollTimer = setInterval(async () => {
       if (busy || polling || document.hidden || dragging || polygon.length) return;
       polling = true;

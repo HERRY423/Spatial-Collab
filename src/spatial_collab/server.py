@@ -21,7 +21,7 @@ from starlette.requests import Request
 from starlette.responses import HTMLResponse, JSONResponse
 from starlette.routing import Route
 
-from . import analysis
+from . import analysis, proteomics  # Load SciPy extensions on the server's main thread.
 from .store import Project, SpatialError
 
 UI_URI = "ui://spatial-collab/workbench.html"
@@ -31,16 +31,29 @@ STATIC = Path(__file__).with_name("static")
 LOG = logging.getLogger(__name__)
 READ_TOOLS = {"open_project", "get_selection", "inspect_selection", "get_run", "get_revision",
               "get_context", "query_observations", "get_capabilities", "get_proposal", "inspect_quality",
-              "get_feature_catalog", "list_assets", "inspect_asset", "get_hypothesis_plan", "list_hypothesis_plans"}
+              "get_feature_catalog", "list_assets", "inspect_asset", "get_asset_raster", "get_hypothesis_plan", "list_hypothesis_plans"}
 READ_TOOLS.update({"get_overview", "list_assays", "inspect_protein"})
+READ_TOOLS.update({"list_integrations", "get_integration", "inspect_integration", "compare_integrations", "get_integration_job", "get_multimodal_context"})
+READ_TOOLS.add("compare_study")
+READ_TOOLS.add("get_integration_sensitivity")
+READ_TOOLS.update({"get_analysis_catalog", "list_analysis_inputs", "get_analysis_job", "list_analysis_jobs", "list_analysis_results", "inspect_analysis_result"})
+READ_TOOLS.update({"list_atlases", "get_atlas_view", "list_pyramids", "get_pyramid_tile", "list_study_analyses"})
 TOOL_NAMES = (
+    "list_atlases", "get_atlas_view", "share_atlas_view", "freeze_atlas_roi", "list_pyramids", "get_pyramid_tile", "register_study_design", "run_study_inference", "list_study_analyses",
     "open_project", "get_selection", "set_selection", "inspect_selection",
     "propose_revision", "apply_revision", "revert_revision", "run_comparison",
     "get_run", "get_revision", "export_review_bundle", "get_context", "query_observations",
     "get_capabilities", "run_region_comparison", "get_proposal", "inspect_quality", "run_sensitivity",
-    "get_feature_catalog", "list_assets", "inspect_asset", "create_hypothesis_plan", "revise_hypothesis_plan",
+    "get_feature_catalog", "list_assets", "inspect_asset", "get_asset_raster", "create_hypothesis_plan", "revise_hypothesis_plan",
     "freeze_hypothesis_plan", "get_hypothesis_plan", "list_hypothesis_plans", "run_hypothesis_plan",
     "get_overview", "list_assays", "inspect_protein", "run_protein_comparison",
+    "register_integration", "list_integrations", "get_integration", "inspect_integration", "compare_integrations",
+    "submit_integration", "get_integration_job", "cancel_integration_job", "retry_integration_job", "filter_integration",
+    "register_multimodal_object", "get_multimodal_context",
+    "compare_study",
+    "run_integration_sensitivity", "get_integration_sensitivity",
+    "get_analysis_catalog", "prepare_analysis_input", "list_analysis_inputs", "submit_analysis",
+    "get_analysis_job", "list_analysis_jobs", "cancel_analysis_job", "retry_analysis_job", "list_analysis_results", "inspect_analysis_result",
 )
 
 
@@ -116,6 +129,111 @@ class ToolService:
             "scientific_authorization": "NOT_ESTABLISHED",
         }
 
+    def get_analysis_catalog(self) -> dict:
+        """List executable algorithms by scientific task; availability is package discovery, not validated biology."""
+        from .workflow_methods import catalog
+        from .workflow_jobs import runtime
+        result, rt = catalog(), runtime(self.project, refresh=True)
+        if "packages" in rt:
+            packages = {k.lower().replace("_", "-"): v for k, v in rt["packages"].items()}
+            for method in result["methods"]:
+                version = packages.get(method["package"].lower().replace("_", "-"))
+                method.update(available=version is not None, version=version)
+        return {**result, "configured_runtime": rt}
+
+    def list_atlases(self) -> dict:
+        """List immutable disk-backed spatial datasets, preserved molecule and boundary layers."""
+        from .atlas import catalog
+        return catalog(self.project)
+
+    def get_atlas_view(self, atlas_id: str, bounds: list[float] | None = None, layer: str = "cells", feature: str | None = None, limit: int = 10000, grid: int = 64) -> dict:
+        """Query indexed viewport. Dense views return complete count aggregates, not sampled cells; zoom for exact IDs."""
+        from .atlas import view
+        return view(self.project, atlas_id, bounds, layer, feature, limit, grid)
+
+    def freeze_atlas_roi(self, atlas_id: str, bounds: list[float], max_cells: int = 10000) -> dict:
+        """Create an exact, hash-bound sparse analysis input from an atlas ROI; no implicit sampling."""
+        from .atlas import extract
+        result = extract(self.project, atlas_id, bounds, max_cells)
+        return {"input_id": result["object_id"], "shape": result["shape"], "provenance": result["provenance"]}
+
+    def share_atlas_view(self, atlas_id: str, bounds: list[float], layer: str = "cells", feature: str | None = None, image_id: str | None = None) -> dict:
+        """Share the last active immutable atlas/viewport/layer with get_context; does not select cells or change annotations."""
+        from .atlas import share_view
+        return share_view(self.project, atlas_id, bounds, layer, feature, image_id)
+
+    def list_pyramids(self, atlas_id: str) -> dict:
+        """List native tiled image pyramids explicitly registered to this atlas frame."""
+        from .pyramid import catalog
+        return catalog(self.project, atlas_id)
+
+    def get_pyramid_tile(self, image_id: str, level: int, x: int, y: int) -> dict:
+        """Decode only intersecting TIFF source tiles for one 256-pixel image tile, with explicit world corners."""
+        from .pyramid import tile
+        return tile(self.project, image_id, level, x, y)
+
+    def register_study_design(self, spec: dict) -> dict:
+        """Freeze researcher-declared subject/sample/section identities, conditions, batches and ROI origins."""
+        from .study import register_study
+        return register_study(self.project, spec)
+
+    def run_study_inference(self, study_id: str, records: list[dict], plan: dict) -> dict:
+        """Fit subject-level Welch/paired tests or batch-adjusted subject-random-intercept LMM; preserve missing/failed tests and BH family."""
+        from .study_inference import infer
+        return infer(self.project, study_id, records, plan)
+
+    def list_study_analyses(self) -> dict:
+        """Read frozen study designs and inference results including failures and missing subjects."""
+        from . import objects
+        return {kind: [objects.get(self.project, oid, kind) for oid in objects.catalog(self.project, kind)] for kind in ("study", "studyresult")}
+
+    def prepare_analysis_input(self, revision_id: str, species: str, observation_ids: list[str] | None = None) -> dict:
+        """Freeze exact included raw RNA counts, IDs, species and coordinates for analysis. Explicit ROI never silently intersects."""
+        from .workflow_inputs import snapshot
+        result = snapshot(self.project, revision_id, species, observation_ids)
+        return {"input_id": result["object_id"], "shape": result["shape"], "species": result["species"]}
+
+    def list_analysis_inputs(self) -> dict:
+        """Read registered sparse raw-count input metadata, including spatial samples and annotated references."""
+        from .workflow_inputs import list_inputs
+        return {"inputs": list_inputs(self.project)}
+
+    def submit_analysis(self, spec: dict) -> dict:
+        """Run MOFA/MEFISTO, deconvolution, Harmony, PASTE, spatial domains, SVG, spatial LR or PROGENy in a separate worker. Inspect catalog and input contracts first."""
+        from .workflow_jobs import submit
+        return submit(self.project, spec)
+
+    def get_analysis_job(self, job_id: str) -> dict:
+        """Read saved analysis job status, recipe and concrete failures."""
+        from .workflow_jobs import get
+        return get(self.project, job_id)
+
+    def list_analysis_jobs(self) -> dict:
+        """Resume the latest 50 durable analysis tasks after reconnecting; retain failures and cancellations."""
+        from .workflow_jobs import list_jobs
+        return list_jobs(self.project)
+
+    def cancel_analysis_job(self, job_id: str) -> dict:
+        """Request cooperative cancellation at method boundaries. A training phase can finish before stopping."""
+        from .workflow_jobs import cancel
+        return cancel(self.project, job_id)
+
+    def retry_analysis_job(self, job_id: str) -> dict:
+        """Retry a failed or cancelled analysis while retaining the earlier attempt."""
+        from .workflow_jobs import retry
+        return retry(self.project, job_id)
+
+    def list_analysis_results(self) -> dict:
+        """List computed task-specific outputs; they are not automatically annotation revisions."""
+        from .workflow_jobs import results
+        return results(self.project)
+
+    def inspect_analysis_result(self, result_id: str, offset: int = 0, limit: int = 100,
+                                field: str | None = None, input_index: int = 0) -> dict:
+        """Page exact result rows, spatial positions and semantics. Only same-current-source rows may directly become a shared selection."""
+        from .workflow_jobs import inspect
+        return inspect(self.project, result_id, offset, limit, field, input_index)
+
     def get_selection(self, selection_id: str | None = None) -> dict:
         """Read exact server-persisted cell IDs, geometry, revision and stale status; optional historical selection ID."""
         summary = self.project.summary()
@@ -124,35 +242,123 @@ class ToolService:
 
     def get_overview(self) -> dict:
         """Overview of RNA and paired protein layers, shared selection, revision and recent saved analyses."""
-        from .proteomics import list_assays
         summary = self.project.summary()
         return {"project_id": summary["project_id"], "name": summary["metadata"]["name"],
                 "sample_id": summary["metadata"].get("sample_id"), "source_sha256": summary["source_sha256"],
                 "head_revision": summary["head_revision"], "observation_count": summary["cell_count"],
                 "observation_unit": summary["metadata"].get("observation_unit", "cell"),
                 "units": summary["metadata"]["units"], "rna_feature_count": len(summary["metadata"]["panel_genes"]),
-                "protein_assays": list_assays(self.project)["assays"], "selection_count": (summary["selection"] or {}).get("cell_count", 0),
+                "protein_assays": proteomics.list_assays(self.project)["assays"], "selection_count": (summary["selection"] or {}).get("cell_count", 0),
                 "revision_count": summary["revision_count"], "recent_runs": summary["runs"][-12:],
-                "scope": "One paired spatial sample; exact shared objects, no cross-sample integration inferred.",
+                "scope": "Empty atlas container; datasets have independent identities." if summary["metadata"]["source_kind"] == "atlas_workspace" else "One editable primary spatial sample plus independently identified atlases; no cross-sample integration inferred.",
                 "scientific_authorization": "NOT_ESTABLISHED"}
 
     def list_assays(self) -> dict:
         """List registered protein assays and measured features without exporting their full matrices."""
-        from .proteomics import list_assays
-        return list_assays(self.project)
+        return proteomics.list_assays(self.project)
 
     def inspect_protein(self, assay_id: str, revision_id: str, feature: str, selection_id: str | None = None,
-                        scale: str = "raw", cofactor: float = 5.0) -> dict:
+                        scale: str = "raw", cofactor: float = 5.0, bounds: list[float] | None = None,
+                        limit: int = 10000, offset: int = 0) -> dict:
         """Read an exact protein channel at a shared revision/ROI. Missing and zero differ; raw/log1p/asinh are explicit display transforms."""
-        from .proteomics import inspect_protein
-        return inspect_protein(self.project, assay_id, revision_id, feature, selection_id, scale, cofactor)
+        return proteomics.inspect_protein(self.project, assay_id, revision_id, feature, selection_id, scale, cofactor, bounds, limit, offset)
+
+    def register_integration(self, spec: dict) -> dict:
+        """Register external integration outputs with exact project, source, revision, feature and observation identities. No code execution."""
+        from .integration import register_result
+        r = register_result(self.project, spec)
+        return {"result_id": r["object_id"], "object_sha256": r["object_sha256"]}
+
+    def list_integrations(self) -> dict:
+        """List retained integration results, fit/filter mode and historical status."""
+        from .integration import list_results
+        return list_results(self.project)
+
+    def get_integration(self, result_id: str) -> dict:
+        """Read method, inputs and preprocessing without sending full embeddings to the model."""
+        from .integration import get_result
+        r = get_result(self.project, result_id)
+        return {k: v for k, v in r.items() if k not in {"representations", "domains", "fitted_models", "observation_ids"}}
+
+    def inspect_integration(self, result_id: str, partition: str = "joint", bounds: list[float] | None = None,
+                            limit: int = 2000, offset: int = 0) -> dict:
+        """Page exact method domain points in the shared spatial coordinates; no display sampling."""
+        from .integration import inspect_result
+        return inspect_result(self.project, result_id, partition, bounds, limit, offset)
+
+    def compare_integrations(self, left_id: str, right_id: str | None = None, left_partition: str = "rna_only",
+                             right_partition: str = "joint", limit: int = 100, offset: int = 0) -> dict:
+        """Compare partitions using permutation-invariant co-membership and rank boundary disagreement for review, never automatic correction."""
+        from .integration import compare_results
+        return compare_results(self.project, left_id, right_id, left_partition, right_partition, limit, offset)
+
+    def submit_integration(self, spec: dict) -> dict:
+        """Queue paired RNA-only/protein-only/joint baseline or optional SMOPCA on an explicit revision. Worker is separate; missing measurements fail."""
+        from .integration_jobs import submit
+        return submit(self.project, spec)
+
+    def get_integration_job(self, job_id: str) -> dict:
+        """Read durable job status, recipe, cache key, result or failure."""
+        from .integration_jobs import get_job
+        return get_job(self.project, job_id)
+
+    def cancel_integration_job(self, job_id: str) -> dict:
+        """Cancel pending work cooperatively; active numerical phase may finish before stopping."""
+        from .integration_jobs import cancel
+        return cancel(self.project, job_id)
+
+    def retry_integration_job(self, job_id: str) -> dict:
+        """Create a new attempt for a failed/cancelled job, preserving the original record."""
+        from .integration_jobs import retry
+        return retry(self.project, job_id)
+
+    def filter_integration(self, result_id: str, revision_id: str) -> dict:
+        """Retain original fitted embeddings on included observations at a new revision. Explicit fixed-model filter, not refit."""
+        from .integration import fixed_filter
+        r = fixed_filter(self.project, result_id, revision_id)
+        return {"result_id": r["object_id"], "mode": r["mode"]}
+
+    def register_multimodal_object(self, kind: str, spec: dict) -> dict:
+        """Register explicit assay descriptors, correspondences, derived layers, molecular relations or study designs; no inferred identity."""
+        from . import multimodal
+        from .study import register_study
+        handlers = {"assay": multimodal.register_descriptor, "correspondence": multimodal.register_correspondence,
+                    "layer": multimodal.register_layer, "molecular_relation": multimodal.register_molecular_relation,
+                    "study": register_study}
+        if kind not in handlers:
+            raise SpatialError("Unknown multimodal object kind.")
+        result = handlers[kind](self.project, spec)
+        return {"object_id": result["object_id"], "object_sha256": result["object_sha256"]}
+
+    def get_multimodal_context(self) -> dict:
+        """List explicit assay relationships, layer semantics and study designs without their numeric matrices."""
+        from . import objects
+        result = {}
+        for kind in ("assaydescriptor", "correspondence", "measurementlayer", "molecularrelation", "study"):
+            result[kind] = [{k: v for k, v in objects.get(self.project, oid, kind).items() if k not in {"values", "edges", "observation_ids"}}
+                            for oid in objects.catalog(self.project, kind)]
+        return result
+
+    def compare_study(self, study_id: str, records: list[dict]) -> dict:
+        """Compare declared same-metric ROI summaries at subject level, retaining batch confounding and missing sections; no group hypothesis test."""
+        from .study import compare_study
+        return compare_study(self.project, study_id, records)
+
+    def run_integration_sensitivity(self, plan_id: str, version: int, assay_id: str, alternatives: list[dict]) -> dict:
+        """Extend an existing frozen hypothesis plan with all declared preprocessing/backend alternatives, retaining unknowns/failures. No annotation revision or human approval created."""
+        from .integration_sensitivity import run_plan
+        return run_plan(self.project, plan_id, version, assay_id, alternatives)
+
+    def get_integration_sensitivity(self, run_id: str) -> dict:
+        """Read all live job outcomes from an integration sensitivity experiment; no winning-only filtering."""
+        from .integration_sensitivity import inspect_plan_run
+        return inspect_plan_run(self.project, run_id)
 
     def run_protein_comparison(self, assay_id: str, base_revision: str, target_revision: str, selection_id: str,
                                features: list[str], background_selection_id: str | None = None,
                                scale: str = "raw", cofactor: float = 5.0, rna_gene: str | None = None) -> dict:
         """Compare frozen foreground/background protein signals before/after shared annotation/inclusion revisions; optional exact paired RNA Spearman concordance. Descriptive only."""
-        from .proteomics import compare_protein_regions
-        return compare_protein_regions(self.project, assay_id, base_revision, target_revision, selection_id,
+        return proteomics.compare_protein_regions(self.project, assay_id, base_revision, target_revision, selection_id,
                                        features, background_selection_id, scale, cofactor, rna_gene)
 
     def set_selection(self, expected_revision: str, cell_ids: list[str] | None = None,
@@ -226,7 +432,13 @@ class ToolService:
                 "protein": {"registration": "Local CLI register-protein; H5AD or wide CSV", "pairing": "exact sample/original ID/XY",
                             "measurement_types": ["antibody_count", "intensity"], "scales": ["raw", "log1p", "asinh"],
                             "max_features_per_assay": 512, "max_comparison_features": 32, "cross_sample_integration": False},
-                "limits": {"single_slice": True, "centroids_only": True, "scientific_authorization": "NOT_ESTABLISHED",
+                "scientific_analysis": {"catalog_tool": "get_analysis_catalog", "runner": "submit_analysis",
+                    "inputs": "immutable raw-count snapshots; explicitly registered spatial samples and annotated references",
+                    "multi_input_tasks": ["reference deconvolution", "expression batch correction", "full-overlap slice correspondence"],
+                    "result_review": "inspect_analysis_result", "resume": "list_analysis_jobs", "model_outputs_commit_annotations": False},
+                "large_data": {"catalog": "list_atlases", "viewport": "get_atlas_view", "shared_view": "share_atlas_view", "roi_analysis": "freeze_atlas_roi", "image_tiles": "get_pyramid_tile", "storage": "SQLite R-tree and sparse counts", "dense_views": "all-object density aggregates, not sampling"},
+                "study_inference": {"design": "register_study_design", "runner": "run_study_inference", "methods": ["welch", "paired_t", "mixedlm"], "independent_unit": "subject", "mixedlm_inference": "asymptotic_Wald"},
+                "limits": {"single_slice": True, "single_slice_meaning": "One editable primary slice; scientific analyses and indexed atlases may use explicit additional inputs.", "centroids_only": False, "scientific_authorization": "NOT_ESTABLISHED",
                            "remote_chatgpt_requires_deployment": True, "host_conversation_acceptance": "not_established"}}
 
     def query_observations(self, revision_id: str, labels: list[str] | None = None, included: bool | None = None,
@@ -281,6 +493,11 @@ class ToolService:
         """Inspect up to 100 exact objects against an explicitly registered image or mask. Coordinates, label IDs and identity correspondence are returned; no merge/coexpression verdict."""
         from .assets import inspect_asset
         return inspect_asset(self.project, asset_id, cell_ids)
+
+    def get_asset_raster(self, asset_id: str, max_dimension: int = 1024) -> dict:
+        """Render a verified registered image or segmentation mask plane to a bounded base64 PNG data URL with affine bounds."""
+        from .assets import get_asset_raster
+        return get_asset_raster(self.project, asset_id, max_dimension=max_dimension)
 
     def create_hypothesis_plan(self, spec: dict) -> dict:
         """Save an editable draft plan with explicit selectors, changes, radii, graph scopes and background. No annotation change or scientific approval."""

@@ -1,0 +1,22 @@
+{
+  "transport": "actual MCP stdio; not host adoption or independent scientific validation",
+  "checks": [
+    "list_atlases",
+    "get_atlas_view",
+    "share_atlas_view",
+    "get_context",
+    "get_atlas_view",
+    "get_pyramid_tile",
+    "freeze_atlas_roi",
+    "register_study_design",
+    "run_study_inference",
+    "list_study_analyses"
+  ],
+  "all_passed": true,
+  "census": 1000000,
+  "frozen_shape": [
+    4,
+    30001
+  ],
+  "mixedlm_status": "tested"
+}

@@ -1,0 +1,1 @@
+participant_code,period,workflow,task_variant,dataset_sha256,model_version,backend_version,hardware,active_seconds,waiting_seconds,total_seconds,correctly_completed,rework_count,omitted_steps,replay_success,peak_memory_mb,compute_seconds,critical_identity_error,result_bundle,reviewer_code,reviewer_independence,notes

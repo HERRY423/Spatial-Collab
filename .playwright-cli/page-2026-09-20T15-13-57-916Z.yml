@@ -1,0 +1,105 @@
+- generic [ref=f2e1]:
+  - banner [ref=f2e2]:
+    - generic [ref=f2e3]:
+      - generic [ref=f2e4]: ◈
+      - generic [ref=f2e5]:
+        - strong [ref=f2e6]: Spatial Collab
+        - generic [ref=f2e7]: 空间多组学协作工作台
+      - generic [ref=f2e8]: ALPHA 0.6
+    - navigation "组学工作空间" [ref=f2e9]:
+      - button "主页" [ref=f2e10] [cursor=pointer]
+      - button "空间转录组" [ref=f2e11] [cursor=pointer]
+      - button "空间蛋白组" [ref=f2e12] [cursor=pointer]
+      - button "整合与复核" [active] [ref=f2e13] [cursor=pointer]
+    - generic [ref=f2e14]:
+      - generic [ref=f2e15]: ● 本地共享项目
+      - button "↻ 刷新共享状态" [ref=f2e16] [cursor=pointer]
+  - main [ref=f2e17]:
+    - status [ref=f2e18]: 项目已加载。先选择区域，再检查标记、提出修订并检验影响。
+    - generic [ref=f2e43]:
+      - generic [ref=f2e45]:
+        - text: RNA + PROTEIN · COMPARE & REVIEW
+        - heading "比较整合结果，检查分歧区域" [level=1] [ref=f2e46]
+        - paragraph [ref=f2e47]: 同一空间对象上的 RNA、蛋白和联合组织域。簇编号是方法内标签，分歧提示需要检查的位置。
+      - generic [ref=f2e48]:
+        - heading "运行或载入分析" [level=2] [ref=f2e49]
+        - generic [ref=f2e50]:
+          - generic [ref=f2e51]:
+            - text: 后端
+            - combobox "后端" [ref=f2e52]:
+              - option "模态平衡 PCA 基线" [selected]
+              - option "SMOPCA 小规模参考"
+          - generic [ref=f2e53]:
+            - text: 空间域数量
+            - spinbutton "空间域数量" [ref=f2e54]: "6"
+          - generic [ref=f2e55]:
+            - text: 随机种子
+            - spinbutton "随机种子" [ref=f2e56]: "0"
+          - generic [ref=f2e57]:
+            - text: 拟合范围
+            - combobox "拟合范围" [ref=f2e58]:
+              - option "当前版本全部纳入对象" [selected]
+              - option "当前共享 ROI"
+          - generic [ref=f2e59]:
+            - text: 蛋白预处理
+            - combobox "蛋白预处理" [ref=f2e60]:
+              - option "log1p" [selected]
+              - option "asinh / 5"
+        - paragraph [ref=f2e61]: 蛋白层沿用蛋白页的选择；RNA 默认记录方差最高的 128 个特征，分别标准化后平衡模态尺度。没有隐式补值。SMOPCA 限 3,000 个对象。
+        - generic [ref=f2e62]:
+          - button "在当前版本拟合三组结果" [ref=f2e63] [cursor=pointer]
+          - button "更新任务状态" [ref=f2e64] [cursor=pointer]
+          - button "取消任务" [ref=f2e65] [cursor=pointer]
+          - button "重试失败任务" [ref=f2e66] [cursor=pointer]
+          - button "读取已保存结果" [ref=f2e67] [cursor=pointer]
+        - status [ref=f2e68]: 尚未提交任务
+        - generic [ref=f2e69]:
+          - generic [ref=f2e70]:
+            - text: 左侧结果
+            - combobox "左侧结果" [ref=f2e71]:
+              - option "smopca_with_unimodal_controls · fit · 2568 对象 · 当前 · integration_fa98f1…" [selected]
+              - option "smopca_with_unimodal_controls · fit · 2568 对象 · 当前 · integration_7d4323…"
+              - option "smopca_with_unimodal_controls · fit · 2568 对象 · 当前 · integration_d00e4b…"
+              - option "balanced_pca_kmeans · fit · 2568 对象 · 当前 · integration_84b8ec…"
+          - generic [ref=f2e72]:
+            - text: 左侧模态
+            - combobox "左侧模态" [ref=f2e73]:
+              - option "RNA-only" [selected]
+              - option "Protein-only"
+              - option "联合结果"
+          - generic [ref=f2e74]:
+            - text: 右侧结果
+            - combobox "右侧结果" [ref=f2e75]:
+              - option "smopca_with_unimodal_controls · fit · 2568 对象 · 当前 · integration_fa98f1…" [selected]
+              - option "smopca_with_unimodal_controls · fit · 2568 对象 · 当前 · integration_7d4323…"
+              - option "smopca_with_unimodal_controls · fit · 2568 对象 · 当前 · integration_d00e4b…"
+              - option "balanced_pca_kmeans · fit · 2568 对象 · 当前 · integration_84b8ec…"
+          - generic [ref=f2e76]:
+            - text: 右侧模态
+            - combobox "右侧模态" [ref=f2e77]:
+              - option "联合结果" [selected]
+              - option "RNA-only"
+              - option "Protein-only"
+        - generic [ref=f2e78]:
+          - button "查看空间域和分歧" [ref=f2e79] [cursor=pointer]
+          - button "按当前版本筛选左侧原模型" [ref=f2e80] [cursor=pointer]
+          - button "沿用左侧参数在当前版本重新拟合" [ref=f2e81] [cursor=pointer]
+          - button "导出含整合结果的审阅包" [ref=f2e82] [cursor=pointer]
+        - paragraph [ref=f2e83]: 固定模型筛选保留原嵌入；重新拟合会建立新任务。两者分别保留。
+        - generic [ref=f2e84]:
+          - generic [ref=f2e85]:
+            - heading "左侧空间域" [level=3] [ref=f2e86]
+            - generic "左侧方法空间域" [ref=f2e87]
+          - generic [ref=f2e88]:
+            - heading "右侧空间域" [level=3] [ref=f2e89]
+            - generic "右侧方法空间域" [ref=f2e90]
+        - heading "优先检查的位置" [level=3] [ref=f2e91]
+        - paragraph [ref=f2e92]: 按近邻同簇关系分歧排序，与簇编号置换无关。点击检查会建立精确共享选区；原始特征证据与人工修订沿用 RNA / 蛋白页。
+        - group [ref=f2e93]:
+          - generic "方法、预处理、拟合对象及完整对照" [ref=f2e94]
+      - generic [ref=f2e95]:
+        - heading "模态关系与研究设计" [level=2] [ref=f2e96]
+        - button "查看已登记的对应关系、派生层和样本设计" [ref=f2e97] [cursor=pointer]
+    - generic [ref=f2e41]:
+      - text: Spatial Collab · 空间多组学研究 Alpha
+      - generic [ref=f2e42]: NOT_ESTABLISHED · 不将工程记录解释为科学授权

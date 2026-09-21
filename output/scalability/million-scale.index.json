@@ -1,0 +1,13 @@
+{
+  "atlas_id": "atlas_630a0ef33d1c0f89aa53f97f0b7d738f",
+  "totals": {
+    "cells": 1000000,
+    "features": 30001,
+    "counts": 2000000,
+    "transcripts": 2000000,
+    "boundaries": 2000
+  },
+  "import_seconds": 122.78790190001018,
+  "database_bytes": 593809408,
+  "scope": "index built; downstream viewport and image validation pending"
+}

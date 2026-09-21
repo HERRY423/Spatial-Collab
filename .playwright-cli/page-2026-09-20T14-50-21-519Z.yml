@@ -1,0 +1,250 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]: ◈
+      - generic [ref=e5]:
+        - strong [ref=e6]: Spatial Collab
+        - generic [ref=e7]: 空间多组学协作工作台
+      - generic [ref=e8]: ALPHA 0.5
+    - navigation "组学工作空间" [ref=e9]:
+      - button "主页" [ref=e10] [cursor=pointer]
+      - button "空间转录组" [ref=e11] [cursor=pointer]
+      - button "空间蛋白组" [ref=e12] [cursor=pointer]
+      - button "整合与复核" [ref=e13] [cursor=pointer]
+    - generic [ref=e14]:
+      - generic [ref=e15]: ● 本地共享项目
+      - button "↻ 刷新共享状态" [ref=e16] [cursor=pointer]
+  - main [ref=e17]:
+    - status [ref=e18]: 已同步其他界面的共享选区、修订或分析记录。
+    - generic [ref=e60]:
+      - generic [ref=e62]:
+        - text: RNA + PROTEIN · COMPARE & REVIEW
+        - heading "比较整合结果，检查分歧区域" [level=1] [ref=e63]
+        - paragraph [ref=e64]: 同一空间对象上的 RNA、蛋白和联合组织域。簇编号是方法内标签，分歧提示需要检查的位置。
+      - generic [ref=e65]:
+        - heading "运行或载入分析" [level=2] [ref=e66]
+        - generic [ref=e67]:
+          - generic [ref=e68]:
+            - text: 后端
+            - combobox "后端" [ref=e69]:
+              - option "模态平衡 PCA 基线" [selected]
+              - text: SMOPCA 小规模参考
+          - generic [ref=e70]:
+            - text: 空间域数量
+            - spinbutton "空间域数量" [ref=e71]: "6"
+          - generic [ref=e72]:
+            - text: 随机种子
+            - spinbutton "随机种子" [ref=e73]: "0"
+          - generic [ref=e74]:
+            - text: 拟合范围
+            - combobox "拟合范围" [ref=e75]:
+              - option "当前版本全部纳入对象" [selected]
+              - option "当前共享 ROI"
+          - generic [ref=e76]:
+            - text: 蛋白预处理
+            - combobox "蛋白预处理" [ref=e77]:
+              - option "log1p" [selected]
+              - option "asinh / 5"
+        - paragraph [ref=e78]: 蛋白层沿用蛋白页的选择；RNA 默认记录方差最高的 128 个特征，分别标准化后平衡模态尺度。没有隐式补值。SMOPCA 限 3,000 个对象。
+        - generic [ref=e79]:
+          - button "在当前版本拟合三组结果" [ref=e80] [cursor=pointer]
+          - button "更新任务状态" [ref=e81] [cursor=pointer]
+          - button "取消任务" [ref=e82] [cursor=pointer]
+          - button "重试失败任务" [ref=e83] [cursor=pointer]
+          - button "读取已保存结果" [ref=e84] [cursor=pointer]
+        - status [ref=e85]: 尚未提交任务
+        - generic [ref=e86]:
+          - generic [ref=e87]:
+            - text: 左侧结果
+            - combobox "左侧结果" [ref=e88]:
+              - option "balanced_pca_kmeans · fit · 2568 对象 · 当前 · integration_84b8ec…" [selected]
+          - generic [ref=e89]:
+            - text: 左侧模态
+            - combobox "左侧模态" [ref=e90]:
+              - option "RNA-only" [selected]
+              - option "Protein-only"
+              - option "联合结果"
+          - generic [ref=e91]:
+            - text: 右侧结果
+            - combobox "右侧结果" [ref=e92]:
+              - option "balanced_pca_kmeans · fit · 2568 对象 · 当前 · integration_84b8ec…" [selected]
+          - generic [ref=e93]:
+            - text: 右侧模态
+            - combobox "右侧模态" [ref=e94]:
+              - option "联合结果" [selected]
+              - option "RNA-only"
+              - option "Protein-only"
+        - generic [ref=e95]:
+          - button "查看空间域和分歧" [ref=e96] [cursor=pointer]
+          - button "按当前版本筛选左侧原模型" [ref=e97] [cursor=pointer]
+          - button "沿用左侧参数在当前版本重新拟合" [ref=e98] [cursor=pointer]
+          - button "导出含整合结果的审阅包" [ref=e99] [cursor=pointer]
+        - paragraph [ref=e100]: 共同对象 2568 · 左侧独有 0 · 右侧独有 0 · ARI 0.209 · 平均边界分歧 0.417。各图颜色独立编号；统计使用全部共同对象。
+        - generic [ref=e101]:
+          - generic [ref=e102]:
+            - heading "rna_only · fit · 当前" [level=3] [ref=e116]
+            - generic "左侧方法空间域" [ref=e104]
+          - generic [ref=e105]:
+            - heading "joint · fit · 当前" [level=3] [ref=e117]
+            - generic "右侧方法空间域" [ref=e107]
+        - heading "优先检查的位置" [level=3] [ref=e108]
+        - paragraph [ref=e109]: 按近邻同簇关系分歧排序，与簇编号置换无关。点击检查会建立精确共享选区；原始特征证据与人工修订沿用 RNA / 蛋白页。
+        - generic [ref=e118]:
+          - generic [ref=e119]:
+            - generic [ref=e120]: sample:spots-spleen-1::cell:AAGGGACAGATTCTGT-1 · 1 / 0 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [active] [ref=e121] [cursor=pointer]
+          - generic [ref=e122]:
+            - generic [ref=e123]: sample:spots-spleen-1::cell:AATATCGAGGGTTCTC-1 · 3 / 1 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e124] [cursor=pointer]
+          - generic [ref=e125]:
+            - generic [ref=e126]: sample:spots-spleen-1::cell:ACACATGATCAAATCT-1 · 4 / 1 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e127] [cursor=pointer]
+          - generic [ref=e128]:
+            - generic [ref=e129]: sample:spots-spleen-1::cell:ACATCTCAACGCGTAA-1 · 2 / 1 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e130] [cursor=pointer]
+          - generic [ref=e131]:
+            - generic [ref=e132]: sample:spots-spleen-1::cell:ACGCGGGCCAAGGACA-1 · 4 / 4 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e133] [cursor=pointer]
+          - generic [ref=e134]:
+            - generic [ref=e135]: sample:spots-spleen-1::cell:ATATGTCTCCCTAGCC-1 · 4 / 4 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e136] [cursor=pointer]
+          - generic [ref=e137]:
+            - generic [ref=e138]: sample:spots-spleen-1::cell:ATCGGCAAGCAGTCCA-1 · 4 / 0 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e139] [cursor=pointer]
+          - generic [ref=e140]:
+            - generic [ref=e141]: sample:spots-spleen-1::cell:CACATCGTGCACGCGC-1 · 0 / 0 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e142] [cursor=pointer]
+          - generic [ref=e143]:
+            - generic [ref=e144]: sample:spots-spleen-1::cell:CATGCTGGCTCCAATT-1 · 4 / 1 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e145] [cursor=pointer]
+          - generic [ref=e146]:
+            - generic [ref=e147]: sample:spots-spleen-1::cell:CCAATAGTGCCGTCGA-1 · 4 / 0 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e148] [cursor=pointer]
+          - generic [ref=e149]:
+            - generic [ref=e150]: sample:spots-spleen-1::cell:CCCGAAGTTTCGCGAA-1 · 4 / 1 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e151] [cursor=pointer]
+          - generic [ref=e152]:
+            - generic [ref=e153]: sample:spots-spleen-1::cell:CCCGTAAGTCTAGGCC-1 · 5 / 4 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e154] [cursor=pointer]
+          - generic [ref=e155]:
+            - generic [ref=e156]: sample:spots-spleen-1::cell:CGTCAGTGCGCACAAG-1 · 3 / 4 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e157] [cursor=pointer]
+          - generic [ref=e158]:
+            - generic [ref=e159]: sample:spots-spleen-1::cell:CTAACCGCGCGCCCGT-1 · 5 / 2 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e160] [cursor=pointer]
+          - generic [ref=e161]:
+            - generic [ref=e162]: sample:spots-spleen-1::cell:CTACGAACTAGGTCGA-1 · 3 / 1 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e163] [cursor=pointer]
+          - generic [ref=e164]:
+            - generic [ref=e165]: sample:spots-spleen-1::cell:CTCGCACCTATATAGT-1 · 4 / 0 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e166] [cursor=pointer]
+          - generic [ref=e167]:
+            - generic [ref=e168]: sample:spots-spleen-1::cell:CTTCATAGCTCAAGAA-1 · 0 / 0 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e169] [cursor=pointer]
+          - generic [ref=e170]:
+            - generic [ref=e171]: sample:spots-spleen-1::cell:GAACTTGTGCACGGGA-1 · 2 / 1 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e172] [cursor=pointer]
+          - generic [ref=e173]:
+            - generic [ref=e174]: sample:spots-spleen-1::cell:GAATAGTGCTCGATTA-1 · 0 / 0 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e175] [cursor=pointer]
+          - generic [ref=e176]:
+            - generic [ref=e177]: sample:spots-spleen-1::cell:GAATTATAGTGAAAGG-1 · 5 / 3 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e178] [cursor=pointer]
+          - generic [ref=e179]:
+            - generic [ref=e180]: sample:spots-spleen-1::cell:GACAGATTTCTGGCTC-1 · 5 / 1 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e181] [cursor=pointer]
+          - generic [ref=e182]:
+            - generic [ref=e183]: sample:spots-spleen-1::cell:GCGAGAGGCCATGTAA-1 · 5 / 1 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e184] [cursor=pointer]
+          - generic [ref=e185]:
+            - generic [ref=e186]: sample:spots-spleen-1::cell:GCGCTATGCCGAGGCA-1 · 1 / 2 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e187] [cursor=pointer]
+          - generic [ref=e188]:
+            - generic [ref=e189]: sample:spots-spleen-1::cell:GCTGAGGCGTGAGTAT-1 · 5 / 3 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e190] [cursor=pointer]
+          - generic [ref=e191]:
+            - generic [ref=e192]: sample:spots-spleen-1::cell:GGGACTGCATAGATAG-1 · 5 / 3 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e193] [cursor=pointer]
+          - generic [ref=e194]:
+            - generic [ref=e195]: sample:spots-spleen-1::cell:GGGTGTTTCAGCTATG-1 · 0 / 3 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e196] [cursor=pointer]
+          - generic [ref=e197]:
+            - generic [ref=e198]: sample:spots-spleen-1::cell:GGGTTAACATTTGAGT-1 · 1 / 3 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e199] [cursor=pointer]
+          - generic [ref=e200]:
+            - generic [ref=e201]: sample:spots-spleen-1::cell:GGTAGAAGACCGCCTG-1 · 2 / 5 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e202] [cursor=pointer]
+          - generic [ref=e203]:
+            - generic [ref=e204]: sample:spots-spleen-1::cell:GGTTTAATTGAGCAGG-1 · 4 / 4 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e205] [cursor=pointer]
+          - generic [ref=e206]:
+            - generic [ref=e207]: sample:spots-spleen-1::cell:GTGAAGTCACGACTCG-1 · 3 / 1 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e208] [cursor=pointer]
+          - generic [ref=e209]:
+            - generic [ref=e210]: sample:spots-spleen-1::cell:GTTTCATATCGTCGCT-1 · 2 / 4 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e211] [cursor=pointer]
+          - generic [ref=e212]:
+            - generic [ref=e213]: sample:spots-spleen-1::cell:TACCTGCTGCACTGTG-1 · 4 / 3 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e214] [cursor=pointer]
+          - generic [ref=e215]:
+            - generic [ref=e216]: sample:spots-spleen-1::cell:TACTGCAATCAATTAC-1 · 4 / 0 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e217] [cursor=pointer]
+          - generic [ref=e218]:
+            - generic [ref=e219]: sample:spots-spleen-1::cell:TATTTAGTCTAGATCG-1 · 1 / 2 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e220] [cursor=pointer]
+          - generic [ref=e221]:
+            - generic [ref=e222]: sample:spots-spleen-1::cell:TCAAAGAGCTATCTGT-1 · 3 / 1 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e223] [cursor=pointer]
+          - generic [ref=e224]:
+            - generic [ref=e225]: sample:spots-spleen-1::cell:TCGCCGAAGTTGCGTC-1 · 4 / 4 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e226] [cursor=pointer]
+          - generic [ref=e227]:
+            - generic [ref=e228]: sample:spots-spleen-1::cell:TCGGAATGCGCTCTGA-1 · 5 / 3 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e229] [cursor=pointer]
+          - generic [ref=e230]:
+            - generic [ref=e231]: sample:spots-spleen-1::cell:TCGGTCCCTGACTCCA-1 · 4 / 0 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e232] [cursor=pointer]
+          - generic [ref=e233]:
+            - generic [ref=e234]: sample:spots-spleen-1::cell:TGCGAATATGGGATTT-1 · 5 / 1 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e235] [cursor=pointer]
+          - generic [ref=e236]:
+            - generic [ref=e237]: sample:spots-spleen-1::cell:TTACTGTCTAGAGCTC-1 · 2 / 1 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e238] [cursor=pointer]
+          - generic [ref=e239]:
+            - generic [ref=e240]: sample:spots-spleen-1::cell:TTGCGTCGGCCAACCG-1 · 0 / 5 · 边界分歧 1.000 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e241] [cursor=pointer]
+          - generic [ref=e242]:
+            - generic [ref=e243]: sample:spots-spleen-1::cell:AACTCTCAATAGAGCG-1 · 3 / 4 · 边界分歧 0.833 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e244] [cursor=pointer]
+          - generic [ref=e245]:
+            - generic [ref=e246]: sample:spots-spleen-1::cell:AACTGGGTCCCGACGT-1 · 0 / 3 · 边界分歧 0.833 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e247] [cursor=pointer]
+          - generic [ref=e248]:
+            - generic [ref=e249]: sample:spots-spleen-1::cell:AAGACCCAACTGAACA-1 · 3 / 5 · 边界分歧 0.833 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e250] [cursor=pointer]
+          - generic [ref=e251]:
+            - generic [ref=e252]: sample:spots-spleen-1::cell:AAGATGGCACCGGACC-1 · 0 / 5 · 边界分歧 0.833 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e253] [cursor=pointer]
+          - generic [ref=e254]:
+            - generic [ref=e255]: sample:spots-spleen-1::cell:AAGTGCGTTAGAATCT-1 · 0 / 3 · 边界分歧 0.833 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e256] [cursor=pointer]
+          - generic [ref=e257]:
+            - generic [ref=e258]: sample:spots-spleen-1::cell:AATAAGTCCTCGAGAC-1 · 2 / 1 · 边界分歧 0.833 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e259] [cursor=pointer]
+          - generic [ref=e260]:
+            - generic [ref=e261]: sample:spots-spleen-1::cell:ACAAGGACAAGAGGTT-1 · 4 / 0 · 边界分歧 0.833 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e262] [cursor=pointer]
+          - generic [ref=e263]:
+            - generic [ref=e264]: sample:spots-spleen-1::cell:ACAGTATACCGTGGGA-1 · 1 / 1 · 边界分歧 0.833 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e265] [cursor=pointer]
+          - generic [ref=e266]:
+            - generic [ref=e267]: sample:spots-spleen-1::cell:ACATCGGTCAGCCGCG-1 · 1 / 2 · 边界分歧 0.833 · 当前标签 Unannotated
+            - button "检查原始证据 / 提出修订" [ref=e268] [cursor=pointer]
+        - group [ref=e110]:
+          - generic "方法、预处理、拟合对象及完整对照" [ref=e111]
+      - generic [ref=e112]:
+        - heading "模态关系与研究设计" [level=2] [ref=e113]
+        - button "查看已登记的对应关系、派生层和样本设计" [ref=e114] [cursor=pointer]
+    - generic [ref=e41]:
+      - text: Spatial Collab · 空间多组学研究 Alpha
+      - generic [ref=e42]: NOT_ESTABLISHED · 不将工程记录解释为科学授权
